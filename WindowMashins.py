@@ -37,14 +37,6 @@ class Bd():
         self.message_entry5.insert(0, self.field6)
         self.field7=self.slct2[6]
         self.message_entry6.insert(0, self.field7)
-        print("наименование оборудования "+self.field1)
-        print("максимальная энергия"+self.field2)
-        print('Емкость батарей конденсаторов ' + self.field3)
-        print('Собственная индуктивность ' + self.field4)
-        print('Частота тока короткого замыкания '+self.field5)
-        print('K1 '+ self.field6)
-        print("K2 "+ self.field7)
-        print(self.slct2)
     def EditeMashins(self):
         sel = self.Tree.focus()
         self.slct2 = self.Tree.item(sel, option='values')
@@ -61,15 +53,11 @@ class Bd():
         cursor = mt.cursor()
         cursor.execute(sql6)
         cursor.execute(sql6)
-
-        for row in cursor.execute(sql6): print(row)
-        cpt = 0  # Counter representing the ID of your code.
+        cpt = 0
         for row in cursor.execute(sql6):
-            # I suppose the first column of your table is ID
             self.Tree.insert('', 'end', text=str(cpt), values=row)
-            cpt += 1  # increment the I
+            cpt += 1
     def __init__(self):
-
         self.BasaM2 = Tk()
         self.BasaM2.geometry('1800x1000')
         self.BasaM2.title("Выбор оборудования МИОМ")
@@ -78,7 +66,7 @@ class Bd():
         container.pack(padx=10, pady=10, ipadx=5, ipady=5)
         frame_bottom = Frame(self.BasaM2, bg='lightblue', relief=RAISED, borderwidth=5)
         frame_bottom.pack(fill=BOTH)
-        #frame_bottom.pack(padx=10, pady=10, ipadx=30, ipady=30)
+        frame_bottom.pack(padx=10, pady=10, ipadx=30, ipady=30)
         self.Tree = ttk.Treeview(container, columns=("Name", "Max_change_energi", "Condenser_capasity", "Equipment_induct", "SccF", "K1", "K2"), show='headings')
         self.vsb = Scrollbar(self.Tree, orient="vertical")
         self.vsb.place(x=1300, y=21,height=140)
@@ -109,9 +97,6 @@ class Bd():
         self.field5 = self.slct2[4]
         self.field6 = self.slct2[5]
         self.field7 = self.slct2[6]
-
-        print(self.slct2)
-
         self.btn = Button(frame_bottom, text="Добавить оборудования", bg="grey", fg="black",command=self.AddMashins)  # описание объекта типа button названия кнопки
         self.btn.place(x=250, y=800)  # расположение кнопки
         self.btn2 = Button(frame_bottom, text="Удалить оборудование", bg="grey", fg="black",command=self.DellMashins)  # описание объекта типа button названия кнопки

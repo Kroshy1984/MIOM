@@ -2,11 +2,6 @@ from tkinter import * #вызов библиотеки ткинтер
 from tkinter import filedialog as fd #из библиотеке взяли класс диалог и присвоили индефикатор FD
 from WindowMashins import Bd
 
-
-
-
-
-
 class StartPage():
     def __init__(self):
         self.window = Tk()
