@@ -41,7 +41,7 @@ class StartPage():
         btn2.place(x=10, y=40)  # расположение кнопки
         window2.mainloop()
     def NewFile(self):
-        self.window.destroy
+        self.window.destroy()
         SelectWaywindow = SelectWay()
     def OpennFile(self):
         pass
