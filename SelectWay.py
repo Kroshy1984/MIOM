@@ -7,7 +7,7 @@ class SelectWay():
         self.SelectWayWindow = Tk()
         self.SelectWayWindow.geometry('640x500')  # геометрия окна
         self.SelectWayWindow.title("Выбор пути расчета  расчета технологического процесса МИОМ")  # название окна
-        frame_top = Frame(self.SelectWayWindow, bg='lightgreen', relief=RAISED, borderwidth=5)
+        frame_top = Frame(self.SelectWayWindow, bg='green', relief=RAISED, borderwidth=5)
         frame_top.pack(fill=BOTH, expand=Y)
         frame_top.pack(side=TOP, padx=10, pady=10, ipadx=5, ipady=5)
         frame_bottom = Frame(self.SelectWayWindow, bg='lightblue', relief=RAISED, borderwidth=5)
