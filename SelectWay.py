@@ -1,6 +1,7 @@
 from tkinter import * #вызов библиотеки ткинтер
 from WindowMashins import Bd
 import StartPage
+from EntranceData import EntranceData
 class SelectWay():
     def __init__(self):
         self.SelectWayWindow = Tk()
@@ -23,7 +24,7 @@ class SelectWay():
         self.SelectWayWindow.mainloop()
     def FirstWay(self):
         self.SelectWayWindow.destroy()
-        WindowMashings=Bd()
+        WindowMashings=EntranceData()
     def Exit(self):
         self.SelectWayWindow.destroy()
         self.window2= StartPage.StartPage()

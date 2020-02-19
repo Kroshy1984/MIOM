@@ -1,0 +1,1 @@
+class EntranceData():pass
