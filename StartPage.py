@@ -1,6 +1,6 @@
 from tkinter import * #вызов библиотеки ткинтер
 from tkinter import filedialog as fd #из библиотеке взяли класс диалог и присвоили индефикатор FD
-from WindowMashins import Bd
+from SelectWay import SelectWay
 
 class StartPage():
     def __init__(self):
@@ -42,7 +42,7 @@ class StartPage():
         window2.mainloop()
     def NewFile(self):
         self.window.destroy
-        Bdwindow = Bd()
+        SelectWaywindow = SelectWay()
     def OpennFile(self):
         pass
 
