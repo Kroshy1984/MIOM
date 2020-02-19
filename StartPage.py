@@ -25,7 +25,7 @@ class StartPage():
         frame_bottom.pack(fill=BOTH)
         frame_bottom.pack( padx=10, pady=10, ipadx=30, ipady=30)
         btn = Button(frame_bottom, text="Новый файл", bg="grey", fg="black",
-                     command=self.SelectMashins)  # описание объекта типа button названия кнопки
+                     command=self.NewFile)  # описание объекта типа button названия кнопки
         btn.place(x=10, y=11)  # расположение кнопки
         btn2 = Button(frame_bottom, text="Открыть файл", bg="grey", fg="black", command=self.OpennFile)
         btn2.place(x=160,y=11)
@@ -40,7 +40,7 @@ class StartPage():
         btn2 = Button(window2, text="Закрыть", bg="red", fg="green", command=window2.destroy)
         btn2.place(x=10, y=40)  # расположение кнопки
         window2.mainloop()
-    def SelectMashins(self):
+    def NewFile(self):
         self.window.destroy
         Bdwindow = Bd()
     def OpennFile(self):
