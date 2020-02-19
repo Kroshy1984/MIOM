@@ -35,11 +35,7 @@ class StartPage():
         label1.pack()
         self.window.mainloop()
     def OnMenuClick(self):
-        window2 = Tk()
-        window2.geometry('640x500')
-        btn2 = Button(window2, text="Закрыть", bg="red", fg="green", command=window2.destroy)
-        btn2.place(x=10, y=40)  # расположение кнопки
-        window2.mainloop()
+        pass
     def NewFile(self):
         self.window.destroy()
         SelectWaywindow = SelectWay()
