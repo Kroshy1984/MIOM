@@ -7,7 +7,6 @@ class StartPage():
         self.window = Tk()
         self.window.geometry('640x500')  # геометрия окна
         self.window.title("Программа расчета технологического процесса МИОМ")  # название окна
-
         menu = Menu(self.window)  # объект меню
         help = Menu(menu)
         self.window.config(menu=menu)  # конфигурируем окно с добавлением меню
