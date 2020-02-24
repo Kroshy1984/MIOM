@@ -1,6 +1,5 @@
 from tkinter import *
-from tkinter.ttk import Frame, Button, Style
-
+from WindowMashins import Bd
 class EntranceData():
     def __init__(self):
         self.EntranceDataWindow = Tk()
@@ -8,11 +7,11 @@ class EntranceData():
         self.EntranceDataWindow.title("Параметры для расчета технологического процесса МИОМ")  # название окна
         frame = Frame(self.EntranceDataWindow, relief=RAISED, borderwidth=1)
         frame.pack(fill=BOTH, expand=True)
-        btn1=Button(frame,text="Выбор оборудоания")
-        btn2=Button(frame,text="Выбор операции")
-        btn3=Button(frame, text = "Выбор материала")
-        btn4=Button(frame,text = "Размер заготовки")
-        btn5=Button(frame, text = "Параметры индуктора")
+        btn1=Button(frame, text="Выбор оборудования", bg="blue", fg="black", command = self.WindowMashins)
+        btn2=Button(frame, text="Выбор операции", bg="blue",fg="black")
+        btn3=Button(frame, text = "Выбор материала", bg="blue",fg="black")
+        btn4=Button(frame, text = "Размер заготовки", bg="blue",fg="black")
+        btn5=Button(frame, text = "Параметры индуктора", bg="blue",fg="black")
         self.message_entry = Entry(frame,textvariable='')
         self.message_entry.place(x=350, y=100)
         self.message_entry1 = Entry(frame, textvariable='')
@@ -28,8 +27,11 @@ class EntranceData():
         btn3.place(x=50,y=300)
         btn4.place(x=50,y=400)
         btn5.place(x=50,y=500)
-        closeButton = Button(self.EntranceDataWindow, text="Close")
+        closeButton = Button(self.EntranceDataWindow, text="Close", command= quit)
         closeButton.pack(side=RIGHT, padx=5, pady=5)
         okButton = Button(self.EntranceDataWindow, text="OK")
         okButton.pack(side=RIGHT)
         self.EntranceDataWindow.mainloop()
+    def WindowMashins(self):
+        window=Bd()
+        self.EntranceDataWindow.destroy()
