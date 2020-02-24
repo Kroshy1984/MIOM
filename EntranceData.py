@@ -1,4 +1,4 @@
-from tkinter import Tk, RIGHT, BOTH, RAISED
+from tkinter import *
 from tkinter.ttk import Frame, Button, Style
 
 class EntranceData():
@@ -13,6 +13,16 @@ class EntranceData():
         btn3=Button(frame, text = "Выбор материала")
         btn4=Button(frame,text = "Размер заготовки")
         btn5=Button(frame, text = "Параметры индуктора")
+        self.message_entry = Entry(frame,textvariable='')
+        self.message_entry.place(x=350, y=100)
+        self.message_entry1 = Entry(frame, textvariable='')
+        self.message_entry1.place(x=350, y=200)
+        self.message_entry2 = Entry(frame, textvariable='')
+        self.message_entry2.place(x=350, y=300)
+        self.message_entry3 = Entry(frame, textvariable='')
+        self.message_entry3.place(x=350, y=400)
+        self.message_entry4 = Entry(frame, textvariable='')
+        self.message_entry4.place(x=350, y=500)
         btn1.place(x=50,y=100)
         btn2.place(x=50,y=200)
         btn3.place(x=50,y=300)
