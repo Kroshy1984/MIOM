@@ -14,9 +14,9 @@ class SelectWay():
         frame_bottom.pack(fill=BOTH)
         frame_bottom.pack(padx=10, pady=10, ipadx=30, ipady=30)
         btn = Button(frame_bottom, text="Второй путь", bg="grey", fg="black")  # описание объекта типа button названия кнопки
-        btn.place(x=10, y=11)  # расположение кнопки
+        btn.place(x=160, y=11)  # расположение кнопки
         btn2 = Button(frame_bottom, text="Первый путь", bg="grey", fg="black", command=self.FirstWay)
-        btn2.place(x=160, y=11)
+        btn2.place(x=10, y=11)
         btn3 = Button(frame_bottom, text="Назад", bg="red", fg="black", command=self.Exit)
         btn3.place(x=460, y=11)
         label1 = Label(frame_top, text="Выберете путь для рассчета процессов МИОМ", bg="white", fg="black")
