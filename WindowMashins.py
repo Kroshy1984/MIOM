@@ -15,28 +15,8 @@ class Bd():
     def SelectlMashins(self):
         self.btn4['state'] = 'active'
         sel=self.Tree.focus()
-        self.message_entry.delete(0, END)
-        self.message_entry1.delete(0, END)
-        self.message_entry2.delete(0, END)
-        self.message_entry3.delete(0, END)
-        self.message_entry4.delete(0, END)
-        self.message_entry5.delete(0, END)
-        self.message_entry6.delete(0, END)
         self.slct2=self.Tree.item(sel, option='values')
         self.field1=self.slct2[0]
-        self.message_entry.insert(0, self.field1)
-        self.field2=self.slct2[1]
-        self.message_entry1.insert(0, self.field2)
-        self.field3=self.slct2[2]
-        self.message_entry2.insert(0, self.field3)
-        self.field4=self.slct2[3]
-        self.message_entry3.insert(0, self.field4)
-        self.field5=self.slct2[4]
-        self.message_entry4.insert(0, self.field5)
-        self.field6=self.slct2[5]
-        self.message_entry5.insert(0, self.field6)
-        self.field7=self.slct2[6]
-        self.message_entry6.insert(0, self.field7)
     def EditeMashins(self):
         sel = self.Tree.focus()
         self.slct2 = self.Tree.item(sel, option='values')
@@ -89,7 +69,6 @@ class Bd():
         self.vsb.config(command = self.Tree.yview)
         self.view_records()
         self.Tree.pack(side='bottom')
-        self.slct2 = ['Выбери из таблицы','Выбери из таблицы','Выбери из таблицы','Выбери из таблицы','Выбери из таблицы','Выбери из таблицы','Выбери из таблицы']
         self.field1 = self.slct2[0]
         self.field2 = self.slct2[1]
         self.field3 = self.slct2[2]
@@ -110,39 +89,7 @@ class Bd():
         self.btn4 = Button(frame_bottom, text="Взять данные в работу", bg='green', fg='black', command=self.clicked2)
         self.btn4.place(x=50, y=800)
         if self.field1 == 'Выбери из таблицы': self.btn4['state']='disabled'
-        label1 = Label(frame_bottom, text="Название оборудования", bg="grey", fg="black")
-        self.message_entry = Entry(frame_bottom, textvariable='')
-        self.message_entry.insert(0,self.field1)
-        self.message_entry.place(x=150, y=575)
-        label2 = Label(frame_bottom, text="Максимальная энергия заряда", bg="grey", fg="black")
-        self.message_entry1 = Entry(frame_bottom, textvariable='')
-        self.message_entry1.place(x=450, y=575)
-        self.message_entry1.insert(0, self.field2)
-        label3 = Label(frame_bottom, text="Емкость батареи кондецаторов", bg="grey", fg="black")
         self.message_entry2 = Entry(frame_bottom, textvariable='')
         self.message_entry2.place(x=750, y=575)
         self.message_entry2.insert(0, self.field3)
-        label4 = Label(frame_bottom, text="Собственная индуктивность разрядного контура", bg="grey", fg="black")
-        self.message_entry3 = Entry(frame_bottom, textvariable='')
-        self.message_entry3.place(x=1050, y=575)
-        self.message_entry3.insert(0, self.field4)
-        label5 = Label(frame_bottom, text="Частота тока короткого замыкания", bg="grey", fg="black")
-        self.message_entry4 = Entry(frame_bottom, textvariable='')
-        self.message_entry4.place(x=450, y=675)
-        self.message_entry4.insert(0, self.field5)
-        label6 = Label(frame_bottom, text="K1", bg="grey", fg="black")
-        self.message_entry5 = Entry(frame_bottom, textvariable='')
-        self.message_entry5.place(x=750, y=675)
-        self.message_entry5.insert(0, self.field6)
-        label7 = Label(frame_bottom, text="K2", bg="grey", fg="black")
-        self.message_entry6 = Entry(frame_bottom, textvariable=self.field7)
-        self.message_entry6.place(x=1050, y=675)
-        self.message_entry6.insert(0, self.field7)
-        label1.place(x=150, y=550)
-        label2.place(x=450, y=550)
-        label3.place(x=750, y=550)
-        label4.place(x=1050, y=550)
-        label5.place(x=450, y=650)
-        label6.place(x=750, y=650)
-        label7.place(x=1050, y=650)
         self.BasaM2.mainloop()
