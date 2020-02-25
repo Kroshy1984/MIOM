@@ -1,5 +1,6 @@
 from tkinter import *
 from WindowMashins import Bd
+from SetSizes import SetSizes
 class EntranceData():
     def __init__(self):
         self.EntranceDataWindow = Tk()
@@ -10,7 +11,7 @@ class EntranceData():
         btn1=Button(frame, text="Выбор оборудования", bg="blue", fg="black", command = self.WindowMashins)
         btn2=Button(frame, text="Выбор операции", bg="blue",fg="black")
         btn3=Button(frame, text = "Выбор материала", bg="blue",fg="black")
-        btn4=Button(frame, text = "Размер заготовки", bg="blue",fg="black")
+        btn4=Button(frame, text = "Размер заготовки", bg="blue",fg="black", command=self.SetSizes)
         btn5=Button(frame, text = "Параметры индуктора", bg="blue",fg="black")
         self.message_entry = Entry(frame,textvariable='')
         self.message_entry.place(x=350, y=100)
@@ -35,3 +36,5 @@ class EntranceData():
     def WindowMashins(self):
         window=Bd()
         self.EntranceDataWindow.destroy()
+    def SetSizes(self):
+        window1=SetSizes()
