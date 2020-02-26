@@ -20,6 +20,6 @@ class SetSizes():
         btn.place(x=10, y=150)
         btn = Button(self.SetSizesWindow, text="Внести данные", bg="green", fg="black", command=self.Insertdata)
         btn.place(x=200, y=150)
-        self.SetSizesWindow.main.loop()
+        self.SetSizesWindow.mainloop()
     def Insertdata(self):pass
     def CloseWindow(self): self.SetSizesWindow.destroy()
