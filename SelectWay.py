@@ -1,7 +1,7 @@
 from tkinter import * #вызов библиотеки ткинтер
 from WindowMashins import Bd
 import StartPage
-from EntranceData import EntranceData
+from EntranceData import EntranceDataFirst, EntranceDataSecond
 class SelectWay():
     def __init__(self):
         self.SelectWayWindow = Tk()
@@ -13,7 +13,7 @@ class SelectWay():
         frame_bottom = Frame(self.SelectWayWindow, bg='lightblue', relief=RAISED, borderwidth=5)
         frame_bottom.pack(fill=BOTH)
         frame_bottom.pack(padx=10, pady=10, ipadx=30, ipady=30)
-        btn = Button(frame_bottom, text="Второй путь", bg="grey", fg="black")  # описание объекта типа button названия кнопки
+        btn = Button(frame_bottom, text="Второй путь", bg="grey", fg="black", command = self.SecondWay)  # описание объекта типа button названия кнопки
         btn.place(x=160, y=11)  # расположение кнопки
         btn2 = Button(frame_bottom, text="Первый путь", bg="grey", fg="black", command=self.FirstWay)
         btn2.place(x=10, y=11)
@@ -24,7 +24,10 @@ class SelectWay():
         self.SelectWayWindow.mainloop()
     def FirstWay(self):
         self.SelectWayWindow.destroy()
-        WindowMashings=EntranceData()
+        WindowMashings=EntranceDataFirst()
+    def SecondWay(self):
+        self.SelectWayWindow.destroy()
+        WindowMashings=EntranceDataSecond()
     def Exit(self):
         self.SelectWayWindow.destroy()
         self.window2= StartPage.StartPage()
