@@ -30,7 +30,7 @@ class StartPage():
         btn2.place(x=160,y=11)
         btn3 = Button(frame_bottom, text="Закрыть окно", bg="red", fg="black", command=quit)
         btn3.place(x=460, y=11)
-        label1 = Label(frame_top, text="Приветствуем Вас в программе рассчета процессов МИОМ", bg="white", fg="black")
+        label1 = Label(frame_top, text="Приветствуем Вас в программе рассчета процессов МИОМ для трубных заготовок", bg="white", fg="black")
         label1.pack()
         self.window.mainloop()
     def OnMenuClick(self):
