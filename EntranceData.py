@@ -2,6 +2,7 @@ from tkinter import *
 from WindowMashins import Bd
 from SetSizes import SetSizes
 from OperationSwitch  import OperationSwitch
+from InductorParams import InductorParams
 class EntranceData():
     def __init__(self):
         self.EntranceDataWindow = Tk()
@@ -13,7 +14,7 @@ class EntranceData():
         btn2=Button(frame, text="Выбор операции", bg="blue",fg="black", command = self. WindowOperationSwitch)
         btn3=Button(frame, text = "Выбор материала", bg="blue",fg="black")
         btn4=Button(frame, text = "Размер заготовки", bg="blue",fg="black", command=self.SetSizes)
-        btn5=Button(frame, text = "Параметры индуктора", bg="blue",fg="black")
+        btn5=Button(frame, text = "Параметры индуктора", bg="blue",fg="black", command=self.WindowInductorParams)
         self.message_entry = Entry(frame,textvariable='')
         self.message_entry.place(x=350, y=100)
         self.message_entry1 = Entry(frame, textvariable='')
@@ -41,3 +42,5 @@ class EntranceData():
         window1=SetSizes()
     def WindowOperationSwitch(self):
         window2=OperationSwitch()
+    def WindowInductorParams(self):
+        window3=InductorParams()
