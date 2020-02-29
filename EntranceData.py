@@ -3,6 +3,7 @@ from WindowMashins import Bd
 from SetSizes import SetSizes
 from OperationSwitch  import OperationSwitch
 from InductorParams import InductorParams
+from Materials import Materials
 class EntranceData():
     def __init__(self):
         self.EntranceDataWindow = Tk()
@@ -12,7 +13,7 @@ class EntranceData():
         frame.pack(fill=BOTH, expand=True)
         btn1=Button(frame, text="Выбор оборудования", bg="blue", fg="black", command = self.WindowMashins)
         btn2=Button(frame, text="Выбор операции", bg="blue",fg="black", command = self. WindowOperationSwitch)
-        btn3=Button(frame, text = "Выбор материала", bg="blue",fg="black")
+        btn3=Button(frame, text = "Выбор материала", bg="blue",fg="black", command=self.WindowMaterials)
         btn4=Button(frame, text = "Размер заготовки", bg="blue",fg="black", command=self.SetSizes)
         btn5=Button(frame, text = "Параметры индуктора", bg="blue",fg="black", command=self.WindowInductorParams)
         self.message_entry = Entry(frame,textvariable='')
@@ -44,3 +45,6 @@ class EntranceData():
         window2=OperationSwitch()
     def WindowInductorParams(self):
         window3=InductorParams()
+    def WindowMaterials(self):
+        window4=Materials()
+
