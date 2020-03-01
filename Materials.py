@@ -32,7 +32,7 @@ class Materials():
         self.view_records()
         self.Materials.mainloop()
     def view_records(self):
-        mt = sqlite3.connect("Materials.db")
+        mt = sqlite3.connect("Metalls.db")
         cursor = mt.cursor()
         cursor.execute(sql6)
         cursor.execute(sql6)
