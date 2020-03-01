@@ -2,7 +2,7 @@ from tkinter import *
 class OperationSwitch():
     def __init__(self):
         self.OperationSwitch = Tk()
-        self.OperationSwitch.geometry('400x200')  # геометрия окна
+        self.OperationSwitch.geometry('450x200')  # геометрия окна
         self.OperationSwitch.title("Выбор операции")  # название окна
         lbl = Label(self.OperationSwitch, text="Выберите методику расчета:", font=("Arial Bold", 20))
         lbl.grid(column=0, row=0)
