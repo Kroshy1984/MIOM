@@ -38,11 +38,11 @@ class Materials():
     def view_records(self):
         mt = sqlite3.connect("Metalls.db")
         cursor = mt.cursor()
-        cursor.execute(sql9)
-        cursor.execute(sql9)
-        for row in cursor.execute(sql9): print(row)
+        cursor.execute(sql10)
+        cursor.execute(sql10)
+        for row in cursor.execute(sql10): print(row)
         cpt = 0  # Counter representing the ID of your code.
-        for row in cursor.execute(sql9):
+        for row in cursor.execute(sql10):
             # I suppose the first column of your table is ID
             self.Tree.insert('', 'end', text=str(cpt), values=row)
             cpt += 1  # increment the I
