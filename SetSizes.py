@@ -1,8 +1,8 @@
 from tkinter import *
 class SetSizes():
-    def __init__(self):
+    def GUI(self):
         self.SetSizesWindow = Tk()
-        self.SetSizesWindow.geometry('500x350')  # геометрия окна
+        self.SetSizesWindow.geometry('500x200')  # геометрия окна
         self.SetSizesWindow.title("Размеры заготовки")  # название окна
         label1 = Label(self.SetSizesWindow, text="Длина заготовки", bg="white", fg="black")
         label1.place(x=10, y=10)
@@ -20,6 +20,8 @@ class SetSizes():
         btn.place(x=10, y=150)
         btn = Button(self.SetSizesWindow, text="Внести данные", bg="green", fg="black", command=self.Insertdata)
         btn.place(x=280, y=150)
+    def __init__(self):
+        self.GUI()
         self.SetSizesWindow.mainloop()
     def Insertdata(self):pass
     def CloseWindow(self): self.SetSizesWindow.destroy()
