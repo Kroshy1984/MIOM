@@ -15,8 +15,6 @@ class OperationSwitch():
         rad2.grid(column=0, row=2)
         rad3.grid(column=0, row=3)
         rad4.grid(column=0, row=4)
-        btn2 = Button(self.OperationSwitch, text="Выбрать операцию", bg='green', fg='black')
-        btn2.place(x=250, y=195)
         btn = Button(self.OperationSwitch , text="Закрыть окно", bg="red", fg="black", command=self.CloseWindow)
         btn.place(x=10, y=150)
         btn = Button(self.OperationSwitch, text="Внести данные", bg="green", fg="black", command=self.Insertdata)
