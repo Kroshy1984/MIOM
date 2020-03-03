@@ -153,6 +153,7 @@ class Basad():
             self.Tree.insert('', 'end', text=str(cpt), values=row)
             cpt += 1  # increment the I
     def GoToWork(self):
+        print('выбор'+self.field1)
         self.BasaM2.destroy()
         WindowMashings=EntranceData.EntranceDataFirst()
         EntranceData.EntranceDataFirst.GUI(WindowMashings,self.field1)

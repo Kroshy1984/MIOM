@@ -5,18 +5,17 @@ from OperationSwitch  import OperationSwitch
 from InductorParams import InductorParams
 from Materials import Materials
 class EntranceDataFirst():
-    def __init__(self):
-        self.bif1=""
+    def GUI(self, bif1):
         self.EntranceDataWindow = Tk()
         self.EntranceDataWindow.geometry('640x700')  # геометрия окна
         self.EntranceDataWindow.title("Параметры для расчета технологического процесса МИОМ")  # название окна
         self.frame = Frame(self.EntranceDataWindow, relief=RAISED, borderwidth=1)
         self.frame.pack(fill=BOTH, expand=True)
-        btn1=Button(self.frame, text="Выбор оборудования", bg="blue", fg="black", command = self.WindowMashins)
-        btn2=Button(self.frame, text="Выбор операции", bg="blue",fg="black", command = self. WindowOperationSwitch)
-        btn3=Button(self.frame, text = "Выбор материала", bg="blue",fg="black", command=self.WindowMaterials)
-        btn4=Button(self.frame, text = "Размер заготовки", bg="blue",fg="black", command=self.SetSizes)
-        self.message_entry = Entry(self.frame,textvariable=self.bif1)
+        btn1 = Button(self.frame, text="Выбор оборудования", bg="blue", fg="black", command=self.WindowMashins)
+        btn2 = Button(self.frame, text="Выбор операции", bg="blue", fg="black", command=self.WindowOperationSwitch)
+        btn3 = Button(self.frame, text="Выбор материала", bg="blue", fg="black", command=self.WindowMaterials)
+        btn4 = Button(self.frame, text="Размер заготовки", bg="blue", fg="black", command=self.SetSizes)
+        self.message_entry = Entry(self.frame, textvariable=bif1)
         self.message_entry.place(x=350, y=100)
         self.message_entry1 = Entry(self.frame, textvariable='')
         self.message_entry1.place(x=350, y=200)
@@ -24,14 +23,17 @@ class EntranceDataFirst():
         self.message_entry2.place(x=350, y=300)
         self.message_entry3 = Entry(self.frame, textvariable='')
         self.message_entry3.place(x=350, y=400)
-        btn1.place(x=50,y=100)
-        btn2.place(x=50,y=200)
-        btn3.place(x=50,y=300)
-        btn4.place(x=50,y=400)
-        closeButton = Button(self.EntranceDataWindow, text="Close", command= quit)
+        btn1.place(x=50, y=100)
+        btn2.place(x=50, y=200)
+        btn3.place(x=50, y=300)
+        btn4.place(x=50, y=400)
+        closeButton = Button(self.EntranceDataWindow, text="Close", command=quit)
         closeButton.pack(side=RIGHT, padx=5, pady=5)
         okButton = Button(self.EntranceDataWindow, text="OK")
         okButton.pack(side=RIGHT)
+    def __init__(self):
+        self.bif1="1"
+        self.GUI(self.bif1)
         self.EntranceDataWindow.mainloop()
     def WindowMashins(self):
         window=Basad()
