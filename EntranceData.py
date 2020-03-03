@@ -1,27 +1,28 @@
 from tkinter import *
-from WindowMashins import Bd
+from WindowMashins import *
 from SetSizes import SetSizes
 from OperationSwitch  import OperationSwitch
 from InductorParams import InductorParams
 from Materials import Materials
 class EntranceDataFirst():
     def __init__(self):
+        self.bif1=""
         self.EntranceDataWindow = Tk()
         self.EntranceDataWindow.geometry('640x700')  # геометрия окна
         self.EntranceDataWindow.title("Параметры для расчета технологического процесса МИОМ")  # название окна
-        frame = Frame(self.EntranceDataWindow, relief=RAISED, borderwidth=1)
-        frame.pack(fill=BOTH, expand=True)
-        btn1=Button(frame, text="Выбор оборудования", bg="blue", fg="black", command = self.WindowMashins)
-        btn2=Button(frame, text="Выбор операции", bg="blue",fg="black", command = self. WindowOperationSwitch)
-        btn3=Button(frame, text = "Выбор материала", bg="blue",fg="black", command=self.WindowMaterials)
-        btn4=Button(frame, text = "Размер заготовки", bg="blue",fg="black", command=self.SetSizes)
-        self.message_entry = Entry(frame,textvariable='')
+        self.frame = Frame(self.EntranceDataWindow, relief=RAISED, borderwidth=1)
+        self.frame.pack(fill=BOTH, expand=True)
+        btn1=Button(self.frame, text="Выбор оборудования", bg="blue", fg="black", command = self.WindowMashins)
+        btn2=Button(self.frame, text="Выбор операции", bg="blue",fg="black", command = self. WindowOperationSwitch)
+        btn3=Button(self.frame, text = "Выбор материала", bg="blue",fg="black", command=self.WindowMaterials)
+        btn4=Button(self.frame, text = "Размер заготовки", bg="blue",fg="black", command=self.SetSizes)
+        self.message_entry = Entry(self.frame,textvariable=self.bif1)
         self.message_entry.place(x=350, y=100)
-        self.message_entry1 = Entry(frame, textvariable='')
+        self.message_entry1 = Entry(self.frame, textvariable='')
         self.message_entry1.place(x=350, y=200)
-        self.message_entry2 = Entry(frame, textvariable='')
+        self.message_entry2 = Entry(self.frame, textvariable='')
         self.message_entry2.place(x=350, y=300)
-        self.message_entry3 = Entry(frame, textvariable='')
+        self.message_entry3 = Entry(self.frame, textvariable='')
         self.message_entry3.place(x=350, y=400)
         btn1.place(x=50,y=100)
         btn2.place(x=50,y=200)
@@ -33,7 +34,7 @@ class EntranceDataFirst():
         okButton.pack(side=RIGHT)
         self.EntranceDataWindow.mainloop()
     def WindowMashins(self):
-        window=Bd()
+        window=Basad()
         self.EntranceDataWindow.destroy()
     def SetSizes(self):
         window1=SetSizes()
@@ -50,7 +51,7 @@ class EntranceDataSecond():
         self.EntranceDataWindow.title("Параметры для расчета технологического процесса МИОМ")  # название окна
         frame = Frame(self.EntranceDataWindow, relief=RAISED, borderwidth=1)
         frame.pack(fill=BOTH, expand=True)
-        btn1=Button(frame, text="Выбор оборудования", bg="blue", fg="black", command = self.WindowMashins)
+        btn1=Button(frame, text="Выбор оборудования", bg="blue", fg="black", command = self.WindMash)
         btn2=Button(frame, text="Выбор операции", bg="blue",fg="black", command = self. WindowOperationSwitch)
         btn3=Button(frame, text = "Выбор материала", bg="blue",fg="black", command=self.WindowMaterials)
         btn4=Button(frame, text = "Размер заготовки", bg="blue",fg="black", command=self.SetSizes)
@@ -75,8 +76,8 @@ class EntranceDataSecond():
         okButton = Button(self.EntranceDataWindow, text="OK")
         okButton.pack(side=RIGHT)
         self.EntranceDataWindow.mainloop()
-    def WindowMashins(self):
-        window=Bd()
+    def WindMash(self):
+        window=Basad()
         self.EntranceDataWindow.destroy()
     def SetSizes(self):
         window1=SetSizes()

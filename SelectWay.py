@@ -1,5 +1,4 @@
 from tkinter import * #вызов библиотеки ткинтер
-from WindowMashins import Bd
 import StartPage
 from EntranceData import EntranceDataFirst, EntranceDataSecond
 class SelectWay():

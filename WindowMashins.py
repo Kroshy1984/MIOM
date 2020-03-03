@@ -3,8 +3,9 @@ from tkinter import *
 from tkinter import ttk
 import sqlite3
 from SQL12 import *
-
-class Bd():
+from EntranceData import *
+import EntranceData
+class Basad():
     def GUI (self):
         self.BasaM2 = Tk()
         self.BasaM2.geometry('1800x1000')
@@ -29,6 +30,67 @@ class Bd():
         self.Tree.heading("K1", text="K1")
         self.Tree.heading("K2", text="K2")
         self.Tree.pack()
+        self.slct2 = ['Выбери из таблицы', 'Выбери из таблицы', 'Выбери из таблицы', 'Выбери из таблицы',
+                      'Выбери из таблицы', 'Выбери из таблицы', 'Выбери из таблицы']
+        self.field1 = self.slct2[0]
+        self.field2 = self.slct2[1]
+        self.field3 = self.slct2[2]
+        self.field4 = self.slct2[3]
+        self.field5 = self.slct2[4]
+        self.field6 = self.slct2[5]
+        self.field7 = self.slct2[6]
+        self.btn = Button(self.BasaM2, text="Добавить оборудование", bg="grey", fg="black",
+                          command=self.AddMashins)  # описание объекта типа button названия кнопки
+        self.btn.place(x=250, y=800)  # расположение кнопки
+        self.btn5 = Button(self.BasaM2, text="Редактировать оборудование", bg="grey", fg="black",
+                           command=self.clicked2)  # описание объекта типа button названия кнопки
+        self.btn5.place(x=750, y=800)  # расположение кнопки
+        self.btn2 = Button(self.BasaM2, text="Удалить оборудование", bg="grey", fg="black",
+                           command=self.DellMashins)  # описание объекта типа button названия кнопки
+        self.btn2.place(x=500, y=800)  # расположение кнопки
+        self.btn3 = Button(self.BasaM2, text="Применить", bg="grey", fg="black",
+                           command=self.SelectlMashins)  # описание объекта типа button названия кнопки
+        self.btn3.place(x=1000, y=800)  # расположение кнопки
+        self.btn1 = Button(self.BasaM2, text="Отменить", bg='pink', fg='red', command=self.BasaM2.destroy)
+        self.btn1.place(x=1250, y=800)
+        self.btn4 = Button(self.BasaM2, text="Взять данные в работу", bg='green', fg='black', command=self.GoToWork)
+        self.btn4.place(x=50, y=800)
+        if self.field1 == 'Выбери из таблицы': self.btn4['state'] = 'disabled'
+        label1 = Label(self.BasaM2, text="Название оборудования", bg="grey", fg="black")
+        self.message_entry = Entry(self.BasaM2, textvariable='')
+        self.message_entry.insert(0, self.field1)
+        self.message_entry.place(x=50, y=75)
+        label2 = Label(self.BasaM2, text="Максимальная энергия заряда", bg="grey", fg="black")
+        self.message_entry1 = Entry(self.BasaM2, textvariable='')
+        self.message_entry1.place(x=50, y=175)
+        self.message_entry1.insert(0, self.field2)
+        label3 = Label(self.BasaM2, text="Емкость батареи кондецаторов", bg="grey", fg="black")
+        self.message_entry2 = Entry(self.BasaM2, textvariable='')
+        self.message_entry2.place(x=50, y=275)
+        self.message_entry2.insert(0, self.field3)
+        label4 = Label(self.BasaM2, text="Собственная индуктивность разрядного контура", bg="grey", fg="black")
+        self.message_entry3 = Entry(self.BasaM2, textvariable='')
+        self.message_entry3.place(x=50, y=375)
+        self.message_entry3.insert(0, self.field4)
+        label5 = Label(self.BasaM2, text="Частота тока короткого замыкания", bg="grey", fg="black")
+        self.message_entry4 = Entry(self.BasaM2, textvariable='')
+        self.message_entry4.place(x=50, y=475)
+        self.message_entry4.insert(0, self.field5)
+        label6 = Label(self.BasaM2, text="K1", bg="grey", fg="black")
+        self.message_entry5 = Entry(self.BasaM2, textvariable='')
+        self.message_entry5.place(x=50, y=575)
+        self.message_entry5.insert(0, self.field6)
+        label7 = Label(self.BasaM2, text="K2", bg="grey", fg="black")
+        self.message_entry6 = Entry(self.BasaM2, textvariable=self.field7)
+        self.message_entry6.place(x=50, y=675)
+        self.message_entry6.insert(0, self.field7)
+        label1.place(x=50, y=50)
+        label2.place(x=50, y=150)
+        label3.place(x=50, y=250)
+        label4.place(x=50, y=350)
+        label5.place(x=50, y=450)
+        label6.place(x=50, y=550)
+        label7.place(x=50, y=650)
     def clicked2(self):
         sel = self.Tree.focus()
         self.slct2 = self.Tree.item(sel, option='values')
@@ -79,7 +141,6 @@ class Bd():
         print('K1 '+ self.field6)
         print("K2 "+ self.field7)
         print(self.slct2)
-
     def view_records(self):
         mt = sqlite3.connect("mashins.db")
         cursor = mt.cursor()
@@ -91,63 +152,11 @@ class Bd():
             # I suppose the first column of your table is ID
             self.Tree.insert('', 'end', text=str(cpt), values=row)
             cpt += 1  # increment the I
+    def GoToWork(self):
+        self.BasaM2.destroy()
+        WindowMashings=EntranceData.EntranceDataFirst()
+        EntranceData.EntranceDataFirst.GUI(WindowMashings,self.field1)
     def __init__(self):
         self.GUI()
         self.view_records()
-        self.slct2 = ['Выбери из таблицы','Выбери из таблицы','Выбери из таблицы','Выбери из таблицы','Выбери из таблицы','Выбери из таблицы','Выбери из таблицы']
-        self.field1 = self.slct2[0]
-        self.field2 = self.slct2[1]
-        self.field3 = self.slct2[2]
-        self.field4 = self.slct2[3]
-        self.field5 = self.slct2[4]
-        self.field6 = self.slct2[5]
-        self.field7 = self.slct2[6]
-        self.btn = Button(self.BasaM2, text="Добавить оборудование", bg="grey", fg="black",command=self.AddMashins)  # описание объекта типа button названия кнопки
-        self.btn.place(x=250, y=800)  # расположение кнопки
-        self.btn5 = Button(self.BasaM2, text="Редактировать оборудование", bg="grey", fg="black",command=self.clicked2)  # описание объекта типа button названия кнопки
-        self.btn5.place(x=750, y=800)  # расположение кнопки
-        self.btn2 = Button(self.BasaM2, text="Удалить оборудование", bg="grey", fg="black",command=self.DellMashins)  # описание объекта типа button названия кнопки
-        self.btn2.place(x=500, y=800)  # расположение кнопки
-        self.btn3 = Button(self.BasaM2, text="Применить", bg="grey", fg="black",command=self.SelectlMashins)  # описание объекта типа button названия кнопки
-        self.btn3.place(x=1000, y=800)  # расположение кнопки
-        self.btn1 = Button(self.BasaM2, text="Отменить", bg='pink', fg='red', command=self.BasaM2.destroy)
-        self.btn1.place(x=1250, y=800)
-        self.btn4 = Button(self.BasaM2, text="Взять данные в работу", bg='green', fg='black', command=self.clicked2)
-        self.btn4.place(x=50, y=800)
-        if self.field1 == 'Выбери из таблицы': self.btn4['state']='disabled'
-        label1 = Label(self.BasaM2, text="Название оборудования", bg="grey", fg="black")
-        self.message_entry = Entry(self.BasaM2, textvariable='')
-        self.message_entry.insert(0,self.field1)
-        self.message_entry.place(x=50, y=75)
-        label2 = Label(self.BasaM2, text="Максимальная энергия заряда", bg="grey", fg="black")
-        self.message_entry1 = Entry(self.BasaM2, textvariable='')
-        self.message_entry1.place(x=50, y=175)
-        self.message_entry1.insert(0, self.field2)
-        label3 = Label(self.BasaM2, text="Емкость батареи кондецаторов", bg="grey", fg="black")
-        self.message_entry2 = Entry(self.BasaM2, textvariable='')
-        self.message_entry2.place(x=50, y=275)
-        self.message_entry2.insert(0, self.field3)
-        label4 = Label(self.BasaM2, text="Собственная индуктивность разрядного контура", bg="grey", fg="black")
-        self.message_entry3 = Entry(self.BasaM2, textvariable='')
-        self.message_entry3.place(x=50, y=375)
-        self.message_entry3.insert(0, self.field4)
-        label5 = Label(self.BasaM2, text="Частота тока короткого замыкания", bg="grey", fg="black")
-        self.message_entry4 = Entry(self.BasaM2, textvariable='')
-        self.message_entry4.place(x=50, y=475)
-        self.message_entry4.insert(0, self.field5)
-        label6 = Label(self.BasaM2, text="K1", bg="grey", fg="black")
-        self.message_entry5 = Entry(self.BasaM2, textvariable='')
-        self.message_entry5.place(x=50, y=575)
-        self.message_entry5.insert(0, self.field6)
-        label7 = Label(self.BasaM2, text="K2", bg="grey", fg="black")
-        self.message_entry6 = Entry(self.BasaM2, textvariable=self.field7)
-        self.message_entry6.place(x=50, y=675)
-        self.message_entry6.insert(0, self.field7)
-        label1.place(x=50, y=50)
-        label2.place(x=50, y=150)
-        label3.place(x=50, y=250)
-        label4.place(x=50, y=350)
-        label5.place(x=50, y=450)
-        label6.place(x=50, y=550)
-        label7.place(x=50, y=650)
         self.BasaM2.mainloop()
