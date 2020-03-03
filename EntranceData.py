@@ -5,6 +5,10 @@ from OperationSwitch  import OperationSwitch
 from InductorParams import InductorParams
 from Materials import Materials
 class EntranceDataFirst():
+    def __init__(self):
+        self.bif1="1"
+        self.GUI(self.bif1)
+        self.EntranceDataWindow.mainloop()
     def GUI(self, bif1):
         self.EntranceDataWindow = Tk()
         self.EntranceDataWindow.geometry('640x700')  # геометрия окна
@@ -16,6 +20,7 @@ class EntranceDataFirst():
         btn3 = Button(self.frame, text="Выбор материала", bg="blue", fg="black", command=self.WindowMaterials)
         btn4 = Button(self.frame, text="Размер заготовки", bg="blue", fg="black", command=self.SetSizes)
         self.message_entry = Entry(self.frame, textvariable=bif1)
+        self.message_entry.insert(0, bif1)
         self.message_entry.place(x=350, y=100)
         self.message_entry1 = Entry(self.frame, textvariable='')
         self.message_entry1.place(x=350, y=200)
@@ -31,10 +36,7 @@ class EntranceDataFirst():
         closeButton.pack(side=RIGHT, padx=5, pady=5)
         okButton = Button(self.EntranceDataWindow, text="OK")
         okButton.pack(side=RIGHT)
-    def __init__(self):
-        self.bif1="1"
-        self.GUI(self.bif1)
-        self.EntranceDataWindow.mainloop()
+
     def WindowMashins(self):
         window=Basad()
         self.EntranceDataWindow.destroy()
