@@ -38,8 +38,9 @@ class EntranceDataFirst():
         okButton.pack(side=RIGHT)
         self.EntranceDataWindow.mainloop()
     def WindowMashins(self):
-        window=Basad()
         self.EntranceDataWindow.destroy()
+        window=Basad()
+
     def SetSizes(self):
         window1=SetSizes()
     def WindowOperationSwitch(self):
