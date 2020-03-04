@@ -8,7 +8,6 @@ class EntranceDataFirst():
     def __init__(self):
         self.bif1="1"
         self.GUI(self.bif1)
-
     def GUI(self, bif1):
         self.EntranceDataWindow = Tk()
         self.EntranceDataWindow.geometry('640x700')  # геометрия окна

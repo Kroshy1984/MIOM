@@ -1,23 +1,27 @@
 from tkinter import *
 class OperationSwitch():
+    def GoToWork(self):
+        pass
+
     def GUI (self):
         self.OperationSwitch = Tk()
         self.OperationSwitch.geometry('500x300')  # геометрия окна
         self.OperationSwitch.title("Выбор операции")  # название окна
         lbl = Label(self.OperationSwitch, text="Выберите необходимую операцию:", font=("Arial Bold", 20))
         lbl.grid(column=0, row=0)
-        selected = IntVar()
+        self.selected = IntVar()
+        self.selected.set(0)
         rad1 = Radiobutton(self.OperationSwitch, text='Свободная раздача трубчатой заготовки', value=1,
-                           variable=selected)
-        rad2 = Radiobutton(self.OperationSwitch, text='Формовка переходников', value=2, variable=selected)
-        rad3 = Radiobutton(self.OperationSwitch, text='Формовка рифтов', value=3, variable=selected)
-        rad4 = Radiobutton(self.OperationSwitch, text='Разделительные операции на трубах', value=4, variable=selected)
+                           variable=self.selected, command=self.GoToWork)
+        rad2 = Radiobutton(self.OperationSwitch, text='Формовка переходников', value=2, variable=self.selected, command=self.GoToWork)
+        rad3 = Radiobutton(self.OperationSwitch, text='Формовка рифтов', value=3, variable=self.selected, command=self.GoToWork)
+        rad4 = Radiobutton(self.OperationSwitch, text='Разделительные операции на трубах', value=4, variable=self.selected, command=self.GoToWork)
         rad5 = Radiobutton(self.OperationSwitch, text='Пробивка отверстий в плоских заготовках', value=5,
-                           variable=selected)
-        rad6 = Radiobutton(self.OperationSwitch, text='Гибка бортов', value=6, variable=selected)
-        rad7 = Radiobutton(self.OperationSwitch, text='Формовка плоских заготовок', value=7, variable=selected)
-        rad8 = Radiobutton(self.OperationSwitch, text='Калибровка на отжим', value=8, variable=selected)
-        rad9 = Radiobutton(self.OperationSwitch, text='Калибровка на раздачу', value=9, variable=selected)
+                           variable=self.selected, command =self.GoToWork)
+        rad6 = Radiobutton(self.OperationSwitch, text='Гибка бортов', value=6, variable=self.selected, command = self. GoToWork)
+        rad7 = Radiobutton(self.OperationSwitch, text='Формовка плоских заготовок', value=7, variable=self.selected, command=self.GoToWork)
+        rad8 = Radiobutton(self.OperationSwitch, text='Калибровка на отжим', value=8, variable=self.selected, command=self.GoToWork)
+        rad9 = Radiobutton(self.OperationSwitch, text='Калибровка на раздачу', value=9, variable=self.selected, command=self.GoToWork)
         rad1.place(x=10, y=40)
         rad2.place(x=10, y=60)
         rad3.place(x=10, y=80)
