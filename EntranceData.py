@@ -8,7 +8,7 @@ class EntranceDataFirst():
     def __init__(self):
         self.bif1="1"
         self.GUI(self.bif1)
-        self.EntranceDataWindow.mainloop()
+
     def GUI(self, bif1):
         self.EntranceDataWindow = Tk()
         self.EntranceDataWindow.geometry('640x700')  # геометрия окна
@@ -36,7 +36,7 @@ class EntranceDataFirst():
         closeButton.pack(side=RIGHT, padx=5, pady=5)
         okButton = Button(self.EntranceDataWindow, text="OK")
         okButton.pack(side=RIGHT)
-
+        self.EntranceDataWindow.mainloop()
     def WindowMashins(self):
         window=Basad()
         self.EntranceDataWindow.destroy()
@@ -81,8 +81,8 @@ class EntranceDataSecond():
         okButton.pack(side=RIGHT)
         self.EntranceDataWindow.mainloop()
     def WindMash(self):
-        window=Basad()
         self.EntranceDataWindow.destroy()
+        window=Basad()
     def SetSizes(self):
         window1=SetSizes()
     def WindowOperationSwitch(self):
