@@ -2,10 +2,10 @@ from tkinter import *
 class OperationSwitch():
     def GoToWork(self):
         Ttext="ничего не выбрано"
-        a=self.selected.get()
+        a=self.sel.get()
         if a==1:
             Ttext="Свободная раздача трубчатой заготовки"
-            print(self.selected.get())
+            print(self.sel.get())
         elif a==2:
             Ttext='Формовка переходников'
         elif a==3:
@@ -33,11 +33,11 @@ class OperationSwitch():
         lbl.pack(anchor=N)
         frame = Frame(self.OperationSwitch, relief=RAISED, borderwidth=1)
         frame.pack(fill=BOTH, expand=True)
-        self.selected = IntVar()
+        self.sel = IntVar()
         operations=[('Свободная раздача трубчатой заготовки',1),('Формовка переходников',2),('Формовка рифтов',3),('Разделительные операции на трубах',4),('Пробивка отверстий в плоских заготовках',5),('Гибка бортов',6),('Формовка плоских заготовок',7),('Калибровка на отжим',8),('Калибровка на раздачу',9)]
         for operation,val in operations:
             print(val)
-            Radiobutton(frame, text=operation, indicatoron=0, variable=self.selected, value=val,command=self.GoToWork).pack(anchor=N)
+            Radiobutton(frame,activebackground="yellow", selectcolor='lightblue', text=operation, indicatoron=0, variable=self.sel, value=val,command=self.GoToWork).pack(anchor=N)
         btn = Button(self.OperationSwitch, text="Закрыть окно", bg="red", fg="black", command=self.CloseWindow)
         btn.place(x=10, y=350)
         btn = Button(self.OperationSwitch, text="Внести данные", bg="green", fg="black", command=self.GoToWork)
@@ -45,7 +45,6 @@ class OperationSwitch():
         self.OperationSwitch.mainloop()
     def __init__(self):
         self.GUI()
-        print(self.selected.get())
-
+        print(self.sel.get())
 
     def CloseWindow(self): self.OperationSwitch.destroy()
