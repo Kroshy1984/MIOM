@@ -43,6 +43,7 @@ class EntranceDataFirst():
     def SetSizes(self):
         window1=SetSizes()
     def WindowOperationSwitch(self):
+        self.EntranceDataWindow.destroy()
         window2=OperationSwitch()
     def WindowInductorParams(self):
         window3=InductorParams()
@@ -86,6 +87,7 @@ class EntranceDataSecond():
     def SetSizes(self):
         window1=SetSizes()
     def WindowOperationSwitch(self):
+        self.EntranceDataWindow.destroy()
         window2=OperationSwitch()
     def WindowInductorParams(self):
         window3=InductorParams()
