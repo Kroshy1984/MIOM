@@ -23,5 +23,9 @@ class SetSizes():
     def __init__(self):
         self.GUI()
         self.SetSizesWindow.mainloop()
-    def Insertdata(self):pass
+    def Insertdata(self):
+        self.field1=self.message_entry.get()
+        self.field2=self.message_entry1.get()
+        self.field3=self.message_entry2.get()
+        print(self.field1,self.field2, self.field3)
     def CloseWindow(self): self.SetSizesWindow.destroy()
