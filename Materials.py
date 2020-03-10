@@ -42,11 +42,11 @@ class Materials():
         self.field5 = self.slct2[4]
         self.field6 = self.slct2[5]
         self.field7 = self.slct2[6]
-        self.btn = Button(self.Materials, text="Добавить материал", bg="grey", fg="black")  # описание объекта типа button названия кнопки
+        self.btn = Button(self.Materials, text="Добавить материал", bg="grey", fg="black", command=self.AddMaterial)  # описание объекта типа button названия кнопки
         self.btn.place(x=250, y=800)  # расположение кнопки
-        self.btn5 = Button(self.Materials, text="Редактировать материал", bg="grey", fg="black")  # описание объекта типа button названия кнопки
+        self.btn5 = Button(self.Materials, text="Редактировать материал", bg="grey", fg="black", command=self.EditMaterial)  # описание объекта типа button названия кнопки
         self.btn5.place(x=750, y=800)  # расположение кнопки
-        self.btn2 = Button(self.Materials, text="Удалить материал", bg="grey", fg="black")  # описание объекта типа button названия кнопки
+        self.btn2 = Button(self.Materials, text="Удалить материал", bg="grey", fg="black", command=self.DelMaterial)  # описание объекта типа button названия кнопки
         self.btn2.place(x=500, y=800)  # расположение кнопки
         self.btn3 = Button(self.Materials, text="Применить", bg="grey", fg="black")  # описание объекта типа button названия кнопки
         self.btn3.place(x=1000, y=800)  # расположение кнопки
@@ -91,7 +91,6 @@ class Materials():
         label6.place(x=50, y=550)
         label7.place(x=50, y=650)
         self.view_records()
-
         self.Materials.mainloop()
     def view_records(self):
         mt = sqlite3.connect("Metalls.db")
@@ -104,3 +103,6 @@ class Materials():
             # I suppose the first column of your table is ID
             self.Tree.insert('', 'end', text=str(cpt), values=row)
             cpt += 1  # increment the I
+    def AddMaterial(self):pass
+    def EditMaterial(self):pass
+    def DelMaterial(self):pass
