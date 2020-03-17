@@ -5,6 +5,8 @@ import sqlite3
 from SQL12 import *
 from EntranceData import *
 import EntranceData
+from Terminator import Terminator
+#import Terminator
 class Basad():
     def GUI (self):
         self.BasaM2 = Tk()
@@ -107,7 +109,11 @@ class Basad():
     def DellMashins(self):
         sel = self.Tree.focus()
         self.slct2 = self.Tree.item(sel, option='values')
-        NewWindow = Terminator(self.slct2[0])
+        self.field1=self.slct2[0]
+        print(self.slct2)
+        print(self.slct2[0])
+        print(self.field1)
+        NewWindow2 = Terminator(self.field1)
     def SelectlMashins(self):
         self.btn4['state'] = 'active'
         sel=self.Tree.focus()

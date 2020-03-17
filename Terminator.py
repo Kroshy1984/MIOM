@@ -5,8 +5,8 @@ from tkinter import *
 from tkinter import ttk
 import sqlite3
 from SQL12 import *
-from Basa_mashins2 import *
-import Basa_mashins2
+from WindowMashins import *
+import WindowMashins
 class Terminator():
     def shot_it(self):
         mt = sqlite3.connect("mashins.db")
@@ -14,8 +14,8 @@ class Terminator():
         cursor.execute(sql8, (self.shot,))
         mt.commit() #запомнить изменения в базе данных
         cursor.execute(sql6)
-        b = Basa_mashins2.Bd()
-        Basa_mashins2.Bd.view_records(b)# обновление содержимого таблицы
+        b = WindowMashins.Basad()
+        WindowMashins.Basad.view_records(b)# обновление содержимого таблицы
     def __init__(self,a):
         self.shot=a
         print('удаляем, где ', self.shot)
