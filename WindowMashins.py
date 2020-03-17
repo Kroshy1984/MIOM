@@ -6,7 +6,7 @@ from SQL12 import *
 from EntranceData import *
 import EntranceData
 from Terminator import Terminator
-#import Terminator
+from EditorMashins import *
 class Basad():
     def GUI (self):
         self.BasaM2 = Tk()
@@ -105,7 +105,7 @@ class Basad():
         self.field7 = self.slct2[6]
         NewWindow = Editor(self.field1, self.field2, self.field3, self.field4, self.field5, self.field6, self.field7)
     def AddMashins(self):
-        NewWindow = Smashins()
+        NewWindow = Editor()
     def DellMashins(self):
         sel = self.Tree.focus()
         self.slct2 = self.Tree.item(sel, option='values')
