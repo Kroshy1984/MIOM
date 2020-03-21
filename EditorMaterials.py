@@ -4,7 +4,7 @@ from tkinter import ttk
 import sqlite3
 from SQL12 import *
 from WindowMashins import *
-class Editor():
+class EditorMaterials():
     def GUI(self):
         self.SBasa = Tk()
         self.SBasa.geometry('600x900')

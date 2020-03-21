@@ -3,7 +3,7 @@ from tkinter import *
 from tkinter import ttk
 import sqlite3
 from SQL12 import *
-
+from EditorMaterials import *
 class Materials():
     def GUI(self):
         self.Materials = Tk()
@@ -110,6 +110,8 @@ class Materials():
             # I suppose the first column of your table is ID
             self.Tree.insert('', 'end', text=str(cpt), values=row)
             cpt += 1  # increment the I
-    def AddMaterial(self):pass
-    def EditMaterial(self):pass
+    def AddMaterial(self):
+        NewWindow=EditorMaterials()
+    def EditMaterial(self):
+        NewWindow=EditorMaterials()
     def DelMaterial(self):pass
