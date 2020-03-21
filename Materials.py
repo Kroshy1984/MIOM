@@ -5,12 +5,13 @@ import sqlite3
 from SQL12 import *
 
 class Materials():
-    def __init__(self):
+    def GUI(self):
         self.Materials = Tk()
         self.Materials.geometry('1800x1000')
         self.Materials.title("Выбор материала ")
         self.Tree = ttk.Treeview(self.Materials, columns=(
-        "Name_of_the_metalls", "Tensile_strength", "Yield_strength", "Material_density", "M_M", "B", "Specific_electric_resistance","The_coefficient_of_dynamic",'Еhe_dynamic_modulus_hardening'), height=50,
+            "Name_of_the_metalls", "Tensile_strength", "Yield_strength", "Material_density", "M_M", "B",
+            "Specific_electric_resistance", "The_coefficient_of_dynamic", 'Еhe_dynamic_modulus_hardening'), height=50,
                                  show='headings')
         self.Tree.grid(padx=8, pady=15)
         self.Tree.column("Name_of_the_metalls", width=60, anchor=tk.CENTER)
@@ -42,13 +43,17 @@ class Materials():
         self.field5 = self.slct2[4]
         self.field6 = self.slct2[5]
         self.field7 = self.slct2[6]
-        self.btn = Button(self.Materials, text="Добавить материал", bg="grey", fg="black", command=self.AddMaterial)  # описание объекта типа button названия кнопки
+        self.btn = Button(self.Materials, text="Добавить материал", bg="grey", fg="black",
+                          command=self.AddMaterial)  # описание объекта типа button названия кнопки
         self.btn.place(x=250, y=800)  # расположение кнопки
-        self.btn5 = Button(self.Materials, text="Редактировать материал", bg="grey", fg="black", command=self.EditMaterial)  # описание объекта типа button названия кнопки
+        self.btn5 = Button(self.Materials, text="Редактировать материал", bg="grey", fg="black",
+                           command=self.EditMaterial)  # описание объекта типа button названия кнопки
         self.btn5.place(x=750, y=800)  # расположение кнопки
-        self.btn2 = Button(self.Materials, text="Удалить материал", bg="grey", fg="black", command=self.DelMaterial)  # описание объекта типа button названия кнопки
+        self.btn2 = Button(self.Materials, text="Удалить материал", bg="grey", fg="black",
+                           command=self.DelMaterial)  # описание объекта типа button названия кнопки
         self.btn2.place(x=500, y=800)  # расположение кнопки
-        self.btn3 = Button(self.Materials, text="Применить", bg="grey", fg="black")  # описание объекта типа button названия кнопки
+        self.btn3 = Button(self.Materials, text="Применить", bg="grey",
+                           fg="black")  # описание объекта типа button названия кнопки
         self.btn3.place(x=1000, y=800)  # расположение кнопки
         self.btn1 = Button(self.Materials, text="Отменить", bg='pink', fg='red')
         self.btn1.place(x=1250, y=800)
@@ -92,6 +97,8 @@ class Materials():
         label7.place(x=50, y=650)
         self.view_records()
         self.Materials.mainloop()
+    def __init__(self):
+        self.GUI()
     def view_records(self):
         mt = sqlite3.connect("Metalls.db")
         cursor = mt.cursor()

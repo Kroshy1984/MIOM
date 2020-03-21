@@ -39,47 +39,10 @@ class Editor():
         label5.place(x=10, y=450)
         label6.place(x=10, y=550)
         label7.place(x=10, y=650)
-        self.message_entry.delete(0, END)
-        self.message_entry1.delete(0, END)
-        self.message_entry2.delete(0, END)
-        self.message_entry3.delete(0, END)
-        self.message_entry4.delete(0, END)
-        self.message_entry5.delete(0, END)
-        self.message_entry6.delete(0, END)
-        self.message_entry.insert(0, self.field1)
-        self.message_entry1.insert(0,self.field2)
-        self.message_entry2.insert(0,self.field3)
-        self.message_entry3.insert(0, self.field4)
-        self.message_entry4.insert(0, self.field5)
-        self.message_entry5.insert(0, self.field6)
-        self.message_entry6.insert(0, self.field7)
         btn1 = Button(self.SBasa, text="Закрыть", bg='pink', fg='red', command=self.SBasa.destroy)
         btn1.place(x=30, y=750)
         btn2 = Button(self.SBasa, text="Запомнить", bg='green', fg='black', command=self.clicked2)
         btn2.place(x=450, y=750)
         self.SBasa.mainloop()
-    def __init__(self, f_1, f_2, f_3, f_4, f_5, f_6, f_7):
-        self.field1=f_1
-        self.field2=f_2
-        self.field3=f_3
-        self.field4=f_4
-        self.field5=f_5
-        self.field6=f_6
-        self.field7=f_7
+    def __init__(self):
         self.GUI()
-    def clicked2(self):
-        f1 = self.message_entry.get()
-        f2 = self.message_entry1.get()
-        f3 = self.message_entry2.get()
-        f4 = self.message_entry4.get()
-        f5 = self.message_entry4.get()
-        f6 = self.message_entry5.get()
-        f7 = self.message_entry6.get()
-        mt = sqlite3.connect("mashins.db")
-        cursor = mt.cursor()
-        cursor.execute(sql7,(f1,f2,f3,f4,f5,f6,f7))
-        mt.commit()
-        cursor.execute(sql6)
-        b=Basad()
-        Basad.view_records(b)
-        self.SBasa.destroy
