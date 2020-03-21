@@ -105,7 +105,14 @@ class Basad():
         self.field7 = self.slct2[6]
         NewWindow = Editor(self.field1, self.field2, self.field3, self.field4, self.field5, self.field6, self.field7)
     def AddMashins(self):
-        NewWindow = Editor()
+        self.field1 = ""
+        self.field2 = ""
+        self.field3 = ""
+        self.field4 = ""
+        self.field5 = ""
+        self.field6 = ""
+        self.field7 = ""
+        NewWindow = Editor(self.field1, self.field2, self.field3, self.field4, self.field5, self.field6, self.field7)
     def DellMashins(self):
         sel = self.Tree.focus()
         self.slct2 = self.Tree.item(sel, option='values')

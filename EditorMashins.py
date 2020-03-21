@@ -3,6 +3,7 @@ from tkinter import *
 from tkinter import ttk
 import sqlite3
 from SQL12 import *
+from WindowMashins import *
 class Editor():
     def GUI(self):
         self.SBasa = Tk()
@@ -43,7 +44,7 @@ class Editor():
         btn2 = Button(self.SBasa, text="Запомнить", bg='green', fg='black', command=self.clicked2)
         btn2.place(x=450, y=750)
         self.SBasa.mainloop()
-    def __init__(self):
+    def __init__(self, f1, f2, f3, f4, f5, f6, f7):
         self.GUI()
     def clicked2(self):
         f1 = self.message_entry.get()
@@ -58,6 +59,6 @@ class Editor():
         cursor.execute(sql7,(f1,f2,f3,f4,f5,f6,f7))
         mt.commit()
         cursor.execute(sql6)
-        b=Bd()
-        Bd.view_records(b)
+        b=Basad()
+        Basad.view_records(b)
         self.SBasa.destroy
