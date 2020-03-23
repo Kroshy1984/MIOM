@@ -1,9 +1,6 @@
-import tkinter as tk
-from tkinter import *
 from tkinter import ttk
 import sqlite3
 from SQL12 import *
-from EntranceData import *
 import EntranceData
 from Terminator import Terminator
 from EditorMashins import *
@@ -13,9 +10,8 @@ class Basad():
         self.BasaM2.geometry('1800x1000')
         self.BasaM2.title("Выбор оборудования МИОМ")
         self.Tree = ttk.Treeview(self.BasaM2, columns=(
-        "Name", "Max_change_energi", "Condenser_capasity", "Equipment_induct", "SccF", "K1", "K2"), height=50,
+        "Name", "Max_change_energi", "Condenser_capasity", "Equipment_induct", "SccF", "K1", "K2"), height=5,
                                  show='headings')
-        self.Tree.grid(padx=8, pady=15)
         self.Tree.column("Name", width=250, anchor=tk.CENTER)
         self.Tree.column("Max_change_energi", width=190, anchor=tk.CENTER)
         self.Tree.column("Condenser_capasity", width=250, anchor=tk.CENTER)
@@ -31,7 +27,7 @@ class Basad():
         self.Tree.heading("SccF", text="Частота тока короткого замыкания")
         self.Tree.heading("K1", text="K1")
         self.Tree.heading("K2", text="K2")
-        self.Tree.pack()
+        self.Tree.place(x=400, y=10)
         self.slct2 = ['Выбери из таблицы', 'Выбери из таблицы', 'Выбери из таблицы', 'Выбери из таблицы',
                       'Выбери из таблицы', 'Выбери из таблицы', 'Выбери из таблицы']
         self.field1 = self.slct2[0]
@@ -169,6 +165,7 @@ class Basad():
         self.BasaM2.destroy()
         #self.WindowMashings=EntranceData.EntranceDataFirst()
         EntranceData.EntranceDataFirst.GUI(EntranceData.EntranceDataFirst,self.field1)
+        self.BasaM2.destroy()
     def __init__(self):
         self.GUI()
         self.view_records()

@@ -1,12 +1,13 @@
 from tkinter import *
-from WindowMashins import *
+from WindowMashins import Basad
+import WindowMashins
 from SetSizes import SetSizes
-from OperationSwitch  import OperationSwitch
+from OperationSwitch import OperationSwitch
 from InductorParams import InductorParams
 from Materials import Materials
 class EntranceDataFirst():
     def __init__(self):
-        self.bif1="1"
+        self.bif1=""
         self.GUI(self.bif1)
     def GUI(self, bif1):
         self.EntranceDataWindow = Tk()
@@ -18,7 +19,7 @@ class EntranceDataFirst():
         btn2 = Button(self.frame, text="Выбор операции", bg="blue", fg="black", command=self.WindowOperationSwitch)
         btn3 = Button(self.frame, text="Выбор материала", bg="blue", fg="black", command=self.WindowMaterials)
         btn4 = Button(self.frame, text="Размер заготовки", bg="blue", fg="black", command=self.SetSizes)
-        self.message_entry = Entry(self.frame, textvariable=bif1)
+        self.message_entry = Entry(self.frame, textvariable='')
         self.message_entry.insert(0, bif1)
         self.message_entry.place(x=350, y=100)
         self.message_entry1 = Entry(self.frame, textvariable='')
@@ -38,8 +39,9 @@ class EntranceDataFirst():
         self.EntranceDataWindow.mainloop()
     def WindowMashins(self):
         self.EntranceDataWindow.destroy()
-        window=Basad()
-
+        self.bif1=''
+        window=WindowMashins.Basad()
+        Basad()
     def SetSizes(self):
         window1=SetSizes()
     def WindowOperationSwitch(self):
