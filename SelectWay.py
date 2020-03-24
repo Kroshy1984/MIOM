@@ -22,8 +22,9 @@ class SelectWay():
         label1.pack()
         self.SelectWayWindow.mainloop()
     def FirstWay(self):
+        a=''
         self.SelectWayWindow.destroy()
-        WindowMashings=EntranceDataFirst()
+        WindowMashings=EntranceDataFirst(a)
     def SecondWay(self):
         self.SelectWayWindow.destroy()
         WindowMashings=EntranceDataSecond()

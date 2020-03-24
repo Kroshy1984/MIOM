@@ -4,9 +4,10 @@ from SetSizes import SetSizes
 from OperationSwitch import OperationSwitch
 from InductorParams import InductorParams
 from Materials import Materials
+
 class EntranceDataFirst():
-    def __init__(self):
-        self.bif1=""
+    def __init__(self,a):
+        self.bif1=a
         self.GUI(self.bif1)
     def GUI(self, bif1):
         self.EntranceDataWindow = Tk()
