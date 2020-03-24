@@ -1,6 +1,5 @@
 from tkinter import *
 from WindowMashins import Basad
-import WindowMashins
 from SetSizes import SetSizes
 from OperationSwitch import OperationSwitch
 from InductorParams import InductorParams
@@ -39,9 +38,7 @@ class EntranceDataFirst():
         self.EntranceDataWindow.mainloop()
     def WindowMashins(self):
         self.EntranceDataWindow.destroy()
-        self.bif1=''
-        window=WindowMashins.Basad()
-        Basad()
+        window=Basad()
     def SetSizes(self):
         window1=SetSizes()
     def WindowOperationSwitch(self):
