@@ -97,7 +97,8 @@ class Materials():
         label7.place(x=50, y=650)
         self.view_records()
         self.Materials.mainloop()
-    def __init__(self):
+    def __init__(self,a,b,c,d):
+
         self.GUI()
     def view_records(self):
         mt = sqlite3.connect("Metalls.db")

@@ -24,8 +24,7 @@ class OperationSwitch():
         elif a==9:
             self.field2 ='Калибровка на раздачу'
         self.OperationSwitch.destroy()
-        print(self.field2)
-        f = EntranceData.EntranceDataFirst(self.field1,self.field2,self.field3)
+        f = EntranceData.EntranceDataFirst(self.field1,self.field2,self.field3,self.field4)
     def GUI (self):
         self.OperationSwitch = Tk()
         self.OperationSwitch.geometry('500x500')  # геометрия окна
@@ -43,9 +42,10 @@ class OperationSwitch():
         btn = Button(self.OperationSwitch, text="Внести данные", bg="green", fg="black", command=self.GoToWork)
         btn.place(x=300, y=350)
         self.OperationSwitch.mainloop()
-    def __init__(self,a,b,c):
+    def __init__(self,a,b,c,d):
         self.field1=a
         self.field2=b
         self.field3=c
+        self.field4=d
         self.GUI()
     def CloseWindow(self): self.OperationSwitch.destroy()

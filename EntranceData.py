@@ -6,12 +6,13 @@ from InductorParams import InductorParams
 from Materials import Materials
 
 class EntranceDataFirst():
-    def __init__(self,a,b,c):
+    def __init__(self,a,b,c,d):
         self.bif1=a
         self.bif2=b
         self.bif3=c
-        self.GUI(self.bif1, self.bif2, self.bif3)
-    def GUI(self, bif1, bif2, bif3):
+        self.bif4=d
+        self.GUI(self.bif1, self.bif2, self.bif3, self.bif4)
+    def GUI(self, bif1, bif2, bif3, bif4):
         self.EntranceDataWindow = Tk()
         self.EntranceDataWindow.geometry('1200x700')  # геометрия окна
         self.EntranceDataWindow.title("Параметры для расчета технологического процесса МИОМ")  # название окна
@@ -28,6 +29,7 @@ class EntranceDataFirst():
         self.message_entry1.insert(0, bif2)
         self.message_entry1.place(x=350, y=200, width=400)
         self.message_entry2 = Entry(self.frame, textvariable='')
+        self.message_entry2.insert(0, bif2)
         self.message_entry2.place(x=350, y=300)
         self.message_entry3 = Entry(self.frame, textvariable='')
         self.message_entry3.insert(0, bif3)
@@ -43,17 +45,16 @@ class EntranceDataFirst():
         self.EntranceDataWindow.mainloop()
     def WindowMashins(self):
         self.EntranceDataWindow.destroy()
-        window=Basad(self.bif1,self.bif2, self.bif3)
+        window=Basad(self.bif1,self.bif2, self.bif3,self.bif4)
     def SetSizes(self):
         self.EntranceDataWindow.destroy()
-        window1=SetSizes(self.bif1,self.bif2, self.bif3)
+        window1=SetSizes(self.bif1,self.bif2, self.bif3,self.bi4)
     def WindowOperationSwitch(self):
         self.EntranceDataWindow.destroy()
-        window2=OperationSwitch(self.bif1, self.bif2, self.bif3)
-    def WindowInductorParams(self):
-        window3=InductorParams()
+        window2=OperationSwitch(self.bif1, self.bif2, self.bif3,self.bif4)
     def WindowMaterials(self):
-        window4=Materials()
+        self.EntranceDataWindow.destroy()
+        window4=Materials(self.bif1, self.bif2, self.bif3,self.bif4)
 class EntranceDataSecond():
     def __init__(self):
         self.EntranceDataWindow = Tk()
