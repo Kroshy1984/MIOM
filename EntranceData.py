@@ -29,7 +29,7 @@ class EntranceDataFirst():
         self.message_entry1.insert(0, bif2)
         self.message_entry1.place(x=350, y=200, width=400)
         self.message_entry2 = Entry(self.frame, textvariable='')
-        self.message_entry2.insert(0, bif2)
+        self.message_entry2.insert(0, bif4)
         self.message_entry2.place(x=350, y=300)
         self.message_entry3 = Entry(self.frame, textvariable='')
         self.message_entry3.insert(0, bif3)
@@ -48,7 +48,7 @@ class EntranceDataFirst():
         window=Basad(self.bif1,self.bif2, self.bif3,self.bif4)
     def SetSizes(self):
         self.EntranceDataWindow.destroy()
-        window1=SetSizes(self.bif1,self.bif2, self.bif3,self.bi4)
+        window1=SetSizes(self.bif1,self.bif2, self.bif3,self.bif4)
     def WindowOperationSwitch(self):
         self.EntranceDataWindow.destroy()
         window2=OperationSwitch(self.bif1, self.bif2, self.bif3,self.bif4)
