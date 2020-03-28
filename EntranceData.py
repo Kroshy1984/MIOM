@@ -46,7 +46,7 @@ class EntranceDataFirst():
         window1=SetSizes()
     def WindowOperationSwitch(self):
         self.EntranceDataWindow.destroy()
-        window2=OperationSwitch()
+        window2=OperationSwitch(self.bif1, self.bif2)
     def WindowInductorParams(self):
         window3=InductorParams()
     def WindowMaterials(self):
