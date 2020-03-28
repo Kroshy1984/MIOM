@@ -6,24 +6,25 @@ class OperationSwitch():
         self.filed2="ничего не выбрано"
         a=self.sel.get()
         if a==1:
-            self.filed2="Свободная раздача трубчатой заготовки"
+            self.field2="Свободная раздача трубчатой заготовки"
         elif a==2:
-            self.filed2='Формовка переходников'
+            self.field2='Формовка переходников'
         elif a==3:
-            self.filed2='Формовка рифтов'
+            self.field2='Формовка рифтов'
         elif a==4:
-            self.filed2 = 'Разделительные операции на трубах'
+            self.field2 = 'Разделительные операции на трубах'
         elif a==5:
-            self.filed2 = "Пробивка отверстий в плоских заготовках"
+            self.field2 = "Пробивка отверстий в плоских заготовках"
         elif a==6:
-            self.filed2='Гибка бортов'
+            self.field2='Гибка бортов'
         elif a==7:
-            self.filed2='Формовка плоских заготовок'
+            self.field2='Формовка плоских заготовок'
         elif a==8:
-            self.filed2='Калибровка на отжим'
+            self.field2='Калибровка на отжим'
         elif a==9:
-            self.filed2 ='Калибровка на раздачу'
+            self.field2 ='Калибровка на раздачу'
         self.OperationSwitch.destroy()
+        print(self.field2)
         f = EntranceData.EntranceDataFirst(self.field1,self.field2)
     def GUI (self):
         self.OperationSwitch = Tk()
@@ -36,7 +37,6 @@ class OperationSwitch():
         self.sel = IntVar()
         operations=[('Свободная раздача трубчатой заготовки',1),('Формовка переходников',2),('Формовка рифтов',3),('Разделительные операции на трубах',4),('Пробивка отверстий в плоских заготовках',5),('Гибка бортов',6),('Формовка плоских заготовок',7),('Калибровка на отжим',8),('Калибровка на раздачу',9)]
         for operation,val in operations:
-            print(val)
             Radiobutton(frame,activebackground="yellow", selectcolor='lightblue', text=operation, indicatoron=0, variable=self.sel, value=val,command=self.GoToWork).pack(anchor=N)
         btn = Button(self.OperationSwitch, text="Закрыть окно", bg="red", fg="black", command=self.CloseWindow)
         btn.place(x=10, y=350)

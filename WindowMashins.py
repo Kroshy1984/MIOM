@@ -163,10 +163,10 @@ class Basad():
             cpt += 1  # increment the I
     def GoToWork(self):
         self.BasaM2.destroy()
-        f=EntranceData.EntranceDataFirst(self.field1, self.field2)
+        f=EntranceData.EntranceDataFirst(self.field1, self.f2)
     def __init__(self, a, b):
         self.field1=a
-        self.field2=b
+        self.f2=b
         self.GUI()
         self.view_records()
         self.BasaM2.mainloop()
