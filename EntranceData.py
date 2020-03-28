@@ -6,11 +6,12 @@ from InductorParams import InductorParams
 from Materials import Materials
 
 class EntranceDataFirst():
-    def __init__(self,a,b):
+    def __init__(self,a,b,c):
         self.bif1=a
         self.bif2=b
-        self.GUI(self.bif1, self.bif2)
-    def GUI(self, bif1, bif2):
+        self.bif3=c
+        self.GUI(self.bif1, self.bif2, self.bif3)
+    def GUI(self, bif1, bif2, bif3):
         self.EntranceDataWindow = Tk()
         self.EntranceDataWindow.geometry('640x700')  # геометрия окна
         self.EntranceDataWindow.title("Параметры для расчета технологического процесса МИОМ")  # название окна
@@ -27,6 +28,7 @@ class EntranceDataFirst():
         self.message_entry1.insert(0, bif2)
         self.message_entry1.place(x=350, y=200)
         self.message_entry2 = Entry(self.frame, textvariable='')
+        self.message_entry1.insert(0, bif2)
         self.message_entry2.place(x=350, y=300)
         self.message_entry3 = Entry(self.frame, textvariable='')
         self.message_entry3.place(x=350, y=400)
@@ -41,12 +43,12 @@ class EntranceDataFirst():
         self.EntranceDataWindow.mainloop()
     def WindowMashins(self):
         self.EntranceDataWindow.destroy()
-        window=Basad(self.bif1,self.bif2)
+        window=Basad(self.bif1,self.bif2, self.bif3)
     def SetSizes(self):
         window1=SetSizes()
     def WindowOperationSwitch(self):
         self.EntranceDataWindow.destroy()
-        window2=OperationSwitch(self.bif1, self.bif2)
+        window2=OperationSwitch(self.bif1, self.bif2, self.bif3)
     def WindowInductorParams(self):
         window3=InductorParams()
     def WindowMaterials(self):

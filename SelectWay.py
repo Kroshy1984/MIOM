@@ -24,8 +24,9 @@ class SelectWay():
     def FirstWay(self):
         a=''
         b=''
+        c=''
         self.SelectWayWindow.destroy()
-        WindowMashings=EntranceDataFirst(a,b)
+        WindowMashings=EntranceDataFirst(a,b, c)
     def SecondWay(self):
         self.SelectWayWindow.destroy()
         WindowMashings=EntranceDataSecond()
