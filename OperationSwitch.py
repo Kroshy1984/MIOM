@@ -1,30 +1,30 @@
 from tkinter import *
+import EntranceData
+from EntranceData import EntranceDataFirst
 class OperationSwitch():
     def GoToWork(self):
-        Ttext="ничего не выбрано"
+        self.filed2="ничего не выбрано"
         a=self.sel.get()
         if a==1:
-            Ttext="Свободная раздача трубчатой заготовки"
-            print(self.sel.get())
+            self.filed2="Свободная раздача трубчатой заготовки"
         elif a==2:
-            Ttext='Формовка переходников'
+            self.filed2='Формовка переходников'
         elif a==3:
-            Ttext='Формовка рифтов'
+            self.filed2='Формовка рифтов'
         elif a==4:
-            Ttext = 'Разделительные операции на трубах'
+            self.filed2 = 'Разделительные операции на трубах'
         elif a==5:
-            Ttext = "Пробивка отверстий в плоских заготовках"
+            self.filed2 = "Пробивка отверстий в плоских заготовках"
         elif a==6:
-            Ttext='Гибка бортов'
+            self.filed2='Гибка бортов'
         elif a==7:
-            Ttext='Формовка плоских заготовок'
+            self.filed2='Формовка плоских заготовок'
         elif a==8:
-            Ttext='Калибровка на отжим'
+            self.filed2='Калибровка на отжим'
         elif a==9:
-            Ttext ='Калибровка на раздачу'
-        print(Ttext)
-        print(a)
-
+            self.filed2 ='Калибровка на раздачу'
+        self.OperationSwitch.destroy()
+        f = EntranceData.EntranceDataFirst(self.field1,self.field2)
     def GUI (self):
         self.OperationSwitch = Tk()
         self.OperationSwitch.geometry('500x500')  # геометрия окна
@@ -46,5 +46,4 @@ class OperationSwitch():
     def __init__(self):
         self.GUI()
         print(self.sel.get())
-
     def CloseWindow(self): self.OperationSwitch.destroy()
