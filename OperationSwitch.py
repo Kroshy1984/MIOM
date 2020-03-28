@@ -1,6 +1,6 @@
 from tkinter import *
 import EntranceData
-from EntranceData import EntranceDataFirst
+from EntranceData import *
 class OperationSwitch():
     def GoToWork(self):
         self.filed2="ничего не выбрано"
@@ -43,7 +43,8 @@ class OperationSwitch():
         btn = Button(self.OperationSwitch, text="Внести данные", bg="green", fg="black", command=self.GoToWork)
         btn.place(x=300, y=350)
         self.OperationSwitch.mainloop()
-    def __init__(self):
+    def __init__(self,a,b):
+        self.field1=a
+        self.field2=b
         self.GUI()
-        print(self.sel.get())
     def CloseWindow(self): self.OperationSwitch.destroy()

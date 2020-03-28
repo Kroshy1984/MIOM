@@ -41,7 +41,7 @@ class EntranceDataFirst():
         self.EntranceDataWindow.mainloop()
     def WindowMashins(self):
         self.EntranceDataWindow.destroy()
-        window=Basad()
+        window=Basad(self.bif1,self.bif2)
     def SetSizes(self):
         window1=SetSizes()
     def WindowOperationSwitch(self):
