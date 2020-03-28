@@ -6,10 +6,11 @@ from InductorParams import InductorParams
 from Materials import Materials
 
 class EntranceDataFirst():
-    def __init__(self,a):
+    def __init__(self,a,b):
         self.bif1=a
-        self.GUI(self.bif1)
-    def GUI(self, bif1):
+        self.bif2=b
+        self.GUI(self.bif1, self.bif2)
+    def GUI(self, bif1, bif2):
         self.EntranceDataWindow = Tk()
         self.EntranceDataWindow.geometry('640x700')  # геометрия окна
         self.EntranceDataWindow.title("Параметры для расчета технологического процесса МИОМ")  # название окна
@@ -23,6 +24,7 @@ class EntranceDataFirst():
         self.message_entry.insert(0, bif1)
         self.message_entry.place(x=350, y=100)
         self.message_entry1 = Entry(self.frame, textvariable='')
+        self.message_entry1.insert(0, bif2)
         self.message_entry1.place(x=350, y=200)
         self.message_entry2 = Entry(self.frame, textvariable='')
         self.message_entry2.place(x=350, y=300)
