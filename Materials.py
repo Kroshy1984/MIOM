@@ -98,7 +98,10 @@ class Materials():
         self.view_records()
         self.Materials.mainloop()
     def __init__(self,a,b,c,d):
-
+        self.f1 = a
+        self.f2 = b
+        self.f3 = c
+        self.f4 = d
         self.GUI()
     def view_records(self):
         mt = sqlite3.connect("Metalls.db")
@@ -106,11 +109,10 @@ class Materials():
         cursor.execute(sql10)
         cursor.execute(sql10)
         for row in cursor.execute(sql10): print(row)
-        cpt = 0  # Counter representing the ID of your code.
+        cpt = 0
         for row in cursor.execute(sql10):
-            # I suppose the first column of your table is ID
             self.Tree.insert('', 'end', text=str(cpt), values=row)
-            cpt += 1  # increment the I
+            cpt += 1
     def AddMaterial(self):
         NewWindow=EditorMaterials()
     def EditMaterial(self):

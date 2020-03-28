@@ -34,7 +34,7 @@ class SetSizes():
         self.field2=self.message_entry1.get()
         self.field3=self.message_entry2.get()
         print(self.field1,self.field2, self.field3)
-        self.f3="Длина заготовки - "+self.field1+" Внешний диаметр заготовки - "+self.field2+" Внутренний диаметр заготовки- "+self.field3
+        self.f3="Длина заготовки - "+self.field1+"мм, Внешний диаметр заготовки - "+self.field2+"мм, Внутренний диаметр заготовки- "+self.field3+"мм"
         print(self.f3)
         self.SetSizesWindow.destroy()
         f = EntranceData.EntranceDataFirst(self.f1, self.f2, self.f3,self.f4)
