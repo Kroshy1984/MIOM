@@ -13,7 +13,7 @@ class EntranceDataFirst():
         self.GUI(self.bif1, self.bif2, self.bif3)
     def GUI(self, bif1, bif2, bif3):
         self.EntranceDataWindow = Tk()
-        self.EntranceDataWindow.geometry('640x700')  # геометрия окна
+        self.EntranceDataWindow.geometry('840x700')  # геометрия окна
         self.EntranceDataWindow.title("Параметры для расчета технологического процесса МИОМ")  # название окна
         self.frame = Frame(self.EntranceDataWindow, relief=RAISED, borderwidth=1)
         self.frame.pack(fill=BOTH, expand=True)
@@ -28,9 +28,9 @@ class EntranceDataFirst():
         self.message_entry1.insert(0, bif2)
         self.message_entry1.place(x=350, y=200)
         self.message_entry2 = Entry(self.frame, textvariable='')
-        self.message_entry1.insert(0, bif2)
         self.message_entry2.place(x=350, y=300)
         self.message_entry3 = Entry(self.frame, textvariable='')
+        self.message_entry3.insert(0, bif3)
         self.message_entry3.place(x=350, y=400)
         btn1.place(x=50, y=100)
         btn2.place(x=50, y=200)
@@ -45,7 +45,8 @@ class EntranceDataFirst():
         self.EntranceDataWindow.destroy()
         window=Basad(self.bif1,self.bif2, self.bif3)
     def SetSizes(self):
-        window1=SetSizes()
+        self.EntranceDataWindow.destroy()
+        window1=SetSizes(self.bif1,self.bif2, self.bif3)
     def WindowOperationSwitch(self):
         self.EntranceDataWindow.destroy()
         window2=OperationSwitch(self.bif1, self.bif2, self.bif3)

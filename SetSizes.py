@@ -1,4 +1,6 @@
 from tkinter import *
+import EntranceData
+from EntranceData import *
 class SetSizes():
     def GUI(self):
         self.SetSizesWindow = Tk()
@@ -20,7 +22,10 @@ class SetSizes():
         btn.place(x=10, y=150)
         btn = Button(self.SetSizesWindow, text="Внести данные", bg="green", fg="black", command=self.Insertdata)
         btn.place(x=280, y=150)
-    def __init__(self):
+    def __init__(self, a, b, c):
+        self.f1=a
+        self.f2=b
+        self.f3=c
         self.GUI()
         self.SetSizesWindow.mainloop()
     def Insertdata(self):
@@ -28,4 +33,8 @@ class SetSizes():
         self.field2=self.message_entry1.get()
         self.field3=self.message_entry2.get()
         print(self.field1,self.field2, self.field3)
+        self.f3="Длина заготовки - "+self.field1+"Внешний диаметр заготовки - "+self.field2+"Внутренний диаметр заготовки"+self.field3
+        print(self.f3)
+        self.SetSizesWindow.destroy()
+        f = EntranceData.EntranceDataFirst(self.f1, self.f2, self.f3)
     def CloseWindow(self): self.SetSizesWindow.destroy()
