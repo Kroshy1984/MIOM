@@ -9,15 +9,17 @@ from WindowMashins import *
 import WindowMashins
 class Terminator():
     def shot_it(self):
-        mt = sqlite3.connect("mashins.db")
+        mt = sqlite3.connect(self.BDname)
         cursor = mt.cursor()
-        cursor.execute(sql8, (self.shot,))
+        cursor.execute(self.SQL, (self.shot,))
         mt.commit() #запомнить изменения в базе данных
         cursor.execute(sql6)
         b = WindowMashins.Basad()
         WindowMashins.Basad.view_records(b)# обновление содержимого таблицы
-    def __init__(self,a):
+    def __init__(self,a,b,c):
+        self.BDname=b
         self.shot=a
+        self.SQL=c
         print('удаляем, где ', self.shot)
         self.SBasa = Tk()
         self.SBasa.geometry('600x200')

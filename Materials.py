@@ -71,6 +71,6 @@ class Materials():
         NewWindow=EditorMaterials()
     def DelMaterial(self):pass
     def GoToPrevious(self):
-        f4=''
+        self.f4=''
         self.Materials.destroy()
         f = EntranceData.EntranceDataFirst(self.f1, self.f2, self.f3, self.f4)
