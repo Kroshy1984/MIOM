@@ -69,7 +69,14 @@ class Materials():
         NewWindow=EditorMaterials()
     def EditMaterial(self):
         NewWindow=EditorMaterials()
-    def DelMaterial(self):pass
+    def DelMaterial(self):
+        sel = self.Tree.focus()
+        self.slct2 = self.Tree.item(sel, option='values')
+        self.field1 = self.slct2[0]
+        print(self.slct2)
+        print(self.slct2[0])
+        print(self.field1)
+        NewWindow2 = Terminator(self.field1,)
     def GoToPrevious(self):
         self.f4=''
         self.Materials.destroy()
