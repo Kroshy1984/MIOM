@@ -76,7 +76,7 @@ class Materials():
         print(self.slct2)
         print(self.slct2[0])
         print(self.field1)
-        NewWindow2 = Terminator(self.field1,)
+        NewWindow2 = Terminator(self.field1,"Metalls.db",materials_sql8)
     def GoToPrevious(self):
         self.f4=''
         self.Materials.destroy()
