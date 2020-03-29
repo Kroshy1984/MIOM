@@ -11,9 +11,8 @@ class Materials():
         self.Materials.title("Выбор материала ")
         self.Tree = ttk.Treeview(self.Materials, columns=(
             "Name_of_the_metalls", "Tensile_strength", "Yield_strength", "Material_density", "M_M", "B",
-            "Specific_electric_resistance", "The_coefficient_of_dynamic", 'Еhe_dynamic_modulus_hardening'), height=50,
+            "Specific_electric_resistance", "The_coefficient_of_dynamic", 'Еhe_dynamic_modulus_hardening'), height=30,
                                  show='headings')
-        self.Tree.grid(padx=8, pady=15)
         self.Tree.column("Name_of_the_metalls", width=60, anchor=tk.CENTER)
         self.Tree.column("Tensile_strength", width=170, anchor=tk.CENTER)
         self.Tree.column("Yield_strength", width=150, anchor=tk.CENTER)
@@ -33,7 +32,7 @@ class Materials():
         self.Tree.heading("Specific_electric_resistance", text="Удельное Сопротивление")
         self.Tree.heading("The_coefficient_of_dynamic", text="Динамический коэффициент")
         self.Tree.heading("Еhe_dynamic_modulus_hardening", text="Модуль коэффициента жесткости")
-        self.Tree.pack()
+        self.Tree.place(x=400, y=10)
         self.slct2 = ['Выбери из таблицы', 'Выбери из таблицы', 'Выбери из таблицы', 'Выбери из таблицы',
                       'Выбери из таблицы', 'Выбери из таблицы', 'Выбери из таблицы']
         self.field1 = self.slct2[0]
