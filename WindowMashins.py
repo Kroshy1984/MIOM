@@ -10,24 +10,20 @@ class Basad():
         self.BasaM2.geometry('1330x700')
         self.BasaM2.title("Выбор оборудования МИОМ")
         self.Tree = ttk.Treeview(self.BasaM2, columns=(
-        "Name", "Max_change_energi", "Condenser_capasity", "Equipment_induct", "SccF", "K1", "K2"), height=20,
+        "Name", "Max_change_energi", "Condenser_capasity", "Equipment_induct", "SccF"), height=20,
                                  show='headings')
         self.Tree.column("Name", width=250, anchor=tk.CENTER)
         self.Tree.column("Max_change_energi", width=190, anchor=tk.CENTER)
         self.Tree.column("Condenser_capasity", width=250, anchor=tk.CENTER)
         self.Tree.column("Equipment_induct", width=230, anchor=tk.CENTER)
         self.Tree.column("SccF", width=280, anchor=tk.CENTER)
-        self.Tree.column("K1", width=60, anchor=tk.CENTER)
-        self.Tree.column("K2", width=50, anchor=tk.CENTER)
         self.Tree['show'] = "headings"
         self.Tree.heading("Name", text="Наименование оборудования")
         self.Tree.heading("Max_change_energi", text="Максимальная энергия")
         self.Tree.heading("Condenser_capasity", text="Емкость батареи кондецаторов")
         self.Tree.heading("Equipment_induct", text=" Собственная индуктивность")
         self.Tree.heading("SccF", text="Частота тока короткого замыкания")
-        self.Tree.heading("K1", text="K1")
-        self.Tree.heading("K2", text="K2")
-        self.Tree.place(x=10, y=10)
+        self.Tree.place(x=50, y=10)
         self.btn = Button(self.BasaM2, text="Добавить оборудование", bg="grey", fg="black",
                           command=self.AddMashins)  # описание объекта типа button названия кнопки
         self.btn.place(x=300, y=500)  # расположение кнопки
@@ -49,18 +45,14 @@ class Basad():
         self.field3 = self.slct2[2]
         self.field4 = self.slct2[3]
         self.field5 = self.slct2[4]
-        self.field6 = self.slct2[5]
-        self.field7 = self.slct2[6]
-        NewWindow = Editor(self.field1, self.field2, self.field3, self.field4, self.field5, self.field6, self.field7)
+        NewWindow = Editor(self.field1, self.field2, self.field3, self.field4, self.field5)
     def AddMashins(self):
         self.field1 = ""
         self.field2 = ""
         self.field3 = ""
         self.field4 = ""
         self.field5 = ""
-        self.field6 = ""
-        self.field7 = ""
-        NewWindow = Editor(self.field1, self.field2, self.field3, self.field4, self.field5, self.field6, self.field7)
+        NewWindow = Editor(self.field1, self.field2, self.field3, self.field4, self.field5)
     def DellMashins(self):
         sel = self.Tree.focus()
         self.slct2 = self.Tree.item(sel, option='values')

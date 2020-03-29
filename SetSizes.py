@@ -39,5 +39,5 @@ class SetSizes():
         self.SetSizesWindow.destroy()
         f = EntranceData.EntranceDataFirst(self.f1, self.f2, self.f3,self.f4)
     def CloseWindow(self):
-        f = EntranceData.EntranceDataFirst(self.f1, self.f2, self.f3, self.f4)
         self.SetSizesWindow.destroy()
+        f = EntranceData.EntranceDataFirst(self.f1, self.f2, self.f3, self.f4)
