@@ -68,7 +68,7 @@ class Basad():
         print(self.slct2)
         print(self.slct2[0])
         print(self.field1)
-        NewWindow2 = Terminator(self.field1)
+        NewWindow2 = Terminator(self.field1, "mashins.db", sql8)
     def view_records(self):
         mt = sqlite3.connect("mashins.db")
         cursor = mt.cursor()
@@ -85,7 +85,7 @@ class Basad():
         self.field1 = self.slct2[0]
         self.BasaM2.destroy()
         f=EntranceData.EntranceDataFirst(self.field1, self.f2, self.f3,self.f4)
-    def __init__(self, a, b,c,d):
+    def __init__(self,a,b,c,d):
         self.field1=a
         self.f2=b
         self.f3=c
