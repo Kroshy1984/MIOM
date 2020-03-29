@@ -45,7 +45,7 @@ class Materials():
         self.btn3 = Button(self.Materials, text="Применить", bg="grey",
                            fg="black")  # описание объекта типа button названия кнопки
         self.btn3.place(x=900, y=650)  # расположение кнопки
-        self.btn1 = Button(self.Materials, text="Отменить", bg='pink', fg='red')
+        self.btn1 = Button(self.Materials, text="Отменить", bg='pink', fg='red',command=self.GoToPrevious)
         self.btn1.place(x=1150, y=650)
         self.view_records()
         self.Materials.mainloop()
@@ -70,3 +70,7 @@ class Materials():
     def EditMaterial(self):
         NewWindow=EditorMaterials()
     def DelMaterial(self):pass
+    def GoToPrevious(self):
+        f4=''
+        self.Materials.destroy()
+        f = EntranceData.EntranceDataFirst(self.f1, self.f2, self.f3, self.f4)
