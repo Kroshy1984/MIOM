@@ -34,5 +34,4 @@ class Terminator():
         btn1.place(x=30, y=150)
         btn2 = Button(self.SBasa, text="Я все понял. Удалить", bg='green', fg='black', command=self.shot_it)
         btn2.place(x=350, y=150)
-
         self.SBasa.mainloop()
