@@ -26,15 +26,11 @@ class Inductor(Calculation):
     def DCA(self):
         return self.DCA
 class Form(Calculation):
-    def __init__(self,DOT,ST,RC,RCF,PR,BCMD,RMK,BCM,KDM,MM,ESP,LBT,WYD,KPD,operation):
+    def __init__(self,DOT,ST,BCMD,BCM,KDM,MM,ESP,LBT,WYD,KPD,operation):
         self.operation=operation
         self.DOT=DOT
         self.ST=ST
-        self.RC=RC
-        self.RCF=RCF
-        self.PR=PR
         self.BCMD=BCMD
-        self.RMK=RMK
         self.BCM=BCM
         self.KDM=KDM
         self.MM=MM
@@ -54,11 +50,11 @@ class Form(Calculation):
         return self.DIB
     def RIB(self):
         return self.RIB
-    def ESR(self):
-        if self.operation=="a1":self.ESR=(self.RC/self.RIB)-1
-        elif self.operation=="a2":self.ESR=(self.RMK/(self.RIB-1))/2
-        elif self.operation=="a3":self.ESR=(self.RCF/(self.RIB-1))/pow(2,0.5)
-        elif self.operation=="a4":self.ESR=(3.14*self.PR)/(self.RIB*4)
+    def ESR(self,geometry):
+        if self.operation=="a1":self.ESR=(geometry/self.RIB)-1
+        elif self.operation=="a2":self.ESR=(geometry/(self.RIB-1))/2
+        elif self.operation=="a3":self.ESR=(geometry/(self.RIB-1))/pow(2,0.5)
+        elif self.operation=="a4":self.ESR=(3.14*geometry)/(self.RIB*4)
     def BCMD(self):
         return self.BCMD
     def WYD(self):
