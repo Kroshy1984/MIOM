@@ -2,8 +2,7 @@
 #Название операции operation
 #Диаметр наружной трубы DOT
 #Толщина стенки трубы ST
-class Calculation():pass
-class Inductor(Calculation):
+class Inductor():
     def __init__(self, LBT, operation, DOT, ST):
         self.LBT=LBT
         self.operation=operation
@@ -21,11 +20,12 @@ class Inductor(Calculation):
         elif self.operation=="a2":self.LCA=1.3*self.LBT#формовка конуса
         elif self.operation=="a3":self.LCA=self.LBT#формовка сферы
         elif self.operation=="a4":self.LCA=0.75*self.LBT#формовка рифта
+        return self.LCA
     def ZCP(self):#Величина зазора между индуктором и заготовкой
         return self.ZSP
     def DCA(self):
         return self.DCA
-class Form(Calculation):
+class Form():
     def __init__(self,DOT,ST,BCMD,BCM,KDM,MM,ESP,LBT,WYD,KPD,operation):
         self.operation=operation
         self.DOT=DOT
@@ -55,6 +55,7 @@ class Form(Calculation):
         elif self.operation=="a2":self.ESR=(geometry/(self.RIB-1))/2
         elif self.operation=="a3":self.ESR=(geometry/(self.RIB-1))/pow(2,0.5)
         elif self.operation=="a4":self.ESR=(3.14*geometry)/(self.RIB*4)
+        return self.ESR
     def BCMD(self):
         return self.BCMD
     def WYD(self):
