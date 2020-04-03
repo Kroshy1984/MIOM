@@ -14,15 +14,17 @@ class Inductor(Calculation):
         self.ZB=1.0 # Толщина основной изоляции индуктора
         self.ZA=0.25 #Толщина воздушного зазора
         self.LTC=0.7*pow(10,-7)#Индуктивность токов индуктора
+        self.ZCP = self.ZS + self.ZB + self.ZA
+        self.DCA = self.DOT - 2 * self.ST - 2 * self.ZCP
     def LCA(self):
         if self.operation=="a1":self.LCA=1.1*self.LBT #формовка цилиндра
         elif self.operation=="a2":self.LCA=1.3*self.LBT#формовка конуса
         elif self.operation=="a3":self.LCA=self.LBT#формовка сферы
         elif self.operation=="a4":self.LCA=0.75*self.LBT#формовка рифта
     def ZCP(self):#Величина зазора между индуктором и заготовкой
-        self.ZCP = self.ZS + self.ZB + self.ZA
+        return self.ZSP
     def DCA(self):
-        self.DCA=self.DOT-2*self.ST-2*self.ZCP
+        return self.DCA
 class Form(Calculation):
     def __init__(self,DOT,ST,RC,RCF,PR,BCMD,RMK,BCM,KDM,MM,ESP,LBT,WYD,KPD,operation):
         self.operation=operation
@@ -40,22 +42,32 @@ class Form(Calculation):
         self.LBT=LBT
         self.WYD=WYD
         self.KPD=KPD
+        self.DIB = self.DOT - 2 * self.ST
+        self.RIB = self.DIB / 2
+        self.BCMD = self.BCM * self.KDM
+        self.WYD = (self.BCMD / (1 + self.MM)) * pow(self.ESP, (1 + self.MM))
+        self.DVB = 3.14 * (self.DOT - self.ST) * self.ST * self.LBT
+        self.WDB = self.WYD * self.DVB
+        self.WMIR = self.WDB / self.KPD
+        self.WMIR = self.WDB / self.KPD
     def DIB(self):
-        self.DIB=self.DOT-2*self.ST
+        return self.DIB
     def RIB(self):
-        self.RIB=self.DIB/2
+        return self.RIB
     def ESR(self):
         if self.operation=="a1":self.ESR=(self.RC/self.RIB)-1
         elif self.operation=="a2":self.ESR=(self.RMK/(self.RIB-1))/2
         elif self.operation=="a3":self.ESR=(self.RCF/(self.RIB-1))/pow(2,0.5)
         elif self.operation=="a4":self.ESR=(3.14*self.PR)/(self.RIB*4)
     def BCMD(self):
-        self.BCMD=self.BCM*self.KDM
+        return self.BCMD
     def WYD(self):
-        self.WYD=(self.BCMD/(1+self.MM))*pow(self.ESP,(1+self.MM))
+        return self.WYD
     def DVB(self):
-        self.DVB=3.14*(self.DOT-self.ST)*self.ST*self.LBT
+        return self.DVB
     def WDB(self):
-        self.WDB=self.WYD*self.DVB
+        return self.WDB
     def WMIR(self):
-        self.WMIR=self.WDB/self.KPD
+        return self.WMIR
+    def WMUR(self):
+        return self.WMUR
