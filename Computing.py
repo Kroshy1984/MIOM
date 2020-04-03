@@ -24,13 +24,18 @@ class Inductor(Calculation):
     def DCA(self):
         self.DCA=self.DOT-2*self.ST-2*self.ZCP
 class Form(Calculation):
-    def __init__(self,DOT,ST,RC,RCF,PR,operation):
+    def __init__(self,DOT,ST,RC,RCF,PR,BCMD,RMK,BCM,KDM,MM,operation):
         self.operation=operation
         self.DOT=DOT
         self.ST=ST
         self.RC=RC
         self.RCF=RCF
         self.PR=PR
+        self.BCMD=BCMD
+        self.RMK=RMK
+        self.BCM=BCM
+        self.KDM=KDM
+        self.MM=MM
     def DIB(self):
         self.DIB=self.DOT-2*self.ST
     def RIB(self):
@@ -40,3 +45,9 @@ class Form(Calculation):
         elif self.operation=="a2":self.ESR=(self.RMK/(self.RIB-1))/2
         elif self.operation=="a3":self.ESR=(self.RCF/(self.RIB-1))/pow(2,0.5)
         elif self.operation=="a4":self.ESR=(3.14*self.PR)/(self.RIB*4)
+    def BCMD(self):
+        self.BCMD=self.BCM*self.KDM
+    def WYD(self):
+        self.WYD=(self.BCMD/(1+self.MM))*pow(self.ESP,(1+self.MM))
+    def DVB(self):
+        self.DVB=3.14*(self.DOT-self.ST)*self.ST*self.LBT
