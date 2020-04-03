@@ -15,11 +15,28 @@ class Inductor(Calculation):
         self.ZA=0.25 #Толщина воздушного зазора
         self.LTC=0.7*pow(10,-7)#Индуктивность токов индуктора
     def LCA(self):
-        if self.operation=="a1":self.LCA=1.1*self.LBT
-        elif self.operation=="a2":self.LCA=1.3*self.LBT
-        elif self.operation=="a3":self.LCA=self.LBT
-        elif self.operation=="a4":self.LCA=0.75*self.LBT
+        if self.operation=="a1":self.LCA=1.1*self.LBT #формовка цилиндра
+        elif self.operation=="a2":self.LCA=1.3*self.LBT#формовка конуса
+        elif self.operation=="a3":self.LCA=self.LBT#формовка сферы
+        elif self.operation=="a4":self.LCA=0.75*self.LBT#формовка рифта
     def ZCP(self):#Величина зазора между индуктором и заготовкой
         self.ZCP = self.ZS + self.ZB + self.ZA
     def DCA(self):
         self.DCA=self.DOT-2*self.ST-2*self.ZCP
+class Form(Calculation):
+    def __init__(self,DOT,ST,RC,RCF,PR,operation):
+        self.operation=operation
+        self.DOT=DOT
+        self.ST=ST
+        self.RC=RC
+        self.RCF=RCF
+        self.PR=PR
+    def DIB(self):
+        self.DIB=self.DOT-2*self.ST
+    def RIB(self):
+        self.RIB=self.DIB/2
+    def ESR(self):
+        if self.operation=="a1":self.ESR=(self.RC/self.RIB)-1
+        elif self.operation=="a2":self.ESR=(self.RMK/(self.RIB-1))/2
+        elif self.operation=="a3":self.ESR=(self.RCF/(self.RIB-1))/pow(2,0.5)
+        elif self.operation=="a4":self.ESR=(3.14*self.PR)/(self.RIB*4)
