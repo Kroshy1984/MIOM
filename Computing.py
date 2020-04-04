@@ -34,6 +34,7 @@ class Inductor():
         if self.FW > self.FWE:print("Значение Частоты разрядного тока превышает собственное значение индукционного тока")
         self.LDC=self.LCE + self.LCB + self.LTC#Паразитная индуктивность разрядного контура
         self.FDC = pow((1 / (self.LDC * self.CCE)),0.5) / 2 * 3.14#Частота разряда при наличии только паразитных индуктивностей
+        self.K1 = (pow(self.FDC, 2) - pow(self.FW, 2)) / (pow(self.FDC, 2)#Величина коэффициента согласования
     def LCA(self):
         if self.operation=="a1":self.LCA=1.1*self.LBT #формовка цилиндра
         elif self.operation=="a2":self.LCA=1.3*self.LBT#формовка конуса
@@ -50,9 +51,10 @@ class Inductor():
         return self.BC
     def LDC(self):#Паразитная индуктивность разрядного контура
         return self.LDC
-    def FDC(self):
+    def FDC(self):#Частота разряда при наличии только паразитных индуктивностей
         return self.FDC
-
+    def K1(self):#Частота разряда при наличии только паразитных индуктивностей
+        return self.K1
 #Диаметр наружной трубы DOT
 #Толщина стенки трубы ST
 #Коэффициент динамичности материала KDM
