@@ -9,7 +9,7 @@
 #собственное значение индукционного тока FWE
 import math
 class Inductor():
-    def __init__(self,LBT,operation,DOT,ST,FW,YEMP,YEMC,FCE,FWE,LCE, LCB,CCE):
+    def __init__(self,LBT,operation,DOT,ST,FW,YEMP,YEMC,FCE,FWE,LCE, LCB,CCE,SC):
         mu = 4 * 3.17 * pow(10, -7)# магнитная проницаемость в вакууме
         self.LBT=LBT
         self.operation=operation
@@ -26,6 +26,7 @@ class Inductor():
         self.CCE=CCE# емкость батареи конденсаторов МИУ
         self.LCE=LCE#индуктивность собственная
         self.LCB=LCB#индуктивность кабеля
+        self.SC=SC # шина изоляции
         self.ZCP = self.ZS + self.ZB + self.ZA
         self.DCA = self.DOT - 2 * self.ST - 2 * self.ZCP
         self.FW=FW#Частота разрядного тока
@@ -33,12 +34,17 @@ class Inductor():
         self.BP=pow((self.YEMP / (3.14 * mu * self.FW),0.5))#Глубина проникновения ИМП в материал заготовки
         if self.BP>self.ST:self.FW = self.YEMP / (3.14 * mu * pow(self.ST, 2))
         if self.FW > self.FWE:print("Значение Частоты разрядного тока превышает собственное значение индукционного тока")
+        self.LU = self.SC * self.NCT#Длина индуктора
         self.LDC=self.LCE + self.LCB + self.LTC#Паразитная индуктивность разрядного контура
         self.FDC = pow((1 / (self.LDC * self.CCE)),0.5) / 2 * 3.14#Частота разряда при наличии только паразитных индуктивностей
         self.K1 = (pow(self.FDC, 2) - pow(self.FW, 2)) /pow(self.FDC,2)#Величина коэффициента согласования
         self.ZEK = self.ZCP + 0.5*(self.BC + self.BP)#Значение эквивалентного зазора между индуктором и заготовкой
         self.NCWC = pow(self.K1 * self.LDC * self.LCA / (3.14 * mu * self.DCA * self.ZEK * (1-self.K1)),0.5)#Количество витков индуктора
-        self.NCW = math.round(self.NCWC)#Целое количество рабочих витков
+        self.NCT = round(self.NCWC)#Целое количество рабочих витков
+        self.SCIC = self.LCA / self.NCT#Расчетный шаг витков индуктора
+        self.SSC = self.SCIC - self.ZS#Ширина медной шины по оси индуктора
+        self.NCF = self.NCT - self.NCW#Количество свободных витков
+        self.LCC = (3.14 * mu * (self.DCA +self.ZCP) * self.NCT * self.ZCP *self.NCT) / (self.KEC * self.LU)
     def LCA(self):
         if self.operation=="a1":self.LCA=1.1*self.LBT #формовка цилиндра
         elif self.operation=="a2":self.LCA=1.3*self.LBT#формовка конуса
@@ -65,6 +71,12 @@ class Inductor():
         return self.NCTC
     def NCW(self):
         return self.NCW#Целое количество рабочих витков
+    def NCF(self):
+        return self.NCF#Количество свободных витков
+    def SCIC(self):#Расчетный шаг витков индуктора
+        return self.SCIC
+    def SSC(self):#Ширина медной шины по оси индуктора
+        return self.SSC
 #Диаметр наружной трубы DOT
 #Толщина стенки трубы ST
 #Коэффициент динамичности материала KDM
