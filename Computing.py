@@ -7,6 +7,7 @@
 #обозначение удельного электрического сопротивления заготовки YEMP
 #обозначение удельного электрического сопротивления материала индуктора YEMC
 #собственное значение индукционного тока FWE
+import math
 class Inductor():
     def __init__(self,LBT,operation,DOT,ST,FW,YEMP,YEMC,FCE,FWE,LCE, LCB,CCE):
         mu = 4 * 3.17 * pow(10, -7)# магнитная проницаемость в вакууме
@@ -36,7 +37,8 @@ class Inductor():
         self.FDC = pow((1 / (self.LDC * self.CCE)),0.5) / 2 * 3.14#Частота разряда при наличии только паразитных индуктивностей
         self.K1 = (pow(self.FDC, 2) - pow(self.FW, 2)) /pow(self.FDC,2)#Величина коэффициента согласования
         self.ZEK = self.ZCP + 0.5*(self.BC + self.BP)#Значение эквивалентного зазора между индуктором и заготовкой
-        self.NCTC = pow(self.K1 * self.LDC * self.LCA / (3.14 * mu * self.DCA * self.ZEK * (1-self.K1)),0.5)#Количество витков индуктора
+        self.NCWC = pow(self.K1 * self.LDC * self.LCA / (3.14 * mu * self.DCA * self.ZEK * (1-self.K1)),0.5)#Количество витков индуктора
+        self.NCW = math.round(self.NCWC)#Целое количество рабочих витков
     def LCA(self):
         if self.operation=="a1":self.LCA=1.1*self.LBT #формовка цилиндра
         elif self.operation=="a2":self.LCA=1.3*self.LBT#формовка конуса
@@ -59,8 +61,10 @@ class Inductor():
         return self.K1
     def ZEK(self):#Значение эквивалентного зазора между индуктором и заготовкой
         return self.ZEK
-    def NCTC(self):
+    def NCTC(self):#Количество витков индуктора
         return self.NCTC
+    def NCW(self):
+        return self.NCW#Целое количество рабочих витков
 #Диаметр наружной трубы DOT
 #Толщина стенки трубы ST
 #Коэффициент динамичности материала KDM
