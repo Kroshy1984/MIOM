@@ -6,8 +6,9 @@
 #Глубина проникновения ИМП в материал заготовки BP
 #обозначение удельного электрического сопротивления заготовки YEMP
 #обозначение удельного электрического сопротивления материала индуктора YEMC
+#собственное значение индукционного тока FWE
 class Inductor():
-    def __init__(self,LBT,operation,DOT,ST,FW,YEMP,YEMC):
+    def __init__(self,LBT,operation,DOT,ST,FW,YEMP,YEMC,FCE,FWE,LCE, LCB):
         mu = 4 * 3.17 * pow(10, -7)# магнитная проницаемость в вакууме
         self.LBT=LBT
         self.operation=operation
@@ -19,11 +20,18 @@ class Inductor():
         self.LTC=0.7*pow(10,-7)#Индуктивность токов индуктора
         self.YEMP=YEMP#обозначение удельного электрического сопротивления заготовки
         self.YEMC=YEMC
+        self.FCE=FCE
+        self.FWE=FWE
+        self.LCE=LCE#индуктивность собственная
+        self.LCB=LCB#индуктивность кабеля
         self.ZCP = self.ZS + self.ZB + self.ZA
         self.DCA = self.DOT - 2 * self.ST - 2 * self.ZCP
         self.FW=FW#Частота разрядного тока
         self.BC = pow((self.YEMC / (3.14 * mu *self.FW),0.5))#Глубина проникновения ИМП в материал индуктор
         self.BP=pow((self.YEMP / (3.14 * mu * self.FW),0.5))#Глубина проникновения ИМП в материал заготовки
+        if self.BP>self.ST:self.FW = self.YEMP / (3.14 * mu * pow(self.ST, 2))
+        if self.FW > self.FWE:print("Значение Частоты разрядного тока превышает собственное значение индукционного тока")
+        self.LCD=self.LCE + self.LCB + self.LTC#Паразитная индуктивность разрядного контура
     def LCA(self):
         if self.operation=="a1":self.LCA=1.1*self.LBT #формовка цилиндра
         elif self.operation=="a2":self.LCA=1.3*self.LBT#формовка конуса
@@ -31,13 +39,15 @@ class Inductor():
         elif self.operation=="a4":self.LCA=0.75*self.LBT#формовка рифта
         return self.LCA
     def ZCP(self):#Величина зазора между индуктором и заготовкой
-        return self.ZСP
+        return self.ZCP
     def DCA(self):
         return self.DCA
     def BP(self):#Глубина проникновения ИМП в материал заготовки
         return self.BP
     def BC(self):#Глубина проникновения ИМП в материал индуктор
         return self.BC
+    def LCD(self):#Паразитная индуктивность разрядного контура
+        return self.LCD
 
 
 #Диаметр наружной трубы DOT
