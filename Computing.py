@@ -25,12 +25,22 @@ class Inductor():
         return self.ZSP
     def DCA(self):
         return self.DCA
+#Диаметр наружной трубы DOT
+#Толщина стенки трубы ST
+#Коэффициент динамичности материала KDM
+#
+#
+#
+#
+#
+#
+#
+#
 class Form():
-    def __init__(self,DOT,ST,BCMD,BCM,KDM,MM,ESP,LBT,WYD,KPD,operation):
+    def __init__(self,DOT,ST,BCM,KDM,MM,ESP,LBT,WYD,KPD,operation):
         self.operation=operation
         self.DOT=DOT
         self.ST=ST
-        self.BCMD=BCMD
         self.BCM=BCM
         self.KDM=KDM
         self.MM=MM
