@@ -9,7 +9,7 @@
 #собственное значение индукционного тока FWE
 import math
 class Inductor():
-    def __init__(self,LBT,operation,DOT,ST,FW,YEMP,YEMC,FCE,FWE,LCE, LCB,CCE,SC):
+    def __init__(self,LBT,operation,DOT,ST,FW,YEMP,YEMC,FCE,FWE,LCE, LCB,CCE,SC, HSC):
         mu = 4 * 3.17 * pow(10, -7)# магнитная проницаемость в вакууме
         self.LBT=LBT
         self.operation=operation
@@ -27,6 +27,7 @@ class Inductor():
         self.LCE=LCE#индуктивность собственная
         self.LCB=LCB#индуктивность кабеля
         self.SC=SC # шина изоляции
+        self.HSC=HSC#высота шины
         self.ZCP = self.ZS + self.ZB + self.ZA
         self.DCA = self.DOT - 2 * self.ST - 2 * self.ZCP
         self.FW=FW#Частота разрядного тока
@@ -43,6 +44,8 @@ class Inductor():
         self.NCT = round(self.NCWC)#Целое количество рабочих витков
         self.SCIC = self.LCA / self.NCT#Расчетный шаг витков индуктора
         self.SSC = self.SCIC - self.ZS#Ширина медной шины по оси индуктора
+        self.ROC = self.DCA / 2# наружный радиус индуктора
+        self.RIC = self.ROC - self.HSC#Внутренний радиус индуктора
         self.NCF = self.NCT - self.NCW#Количество свободных витков
         self.LCC = (3.14 * mu * (self.DCA +self.ZCP) * self.NCT * self.ZCP *self.NCT) / (self.KEC * self.LU)
     def LCA(self):
@@ -77,6 +80,8 @@ class Inductor():
         return self.SCIC
     def SSC(self):#Ширина медной шины по оси индуктора
         return self.SSC
+    def ROC(self):# наружный радиус индуктора
+        return self.ROC
 #Диаметр наружной трубы DOT
 #Толщина стенки трубы ST
 #Коэффициент динамичности материала KDM
