@@ -29,15 +29,10 @@ class Inductor():
 #Толщина стенки трубы ST
 #Коэффициент динамичности материала KDM
 #коэффициенты степенной аппроксимации кривой упрочнения материала MM
-#
-#
-#
-#
-#
-#
-#
+#длина деформированной зоны LBT
+# коэффициент полезного действия  KPD
 class Form():
-    def __init__(self,DOT,ST,BCM,KDM,MM,LBT,WYD,KPD,operation):
+    def __init__(self,DOT,ST,BCM,KDM,MM,LBT,KPD,operation):
         self.operation=operation
         self.DOT=DOT
         self.ST=ST
@@ -45,7 +40,6 @@ class Form():
         self.KDM=KDM
         self.MM=MM
         self.LBT=LBT
-        self.WYD=WYD
         self.KPD=KPD
         self.DIB = self.DOT - 2 * self.ST
         self.RIB = self.DIB / 2
