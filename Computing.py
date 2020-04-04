@@ -28,7 +28,7 @@ class Inductor():
 #Диаметр наружной трубы DOT
 #Толщина стенки трубы ST
 #Коэффициент динамичности материала KDM
-#
+#коэффициенты степенной аппроксимации кривой упрочнения материала MM
 #
 #
 #
@@ -37,14 +37,13 @@ class Inductor():
 #
 #
 class Form():
-    def __init__(self,DOT,ST,BCM,KDM,MM,ESP,LBT,WYD,KPD,operation):
+    def __init__(self,DOT,ST,BCM,KDM,MM,LBT,WYD,KPD,operation):
         self.operation=operation
         self.DOT=DOT
         self.ST=ST
         self.BCM=BCM
         self.KDM=KDM
         self.MM=MM
-        self.ESP=ESP
         self.LBT=LBT
         self.WYD=WYD
         self.KPD=KPD
@@ -60,12 +59,12 @@ class Form():
         return self.DIB
     def RIB(self):
         return self.RIB
-    def ESR(self,geometry):
-        if self.operation=="a1":self.ESR=(geometry/self.RIB)-1
-        elif self.operation=="a2":self.ESR=(geometry/(self.RIB-1))/2
-        elif self.operation=="a3":self.ESR=(geometry/(self.RIB-1))/pow(2,0.5)
-        elif self.operation=="a4":self.ESR=(3.14*geometry)/(self.RIB*4)
-        return self.ESR
+    def ESP(self,geometry):
+        if self.operation=="a1":self.ESP=(geometry/self.RIB)-1
+        elif self.operation=="a2":self.ESP=(geometry/(self.RIB-1))/2
+        elif self.operation=="a3":self.ESP=(geometry/(self.RIB-1))/pow(2,0.5)
+        elif self.operation=="a4":self.ESP=(3.14*geometry)/(self.RIB*4)
+        return self.ESP
     def BCMD(self):
         return self.BCMD
     def WYD(self):
