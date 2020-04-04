@@ -8,7 +8,7 @@
 #обозначение удельного электрического сопротивления материала индуктора YEMC
 #собственное значение индукционного тока FWE
 class Inductor():
-    def __init__(self,LBT,operation,DOT,ST,FW,YEMP,YEMC,FCE,FWE,LCE, LCB):
+    def __init__(self,LBT,operation,DOT,ST,FW,YEMP,YEMC,FCE,FWE,LCE, LCB,CCE):
         mu = 4 * 3.17 * pow(10, -7)# магнитная проницаемость в вакууме
         self.LBT=LBT
         self.operation=operation
@@ -22,6 +22,7 @@ class Inductor():
         self.YEMC=YEMC
         self.FCE=FCE
         self.FWE=FWE
+        self.CCE=CCE# емкость батареи конденсаторов МИУ
         self.LCE=LCE#индуктивность собственная
         self.LCB=LCB#индуктивность кабеля
         self.ZCP = self.ZS + self.ZB + self.ZA
@@ -31,7 +32,8 @@ class Inductor():
         self.BP=pow((self.YEMP / (3.14 * mu * self.FW),0.5))#Глубина проникновения ИМП в материал заготовки
         if self.BP>self.ST:self.FW = self.YEMP / (3.14 * mu * pow(self.ST, 2))
         if self.FW > self.FWE:print("Значение Частоты разрядного тока превышает собственное значение индукционного тока")
-        self.LCD=self.LCE + self.LCB + self.LTC#Паразитная индуктивность разрядного контура
+        self.LDC=self.LCE + self.LCB + self.LTC#Паразитная индуктивность разрядного контура
+        self.FDC = pow((1 / (self.LDC * self.CCE)),0.5) / 2 * 3.14#Частота разряда при наличии только паразитных индуктивностей
     def LCA(self):
         if self.operation=="a1":self.LCA=1.1*self.LBT #формовка цилиндра
         elif self.operation=="a2":self.LCA=1.3*self.LBT#формовка конуса
@@ -46,9 +48,10 @@ class Inductor():
         return self.BP
     def BC(self):#Глубина проникновения ИМП в материал индуктор
         return self.BC
-    def LCD(self):#Паразитная индуктивность разрядного контура
-        return self.LCD
-
+    def LDC(self):#Паразитная индуктивность разрядного контура
+        return self.LDC
+    def FDC(self):
+        return self.FDC
 
 #Диаметр наружной трубы DOT
 #Толщина стенки трубы ST
