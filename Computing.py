@@ -41,17 +41,17 @@ class Form():
         self.MM=MM
         self.LBT=LBT
         self.KPD=KPD
-        self.DIB = self.DOT - 2 * self.ST
-        self.RIB = self.DIB / 2
-        self.BCMD = self.BCM * self.KDM
-        self.WYD = (self.BCMD / (1 + self.MM)) * pow(self.ESP, (1 + self.MM))
-        self.DVB = 3.14 * (self.DOT - self.ST) * self.ST * self.LBT
-        self.WDB = self.WYD * self.DVB
-        self.WMIR = self.WDB / self.KPD
-        self.WMIR = self.WDB / self.KPD
-    def DIB(self):
+        self.DIB = self.DOT - 2 * self.ST #Внутренний диаметр трубчатой заготовки
+        self.RIB = self.DIB / 2 #Внутренний радиус трубчатой заготовки
+        self.BCMD = self.BCM * self.KDM #Динамическое значение коэффициента аппроксимации кривой упрочнения
+        self.WYD = (self.BCMD / (1 + self.MM)) * pow(self.ESP, (1 + self.MM)) #Удельная работа деформации WYD
+        self.DVB = 3.14 * (self.DOT - self.ST) * self.ST * self.LBT #Деформируемый объем заготовки DVB
+        self.WDB = self.WYD * self.DVB #Работа деформации заготовки WDB
+        self.WMIR = self.WDB / self.KPD #Необходимая энергия для выполнения операции WMIR
+        self.WMUR = self.WDB / 1.2 #Энергоемкость установки WMUR
+    def DIB(self):#Внутренний диаметр трубчатой заготовки
         return self.DIB
-    def RIB(self):
+    def RIB(self):#Внутренний радиус трубчатой заготовки
         return self.RIB
     def ESP(self,geometry):
         if self.operation=="a1":self.ESP=(geometry/self.RIB)-1
@@ -59,15 +59,15 @@ class Form():
         elif self.operation=="a3":self.ESP=(geometry/(self.RIB-1))/pow(2,0.5)
         elif self.operation=="a4":self.ESP=(3.14*geometry)/(self.RIB*4)
         return self.ESP
-    def BCMD(self):
+    def BCMD(self):#Динамическое значение коэффициента аппроксимации кривой упрочнения
         return self.BCMD
-    def WYD(self):
+    def WYD(self):#Удельная работа деформации WYD
         return self.WYD
-    def DVB(self):
+    def DVB(self):#Деформируемый объем заготовки DVB
         return self.DVB
-    def WDB(self):
+    def WDB(self):#Работа деформации заготовки WDB
         return self.WDB
-    def WMIR(self):
+    def WMIR(self):#Необходимая энергия для выполнения операции WMIR
         return self.WMIR
     def WMUR(self):
         return self.WMUR
