@@ -40,12 +40,15 @@ class Inductor():
         self.FDC = pow((1 / (self.LDC * self.CCE)),0.5) / 2 * 3.14#Частота разряда при наличии только паразитных индуктивностей
         self.K1 = (pow(self.FDC, 2) - pow(self.FW, 2)) /pow(self.FDC,2)#Величина коэффициента согласования
         self.ZEK = self.ZCP + 0.5*(self.BC + self.BP)#Значение эквивалентного зазора между индуктором и заготовкой
-        self.NCWC = pow(self.K1 * self.LDC * self.LCA / (3.14 * mu * self.DCA * self.ZEK * (1-self.K1)),0.5)#Количество витков индуктора
-        self.NCT = round(self.NCWC)#Целое количество рабочих витков
+        self.NCTC = pow(self.K1 * self.LDC * self.LCA / (3.14 * mu * self.DCA * self.ZEK * (1-self.K1)),0.5)#Количество витков индуктора
+        self.NCT = round(self.NCTC)#Целое количество рабочих витков
         self.SCIC = self.LCA / self.NCT#Расчетный шаг витков индуктора
         self.SSC = self.SCIC - self.ZS#Ширина медной шины по оси индуктора
         self.ROC = self.DCA / 2# наружный радиус индуктора
         self.RIC = self.ROC - self.HSC#Внутренний радиус индуктора
+        self.KEC =pow(((2*self.ROC / self.RIC) * (self.ZEK / self.RIC)- 1), 2)
+        self.NCWC = self.LBT / self.SCIC#Расчетное количество рабочих витков
+        self.NCW = round(self.NCWC)#Целое количество рабочих витков
         self.NCF = self.NCT - self.NCW#Количество свободных витков
         self.LCC = (3.14 * mu * (self.DCA +self.ZCP) * self.NCT * self.ZCP *self.NCT) / (self.KEC * self.LU)
     def LCA(self):
