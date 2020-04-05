@@ -101,7 +101,7 @@ class Inductor():
             ZPR=self.ZEK*self.NCW+I
             LCC = 3.14 * mu * self.NCT * (self.DCA + self.ZCP) * self.NCT * ZPR / (self.LU * self.KEC)
             self.LUC2=LCC
-            self.REZ = (self.LUC2 - self.LUC1) / self.LUC1
+            self.REZ = (self.LUC2 - LUC1) / LUC1
         return self.LUC2
 #Диаметр наружной трубы DOT
 #Толщина стенки трубы ST
