@@ -51,6 +51,7 @@ class Inductor():
         self.NCW = round(self.NCWC)#Целое количество рабочих витков
         self.NCF = self.NCT - self.NCW#Количество свободных витков
         self.LCC = (3.14 * mu * (self.DCA +self.ZCP) * self.NCT * self.ZCP *self.NCT) / (self.KEC * self.LU)
+        self.LUC2 = self.LCC
     def LCA(self):
         if self.operation=="a1":self.LCA=1.1*self.LBT #формовка цилиндра
         elif self.operation=="a2":self.LCA=1.3*self.LBT#формовка конуса
@@ -85,6 +86,23 @@ class Inductor():
         return self.SSC
     def ROC(self):# наружный радиус индуктора
         return self.ROC
+    def LUC(self):#суммарная индективность
+        mu = 4 * 3.17 * pow(10, -7)  # магнитная проницаемость в вакууме
+        while abs(self.REZ)>0.01:
+            LCP = self.LUC2 +self.LDC
+            LUC1 = self.LUC2
+            FR = (1 / (2 * 3.14)) * math.sqrt(1 / (LCP * self.CCE))
+            BC=self.BC()
+            BP=self.BP()
+            ZEK = self.ZCP + 0.5 * (BC + BP)
+            I=0
+            for i in range(self.NCF):
+                I=i+(math.sqrt(pow(self.SC*(self.NCF-1)+self.ZS),2)+pow(self.ZEK,2))/self.NCT
+            ZPR=self.ZEK*self.NCW+I
+            LCC = 3.14 * mu * self.NCT * (self.DCA + self.ZCP) * self.NCT * ZPR / (self.LU * self.KEC)
+            self.LUC2=LCC
+            self.REZ = (self.LUC2 - self.LUC1) / self.LUC1
+        return self.LUC2
 #Диаметр наружной трубы DOT
 #Толщина стенки трубы ST
 #Коэффициент динамичности материала KDM
