@@ -106,6 +106,12 @@ class Inductor():
         self.SUMP = 3.14 * (self.DCA + self.ZCP) * self.LU
         # Необходимая энергия разряда МИУ
         self.WR = self.PM * self.SUMP * (self.ZPR + 0.5 * self.SPYR) * self.KEC * self.KEC / (self.K1 * self.K2 * self.K3 * self.K4)
+        # Параметры разрядного тока.Значение тока I0 = IOO
+        self.IOO = math.sqrt(2 * self.WR / (self.LCC + self.LDC))
+        # Частота разрядного  тока
+        self.FP=F
+        # Декремент затухания
+        self.DZT = RSDQ / (2 * LSDQ)
     def LCA(self):
         if self.operation=="a1":self.LCA=1.1*self.LBT #формовка цилиндра
         elif self.operation=="a2":self.LCA=1.3*self.LBT#формовка конуса
@@ -157,9 +163,15 @@ class Inductor():
             self.LUC2=LCC
             self.REZ = (self.LUC2 - LUC1) / LUC1
         return self.LUC2
-    def PWS(self):
+    def PWS(self):#Проверка
         self.PWS = self.WR / (self.SSC * self.HSC)
         if self.PWS>pow(10,9): print("возможно вам нужно провести расчет с большим диаметром шины")
+    def DDP(self,geometry):
+        f=Form()
+        if self.operation=="a1": self.DDP = self.RC - f.RIB - self.SPYR
+        elif self.operation=="a2":self.DDP = geometry - f.RIB - self.SPYR
+        elif self.operation == "a3":self.DDP = geometry - f.RIB - self.SPYR
+        elif self.operation == "a4":self.DDP = geometry - self.SPYR
 #Диаметр наружной трубы DOT
 #Толщина стенки трубы ST
 #Коэффициент динамичности материала KDM
