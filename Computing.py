@@ -54,7 +54,15 @@ class Inductor():
         self.LCC = (3.14 * mu * (self.DCA +self.ZCP) * self.NCT * self.ZCP *self.NCT) / (self.KEC * self.LU)
         self.LUC2 = self.LCC
         f=Form()
-        self.VCR = math.sqrt(2 *f.WYD / self.PLM)
+        self.VCR = math.sqrt(2 *f.WYD / self.PLM)#Расчет режима обработки. Средняя скорость по деформируемому участку заготовки.
+        self.LUC()
+        self.PM = 4.4 * self.VCR * self.FR * self.PLM * self.ST#Амплитудное значение давления ИМП
+        self.SPYR = 0.141 * self.VCR / self.FR#Величина перемещений заготовки на участке разгона
+        #================Расчет коэффициентов===================================================
+        BRC = self.BC
+        BRP = self.BP
+        BLC = self.BC / 2
+        BLP = self.BP / 2
     def LCA(self):
         if self.operation=="a1":self.LCA=1.1*self.LBT #формовка цилиндра
         elif self.operation=="a2":self.LCA=1.3*self.LBT#формовка конуса
@@ -94,7 +102,7 @@ class Inductor():
         while abs(self.REZ)>0.01:
             LCP = self.LUC2 +self.LDC
             LUC1 = self.LUC2
-            FR = (1 / (2 * 3.14)) * math.sqrt(1 / (LCP * self.CCE))
+            self.FR = (1 / (2 * 3.14)) * math.sqrt(1 / (LCP * self.CCE))
             BC=self.BC()
             BP=self.BP()
             ZEK = self.ZCP + 0.5 * (BC + BP)
