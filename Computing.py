@@ -157,6 +157,9 @@ class Inductor():
             self.LUC2=LCC
             self.REZ = (self.LUC2 - LUC1) / LUC1
         return self.LUC2
+    def PWS(self):
+        self.PWS = self.WR / (self.SSC * self.HSC)
+        if self.PWS>pow(10,9): print("возможно вам нужно провести расчет с большим диаметром шины")
 #Диаметр наружной трубы DOT
 #Толщина стенки трубы ST
 #Коэффициент динамичности материала KDM
