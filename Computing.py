@@ -52,6 +52,7 @@ class Inductor():
         self.NCF = self.NCT - self.NCW#Количество свободных витков
         self.LCC = (3.14 * mu * (self.DCA +self.ZCP) * self.NCT * self.ZCP *self.NCT) / (self.KEC * self.LU)
         self.LUC2 = self.LCC
+        self.VCR = math.sqrt(2 * self.WYD / self.PLM)
     def LCA(self):
         if self.operation=="a1":self.LCA=1.1*self.LBT #формовка цилиндра
         elif self.operation=="a2":self.LCA=1.3*self.LBT#формовка конуса
