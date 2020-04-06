@@ -63,6 +63,11 @@ class Inductor():
         BRP = self.BP
         BLC = self.BC / 2
         BLP = self.BP / 2
+        #===============Диаметры==================================================================
+        DRC = self.DCA - 2 * BRC
+        DRP = self.DIB + 2 * BRP
+        DLC = self.DCA - BLC
+        DLP = self.DIB + BLP
     def LCA(self):
         if self.operation=="a1":self.LCA=1.1*self.LBT #формовка цилиндра
         elif self.operation=="a2":self.LCA=1.3*self.LBT#формовка конуса
