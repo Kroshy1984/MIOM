@@ -63,7 +63,7 @@ class Inductor():
         BRP = self.BP
         BLC = self.BC / 2
         BLP = self.BP / 2
-        #===============Диаметры==================================================================
+        #===============Диаметры===============================================
         DRC = self.DCA - 2 * BRC
         DRP = f.DIB + 2 * BRP
         DLC = self.DCA - BLC
@@ -71,6 +71,31 @@ class Inductor():
         #==================Коэффициенты==========================================
         ALFA = self.LU / f.DIB
         F = 22.7 / (1 + 2.35 * ALFA)
+        #===================Индуктивность и сопротивление заготовки================
+        LP = F * DLP * pow(10, -7)
+        RP = 3.14 * DRP * self.YEMP / (BRP * LBT)
+        #=========================================================================
+        self.QP = 2 * 3.14 * self.FR * LP / RP#Добротность заготовки
+        self.KZ = self.SSC * self.NCT / self.LU#Коэффициент заполнения индуктора
+        self.RC = 3.14 * DRC * self.YEMC / (BRC * self.LU * self.KZ)#Сопротивление индуктора
+        #=индуктивность однородная
+        LOC = 3.14 * mu *  self.DCA * self.LCA / (4 * self.LU)
+        L1S = F * (self.DCA + self.ZCP) * pow(10, -7)
+        LOCS = LOC / (pow(self.NCT, 2))
+        LZSD = L1S / (1 + (L1S / LOCS) - (L1S / LOC))
+        #=====Взаимная индуктивность индуктора и заготовки================================================
+        M = math.sqrt(LP * (L1S - LZSD))
+        QQ = math.pow(self.QP, 2)
+        LSDQ = (LZSD * QQ + L1S) / (QQ + 1)
+        MDL = math.pow((M / LP), 2)
+        RSDQ = self.RC + MDL * QQ * RP / (QQ + 1)
+        #==========Суммарная добротность контура========================================================================
+        QS = 2 * 3.14 * self.FR * LSDQ / RSDQ
+        LOZ = 3.14 * mu * self.DCA / self.LU
+        DL05 = L1S / LOZ
+        DEZ = self.ZCP / DL05
+        #=====K1=====
+        self.K1 = 1 - (self.FR / self.FDC) * (self.FR / self.FDC)
     def LCA(self):
         if self.operation=="a1":self.LCA=1.1*self.LBT #формовка цилиндра
         elif self.operation=="a2":self.LCA=1.3*self.LBT#формовка конуса
