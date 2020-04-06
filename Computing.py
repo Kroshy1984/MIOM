@@ -96,6 +96,16 @@ class Inductor():
         DEZ = self.ZCP / DL05
         #=====K1=====
         self.K1 = 1 - (self.FR / self.FDC) * (self.FR / self.FDC)
+        #====K2======
+        self.K2=math.exp(-math.atan(2*QS)/QS)
+        # ===Коэффициент К3
+        self.K3 = 1 / (1 + DEZ)
+        self.LK = L1S / LZSD
+        self.K4 = QQ / (QQ + self.LK)
+        # Площадь создаваемого давления ИМП
+        self.SUMP = 3.14 * (self.DCA + self.ZCP) * self.LU
+        # Необходимая энергия разряда МИУ
+        self.WR = self.PM * self.SUMP * (self.ZPR + 0.5 * self.SPYR) * self.KEC * self.KEC / (self.K1 * self.K2 * self.K3 * self.K4)
     def LCA(self):
         if self.operation=="a1":self.LCA=1.1*self.LBT #формовка цилиндра
         elif self.operation=="a2":self.LCA=1.3*self.LBT#формовка конуса
@@ -142,8 +152,8 @@ class Inductor():
             I=0
             for i in range(self.NCF):
                 I=i+(math.sqrt(pow(self.SC*(self.NCF-1)+self.ZS),2)+pow(self.ZEK,2))/self.NCT
-            ZPR=self.ZEK*self.NCW+I
-            LCC = 3.14 * mu * self.NCT * (self.DCA + self.ZCP) * self.NCT * ZPR / (self.LU * self.KEC)
+            self.ZPR=self.ZEK*self.NCW+I
+            LCC = 3.14 * mu * self.NCT * (self.DCA + self.ZCP) * self.NCT * self.ZPR / (self.LU * self.KEC)
             self.LUC2=LCC
             self.REZ = (self.LUC2 - LUC1) / LUC1
         return self.LUC2
