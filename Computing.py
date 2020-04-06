@@ -64,8 +64,8 @@ class Inductor():
         BLC = self.BC / 2
         BLP = self.BP / 2
         #===============Диаметры===============================================
-        DRC = self.DCA - 2 * BRC
-        DRP = f.DIB + 2 * BRP
+        DRC = self.DCA - BRC
+        DRP = f.DIB + BRP
         DLC = self.DCA - BLC
         DLP = f.DIB + BLP
         #==================Коэффициенты==========================================
@@ -179,19 +179,20 @@ class Inductor():
 #длина деформированной зоны LBT
 # коэффициент полезного действия  KPD
 class Form():
-    def __init__(self,DOT,ST,BCM,KDM,MM,LBT,KPD,operation):
+    def __init__(self,DOT,ST,BCM,KDM,MM,LBT,KPD,geometry,operation):
         self.operation=operation
         self.DOT=DOT
         self.ST=ST
-        self.BCM=BCM
+        self.BCM=BCM #коэффициенты степенной аппроксимации кривой упрочнения материала
         self.KDM=KDM
-        self.MM=MM
+        self.MM=float(MM)
         self.LBT=LBT
         self.KPD=KPD
-        self.DIB = self.DOT - 2 * self.ST #Внутренний диаметр трубчатой заготовки
+        self.DIB = self.DOT-2*self.ST #Внутренний диаметр трубчатой заготовки
         self.RIB = self.DIB / 2 #Внутренний радиус трубчатой заготовки
         self.BCMD = self.BCM * self.KDM #Динамическое значение коэффициента аппроксимации кривой упрочнения
-        self.WYD = (self.BCMD / (1 + self.MM)) * pow(self.ESP, (1 + self.MM)) #Удельная работа деформации WYD
+        ESP=self.ESP(geometry)
+        self.WYD = (self.BCMD / (1 + self.MM)) * self.ESP**(1 + self.MM) #Удельная работа деформации WYD
         self.DVB = 3.14 * (self.DOT - self.ST) * self.ST * self.LBT #Деформируемый объем заготовки DVB
         self.WDB = self.WYD * self.DVB #Работа деформации заготовки WDB
         self.WMIR = self.WDB / self.KPD #Необходимая энергия для выполнения операции WMIR
@@ -200,7 +201,7 @@ class Form():
         return self.DIB
     def RIB(self):#Внутренний радиус трубчатой заготовки
         return self.RIB
-    def ESP(self,geometry):
+    def ESP(self,geometry):#cредняя величина деформации ESR заготовки
         if self.operation=="a1":self.ESP=(geometry/self.RIB)-1
         elif self.operation=="a2":self.ESP=(geometry/(self.RIB-1))/2
         elif self.operation=="a3":self.ESP=(geometry/(self.RIB-1))/pow(2,0.5)
@@ -216,5 +217,5 @@ class Form():
         return self.WDB
     def WMIR(self):#Необходимая энергия для выполнения операции WMIR
         return self.WMIR
-    def WMUR(self):
+    def WMUR(self):#Энергоемкость установки
         return self.WMUR
