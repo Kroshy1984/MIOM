@@ -185,7 +185,7 @@ class Form():
         self.ST=ST
         self.BCM=BCM #коэффициенты степенной аппроксимации кривой упрочнения материала
         self.KDM=KDM
-        self.MM=float(MM)
+        self.MM=MM
         self.LBT=LBT
         self.KPD=KPD
         self.DIB = self.DOT-2*self.ST #Внутренний диаметр трубчатой заготовки
