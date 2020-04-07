@@ -196,7 +196,7 @@ class Form():
         self.DVB = 3.14 * (self.DOT - self.ST) * self.ST * self.LBT #Деформируемый объем заготовки DVB
         self.WDB = self.WYD * self.DVB #Работа деформации заготовки WDB
         self.WMIR = self.WDB / self.KPD #Необходимая энергия для выполнения операции WMIR
-        self.WMUR = self.WDB / 1.2 #Энергоемкость установки WMUR
+        self.WMUR = self.WMIR * 1.2 #Энергоемкость установки WMUR
     def DIB(self):#Внутренний диаметр трубчатой заготовки
         return self.DIB
     def RIB(self):#Внутренний радиус трубчатой заготовки
