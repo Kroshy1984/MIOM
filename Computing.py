@@ -206,6 +206,9 @@ class Form():
         elif self.operation=="a2":self.ESP=(geometry/(self.RIB-1))/2
         elif self.operation=="a3":self.ESP=(geometry/(self.RIB-1))/pow(2,0.5)
         elif self.operation=="a4":self.ESP=(3.14*geometry)/(self.RIB*4)
+        elif self.operation=="b1":self.ESP=1-(geometry/self.RIB)
+        elif self.operation=="b2":self.ESP=(((geometry/self.RIB-1)/2)-1)/2
+        elif self.operation == "b3":self.ESP=((self.RIB/geometry)-1)/math.sqrt(2)
         return self.ESP
     def BCMD(self):#Динамическое значение коэффициента аппроксимации кривой упрочнения
         return self.BCMD

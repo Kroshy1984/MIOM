@@ -1,5 +1,5 @@
 from Computing import *
-operation="a1"
+operation="b1"
 DOT=151.4#int(input("введите диаметр наружной трубы"))
 ST=1.2#int(input("введите толщину стенки трубы"))
 LBT=30#int(input("введите длину деформируемой зоны"))
