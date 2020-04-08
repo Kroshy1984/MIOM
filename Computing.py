@@ -9,7 +9,7 @@
 #собственное значение индукционного тока FWE
 import math
 class Inductor():
-    def __init__(self,LBT,operation,DOT,ST,FW,YEMP,YEMC,FCE,FWE,LCE, LCB,CCE,SC, HSC,PLM):
+    def __init__(self,LBT,operation,DOT,ST,FW,YEMP,FCE,LCE, LCB,CCE,SC, HSC,PLM):
         mu = 4 * 3.17 * pow(10, -7)# магнитная проницаемость в вакууме
         self.LBT=LBT
         self.operation=operation
@@ -20,9 +20,8 @@ class Inductor():
         self.ZA=0.25 #Толщина воздушного зазора
         self.LTC=0.7*pow(10,-7)#Индуктивность токов индуктора
         self.YEMP=YEMP#обозначение удельного электрического сопротивления заготовки
-        self.YEMC=YEMC
+        self.YEMC=YEMP
         self.FCE=FCE
-        self.FWE=FWE
         self.CCE=CCE# емкость батареи конденсаторов МИУ
         self.LCE=LCE#индуктивность собственная
         self.LCB=LCB#индуктивность кабеля
@@ -35,7 +34,7 @@ class Inductor():
         self.BC = pow((self.YEMC / (3.14 * mu *self.FW),0.5))#Глубина проникновения ИМП в материал индуктор
         self.BP=pow((self.YEMP / (3.14 * mu * self.FW),0.5))#Глубина проникновения ИМП в материал заготовки
         if self.BP>self.ST:self.FW = self.YEMP / (3.14 * mu * pow(self.ST, 2))
-        if self.FW > self.FWE:print("Значение Частоты разрядного тока превышает собственное значение индукционного тока")
+        if self.FW > self.FCE:print("Значение Частоты разрядного тока превышает собственное значение индукционного тока")
         self.LU = self.SC * self.NCT#Длина индуктора
         self.LDC=self.LCE + self.LCB + self.LTC#Паразитная индуктивность разрядного контура
         self.FDC = pow((1 / (self.LDC * self.CCE)),0.5) / 2 * 3.14#Частота разряда при наличии только паразитных индуктивностей

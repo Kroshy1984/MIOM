@@ -27,4 +27,13 @@ WMIR=Form.WMIR(f)
 print("Необходимая энергия для выполнения операции:"+str(WMIR)+",кДж")
 WMUR=Form.WMUR(f)
 print("Энергоемкость установки:"+str(WMUR)+",кДж")
-g=Inductor(LBT,operation,DOT,ST,FW,YEMP,YEMC,FCE,FWE,LCE, LCB,CCE,SC,HSC,PLM)
+FW=13.4 #частота тока
+YEMP=7.1*pow(10,-7)#дельного электрического сопротивления материала индуктора
+FCE=30#частота колебаний разрядного тока МИУ в режиме короткого замыкания
+LCE=110#индуктивность
+LCB=30#индуктивность кабеля
+CCE=253.3#емкость батареи конденсаторов МИУ
+SC=4#Длина индуктора??????
+HSC=8#высота индуктора
+PLM=2.64
+g=Inductor(LBT,operation,DOT,ST,FW,YEMP,FCE,LCE,LCB,CCE,SC,HSC,PLM)
