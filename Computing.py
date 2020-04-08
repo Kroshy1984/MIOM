@@ -192,7 +192,7 @@ class Form():
         self.RIB = self.DIB / 2 #Внутренний радиус трубчатой заготовки
         self.BCMD = self.BCM * self.KDM #Динамическое значение коэффициента аппроксимации кривой упрочнения
         ESP=self.ESP(geometry)
-        self.WYD = (self.BCMD / (1 + self.MM)) * self.ESP**(1 + self.MM) #Удельная работа деформации WYD
+        self.WYD = (self.BCMD/(1 + self.MM)) * self.ESP**(1 + self.MM) #Удельная работа деформации WYD
         self.DVB = 3.14 * (self.DOT - self.ST) * self.ST * self.LBT #Деформируемый объем заготовки DVB
         self.WDB = self.WYD * self.DVB #Работа деформации заготовки WDB
         self.WMIR = self.WDB / self.KPD #Необходимая энергия для выполнения операции WMIR
