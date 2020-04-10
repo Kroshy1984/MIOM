@@ -15,6 +15,11 @@ class Inductor():
         self.operation=operation
         self.DOT=DOT
         self.ST=ST
+        self.BCM=BCM
+        self.KDM=KDM
+        self.MM=MM
+        self.LBT=MM
+        self.KPD=KPD
         self.ZS=0.65 # Толщина изоляции медной шины
         self.ZB=1.0 # Толщина основной изоляции индуктора
         self.ZA=0.25 #Толщина воздушного зазора
@@ -53,7 +58,7 @@ class Inductor():
         self.NCF = self.NCT - self.NCW#Количество свободных витков
         self.LCC = (3.14 * mu * (self.DCA +self.ZCP) * self.NCT * self.ZCP *self.NCT) / (self.KEC * self.LU)
         self.LUC2 = self.LCC
-        f=Form(DOT,ST,BCM,KDM,MM,LBT,KPD,geometry,operation)
+        f=Form(self.DOT,self.ST,self.BCM,self.KDM,self.MM,self.LBT,self.KPD,geometry,self.operation)
         self.VCR = math.sqrt(2 *f.WYD / self.PLM)#Расчет режима обработки. Средняя скорость по деформируемому участку заготовки.
         self.LUC()
         self.PM = 4.4 * self.VCR * self.FR * self.PLM * self.ST#Амплитудное значение давления ИМП
@@ -170,11 +175,13 @@ class Inductor():
         self.PWS = self.WR / (self.SSC * self.HSC)
         if self.PWS>pow(10,9): print("возможно вам нужно провести расчет с большим диаметром шины")
     def DDP(self,geometry):
-        f=Form()
+        f=Form(self.DOT,self.ST,self.BCM,self.KDM,self.MM,self.LBT,self.KPD,geometry,self.operation)
         if self.operation=="a1": self.DDP = self.RC - f.RIB - self.SPYR
         elif self.operation=="a2":self.DDP = geometry - f.RIB - self.SPYR
         elif self.operation == "a3":self.DDP = geometry - f.RIB - self.SPYR
         elif self.operation == "a4":self.DDP = geometry - self.SPYR
+        elif self.operation == "b1":self.DDP = self.RC - f.RIB - self.SPYR
+        return self.DDP
 #Диаметр наружной трубы DOT
 #Толщина стенки трубы ST
 #Коэффициент динамичности материала KDM
