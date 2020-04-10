@@ -36,4 +36,4 @@ CCE=253.3#емкость батареи конденсаторов МИУ
 SC=4#Длина индуктора??????
 HSC=8#высота индуктора
 PLM=2.64
-g=Inductor(LBT,operation,DOT,ST,FW,YEMP,FCE,LCE,LCB,CCE,SC,HSC,PLM)
+g=Inductor(LBT,operation,DOT,ST,FW,YEMP,FCE,LCE, LCB,CCE,SC, HSC,PLM,BCM,KDM,MM,KPD,RC)

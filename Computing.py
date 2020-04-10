@@ -9,7 +9,7 @@
 #собственное значение индукционного тока FWE
 import math
 class Inductor():
-    def __init__(self,LBT,operation,DOT,ST,FW,YEMP,FCE,LCE, LCB,CCE,SC, HSC,PLM):
+    def __init__(self,LBT,operation,DOT,ST,FW,YEMP,FCE,LCE, LCB,CCE,SC, HSC,PLM,BCM,KDM,MM,KPD,geometry):
         mu = 4 * 3.17 * pow(10, -7)# магнитная проницаемость в вакууме
         self.LBT=LBT
         self.operation=operation
@@ -39,6 +39,7 @@ class Inductor():
         self.FDC = pow((1 / (self.LDC * self.CCE)),0.5) / 2 * 3.14#Частота разряда при наличии только паразитных индуктивностей
         self.K1 = (pow(self.FDC, 2) - pow(self.FW, 2)) /pow(self.FDC,2)#Величина коэффициента согласования
         self.ZEK = self.ZCP + 0.5*(self.BC + self.BP)#Значение эквивалентного зазора между индуктором и заготовкой
+        self.LCA()
         self.NCTC = pow(self.K1 * self.LDC * self.LCA / (3.14 * mu * self.DCA * self.ZEK * (1-self.K1)),0.5)#Количество витков индуктора
         self.NCT = round(self.NCTC)#Целое количество рабочих витков
         self.LU = self.SC * self.NCT  # Длина индуктора
@@ -52,7 +53,7 @@ class Inductor():
         self.NCF = self.NCT - self.NCW#Количество свободных витков
         self.LCC = (3.14 * mu * (self.DCA +self.ZCP) * self.NCT * self.ZCP *self.NCT) / (self.KEC * self.LU)
         self.LUC2 = self.LCC
-        f=Form()
+        f=Form(DOT,ST,BCM,KDM,MM,LBT,KPD,geometry,operation)
         self.VCR = math.sqrt(2 *f.WYD / self.PLM)#Расчет режима обработки. Средняя скорость по деформируемому участку заготовки.
         self.LUC()
         self.PM = 4.4 * self.VCR * self.FR * self.PLM * self.ST#Амплитудное значение давления ИМП
@@ -116,6 +117,7 @@ class Inductor():
         elif self.operation=="a2":self.LCA=1.3*self.LBT#формовка конуса
         elif self.operation=="a3":self.LCA=self.LBT#формовка сферы
         elif self.operation=="a4":self.LCA=0.75*self.LBT#формовка рифта
+        elif self.operation=="b1":self.LCA=1.1*self.LBT
         return self.LCA
     def ZCP(self):#Величина зазора между индуктором и заготовкой
         return self.ZCP
