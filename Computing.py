@@ -149,16 +149,16 @@ class Inductor():
         return self.ROC
     def LUC(self):#суммарная индективность
         mu = 4 * 3.17 * pow(10, -7)  # магнитная проницаемость в вакууме
+        self.REZ=1
         while abs(self.REZ)>0.01:
             LCP = self.LUC2 +self.LDC
             LUC1 = self.LUC2
+            self.BC = pow(self.YEMC / (3.14 * mu * self.FW), 0.5)  # Глубина проникновения ИМП в материал индуктор
+            self.BP = pow(self.YEMP / (3.14 * mu * self.FW), 0.5)  # Глубина проникновения ИМП в материал заготовки
             self.FR = (1 / (2 * 3.14)) * math.sqrt(1 / (LCP * self.CCE))
-            BC=self.BC()
-            BP=self.BP()
-            ZEK = self.ZCP + 0.5 * (BC + BP)
+            ZEK = self.ZCP + 0.5 * (self.BC + self.BP)
             I=0
-            for i in range(self.NCF):
-                I=i+(math.sqrt(pow(self.SC*(self.NCF-1)+self.ZS),2)+pow(self.ZEK,2))/self.NCT
+            for i in range(self.NCF): I=i+(math.sqrt(pow(self.SC*(self.NCF-1)+self.ZS,2)+pow(self.ZEK,2))/self.NCT
             self.ZPR=self.ZEK*self.NCW+I
             LCC = 3.14 * mu * self.NCT * (self.DCA + self.ZCP) * self.NCT * self.ZPR / (self.LU * self.KEC)
             self.LUC2=LCC
