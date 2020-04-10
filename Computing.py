@@ -31,8 +31,8 @@ class Inductor():
         self.ZCP = self.ZS + self.ZB + self.ZA
         self.DCA = self.DOT - 2 * self.ST - 2 * self.ZCP
         self.FW=FW#Частота разрядного тока
-        self.BC = pow((self.YEMC / (3.14 * mu *self.FW),0.5))#Глубина проникновения ИМП в материал индуктор
-        self.BP=pow((self.YEMP / (3.14 * mu * self.FW),0.5))#Глубина проникновения ИМП в материал заготовки
+        self.BC = pow(self.YEMC / (3.14 * mu *self.FW),0.5)#Глубина проникновения ИМП в материал индуктор
+        self.BP=pow(self.YEMP / (3.14 * mu * self.FW),0.5)#Глубина проникновения ИМП в материал заготовки
         if self.BP>self.ST:self.FW = self.YEMP / (3.14 * mu * pow(self.ST, 2))
         if self.FW > self.FCE:print("Значение Частоты разрядного тока превышает собственное значение индукционного тока")
         self.LU = self.SC * self.NCT#Длина индуктора
