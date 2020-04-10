@@ -84,10 +84,10 @@ class Inductor():
         LOCS = LOC / (pow(self.NCT, 2))
         LZSD = L1S / (1 + (L1S / LOCS) - (L1S / LOC))
         #=====Взаимная индуктивность индуктора и заготовки================================================
-        M = math.sqrt(LP * (L1S - LZSD))
+        self.M = math.sqrt(LP * math.fabs(L1S - LZSD))#!!!!!!!!! поставил модуль
         QQ = math.pow(self.QP, 2)
         LSDQ = (LZSD * QQ + L1S) / (QQ + 1)
-        MDL = math.pow((M / LP), 2)
+        MDL = math.pow((self.M / LP), 2)
         RSDQ = self.RC + MDL * QQ * RP / (QQ + 1)
         #==========Суммарная добротность контура========================================================================
         QS = 2 * 3.14 * self.FR * LSDQ / RSDQ
@@ -107,11 +107,13 @@ class Inductor():
         # Необходимая энергия разряда МИУ
         self.WR = self.PM * self.SUMP * (self.ZPR + 0.5 * self.SPYR) * self.KEC * self.KEC / (self.K1 * self.K2 * self.K3 * self.K4)
         # Параметры разрядного тока.Значение тока I0 = IOO
-        self.IOO = math.sqrt(2 * self.WR / (self.LCC + self.LDC))
+        self.IOO = math.sqrt(2 * math.fabs(self.WR) / math.fabs(self.LCC + self.LDC))
         # Частота разрядного  тока
         self.FP=F
         # Декремент затухания
         self.DZT = RSDQ / (2 * LSDQ)
+    def M(self):
+        return self.M
     def LCA(self):
         if self.operation=="a1":self.LCA=1.1*self.LBT #формовка цилиндра
         elif self.operation=="a2":self.LCA=1.3*self.LBT#формовка конуса
@@ -157,9 +159,9 @@ class Inductor():
             self.BP = pow(self.YEMP / (3.14 * mu * self.FW), 0.5)  # Глубина проникновения ИМП в материал заготовки
             self.FR = (1 / (2 * 3.14)) * math.sqrt(1 / (LCP * self.CCE))
             ZEK = self.ZCP + 0.5 * (self.BC + self.BP)
-            I=0
-            for i in range(self.NCF): I=i+(math.sqrt(pow(self.SC*(self.NCF-1)+self.ZS,2)+pow(self.ZEK,2))/self.NCT
-            self.ZPR=self.ZEK*self.NCW+I
+            for i in range(self.NCF):
+                self.I=+(math.sqrt(pow(self.SC*(self.NCF-1)+self.ZS,2)+pow(self.ZEK,2)))/self.NCT
+            self.ZPR=self.ZEK*self.NCW+self.I
             LCC = 3.14 * mu * self.NCT * (self.DCA + self.ZCP) * self.NCT * self.ZPR / (self.LU * self.KEC)
             self.LUC2=LCC
             self.REZ = (self.LUC2 - LUC1) / LUC1
