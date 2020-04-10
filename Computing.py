@@ -35,13 +35,13 @@ class Inductor():
         self.BP=pow(self.YEMP / (3.14 * mu * self.FW),0.5)#Глубина проникновения ИМП в материал заготовки
         if self.BP>self.ST:self.FW = self.YEMP / (3.14 * mu * pow(self.ST, 2))
         if self.FW > self.FCE:print("Значение Частоты разрядного тока превышает собственное значение индукционного тока")
-        self.LU = self.SC * self.NCT#Длина индуктора
         self.LDC=self.LCE + self.LCB + self.LTC#Паразитная индуктивность разрядного контура
         self.FDC = pow((1 / (self.LDC * self.CCE)),0.5) / 2 * 3.14#Частота разряда при наличии только паразитных индуктивностей
         self.K1 = (pow(self.FDC, 2) - pow(self.FW, 2)) /pow(self.FDC,2)#Величина коэффициента согласования
         self.ZEK = self.ZCP + 0.5*(self.BC + self.BP)#Значение эквивалентного зазора между индуктором и заготовкой
         self.NCTC = pow(self.K1 * self.LDC * self.LCA / (3.14 * mu * self.DCA * self.ZEK * (1-self.K1)),0.5)#Количество витков индуктора
         self.NCT = round(self.NCTC)#Целое количество рабочих витков
+        self.LU = self.SC * self.NCT  # Длина индуктора
         self.SCIC = self.LCA / self.NCT#Расчетный шаг витков индуктора
         self.SSC = self.SCIC - self.ZS#Ширина медной шины по оси индуктора
         self.ROC = self.DCA / 2# наружный радиус индуктора
