@@ -18,14 +18,14 @@ class Inductor():
         self.BCM=BCM
         self.KDM=KDM
         self.MM=MM
-        self.LBT=MM
+        #self.LBT=MM
         self.KPD=KPD
-        self.ZS=0.65 # Толщина изоляции медной шины
-        self.ZB=1.0 # Толщина основной изоляции индуктора
-        self.ZA=0.25 #Толщина воздушного зазора
+        self.ZS=0.00065 # Толщина изоляции медной шины
+        self.ZB=0.001 # Толщина основной изоляции индуктора
+        self.ZA=0.00025 #Толщина воздушного зазора
         self.LTC=0.7*pow(10,-7)#Индуктивность токов индуктора
         self.YEMP=YEMP#обозначение удельного электрического сопротивления заготовки
-        self.YEMC=YEMP
+        self.YEMC=7.1*pow(10,-8)
         self.FCE=FCE
         self.CCE=CCE# емкость батареи конденсаторов МИУ
         self.LCE=LCE#индуктивность собственная
@@ -34,7 +34,7 @@ class Inductor():
         self.HSC=HSC#высота шины
         self.PLM=PLM#плотность
         self.ZCP = self.ZS + self.ZB + self.ZA
-        self.DCA = self.DOT - 2 * self.ST - 2 * self.ZCP
+        self.DCA = self.DOT + 2 * self.ST + 2 * self.ZCP
         self.FW=FW#Частота разрядного тока
         self.BC = pow(self.YEMC / (3.14 * mu *self.FW),0.5)#Глубина проникновения ИМП в материал индуктор
         self.BP=pow(self.YEMP / (3.14 * mu * self.FW),0.5)#Глубина проникновения ИМП в материал заготовки
@@ -46,7 +46,7 @@ class Inductor():
         self.ZEK = self.ZCP + 0.5*(self.BC + self.BP)#Значение эквивалентного зазора между индуктором и заготовкой
         self.LCA()
         self.NCTC = pow(self.K1 * self.LDC * self.LCA / (3.14 * mu * self.DCA * self.ZEK * (1-self.K1)),0.5)#Количество витков индуктора
-        self.NCT = round(self.NCTC)#Целое количество рабочих витков
+        self.NCT =(self.NCTC)#Целое количество рабочих витков
         self.LU = self.SC * self.NCT  # Длина индуктора
         self.SCIC = self.LCA / self.NCT#Расчетный шаг витков индуктора
         self.SSC = self.SCIC - self.ZS#Ширина медной шины по оси индуктора
@@ -54,15 +54,15 @@ class Inductor():
         self.RIC = self.ROC - self.HSC#Внутренний радиус индуктора
         self.KEC =pow(((2*self.ROC / self.RIC) * (self.ZEK / self.RIC)- 1), 2)
         self.NCWC = self.LBT / self.SCIC#Расчетное количество рабочих витков
-        self.NCW = round(self.NCWC)#Целое количество рабочих витков
+        self.NCW = (self.NCWC)
         self.NCF = self.NCT - self.NCW#Количество свободных витков
         self.LCC = (3.14 * mu * (self.DCA +self.ZCP) * self.NCT * self.ZCP *self.NCT) / (self.KEC * self.LU)
         self.LUC2 = self.LCC
         f=Form(self.DOT,self.ST,self.BCM,self.KDM,self.MM,self.LBT,self.KPD,geometry,self.operation)
         self.VCR = math.sqrt(2 *f.WYD / self.PLM)#Расчет режима обработки. Средняя скорость по деформируемому участку заготовки.
-        self.LUC()
-        self.PM = 4.4 * self.VCR * self.FR * self.PLM * self.ST#Амплитудное значение давления ИМП
-        self.SPYR = 0.141 * self.VCR / self.FR#Величина перемещений заготовки на участке разгона
+        #self.LUC()
+        #self.PM = 4.4 * self.VCR * self.FR * self.PLM * self.ST#Амплитудное значение давления ИМП
+        #self.SPYR = 0.141 * self.VCR / self.FR#Величина перемещений заготовки на участке разгона
         #================Расчет коэффициентов===================================================
         BRC = self.BC
         BRP = self.BP
@@ -71,7 +71,6 @@ class Inductor():
         #===============Диаметры===============================================
         DRC = self.DCA - BRC
         DRP = f.DIB + BRP
-        DLC = self.DCA - BLC
         DLP = f.DIB + BLP
         #==================Коэффициенты==========================================
         ALFA = self.LU / f.DIB
@@ -80,7 +79,7 @@ class Inductor():
         LP = F * DLP * pow(10, -7)
         RP = 3.14 * DRP * self.YEMP / (BRP * LBT)
         #=========================================================================
-        self.QP = 2 * 3.14 * self.FR * LP / RP#Добротность заготовки
+        #self.QP = 2 * 3.14 * self.FR * LP / RP#Добротность заготовки
         self.KZ = self.SSC * self.NCT / self.LU#Коэффициент заполнения индуктора
         self.RC = 3.14 * DRC * self.YEMC / (BRC * self.LU * self.KZ)#Сопротивление индуктора
         #=индуктивность однородная
@@ -89,37 +88,37 @@ class Inductor():
         LOCS = LOC / (pow(self.NCT, 2))
         LZSD = L1S / (1 + (L1S / LOCS) - (L1S / LOC))
         #=====Взаимная индуктивность индуктора и заготовки================================================
-        self.M = math.sqrt(LP * math.fabs(L1S - LZSD))#!!!!!!!!! поставил модуль
-        QQ = math.pow(self.QP, 2)
-        LSDQ = (LZSD * QQ + L1S) / (QQ + 1)
-        MDL = math.pow((self.M / LP), 2)
-        RSDQ = self.RC + MDL * QQ * RP / (QQ + 1)
+        #self.M = math.sqrt(LP * math.fabs(L1S - LZSD))#!!!!!!!!! поставил модуль
+        #QQ = math.pow(self.QP, 2)
+        #LSDQ = (LZSD * QQ + L1S) / (QQ + 1)
+        #MDL = math.pow((self.M / LP), 2)
+        #RSDQ = self.RC + MDL * QQ * RP / (QQ + 1)
         #==========Суммарная добротность контура========================================================================
-        QS = 2 * 3.14 * self.FR * LSDQ / RSDQ
+        #QS = 2 * 3.14 * self.FR * LSDQ / RSDQ
         LOZ = 3.14 * mu * self.DCA / self.LU
         DL05 = L1S / LOZ
         DEZ = self.ZCP / DL05
         #=====K1=====
-        self.K1 = 1 - (self.FR / self.FDC) * (self.FR / self.FDC)
+        #self.K1 = 1 - (self.FR / self.FDC) * (self.FR / self.FDC)
         #====K2======
-        self.K2=math.exp(-math.atan(2*QS)/QS)
+        #self.K2=math.exp(-math.atan(2*QS)/QS)
         # ===Коэффициент К3
         self.K3 = 1 / (1 + DEZ)
         self.LK = L1S / LZSD
-        self.K4 = QQ / (QQ + self.LK)
+        #self.K4 = QQ / (QQ + self.LK)
         # Площадь создаваемого давления ИМП
         self.SUMP = 3.14 * (self.DCA + self.ZCP) * self.LU
         # Необходимая энергия разряда МИУ
-        self.WR = self.PM * self.SUMP * (self.ZPR + 0.5 * self.SPYR) * self.KEC * self.KEC / (self.K1 * self.K2 * self.K3 * self.K4)
+        #self.WR = self.PM * self.SUMP * (self.ZPR + 0.5 * self.SPYR) * self.KEC * self.KEC / (self.K1 * self.K2 * self.K3 * self.K4)
         # Параметры разрядного тока.Значение тока I0 = IOO
-        self.IOO = math.sqrt(2 * math.fabs(self.WR) / math.fabs(self.LCC + self.LDC))
+        #self.IOO = math.sqrt(2 * math.fabs(self.WR) / math.fabs(self.LCC + self.LDC))
         # Частота разрядного  тока
         self.FP=F
         # Декремент затухания
-        self.DZT = RSDQ / (2 * LSDQ)
+        #self.DZT = RSDQ / (2 * LSDQ)
     def M(self):
         return self.M
-    def LCA(self):
+    def LCA(self):#Длина индуктора
         if self.operation=="a1":self.LCA=1.1*self.LBT #формовка цилиндра
         elif self.operation=="a2":self.LCA=1.3*self.LBT#формовка конуса
         elif self.operation=="a3":self.LCA=self.LBT#формовка сферы
@@ -128,7 +127,7 @@ class Inductor():
         return self.LCA
     def ZCP(self):#Величина зазора между индуктором и заготовкой
         return self.ZCP
-    def DCA(self):
+    def DCA(self):#диаметр индуктора
         return self.DCA
     def BP(self):#Глубина проникновения ИМП в материал заготовки
         return self.BP
@@ -138,7 +137,7 @@ class Inductor():
         return self.LDC
     def FDC(self):#Частота разряда при наличии только паразитных индуктивностей
         return self.FDC
-    def K1(self):#Частота разряда при наличии только паразитных индуктивностей
+    def K1(self):#Коэффициент К1
         return self.K1
     def ZEK(self):#Значение эквивалентного зазора между индуктором и заготовкой
         return self.ZEK
@@ -162,7 +161,7 @@ class Inductor():
             LUC1 = self.LUC2
             self.BC = pow(self.YEMC / (3.14 * mu * self.FW), 0.5)  # Глубина проникновения ИМП в материал индуктор
             self.BP = pow(self.YEMP / (3.14 * mu * self.FW), 0.5)  # Глубина проникновения ИМП в материал заготовки
-            self.FR = (1 / (2 * 3.14)) * math.sqrt(1 / (LCP * self.CCE))
+            self.FR = (1 / (2 * 3.14)) * math.sqrt((1 / (LCP * self.CCE)))
             ZEK = self.ZCP + 0.5 * (self.BC + self.BP)
             for i in range(self.NCF):
                 self.I=+(math.sqrt(pow(self.SC*(self.NCF-1)+self.ZS,2)+pow(self.ZEK,2)))/self.NCT
@@ -202,7 +201,7 @@ class Form():
         self.RIB = self.DIB / 2 #Внутренний радиус трубчатой заготовки
         self.BCMD = self.BCM * self.KDM #Динамическое значение коэффициента аппроксимации кривой упрочнения
         ESP=self.ESP(geometry)
-        self.WYD = (self.BCMD/(1 + self.MM)) * self.ESP**(1 + self.MM) #Удельная работа деформации WYD
+        self.WYD = (self.BCMD/(1 + self.MM)) * pow(self.ESP,(1 + self.MM)) #Удельная работа деформации WYD
         self.DVB = 3.14 * (self.DOT - self.ST) * self.ST * self.LBT #Деформируемый объем заготовки DVB
         self.WDB = self.WYD * self.DVB #Работа деформации заготовки WDB
         self.WMIR = self.WDB / self.KPD #Необходимая энергия для выполнения операции WMIR
