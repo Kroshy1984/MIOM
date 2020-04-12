@@ -38,10 +38,13 @@ class Inductor():
         self.FW=FW#Частота разрядного тока
         self.BC = pow(self.YEMC / (3.14 * mu *self.FW),0.5)#Глубина проникновения ИМП в материал индуктор
         self.BP=pow(self.YEMP / (3.14 * mu * self.FW),0.5)#Глубина проникновения ИМП в материал заготовки
-        if self.BP>self.ST:self.FW = self.YEMP / (3.14 * mu * pow(self.ST, 2))
+        if self.BP>self.ST:
+            self.FW = self.YEMP / (3.14 * mu * pow(self.ST, 2))
+            print('FW='+str(self.FW))
         if self.FW > self.FCE:print("Значение Частоты разрядного тока превышает собственное значение индукционного тока")
+
         self.LDC=self.LCE + self.LCB + self.LTC#Паразитная индуктивность разрядного контура
-        self.FDC = pow((1 / (self.LDC * self.CCE)),0.5) / 2 * 3.14#Частота разряда при наличии только паразитных индуктивностей
+        self.FDC = math.sqrt(1 / (self.LDC * self.CCE)) /( 2 * 3.14)#Частота разряда при наличии только паразитных индуктивностей
         self.K1 = (pow(self.FDC, 2) - pow(self.FW, 2)) /pow(self.FDC,2)#Величина коэффициента согласования
         self.ZEK = self.ZCP + 0.5*(self.BC + self.BP)#Значение эквивалентного зазора между индуктором и заготовкой
         self.LCA()
@@ -54,15 +57,15 @@ class Inductor():
         self.RIC = self.ROC - self.HSC#Внутренний радиус индуктора
         self.KEC =pow(((2*self.ROC / self.RIC) * (self.ZEK / self.RIC)- 1), 2)
         self.NCWC = self.LBT / self.SCIC#Расчетное количество рабочих витков
-        self.NCW = (self.NCWC)
-        self.NCF = self.NCT - self.NCW#Количество свободных витков
+        self.NCW = round(self.NCWC)
+        self.NCF = round(self.NCT - self.NCW)#Количество свободных витков
         self.LCC = (3.14 * mu * (self.DCA +self.ZCP) * self.NCT * self.ZCP *self.NCT) / (self.KEC * self.LU)
         self.LUC2 = self.LCC
         f=Form(self.DOT,self.ST,self.BCM,self.KDM,self.MM,self.LBT,self.KPD,geometry,self.operation)
         self.VCR = math.sqrt(2 *f.WYD / self.PLM)#Расчет режима обработки. Средняя скорость по деформируемому участку заготовки.
-        #self.LUC()
-        #self.PM = 4.4 * self.VCR * self.FR * self.PLM * self.ST#Амплитудное значение давления ИМП
-        #self.SPYR = 0.141 * self.VCR / self.FR#Величина перемещений заготовки на участке разгона
+        self.LUC()
+        self.PM = 4.4 * self.VCR * self.FR * self.PLM * self.ST#Амплитудное значение давления ИМП
+        self.SPYR = 0.141 * self.VCR / self.FR#Величина перемещений заготовки на участке разгона
         #================Расчет коэффициентов===================================================
         BRC = self.BC
         BRP = self.BP
@@ -79,7 +82,7 @@ class Inductor():
         LP = F * DLP * pow(10, -7)
         RP = 3.14 * DRP * self.YEMP / (BRP * LBT)
         #=========================================================================
-        #self.QP = 2 * 3.14 * self.FR * LP / RP#Добротность заготовки
+        self.QP = 2 * 3.14 * self.FR * LP / RP#Добротность заготовки
         self.KZ = self.SSC * self.NCT / self.LU#Коэффициент заполнения индуктора
         self.RC = 3.14 * DRC * self.YEMC / (BRC * self.LU * self.KZ)#Сопротивление индуктора
         #=индуктивность однородная
@@ -88,34 +91,36 @@ class Inductor():
         LOCS = LOC / (pow(self.NCT, 2))
         LZSD = L1S / (1 + (L1S / LOCS) - (L1S / LOC))
         #=====Взаимная индуктивность индуктора и заготовки================================================
-        #self.M = math.sqrt(LP * math.fabs(L1S - LZSD))#!!!!!!!!! поставил модуль
-        #QQ = math.pow(self.QP, 2)
-        #LSDQ = (LZSD * QQ + L1S) / (QQ + 1)
-        #MDL = math.pow((self.M / LP), 2)
-        #RSDQ = self.RC + MDL * QQ * RP / (QQ + 1)
+        self.M = math.sqrt(LP * math.fabs(L1S - LZSD))#!!!!!!!!! поставил модуль
+        QQ = math.pow(self.QP, 2)
+        LSDQ = (LZSD * QQ + L1S) / (QQ + 1)
+        MDL = math.pow((self.M / LP), 2)
+        RSDQ = self.RC + MDL * QQ * RP / (QQ + 1)
         #==========Суммарная добротность контура========================================================================
-        #QS = 2 * 3.14 * self.FR * LSDQ / RSDQ
+        QS = 2 * 3.14 * self.FR * LSDQ / RSDQ
         LOZ = 3.14 * mu * self.DCA / self.LU
         DL05 = L1S / LOZ
         DEZ = self.ZCP / DL05
         #=====K1=====
-        #self.K1 = 1 - (self.FR / self.FDC) * (self.FR / self.FDC)
+        self.K1 = 1 - (self.FR / self.FDC) * (self.FR / self.FDC)
         #====K2======
-        #self.K2=math.exp(-math.atan(2*QS)/QS)
+        self.K2=math.exp(-math.atan(2*QS)/QS)
         # ===Коэффициент К3
         self.K3 = 1 / (1 + DEZ)
         self.LK = L1S / LZSD
-        #self.K4 = QQ / (QQ + self.LK)
+        self.K4 = QQ / (QQ + self.LK)
         # Площадь создаваемого давления ИМП
         self.SUMP = 3.14 * (self.DCA + self.ZCP) * self.LU
         # Необходимая энергия разряда МИУ
-        #self.WR = self.PM * self.SUMP * (self.ZPR + 0.5 * self.SPYR) * self.KEC * self.KEC / (self.K1 * self.K2 * self.K3 * self.K4)
+        self.WR = self.PM * self.SUMP * (self.ZPR + 0.5 * self.SPYR) * self.KEC * self.KEC / (self.K1 * self.K2 * self.K3 * self.K4)
         # Параметры разрядного тока.Значение тока I0 = IOO
-        #self.IOO = math.sqrt(2 * math.fabs(self.WR) / math.fabs(self.LCC + self.LDC))
+        self.IOO = math.sqrt(2 * math.fabs(self.WR) / math.fabs(self.LCC + self.LDC))
         # Частота разрядного  тока
         self.FP=F
         # Декремент затухания
-        #self.DZT = RSDQ / (2 * LSDQ)
+        self.DZT = RSDQ / (2 * LSDQ)
+    def WR(self):
+        return self.WR
     def M(self):
         return self.M
     def LCA(self):#Длина индуктора
@@ -139,6 +144,12 @@ class Inductor():
         return self.FDC
     def K1(self):#Коэффициент К1
         return self.K1
+    def K2(self):#Коэффициент К2
+        return self.K2
+    def K3(self):  # Коэффициент К3
+        return self.K3
+    def K4(self):  # Коэффициент К4
+        return self.K4
     def ZEK(self):#Значение эквивалентного зазора между индуктором и заготовкой
         return self.ZEK
     def NCTC(self):#Количество витков индуктора
@@ -153,9 +164,10 @@ class Inductor():
         return self.SSC
     def ROC(self):# наружный радиус индуктора
         return self.ROC
-    def LUC(self):#суммарная индективность
+    def LUC(self):#суммарная индуктивность
         mu = 4 * 3.17 * pow(10, -7)  # магнитная проницаемость в вакууме
         self.REZ=1
+        self.I=0
         while abs(self.REZ)>0.01:
             LCP = self.LUC2 +self.LDC
             LUC1 = self.LUC2
