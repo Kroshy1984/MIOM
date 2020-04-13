@@ -49,9 +49,9 @@ class Inductor():
         self.ZEK = self.ZCP + 0.5*(self.BC + self.BP)#Значение эквивалентного зазора между индуктором и заготовкой
         self.LCA()
         self.NCTC = pow(self.K1 * self.LDC * self.LCA / (3.14 * mu * self.DCA * self.ZEK * (1-self.K1)),0.5)#Количество витков индуктора
-        self.NCT =(self.NCTC)#Целое количество рабочих витков
+        self.NCT =round(self.NCTC)#Целое количество рабочих витков
         self.LU = self.SC * self.NCT  # Длина индуктора
-        self.SCIC = self.LCA / self.NCT#Расчетный шаг витков индуктора
+        self.SCIC = (self.LCA /self.NCT)#Расчетный шаг витков индуктора
         self.SSC = self.SCIC - self.ZS#Ширина медной шины по оси индуктора
         self.ROC = self.DCA / 2# наружный радиус индуктора
         self.RIC = self.ROC - self.HSC#Внутренний радиус индуктора
@@ -59,6 +59,21 @@ class Inductor():
         self.NCWC = self.LBT / self.SCIC#Расчетное количество рабочих витков
         self.NCW = round(self.NCWC)
         self.NCF = round(self.NCT - self.NCW)#Количество свободных витков
+        if self.NCF==0:
+            print("!!!!!!!")
+            print("Расчетное количество витков индуктора необходимо ввести заново")
+            self.NCT=int(input("Введите реальное колличество витков"))
+            print("Ширину шины необходимо ввести заново")
+            self.SSC = float(input("Введите реальную толщину шины"))
+            self.LU = self.SC * self.NCT  # Длина индуктора
+            self.SCIC = (self.LCA / self.NCT)  # Расчетный шаг витков индуктора
+            self.SSC = self.SCIC - self.ZS  # Ширина медной шины по оси индуктора
+            self.ROC = self.DCA / 2  # наружный радиус индуктора
+            self.RIC = self.ROC - self.HSC  # Внутренний радиус индуктора
+            self.KEC = pow(((2 * self.ROC / self.RIC) * (self.ZEK / self.RIC) - 1), 2)
+            self.NCWC = self.LBT / self.SCIC  # Расчетное количество рабочих витков
+            self.NCW = round(self.NCWC)
+            self.NCF = round(self.NCT - self.NCW)  # Количество свободных витков
         self.LCC = (3.14 * mu * (self.DCA +self.ZCP) * self.NCT * self.ZCP *self.NCT) / (self.KEC * self.LU)
         self.LUC2 = self.LCC
         f=Form(self.DOT,self.ST,self.BCM,self.KDM,self.MM,self.LBT,self.KPD,geometry,self.operation)
@@ -119,6 +134,10 @@ class Inductor():
         self.FP=F
         # Декремент затухания
         self.DZT = RSDQ / (2 * LSDQ)
+    def NCF(self):
+        return self.NCF
+    def NCWC(self):
+        return self.NCWC
     def WR(self):
         return self.WR
     def M(self):
@@ -168,16 +187,16 @@ class Inductor():
         mu = 4 * 3.17 * pow(10, -7)  # магнитная проницаемость в вакууме
         self.REZ=1
         self.I=0
-        while abs(self.REZ)>0.01:
+        while abs(self.REZ)>=0.01:
             LCP = self.LUC2 +self.LDC
             LUC1 = self.LUC2
             self.BC = pow(self.YEMC / (3.14 * mu * self.FW), 0.5)  # Глубина проникновения ИМП в материал индуктор
             self.BP = pow(self.YEMP / (3.14 * mu * self.FW), 0.5)  # Глубина проникновения ИМП в материал заготовки
             self.FR = (1 / (2 * 3.14)) * math.sqrt((1 / (LCP * self.CCE)))
-            ZEK = self.ZCP + 0.5 * (self.BC + self.BP)
+            self.ZEK = self.ZCP + 0.5 * (self.BC + self.BP)
             for i in range(self.NCF):
-                self.I=+(math.sqrt(pow(self.SC*(self.NCF-1)+self.ZS,2)+pow(self.ZEK,2)))/self.NCT
-            self.ZPR=self.ZEK*self.NCW+self.I
+                self.I=self.I+(math.sqrt(pow(self.SC*(self.NCF-1)+self.ZS,2)+pow(self.ZEK,2)))
+            self.ZPR=(self.ZEK*self.NCW+self.I)/self.NCT
             LCC = 3.14 * mu * self.NCT * (self.DCA + self.ZCP) * self.NCT * self.ZPR / (self.LU * self.KEC)
             self.LUC2=LCC
             self.REZ = (self.LUC2 - LUC1) / LUC1
