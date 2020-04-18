@@ -7,7 +7,7 @@ RC=0.074#int(input("введите радиус цилиндра"))
 BCM=57.4*pow(10,7)
 MM=0.23
 KDM=1.660
-KPD=0.13
+KPD=0.04
 f=Form(DOT,ST,BCM,KDM,MM,LBT,KPD,RC,operation)
 DIB=Form.DIB(f)
 print("Внутренний диаметр трубчатой заготовки:"+str(DIB)+",м")

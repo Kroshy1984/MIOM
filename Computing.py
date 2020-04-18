@@ -200,6 +200,7 @@ class Inductor():
             LCC = 3.14 * mu * self.NCT * (self.DCA + self.ZCP) * self.NCT * self.ZPR / (self.LU * self.KEC)
             self.LUC2=LCC
             self.REZ = (self.LUC2 - LUC1) / LUC1
+            print(self.REZ)
         return self.LUC2
     def PWS(self):#Проверка
         self.PWS = self.WR / (self.SSC * self.HSC)
