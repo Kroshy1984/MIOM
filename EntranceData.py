@@ -21,7 +21,7 @@ class EntranceDataFirst():
         btn1 = Button(self.frame, text="Выбор оборудования", bg="grey", fg="black", command=self.WindowMashins)
         btn2 = Button(self.frame, text="Выбор операции", bg="grey", fg="black", command=self.WindowOperationSwitch)
         btn3 = Button(self.frame, text="Выбор материала", bg="grey", fg="black", command=self.WindowMaterials)
-        btn4 = Button(self.frame, text="Размер заготовки", bg="grey", fg="black", command=self.SetSizes)
+        btn4 = Button(self.frame, text="Размер заготовки и детали", bg="grey", fg="black", command=self.SetSizes)
         self.message_entry = Entry(self.frame, textvariable='')
         self.message_entry.insert(0, bif1)
         self.message_entry.place(x=350, y=100)
