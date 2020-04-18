@@ -4,24 +4,28 @@ from EntranceData import *
 class SetSizes():
     def GUI(self):
         self.SetSizesWindow = Tk()
-        self.SetSizesWindow.geometry('500x200')  # геометрия окна
+        self.SetSizesWindow.geometry('500x300')  # геометрия окна
         self.SetSizesWindow.title("Размеры заготовки")  # название окна
-        label1 = Label(self.SetSizesWindow, text="Длина заготовки", bg="white", fg="black")
+        label1 = Label(self.SetSizesWindow, text="Длина деформируемой зоны", bg="white", fg="black")
         label1.place(x=10, y=10)
         label2 = Label(self.SetSizesWindow, text="Внешний диаметр заготовки", bg="white", fg="black")
         label2.place(x=10, y=60)
-        label3 = Label(self.SetSizesWindow, text="Внутренний диаметр заготовки", bg="white", fg="black")
+        label3 = Label(self.SetSizesWindow, text="Толщина стенки", bg="white", fg="black")
         label3.place(x=10, y=110)
+        label4 = Label(self.SetSizesWindow, text="Радиус цилинда", bg="white", fg="black")
+        label4.place(x=10, y=160)
         self.message_entry = Entry(self.SetSizesWindow, textvariable='')
         self.message_entry.place(x=250, y=10)
         self.message_entry1 = Entry(self.SetSizesWindow, textvariable='')
         self.message_entry1.place(x=250, y=60)
         self.message_entry2 = Entry(self.SetSizesWindow, textvariable='')
         self.message_entry2.place(x=250, y=110)
+        self.message_entry2 = Entry(self.SetSizesWindow, textvariable='')
+        self.message_entry2.place(x=250, y=160)
         btn = Button(self.SetSizesWindow, text="Закрыть окно", bg="red", fg="black", command=self.CloseWindow)
-        btn.place(x=10, y=150)
+        btn.place(x=10, y=250)
         btn = Button(self.SetSizesWindow, text="Внести данные", bg="green", fg="black", command=self.Insertdata)
-        btn.place(x=280, y=150)
+        btn.place(x=280, y=250)
     def __init__(self, a, b, c, d):
         self.f1=a
         self.f2=b
