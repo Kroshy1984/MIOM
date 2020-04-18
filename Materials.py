@@ -4,6 +4,8 @@ from tkinter import ttk
 import sqlite3
 from SQL12 import *
 from EditorMaterials import *
+
+
 class Materials():
     def GUI(self):
         self.Materials = Tk()
@@ -42,18 +44,21 @@ class Materials():
         self.btn2 = Button(self.Materials, text="Удалить материал", bg="grey", fg="black",
                            command=self.DelMaterial)  # описание объекта типа button названия кнопки
         self.btn2.place(x=400, y=650)  # расположение кнопки
-        self.btn3 = Button(self.Materials, text="Применить", bg="green",fg="black",command=self.GoToWork)  # описание объекта типа button названия кнопки
+        self.btn3 = Button(self.Materials, text="Применить", bg="green", fg="black",
+                           command=self.GoToWork)  # описание объекта типа button названия кнопки
         self.btn3.place(x=150, y=650)  # расположение кнопки
-        self.btn1 = Button(self.Materials, text="Отменить", bg='pink', fg='red',command=self.GoToPrevious)
+        self.btn1 = Button(self.Materials, text="Отменить", bg='pink', fg='red', command=self.GoToPrevious)
         self.btn1.place(x=1150, y=650)
         self.view_records()
         self.Materials.mainloop()
-    def __init__(self,a,b,c,d):
+
+    def __init__(self, a, b, c, d):
         self.f1 = a
         self.f2 = b
         self.f3 = c
         self.f4 = d
         self.GUI()
+
     def view_records(self):
         mt = sqlite3.connect("Metalls.db")
         cursor = mt.cursor()
@@ -64,10 +69,13 @@ class Materials():
         for row in cursor.execute(sql10):
             self.Tree.insert('', 'end', text=str(cpt), values=row)
             cpt += 1
+
     def AddMaterial(self):
-        NewWindow=EditorMaterials()
+        NewWindow = EditorMaterials()
+
     def EditMaterial(self):
-        NewWindow=EditorMaterials()
+        NewWindow = EditorMaterials()
+
     def DelMaterial(self):
         sel = self.Tree.focus()
         self.slct2 = self.Tree.item(sel, option='values')
@@ -75,11 +83,13 @@ class Materials():
         print(self.slct2)
         print(self.slct2[0])
         print(self.f4)
-        NewWindow2 = Terminator(self.f4,"Metalls.db",materials_sql8)
+        NewWindow2 = Terminator(self.f4, "Metalls.db", materials_sql8)
+
     def GoToPrevious(self):
-        self.f4=''
+        self.f4 = ''
         self.Materials.destroy()
         f = EntranceData.EntranceDataFirst(self.f1, self.f2, self.f3, self.f4)
+
     def GoToWork(self):
         sel = self.Tree.focus()
         self.slct2 = self.Tree.item(sel, option='values')

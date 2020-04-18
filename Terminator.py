@@ -7,28 +7,32 @@ import sqlite3
 from SQL12 import *
 from WindowMashins import *
 import WindowMashins
+
+
 class Terminator():
     def shot_it(self):
         mt = sqlite3.connect(self.BDname)
         cursor = mt.cursor()
         cursor.execute(self.SQL, (self.shot,))
-        mt.commit() #запомнить изменения в базе данных
+        mt.commit()  # запомнить изменения в базе данных
         cursor.execute(sql6)
         b = WindowMashins.Basad()
-        WindowMashins.Basad.view_records(b)# обновление содержимого таблицы
-    def __init__(self,a,b,c):
-        self.BDname=b
-        self.shot=a
-        self.SQL=c
+        WindowMashins.Basad.view_records(b)  # обновление содержимого таблицы
+
+    def __init__(self, a, b, c):
+        self.BDname = b
+        self.shot = a
+        self.SQL = c
         print('удаляем, где ', self.shot)
         self.SBasa = Tk()
         self.SBasa.geometry('600x200')
         self.SBasa.title("Удаление оборудования МИОМ")
-        self.SBasa.lift() # команда выталкивает окно на верх
-        self.SBasa.attributes('-topmost', True) #окно будет поверх окон
+        self.SBasa.lift()  # команда выталкивает окно на верх
+        self.SBasa.attributes('-topmost', True)  # окно будет поверх окон
         label1 = Label(self.SBasa, text="Вы действительно хотите удалить это обрудование?  ", bg="grey", fg="black")
         label1.place(x=50, y=50)
-        label1 = Label(self.SBasa, text="Внимание! Речь идет о "+ a + ". Это может быть важная запись!" , bg="grey", fg="black")
+        label1 = Label(self.SBasa, text="Внимание! Речь идет о " + a + ". Это может быть важная запись!", bg="grey",
+                       fg="black")
         label1.place(x=50, y=70)
         btn1 = Button(self.SBasa, text="Закрыть", bg='pink', fg='red', command=self.SBasa.destroy)
         btn1.place(x=30, y=150)
