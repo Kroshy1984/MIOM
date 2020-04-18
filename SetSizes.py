@@ -5,7 +5,7 @@ class SetSizes():
     def GUI(self):
         self.SetSizesWindow = Tk()
         self.SetSizesWindow.geometry('500x300')  # геометрия окна
-        self.SetSizesWindow.title("Размеры заготовки")  # название окна
+        self.SetSizesWindow.title("Размеры заготовки и детали (в метрах)")  # название окна
         label1 = Label(self.SetSizesWindow, text="Длина деформируемой зоны", bg="white", fg="black")
         label1.place(x=10, y=10)
         label2 = Label(self.SetSizesWindow, text="Внешний диаметр заготовки", bg="white", fg="black")
