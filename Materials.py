@@ -35,15 +35,15 @@ class Materials():
         self.Tree.place(x=50, y=10)
         self.btn = Button(self.Materials, text="Добавить материал", bg="grey", fg="black",
                           command=self.AddMaterial)  # описание объекта типа button названия кнопки
-        self.btn.place(x=150, y=650)  # расположение кнопки
+        self.btn.place(x=900, y=650)  # расположение кнопки
         self.btn5 = Button(self.Materials, text="Редактировать материал", bg="grey", fg="black",
                            command=self.EditMaterial)  # описание объекта типа button названия кнопки
         self.btn5.place(x=650, y=650)  # расположение кнопки
         self.btn2 = Button(self.Materials, text="Удалить материал", bg="grey", fg="black",
                            command=self.DelMaterial)  # описание объекта типа button названия кнопки
         self.btn2.place(x=400, y=650)  # расположение кнопки
-        self.btn3 = Button(self.Materials, text="Применить", bg="grey",fg="black",command=self.GoToWork)  # описание объекта типа button названия кнопки
-        self.btn3.place(x=900, y=650)  # расположение кнопки
+        self.btn3 = Button(self.Materials, text="Применить", bg="green",fg="black",command=self.GoToWork)  # описание объекта типа button названия кнопки
+        self.btn3.place(x=150, y=650)  # расположение кнопки
         self.btn1 = Button(self.Materials, text="Отменить", bg='pink', fg='red',command=self.GoToPrevious)
         self.btn1.place(x=1150, y=650)
         self.view_records()
