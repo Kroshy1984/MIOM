@@ -19,7 +19,7 @@ class SelectWay():
         btn2.place(x=10, y=11)
         btn3 = Button(frame_bottom, text="Назад", bg="red", fg="black", command=self.Exit)
         btn3.place(x=500, y=11)
-        btn1 = Button(frame_bottom, text="Расчет Индуктор", bg="grey", fg="black", command=self.InductorWindow)
+        btn1 = Button(frame_bottom, text="Расчет Индуктора", bg="grey", fg="black", command=self.InductorWindow)
         btn1.place(x=300, y=11)
         label1 = Label(frame_top, text="Выберете путь для рассчета процессов МИОМ", bg="white", fg="black")
         label1.pack()
