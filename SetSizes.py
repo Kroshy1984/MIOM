@@ -12,7 +12,7 @@ class SetSizes():
         label2.place(x=10, y=60)
         label3 = Label(self.SetSizesWindow, text="Толщина стенки", bg="white", fg="black")
         label3.place(x=10, y=110)
-        label4 = Label(self.SetSizesWindow, text="Радиус цилинда", bg="white", fg="black")
+        label4 = Label(self.SetSizesWindow, text="Внешний радиус цилиндра", bg="white", fg="black")
         label4.place(x=10, y=160)
         self.message_entry = Entry(self.SetSizesWindow, textvariable='')
         self.message_entry.place(x=250, y=10)
