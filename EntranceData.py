@@ -22,6 +22,7 @@ class EntranceDataFirst():
         btn2 = Button(self.frame, text="Выбор операции", bg="grey", fg="black", command=self.WindowOperationSwitch)
         btn3 = Button(self.frame, text="Выбор материала", bg="grey", fg="black", command=self.WindowMaterials)
         btn4 = Button(self.frame, text="Размер заготовки и детали", bg="grey", fg="black", command=self.SetSizes)
+        btn5 = Button(self.frame, text="Параметры индуктора", bg="blue", fg="black", command=self.WindowInductorParams)
         self.message_entry = Entry(self.frame, textvariable='')
         self.message_entry.insert(0, bif1)
         self.message_entry.place(x=350, y=100)
@@ -38,11 +39,14 @@ class EntranceDataFirst():
         btn2.place(x=50, y=200)
         btn3.place(x=50, y=300)
         btn4.place(x=50, y=400)
+        btn5.place(x=50, y=500)
         closeButton = Button(self.EntranceDataWindow, text="Close", command=quit)
         closeButton.pack(side=RIGHT, padx=5, pady=5)
         okButton = Button(self.EntranceDataWindow, text="OK")
         okButton.pack(side=RIGHT)
         self.EntranceDataWindow.mainloop()
+    def WindowInductorParams(self):
+        window3=InductorParams()
     def WindowMashins(self):
         self.EntranceDataWindow.destroy()
         window=Basad(self.bif1,self.bif2, self.bif3,self.bif4)
