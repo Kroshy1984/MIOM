@@ -6,23 +6,25 @@ class OperationSwitch():
         self.filed2="ничего не выбрано"
         a=self.sel.get()
         if a==1:
-            self.field2="Свободная раздача трубчатой заготовки"
+            self.field2="Формовка цилиндра"
         elif a==2:
-            self.field2='Формовка переходников'
+            self.field2='Формовка конуса'
         elif a==3:
-            self.field2='Формовка рифтов'
+            self.field2='Формовка сферы'
         elif a==4:
-            self.field2 = 'Разделительные операции на трубах'
+            self.field2 = 'Формовка рифта'
         elif a==5:
-            self.field2 = "Пробивка отверстий в плоских заготовках"
+            self.field2 = "Отбортовка наружного контура заготовки"
         elif a==6:
-            self.field2='Гибка бортов'
+            self.field2='Формовка тороидального рифта'
         elif a==7:
-            self.field2='Формовка плоских заготовок'
+            self.field2='Формовка сферической пуклевки'
         elif a==8:
-            self.field2='Калибровка на отжим'
+            self.field2='Формовка конусной пуклевки'
         elif a==9:
-            self.field2 ='Калибровка на раздачу'
+            self.field2 ='Формовка плоской пуклевки'
+        elif a==10:
+            self.field2 ='Гибка прямолинейного борта'
         self.OperationSwitch.destroy()
         f = EntranceData.EntranceDataFirst(self.field1,self.field2,self.field3,self.field4)
     def GUI (self):
@@ -34,7 +36,16 @@ class OperationSwitch():
         frame = Frame(self.OperationSwitch, relief=RAISED, borderwidth=1)
         frame.pack(fill=BOTH, expand=True)
         self.sel = IntVar()
-        operations=[('Свободная раздача трубчатой заготовки',1),('Формовка переходников',2),('Формовка рифтов',3),('Разделительные операции на трубах',4),('Пробивка отверстий в плоских заготовках',5),('Гибка бортов',6),('Формовка плоских заготовок',7),('Калибровка на отжим',8),('Калибровка на раздачу',9)]
+        operations=[('Формовка цилиндра',1),
+                    ('Формовка конуса',2),
+                    ('Формовка сферы',3),
+                    ('Формовка рифта',4),
+                    ('Отбортовка наружного контура заготовки',5),
+                    ('Формовка тороидального рифта',6),
+                    ('Формовка сферической пуклевки',7),
+                    ('Формовка конусной пуклевки',8),
+                    ('Формовка плоской пуклевки',9),
+                    ('Гибка прямолинейного борта',10)]
         for operation,val in operations:
             Radiobutton(frame,activebackground="yellow", selectcolor='lightblue', text=operation, indicatoron=0, variable=self.sel, value=val,command=self.GoToWork).pack(anchor=N)
         btn = Button(self.OperationSwitch, text="Закрыть окно", bg="red", fg="black", command=self.CloseWindow)
