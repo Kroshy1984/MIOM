@@ -1,6 +1,7 @@
 from tkinter import * #вызов библиотеки ткинтер
 import StartPage
 from EntranceData import EntranceDataFirst, EntranceDataSecond
+from InductorParams import InductorParams
 class SelectWay():
     def __init__(self):
         self.SelectWayWindow = Tk()
@@ -36,4 +37,6 @@ class SelectWay():
     def Exit(self):
         self.SelectWayWindow.destroy()
         self.window2= StartPage.StartPage()
-    def InductorWindow(self):pass
+    def InductorWindow(self):
+        self.SelectWayWindow.destroy()
+        window3 = InductorParams()
