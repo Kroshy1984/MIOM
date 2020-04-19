@@ -26,7 +26,7 @@ class EntranceDataFirst():
         btn3 = tkinter.Button(self.frame, text="Выбор материала", bg="grey", fg="black", command=self.WindowMaterials)
         btn4 = tkinter.Button(self.frame, text="Размер заготовки и детали", bg="grey", fg="black",
                               command=self.SetSizes)
-        btn5 = tkinter.Button(self.frame, text="Параметры индуктора", bg="blue", fg="black",
+        btn5 = tkinter.Button(self.frame, text="Параметры индуктора", bg="lightgreen", fg="black",
                               command=self.WindowInductorParams)
         self.message_entry = tkinter.Entry(self.frame, textvariable='')
         self.message_entry.insert(0, bif1)
