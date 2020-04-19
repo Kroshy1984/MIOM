@@ -4,11 +4,11 @@ import tkinter
 class InductorParams():
     def GUI(self):
         self.InductorParams = tkinter.Tk()
-        self.InductorParams.geometry('600x500')  # геометрия окна
+        self.InductorParams.geometry('500x500')  # геометрия окна
         self.InductorParams.title("Параметры индуктора")  # название окна
         label1 = tkinter.Label(self.InductorParams, text="КПД, ед.", bg="white", fg="black")
         label1.place(x=10, y=60)
-        btn4 = tkinter.Button(self.InductorParams, text="Выбор материала", bg="grey", fg="black", command=self.WindowMashins)
+        btn4 = tkinter.Button(self.InductorParams, text="Выбор материала индуктора", bg="grey", fg="black", command=self.WindowMashins)
         btn4.place(x=10, y=110)
         label2 = tkinter.Label(self.InductorParams, text="Высота индуктора, м", bg="white", fg="black")
         label2.place(x=10, y=160)
@@ -22,6 +22,8 @@ class InductorParams():
         label5.place(x=10, y=360)
         self.message_entry1 = tkinter.Entry(self.InductorParams, textvariable='')
         self.message_entry1.place(x=300, y=60)
+        self.message_entry1 = tkinter.Entry(self.InductorParams, textvariable='')
+        self.message_entry1.place(x=300, y=110)
         self.message_entry2 = tkinter.Entry(self.InductorParams, textvariable='')
         self.message_entry2.place(x=300, y=160)
         self.message_entry3 = tkinter.Entry(self.InductorParams, textvariable='')
