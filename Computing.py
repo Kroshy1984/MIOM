@@ -143,6 +143,11 @@ class Inductor():
         # Декремент затухания
         self.DZT = RSDQ / (2 * LSDQ)
 
+    def VCR(self):
+        return self.VCR
+    def PM(self):
+        return self.PM
+
     def NCF(self):
         return self.NCF
 
@@ -236,7 +241,7 @@ class Inductor():
             LCC = 3.14 * mu * self.NCT * (self.DCA + self.ZCP) * self.NCT * self.ZPR / (self.LU * self.KEC)
             self.LUC2 = LCC
             self.REZ = (self.LUC2 - LUC1) / LUC1
-            print(self.REZ)
+            #print(self.REZ)
         return self.LUC2
 
     def PWS(self):  # Проверка
