@@ -305,7 +305,8 @@ class Form():
         elif self.operation == "a4":
             self.ESP = (3.14 * geometry) / (self.RIB * 4)
         elif self.operation == "b1":
-            self.ESP = (self.RIB / geometry) - 1
+            #self.ESP = ((self.RIB / geometry) - 1)
+            self.ESP=0.02
         elif self.operation == "b2":
             self.ESP = (((geometry / self.RIB - 1) / 2) - 1) / 2
         elif self.operation == "b3":

@@ -22,9 +22,13 @@ class SelectWay():
         btn2.place(x=10, y=11)
         btn3 = tkinter.Button(frame_bottom, text="Назад", bg="red", fg="black", command=self.Exit)
         btn3.place(x=500, y=11)
+        btn1 = tkinter.Button(frame_bottom, text="Простой расчет", bg="lightblue", fg="black", command=self.SmartCalculation)
+        btn1.place(x=300, y=11)
         label1 = tkinter.Label(frame_top, text="Выберете путь для рассчета процессов МИОМ", bg="white", fg="black")
         label1.pack()
         self.SelectWayWindow.mainloop()
+
+    def SmartCalculation(self):pass
 
     def FirstWay(self):
         a = ''
