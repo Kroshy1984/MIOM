@@ -1,6 +1,7 @@
 import tkinter
 import StartPage
 import EntranceData
+import SmartCalculation
 from InductorParams import InductorParams
 
 
@@ -28,7 +29,9 @@ class SelectWay():
         label1.pack()
         self.SelectWayWindow.mainloop()
 
-    def SmartCalculation(self):pass
+    def SmartCalculation(self):
+        self.SelectWayWindow.destroy()
+        Window=SmartCalculation.SmartCalculation()
 
     def FirstWay(self):
         a = ''
