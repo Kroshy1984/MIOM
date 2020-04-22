@@ -75,7 +75,7 @@ class SmartCalculation():
         KDM = self.message_entry7.get()
         KPD = self.message_entry8.get()
         operation = self.message_entry9.get()
-        f = Computing.Form(DOT, ST, BCM, KDM, MM, LBT, KPD, RC, operation)
+        f = Computing.Form(float(DOT), float(ST), float(BCM), float(KDM), float(MM), float(LBT), float(KPD), float(RC), operation)
         DIB = Computing.Form.DIB(f)
         s="Внутренний диаметр трубчатой заготовки:" + str(DIB) + ",м"
         self.text.insert(1.0, s)
