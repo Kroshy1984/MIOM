@@ -39,6 +39,27 @@ class SmartCalculation():
         label11 = tkinter.Label(self.Smart, text="Поиск материала для заготовки в базе",
                                 bg="white", fg="black")
         label11.place(x=800, y=60)
+        label12 = tkinter.Label(self.Smart, text="Удельное электрическое сопротивление материала индуктора",
+                                bg="white", fg="black")
+        label12.place(x=10, y=510)
+        label13 = tkinter.Label(self.Smart, text="Частота колебаний разрядного тока МИУ в режиме короткого замыкания",
+                                bg="white", fg="black")
+        label13.place(x=10, y=560)
+        label14 = tkinter.Label(self.Smart, text="Индуктивность",
+                                bg="white", fg="black")
+        label14.place(x=10, y=610)
+        label15 = tkinter.Label(self.Smart, text="Ёмкость батареи конденсаторов МИУ",
+                                bg="white", fg="black")
+        label15.place(x=10, y=660)
+        label16 = tkinter.Label(self.Smart, text="Длина индуктора",
+                                bg="white", fg="black")
+        label16.place(x=10, y=710)
+        label17 = tkinter.Label(self.Smart, text="Высота индуктора",
+                                bg="white", fg="black")
+        label17.place(x=10, y=760)
+        label18 = tkinter.Label(self.Smart, text="Плотность материала индуктора",
+                                bg="white", fg="black")
+        label18.place(x=10, y=810)
         self.message_entry1 = tkinter.Entry(self.Smart, textvariable='')
         self.message_entry1.place(x=600, y=60)
         self.message_entry2 = tkinter.Entry(self.Smart, textvariable='')
@@ -59,14 +80,28 @@ class SmartCalculation():
         self.message_entry9.place(x=600, y=460)
         self.message_entry10 = tkinter.Entry(self.Smart, textvariable='')
         self.message_entry10.place(x=1100, y=60)
+        self.message_entry11 = tkinter.Entry(self.Smart, textvariable='')
+        self.message_entry11.place(x=600, y=510)
+        self.message_entry12 = tkinter.Entry(self.Smart, textvariable='')
+        self.message_entry12.place(x=600, y=560)
+        self.message_entry13 = tkinter.Entry(self.Smart, textvariable='')
+        self.message_entry13.place(x=600, y=610)
+        self.message_entry14 = tkinter.Entry(self.Smart, textvariable='')
+        self.message_entry14.place(x=600, y=660)
+        self.message_entry15 = tkinter.Entry(self.Smart, textvariable='')
+        self.message_entry15.place(x=600, y=710)
+        self.message_entry16 = tkinter.Entry(self.Smart, textvariable='')
+        self.message_entry16.place(x=600, y=760)
+        self.message_entry17 = tkinter.Entry(self.Smart, textvariable='')
+        self.message_entry17.place(x=600, y=810)
         btn = tkinter.Button(self.Smart, text="Закрыть окно", bg="red", fg="black", command=self.CloseWindow)
-        btn.place(x=10, y=550)
+        btn.place(x=10, y=950)
         btn1 = tkinter.Button(self.Smart, text="Рассчитать", bg="green", fg="black", command=self.CalculateIt)
-        btn1.place(x=280, y=550)
+        btn1.place(x=280, y=950)
         btn2 = tkinter.Button(self.Smart, text="Найти", bg="lightgreen", fg="black", command=self.SearchMaterial)
         btn2.place(x=1300, y=60)
         self.text=tkinter.Text(self.Smart, height=20)
-        self.text.place(x=10,y=600)
+        self.text.place(x=800,y=600)
         self.Smart.mainloop()
 
     def SearchMaterial(self):
