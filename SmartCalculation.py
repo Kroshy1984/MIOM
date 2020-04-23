@@ -60,6 +60,12 @@ class SmartCalculation():
         label18 = tkinter.Label(self.Smart, text="Плотность материала индуктора",
                                 bg="white", fg="black")
         label18.place(x=10, y=810)
+        label19 = tkinter.Label(self.Smart, text="Поиск материала для индуктора в базе",
+                                bg="white", fg="black")
+        label19.place(x=800, y=110)
+        label20 = tkinter.Label(self.Smart, text="Поиск установки в базе",
+                                bg="white", fg="black")
+        label20.place(x=800, y=160)
         self.message_entry1 = tkinter.Entry(self.Smart, textvariable='')
         self.message_entry1.place(x=600, y=60)
         self.message_entry2 = tkinter.Entry(self.Smart, textvariable='')
@@ -94,15 +100,28 @@ class SmartCalculation():
         self.message_entry16.place(x=600, y=760)
         self.message_entry17 = tkinter.Entry(self.Smart, textvariable='')
         self.message_entry17.place(x=600, y=810)
+        self.message_entry18 = tkinter.Entry(self.Smart, textvariable='')
+        self.message_entry18.place(x=1100,y=110)
+        self.message_entry19 = tkinter.Entry(self.Smart, textvariable='')
+        self.message_entry19.place(x=1100, y=160)
         btn = tkinter.Button(self.Smart, text="Закрыть окно", bg="red", fg="black", command=self.CloseWindow)
         btn.place(x=10, y=950)
         btn1 = tkinter.Button(self.Smart, text="Рассчитать", bg="green", fg="black", command=self.CalculateIt)
         btn1.place(x=280, y=950)
         btn2 = tkinter.Button(self.Smart, text="Найти", bg="lightgreen", fg="black", command=self.SearchMaterial)
         btn2.place(x=1300, y=60)
+        btn3 = tkinter.Button(self.Smart, text="Найти", bg="lightgreen", fg="black", command=self.SearchMaterialForInductor)
+        btn3.place(x=1300, y=110)
+        btn4 = tkinter.Button(self.Smart, text="Найти", bg="lightgreen", fg="black",
+                              command=self.SearchEquipment)
+        btn4.place(x=1300, y=160)
         self.text=tkinter.Text(self.Smart, height=20)
         self.text.place(x=800,y=600)
         self.Smart.mainloop()
+
+    def SearchEquipment(self):pass
+
+    def SearchMaterialForInductor(self):pass
 
     def SearchMaterial(self):
         material=self.message_entry10.get()
