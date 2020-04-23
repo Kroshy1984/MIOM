@@ -15,56 +15,56 @@ class SmartCalculation():
         self.Smart = tkinter.Tk()
         self.Smart.geometry('1500x1000')  # геометрия окна
         self.Smart.title("Простой расчет формовки и параметров индуктора")  # название окна
-        label2 = tkinter.Label(self.Smart, text="Введите диаметр наружной трубы, м", bg="white", fg="black")
+        label2 = tkinter.Label(self.Smart, text="Введите диаметр наружной трубы, м", bg="lightgrey", fg="black")
         label2.place(x=10, y=60)
-        label3 = tkinter.Label(self.Smart, text="Введите толщину стенки трубы, м", bg="white", fg="black")
+        label3 = tkinter.Label(self.Smart, text="Введите толщину стенки трубы, м", bg="lightgrey", fg="black")
         label3.place(x=10, y=110)
-        label4 = tkinter.Label(self.Smart, text="Введите длину деформируемой зоны, м", bg="white", fg="black")
+        label4 = tkinter.Label(self.Smart, text="Введите длину деформируемой зоны, м", bg="lightgrey", fg="black")
         label4.place(x=10, y=160)
-        label5 = tkinter.Label(self.Smart, text="Введите радиус цилиндра, м", bg="white", fg="black")
+        label5 = tkinter.Label(self.Smart, text="Введите радиус цилиндра, м", bg="lightgrey", fg="black")
         label5.place(x=10, y=210)
-        label6 = tkinter.Label(self.Smart, text="Коэффициент степенной аппроксимации кривой упрочнения материала BCM", bg="white", fg="black")
+        label6 = tkinter.Label(self.Smart, text="Коэффициент степенной аппроксимации кривой упрочнения материала BCM", bg="lightgrey", fg="black")
         label6.place(x=10, y=260)
-        label7 = tkinter.Label(self.Smart, text="Коэффициент степенной аппроксимации кривой упрочнения материала MM", bg="white", fg="black")
+        label7 = tkinter.Label(self.Smart, text="Коэффициент степенной аппроксимации кривой упрочнения материала MM", bg="lightgrey", fg="black")
         label7.place(x=10, y=310)
         label8 = tkinter.Label(self.Smart, text="Коэффициент динамичности материала KDM",
-                               bg="white", fg="black")
+                               bg="lightgrey", fg="black")
         label8.place(x=10, y=360)
         label9 = tkinter.Label(self.Smart, text="КПД, ед.",
-                               bg="white", fg="black")
+                               bg="lightgrey", fg="black")
         label9.place(x=10, y=410)
         label10 = tkinter.Label(self.Smart, text="Операция",
-                               bg="white", fg="black")
+                               bg="lightgrey", fg="black")
         label10.place(x=10, y=460)
         label11 = tkinter.Label(self.Smart, text="Поиск материала для заготовки в базе",
-                                bg="white", fg="black")
+                                bg="lightgrey", fg="black")
         label11.place(x=800, y=60)
         label12 = tkinter.Label(self.Smart, text="Удельное электрическое сопротивление материала индуктора",
-                                bg="white", fg="black")
+                                bg="lightgrey", fg="black")
         label12.place(x=10, y=510)
         label13 = tkinter.Label(self.Smart, text="Частота колебаний разрядного тока МИУ в режиме короткого замыкания",
-                                bg="white", fg="black")
+                                bg="lightgrey", fg="black")
         label13.place(x=10, y=560)
         label14 = tkinter.Label(self.Smart, text="Индуктивность",
-                                bg="white", fg="black")
+                                bg="lightgrey", fg="black")
         label14.place(x=10, y=610)
         label15 = tkinter.Label(self.Smart, text="Ёмкость батареи конденсаторов МИУ",
-                                bg="white", fg="black")
+                                bg="lightgrey", fg="black")
         label15.place(x=10, y=660)
         label16 = tkinter.Label(self.Smart, text="Длина индуктора",
-                                bg="white", fg="black")
+                                bg="lightgrey", fg="black")
         label16.place(x=10, y=710)
         label17 = tkinter.Label(self.Smart, text="Высота индуктора",
-                                bg="white", fg="black")
+                                bg="lightgrey", fg="black")
         label17.place(x=10, y=760)
         label18 = tkinter.Label(self.Smart, text="Плотность материала индуктора",
-                                bg="white", fg="black")
+                                bg="lightgrey", fg="black")
         label18.place(x=10, y=810)
         label19 = tkinter.Label(self.Smart, text="Поиск материала для индуктора в базе",
-                                bg="white", fg="black")
+                                bg="lightgrey", fg="black")
         label19.place(x=800, y=110)
         label20 = tkinter.Label(self.Smart, text="Поиск установки в базе",
-                                bg="white", fg="black")
+                                bg="lightgrey", fg="black")
         label20.place(x=800, y=160)
         self.message_entry1 = tkinter.Entry(self.Smart, textvariable='')
         self.message_entry1.place(x=600, y=60)
