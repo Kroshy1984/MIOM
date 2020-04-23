@@ -70,36 +70,45 @@ class SmartCalculation():
         LBT = self.message_entry3.get()
         RC = self.message_entry4.get()
         BCM1 = self.message_entry5.get()
-        BCM = BCM1*pow(10,7)
+        BCM = float(BCM1)*pow(10,7)
         MM = self.message_entry6.get()
         KDM = self.message_entry7.get()
         KPD = self.message_entry8.get()
         operation = self.message_entry9.get()
+        #print(float(DOT),float(ST),float(LBT),float(RC),float(BCM),float(MM),float(KDM),float(KPD),operation)
         f = Computing.Form(float(DOT), float(ST), float(BCM), float(KDM), float(MM), float(LBT), float(KPD), float(RC), operation)
         DIB = Computing.Form.DIB(f)
         s="Внутренний диаметр трубчатой заготовки:" + str(DIB) + ",м"
         self.text.insert(1.0, s)
         RIB = Computing.Form.RIB(f)
-        s1="Внутренний радиус трубчатой заготовки:" + str(RIB) + ",м"
-        self.text.insert(1.0, s1)
+        #print(RIB)
+        s1="\n"+"Внутренний радиус трубчатой заготовки:" + str(RIB) + ",м"
+        self.text.insert(2.0, s1)
         ESP = Computing.Form.ESP(f, RC)
-        s2="Cредняя величина деформации заготовки:" + str(ESP) + ",м"
-        self.text.insert(1.0, s2)
+        #print(ESP)
+        s2="\n"+"Cредняя величина деформации заготовки:" + str(ESP) + ",м"
+        self.text.insert(3.0, s2)
         BCMD = Computing.Form.BCMD(f)
-        s3="Динамическое значение коэффициента аппроксимации кривой упрочнения:" + str(BCMD)
-        self.text.insert(1.0, s3)
+        #print(BCMD)
+        s3="\n"+"Динамическое значение коэффициента аппроксимации кривой упрочнения:" + str(BCMD)
+        self.text.insert(4.0, s3)
         WYD = Computing.Form.WYD(f)
-        s4="Удельная работа деформации:" + str(WYD) + ",Дж"
-        self.text.insert(1.0, s4)
+        #print(WYD)
+        s4="\n"+"Удельная работа деформации:" + str(WYD) + ",Дж"
+        self.text.insert(5.0, s4)
         DVB = Computing.Form.DVB(f)
-        s5="Деформируемый объем заготовки:" + str(DVB) + ",mm3"
-        self.text.insert(1.0, s5)
+        #print(DVB)
+        s5="\n"+"Деформируемый объем заготовки:" + str(DVB) + ",mm3"
+        self.text.insert(6.0, s5)
         WDB = Computing.Form.WDB(f)
-        s6="Работа деформации заготовки:" + str(WDB) + ",Дж"
-        self.text.insert(1.0, s6)
+        #print(WDB)
+        s6="\n"+"Работа деформации заготовки:" + str(WDB) + ",Дж"
+        self.text.insert(7.0, s6)
         WMIR = Computing.Form.WMIR(f)
-        s7='Необходимая энергия для выполнения операции:' + str(WMIR) + ",Дж"
-        self.text.insert(1.0, s7)
+        #print(WMIR)
+        s7="\n"+'Необходимая энергия для выполнения операции:' + str(WMIR) + ",Дж"
+        self.text.insert(8.0, s7)
         WMUR = Computing.Form.WMUR(f)
-        s8="Энергоемкость установки:" + str(WMUR) + ",Дж"
-        self.text.insert(1.0, s8)
+        #print(WMUR)
+        s8="\n"+"Энергоемкость установки:" + str(WMUR) + ",Дж"
+        self.text.insert(9.0, s8)
