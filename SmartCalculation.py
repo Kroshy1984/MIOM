@@ -12,7 +12,7 @@ class SmartCalculation():
 
     def GUI(self):
         self.Smart = tkinter.Tk()
-        self.Smart.geometry('1000x1000')  # геометрия окна
+        self.Smart.geometry('1500x1000')  # геометрия окна
         self.Smart.title("Простой расчет формовки и параметров индуктора")  # название окна
         label2 = tkinter.Label(self.Smart, text="Введите диаметр наружной трубы, м", bg="white", fg="black")
         label2.place(x=10, y=60)
@@ -35,6 +35,9 @@ class SmartCalculation():
         label10 = tkinter.Label(self.Smart, text="Операция",
                                bg="white", fg="black")
         label10.place(x=10, y=460)
+        label11 = tkinter.Label(self.Smart, text="Поиск материала для заготовки в базе",
+                                bg="white", fg="black")
+        label11.place(x=800, y=60)
         self.message_entry1 = tkinter.Entry(self.Smart, textvariable='')
         self.message_entry1.place(x=600, y=60)
         self.message_entry2 = tkinter.Entry(self.Smart, textvariable='')
@@ -53,13 +56,19 @@ class SmartCalculation():
         self.message_entry8.place(x=600, y=410)
         self.message_entry9 = tkinter.Entry(self.Smart, textvariable='')
         self.message_entry9.place(x=600, y=460)
+        self.message_entry10 = tkinter.Entry(self.Smart, textvariable='')
+        self.message_entry10.place(x=1100, y=60)
         btn = tkinter.Button(self.Smart, text="Закрыть окно", bg="red", fg="black", command=self.CloseWindow)
         btn.place(x=10, y=550)
-        btn = tkinter.Button(self.Smart, text="Рассчитать", bg="green", fg="black", command=self.CalculateIt)
-        btn.place(x=280, y=550)
+        btn1 = tkinter.Button(self.Smart, text="Рассчитать", bg="green", fg="black", command=self.CalculateIt)
+        btn1.place(x=280, y=550)
+        btn2 = tkinter.Button(self.Smart, text="Найти", bg="lightgreen", fg="black", command=self.SearchMaterial)
+        btn2.place(x=1300, y=60)
         self.text=tkinter.Text(self.Smart, height=20)
         self.text.place(x=10,y=600)
         self.Smart.mainloop()
+
+    def SearchMaterial(self):pass
 
     def CloseWindow(self):
         self.Smart.destroy()
