@@ -4,6 +4,7 @@ from SetSizes import SetSizes
 from OperationSwitch import OperationSwitch
 from Materials import Materials
 import Computing
+import sqlite3
 
 
 class SmartCalculation():
@@ -68,24 +69,42 @@ class SmartCalculation():
         self.text.place(x=10,y=600)
         self.Smart.mainloop()
 
-    def SearchMaterial(self):pass
+    def SearchMaterial(self):
+        material=self.message_entry10.get()
+        print(material)
+        conn = sqlite3.connect("Metalls.db")
+        cursor = conn.cursor()
+        sql="select M_M, B, The_coefficient_of_dynamic from Workpiece_material where Name_of_the_metalls ='"+material+"'"
+        print(sql)
+        sql1="select * from Workpiece_material "
+        print(cursor.execute(sql))
+        for row in cursor.execute(sql):
+            self.message_entry5.delete(0,10)
+            self.message_entry6.delete(0,10)
+            self.message_entry7.delete(0,10)
+            self.MM=row[0]
+            self.BCM1=row[1]
+            self.KDM=row[2]
+            self.message_entry5.insert(0,self.BCM1)
+            self.message_entry6.insert(0,self.MM)
+            self.message_entry7.insert(0,self.KDM)
 
     def CloseWindow(self):
         self.Smart.destroy()
 
     def CalculateIt(self):
-        DOT = self.message_entry1.get()
-        ST = self.message_entry2.get()
-        LBT = self.message_entry3.get()
-        RC = self.message_entry4.get()
-        BCM1 = self.message_entry5.get()
-        BCM = float(BCM1)*pow(10,7)
-        MM = self.message_entry6.get()
-        KDM = self.message_entry7.get()
-        KPD = self.message_entry8.get()
+        self.DOT = self.message_entry1.get()
+        self.ST = self.message_entry2.get()
+        self.LBT = self.message_entry3.get()
+        self.RC = self.message_entry4.get()
+        self.BCM1 = self.message_entry5.get()
+        self.BCM = float(self.BCM1)*pow(10,7)
+        self.MM = self.message_entry6.get()
+        self.KDM = self.message_entry7.get()
+        self.KPD = self.message_entry8.get()
         operation = self.message_entry9.get()
         #print(float(DOT),float(ST),float(LBT),float(RC),float(BCM),float(MM),float(KDM),float(KPD),operation)
-        f = Computing.Form(float(DOT), float(ST), float(BCM), float(KDM), float(MM), float(LBT), float(KPD), float(RC), operation)
+        f = Computing.Form(float(self.DOT), float(self.ST), float(self.BCM), float(self.KDM), float(self.MM), float(self.LBT), float(self.KPD), float(self.RC), operation)
         DIB = Computing.Form.DIB(f)
         s="Внутренний диаметр трубчатой заготовки:" + str(DIB) + ",м"
         self.text.insert(1.0, s)
@@ -93,7 +112,7 @@ class SmartCalculation():
         #print(RIB)
         s1="\n"+"Внутренний радиус трубчатой заготовки:" + str(RIB) + ",м"
         self.text.insert(2.0, s1)
-        ESP = Computing.Form.ESP(f, RC)
+        ESP = Computing.Form.ESP(f, self.RC)
         #print(ESP)
         s2="\n"+"Cредняя величина деформации заготовки:" + str(ESP) + ",м"
         self.text.insert(3.0, s2)
