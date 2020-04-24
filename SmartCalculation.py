@@ -100,7 +100,7 @@ class SmartCalculation():
         self.message_entry16.place(x=600, y=760)
         self.message_entry17 = tkinter.Entry(self.Smart, textvariable='')
         self.message_entry17.place(x=600, y=810)
-        self.message_entry18 = tkinter.Entry(self.Smart, textvariable='')
+        self.message_entry18 = tkinter.Entry(self.Smart, textvariable='')#материал индукора
         self.message_entry18.place(x=1100,y=110)
         self.message_entry19 = tkinter.Entry(self.Smart, textvariable='')
         self.message_entry19.place(x=1100, y=160)
@@ -121,14 +121,23 @@ class SmartCalculation():
 
     def SearchEquipment(self):pass
 
-    def SearchMaterialForInductor(self):pass
+    def SearchMaterialForInductor(self):
+        material = self.message_entry18.get()
+        print(material)
+        conn = sqlite3.connect("Metalls.db")
+        cursor = conn.cursor()
+        sql1 = "select Specific_electric_resistance from Workpiece_material where Name_of_the_metalls ='"+material+"'"
+        for row in cursor.execute(sql1):
+            self.message_entry11.delete(0, 10)
+            self.YEMP=row[0]
+            self.message_entry11.insert(0,self.YEMP)
 
     def SearchMaterial(self):
         material=self.message_entry10.get()
         print(material)
         conn = sqlite3.connect("Metalls.db")
         cursor = conn.cursor()
-        sql="select M_M, B, The_coefficient_of_dynamic from Workpiece_material where Name_of_the_metalls ='"+material+"'"
+        sql="select M_M, B, The_coefficient_of_dynamic from Workpiece_material where Name_of_the_metalls ='" + material + "'"
         print(sql)
         sql1="select * from Workpiece_material "
         print(cursor.execute(sql))
