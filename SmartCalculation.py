@@ -119,7 +119,13 @@ class SmartCalculation():
         self.text.place(x=800,y=600)
         self.Smart.mainloop()
 
-    def SearchEquipment(self):pass
+    def SearchEquipment(self):
+        equipment = self.message_entry19.get()
+        print(equipment)
+        conn = sqlite3.connect("mashins.db")
+        cursor = conn.cursor()
+        sql3 = "select Equipment_inductance,Condenser_capasity,Shot_circuit_current_frequency, FK1 from The_equipments_of_magnetic_pulse_forming where Equipment_brand ='" + equipment + "'"
+        for row in cursor.execute(sql3):print(row)
 
     def SearchMaterialForInductor(self):
         material = self.message_entry18.get()

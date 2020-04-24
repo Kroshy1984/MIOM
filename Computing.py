@@ -13,7 +13,7 @@ import math
 class Inductor():
     def __init__(self, LBT, operation, DOT, ST, FW, YEMP, FCE, LCE, LCB, CCE, SC, HSC, PLM, BCM, KDM, MM, KPD,
                  geometry):
-        mu = 4 * 3.17 * pow(10, -7)  # магнитная проницаемость в вакууме
+        mu = 4 * 3.14 * pow(10, -7)  # магнитная проницаемость в вакууме
         self.LBT = LBT
         self.operation = operation
         self.DOT = DOT
