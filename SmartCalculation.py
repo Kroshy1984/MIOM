@@ -66,6 +66,9 @@ class SmartCalculation():
         label20 = tkinter.Label(self.Smart, text="Поиск установки в базе",
                                 bg="lightgrey", fg="black")
         label20.place(x=800, y=160)
+        label21 = tkinter.Label(self.Smart, text="Частота тока короткого замыкания",
+                                bg="lightgrey", fg="black")
+        label21.place(x=10, y=860)
         self.message_entry1 = tkinter.Entry(self.Smart, textvariable='')
         self.message_entry1.place(x=600, y=60)
         self.message_entry2 = tkinter.Entry(self.Smart, textvariable='')
@@ -104,6 +107,8 @@ class SmartCalculation():
         self.message_entry18.place(x=1100,y=110)
         self.message_entry19 = tkinter.Entry(self.Smart, textvariable='')
         self.message_entry19.place(x=1100, y=160)
+        self.message_entry19 = tkinter.Entry(self.Smart, textvariable='')
+        self.message_entry19.place(x=600, y=860)
         btn = tkinter.Button(self.Smart, text="Закрыть окно", bg="red", fg="black", command=self.CloseWindow)
         btn.place(x=10, y=950)
         btn1 = tkinter.Button(self.Smart, text="Рассчитать", bg="green", fg="black", command=self.CalculateIt)
@@ -125,8 +130,17 @@ class SmartCalculation():
         conn = sqlite3.connect("mashins.db")
         cursor = conn.cursor()
         sql3 = "select Equipment_inductance,Condenser_capasity,Shot_circuit_current_frequency, FK1 from The_equipments_of_magnetic_pulse_forming where Equipment_brand ='" + equipment + "'"
-        for row in cursor.execute(sql3):print(row)
-
+        for row in cursor.execute(sql3):
+            print(row)
+            self.message_entry13.delete(0, 10)
+            self.LCE = row[0]
+            self.message_entry13.insert(0, self.LCE)
+            self.message_entry14.delete(0, 10)
+            self.СCE = row[1]
+            self.message_entry14.insert(0, self.СCE)
+            self.message_entry12.delete(0, 10)
+            self.FCE = row[2]
+            self.message_entry12.insert(0, self.FCE)
     def SearchMaterialForInductor(self):
         material = self.message_entry18.get()
         print(material)
