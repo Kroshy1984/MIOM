@@ -69,6 +69,9 @@ class SmartCalculation():
         label21 = tkinter.Label(self.Smart, text="Частота тока короткого замыкания",
                                 bg="lightgrey", fg="black")
         label21.place(x=10, y=860)
+        label21 = tkinter.Label(self.Smart, text="Введите количество витков",
+                                bg="lightgrey", fg="black")
+        label21.place(x=10, y=910)
         self.message_entry1 = tkinter.Entry(self.Smart, textvariable='')
         self.message_entry1.place(x=600, y=60)
         self.message_entry2 = tkinter.Entry(self.Smart, textvariable='')
@@ -107,8 +110,10 @@ class SmartCalculation():
         self.message_entry18.place(x=1100,y=110)
         self.message_entry19 = tkinter.Entry(self.Smart, textvariable='')
         self.message_entry19.place(x=1100, y=160)
-        self.message_entry19 = tkinter.Entry(self.Smart, textvariable='')
-        self.message_entry19.place(x=600, y=860)
+        self.message_entry20 = tkinter.Entry(self.Smart, textvariable='')# частота тока короткого замыкания
+        self.message_entry20.place(x=600, y=860)
+        self.message_entry21 = tkinter.Entry(self.Smart, textvariable='')  # количество витков
+        self.message_entry21.place(x=600, y=910)
         btn = tkinter.Button(self.Smart, text="Закрыть окно", bg="red", fg="black", command=self.CloseWindow)
         btn.place(x=10, y=950)
         btn1 = tkinter.Button(self.Smart, text="Рассчитать", bg="green", fg="black", command=self.CalculateIt)
@@ -141,6 +146,9 @@ class SmartCalculation():
             self.message_entry12.delete(0, 10)
             self.FCE = row[2]
             self.message_entry12.insert(0, self.FCE)
+            self.message_entry20.delete(0, 10)
+            self.FW = row[3]
+            self.message_entry20.insert(0, self.FW)
     def SearchMaterialForInductor(self):
         material = self.message_entry18.get()
         print(material)
