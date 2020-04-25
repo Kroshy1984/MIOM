@@ -100,7 +100,7 @@ class SmartCalculation():
         self.message_entry13.place(x=600, y=610)
         self.message_entry14 = tkinter.Entry(self.Smart, textvariable='')
         self.message_entry14.place(x=600, y=660)
-        self.message_entry15 = tkinter.Entry(self.Smart, textvariable='')
+        self.message_entry15 = tkinter.Entry(self.Smart, textvariable='') #длинна индуктора
         self.message_entry15.place(x=600, y=710)
         self.message_entry16 = tkinter.Entry(self.Smart, textvariable='')
         self.message_entry16.place(x=600, y=760)
@@ -149,16 +149,20 @@ class SmartCalculation():
             self.message_entry20.delete(0, 10)
             self.FW = row[3]
             self.message_entry20.insert(0, self.FW)
+
     def SearchMaterialForInductor(self):
         material = self.message_entry18.get()
         print(material)
         conn = sqlite3.connect("Metalls.db")
         cursor = conn.cursor()
-        sql1 = "select Specific_electric_resistance from Workpiece_material where Name_of_the_metalls ='"+material+"'"
+        sql1 = "select Specific_electric_resistance, Material_density from Workpiece_material where Name_of_the_metalls ='"+material+"'"
         for row in cursor.execute(sql1):
             self.message_entry11.delete(0, 10)
             self.YEMP=row[0]
             self.message_entry11.insert(0,self.YEMP)
+            self.message_entry17.delete(0, 10)
+            self.PLM = row[1]
+            self.message_entry17.insert(0, self.PLM)
 
     def SearchMaterial(self):
         material=self.message_entry10.get()
@@ -191,40 +195,34 @@ class SmartCalculation():
         self.BCM = float(self.BCM1)*pow(10,7)
         self.KPD = self.message_entry8.get()
         operation = self.message_entry9.get()
-        #print(float(DOT),float(ST),float(LBT),float(RC),float(BCM),float(MM),float(KDM),float(KPD),operation)
+        self.SC = self.message_entry15.get()# длина индуктора
+        self.HSC = self.message_entry16.get()# высота индуктора
+
         f = Computing.Form(float(self.DOT), float(self.ST), float(self.BCM), float(self.KDM), float(self.MM), float(self.LBT), float(self.KPD), float(self.RC), operation)
         DIB = Computing.Form.DIB(f)
         s="Внутренний диаметр трубчатой заготовки:" + str(DIB) + ",м"
         self.text.insert(1.0, s)
         RIB = Computing.Form.RIB(f)
-        #print(RIB)
         s1="\n"+"Внутренний радиус трубчатой заготовки:" + str(RIB) + ",м"
         self.text.insert(2.0, s1)
         ESP = Computing.Form.ESP(f, self.RC)
-        #print(ESP)
         s2="\n"+"Cредняя величина деформации заготовки:" + str(ESP) + ",м"
         self.text.insert(3.0, s2)
         BCMD = Computing.Form.BCMD(f)
-        #print(BCMD)
         s3="\n"+"Динамическое значение коэффициента аппроксимации кривой упрочнения:" + str(BCMD)
         self.text.insert(4.0, s3)
         WYD = Computing.Form.WYD(f)
-        #print(WYD)
         s4="\n"+"Удельная работа деформации:" + str(WYD) + ",Дж"
         self.text.insert(5.0, s4)
         DVB = Computing.Form.DVB(f)
-        #print(DVB)
         s5="\n"+"Деформируемый объем заготовки:" + str(DVB) + ",mm3"
         self.text.insert(6.0, s5)
         WDB = Computing.Form.WDB(f)
-        #print(WDB)
         s6="\n"+"Работа деформации заготовки:" + str(WDB) + ",Дж"
         self.text.insert(7.0, s6)
         WMIR = Computing.Form.WMIR(f)
-        #print(WMIR)
         s7="\n"+'Необходимая энергия для выполнения операции:' + str(WMIR) + ",Дж"
         self.text.insert(8.0, s7)
         WMUR = Computing.Form.WMUR(f)
-        #print(WMUR)
         s8="\n"+"Энергоемкость установки:" + str(WMUR) + ",Дж"
         self.text.insert(9.0, s8)

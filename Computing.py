@@ -12,7 +12,7 @@ import math
 
 class Inductor():
     def __init__(self, LBT, operation, DOT, ST, FW, YEMP, FCE, LCE, LCB, CCE, SC, HSC, PLM, BCM, KDM, MM, KPD,
-                 geometry):
+                 geometry,NCT1):
         mu = 4 * 3.14 * pow(10, -7)  # магнитная проницаемость в вакууме
         self.LBT = LBT
         self.operation = operation
@@ -41,6 +41,7 @@ class Inductor():
         self.FW = FW  # Частота разрядного тока
         self.BC = pow(self.YEMC / (3.14 * mu * self.FW), 0.5)  # Глубина проникновения ИМП в материал индуктор
         self.BP = pow(self.YEMP / (3.14 * mu * self.FW), 0.5)  # Глубина проникновения ИМП в материал заготовки
+        self.NCT1=NCT1
         if self.BP > self.ST:
             self.FW = self.YEMP / (3.14 * mu * pow(self.ST, 2))
             print('FW=' + str(self.FW))
@@ -66,9 +67,7 @@ class Inductor():
         self.NCW = round(self.NCWC)
         self.NCF = round(self.NCT - self.NCW)  # Количество свободных витков
         if self.NCF == 0:
-            print("!!!!!!!")
-            print("Расчетное количество витков индуктора необходимо ввести заново")
-            self.NCT = int(input("Введите реальное колличество витков"))
+            self.NCT = self.NCT1
             print("Ширину шины необходимо ввести заново")
             self.SSC = float(input("Введите реальную толщину шины"))
             self.LU = self.SC * self.NCT  # Длина индуктора
