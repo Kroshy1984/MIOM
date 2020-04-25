@@ -233,4 +233,66 @@ class SmartCalculation():
         WMUR = Computing.Form.WMUR(f)
         s8="\n"+"Энергоемкость установки:" + str(WMUR) + ",Дж"
         self.text.insert(9.0, s8)
-
+        LCA = Computing.Inductor.LCA(g)
+        s9="\n"+"Длина индуктора:" + str(LCA) + ",м"
+        self.text.insert(10.0, s9)
+        ZCP = Computing.Inductor.ZCP(g)
+        s10="\n"+"Величина зазора между индуктором и заготовкой:" + str(ZCP) + ",м"
+        self.text.insert(11.0, s10)
+        DCA = Computing.Inductor.DCA(g)
+        s11="\n"+"Диаметр индуктора:" + str(DCA) + ",м"
+        self.text.insert(12.0, s11)
+        BP = Computing.Inductor.BP(g)
+        s12="\n"+"Глубина проникновения ИМП в материал заготовки: " + str(BP) + " ,м"
+        self.text.insert(13.0, s12)
+        BC = Computing.Inductor.BC(g)
+        s13="\n"+"Глубина проникновения ИМП в материал индуктор: " + str(BC) + " ,м"
+        self.text.insert(14.0, s13)
+        LDC = Computing.Inductor.LDC(g)
+        s14="\n"+"Паразитная индуктивность разрядного контура: " + str(LDC) + " ,Гн"
+        self.text.insert(15.0, s14)
+        FDC = Computing.Inductor.FDC(g)
+        s15="\n"+"Частота разряда при наличии только паразитных индуктивностей: " + str(FDC) + " ,Гц"
+        self.text.insert(16.0, s15)
+        K1 = Computing.Inductor.K1(g)
+        s16="\n"+"Коэффициент К1: " + str(K1)
+        self.text.insert(17.0, s16)
+        K2 = Computing.Inductor.K2(g)
+        s17="\n"+"Коэффициент К2: " + str(K2)
+        self.text.insert(18.0, s17)
+        K3 = Computing.Inductor.K3(g)
+        s18="\n"+"Коэффициент К3: " + str(K3)
+        self.text.insert(19.0, s18)
+        K4 = Computing.Inductor.K4(g)
+        s19="\n"+"Коэффициент К4: " + str(K4)
+        self.text.insert(20.0, s19)
+        ZEK = Computing.Inductor.ZEK(g)
+        s20="\n"+"Значение эквивалентного зазора между индуктором и заготовкой: " + str(ZEK)
+        self.text.insert(21.0, s20)
+        NCTC = Computing.Inductor.NCTC(g)
+        s21="\n"+"Количество витков индуктора: " + str(NCTC)
+        self.text.insert(22.0, s21)
+        NCW = Computing.Inductor.NCW(g)
+        s22="\n"+"Целое количество витков индуктора: " + str(NCW)
+        self.text.insert(23.0, s22)
+        NCWC = Computing.Inductor.NCWC(g)
+        s23="\n"+"Расчетное количество рабочих витков" + str(NCWC)
+        self.text.insert(24.0, s23)
+        NCF = Computing.Inductor.NCF(g)
+        s24="\n"+"Количество свободных витков" + str(NCF)
+        self.text.insert(25.0, s24)
+        SCIC = Computing.Inductor.SCIC(g)
+        s25="\n"+"Расчетный шаг витков индуктора: " + str(SCIC)
+        self.text.insert(26.0, s25)
+        WR = Computing.Inductor.WR(g)
+        s26="\n"+"Необходимая энергия разряда МИУ: " + str(WR) + ",Дж"
+        self.text.insert(27.0, s26)
+        LUC = Computing.Inductor.LUC(g)
+        s27="\n"+"Суммарная индуктивность: " + str(LUC) + " ,Гн"
+        self.text.insert(28.0, s27)
+        PM = Computing.Inductor.PM(g)
+        s28="\n"+"Давление  " + str(PM) + "Па"
+        self.text.insert(29.0, s28)
+        VCR = Computing.Inductor.VCR(g)
+        s29="\n"+"Скорость  " + str(VCR) + "м\с"
+        self.text.insert(30.0, s29)
