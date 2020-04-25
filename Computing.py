@@ -68,8 +68,6 @@ class Inductor():
         self.NCF = round(self.NCT - self.NCW)  # Количество свободных витков
         if self.NCF == 0:
             self.NCT = self.NCT1
-            print("Ширину шины необходимо ввести заново")
-            self.SSC = float(input("Введите реальную толщину шины"))
             self.LU = self.SC * self.NCT  # Длина индуктора
             self.SCIC = (self.LCA / self.NCT)  # Расчетный шаг витков индуктора
             self.SSC = self.SCIC - self.ZS  # Ширина медной шины по оси индуктора

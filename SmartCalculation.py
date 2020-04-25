@@ -198,14 +198,14 @@ class SmartCalculation():
         self.SC = self.message_entry15.get()# длина индуктора
         self.HSC = self.message_entry16.get()# высота индуктора
         self.NCT1 = self.message_entry21.get()  # высота индуктора
-        self.YEMP=self.YEMP1*pow(10,-6)
+        self.YEMP=self.YEMP1*pow(10,-8)
         self.FCE=self.FCE1*pow(10,3)
         self.LCE=self.LCE1*pow(10,-6)
         self.CCE=self.CCE1*pow(10, -6)
         f = Computing.Form(float(self.DOT), float(self.ST), float(self.BCM), float(self.KDM), float(self.MM), float(self.LBT), float(self.KPD), float(self.RC), operation)
-        g = Computing.Inductor(self.LBT, operation, self.DOT, self.ST, self.FW, self.YEMP, self.FCE, self.LCE, 1* pow(10, -12),
-                               self.CCE, self.SC, self.HSC, self.PLM, self.BCM, self.KDM, self.MM, self.KPD,
-                               self.RC, self.NCT1)
+        g = Computing.Inductor(float(self.LBT), operation, float(self.DOT), float(self.ST), float(self.FW), float(self.YEMP), float(self.FCE), float(self.LCE), 1* pow(10, -12),
+                               float(self.CCE), float(self.SC), float(self.HSC), float(self.PLM), float(self.BCM), float(self.KDM), float(self.MM), float(self.KPD),
+                               float(self.RC), float(self.NCT1))
         DIB = Computing.Form.DIB(f)
         s="Внутренний диаметр трубчатой заготовки:" + str(DIB) + ",м"
         self.text.insert(1.0, s)
