@@ -88,7 +88,8 @@ class SmartCalculation():
         self.message_entry7.place(x=600, y=360)
         self.message_entry8 = tkinter.Entry(self.Smart, textvariable='')
         self.message_entry8.place(x=600, y=410)
-        self.message_entry9 = tkinter.Entry(self.Smart, textvariable='')
+        self.option= tkinter.StringVar(self.Smart)
+        self.message_entry9=tkinter.OptionMenu(self.Smart,self.option,"a1","a2","a3","a4","b1","b2","b3","b4")
         self.message_entry9.place(x=600, y=460)
         self.message_entry10 = tkinter.Entry(self.Smart, textvariable='')
         self.message_entry10.place(x=1100, y=60)
@@ -174,6 +175,7 @@ class SmartCalculation():
         sql1="select * from Workpiece_material "
         print(cursor.execute(sql))
         for row in cursor.execute(sql):
+            print(row)
             self.message_entry5.delete(0,10)
             self.message_entry6.delete(0,10)
             self.message_entry7.delete(0,10)
@@ -194,7 +196,7 @@ class SmartCalculation():
         self.RC = self.message_entry4.get()
         self.BCM = float(self.BCM1)*pow(10,7)
         self.KPD = self.message_entry8.get()
-        operation = self.message_entry9.get()
+        operation = self.option.get()
         self.SC = self.message_entry15.get()# длина индуктора
         self.HSC = self.message_entry16.get()# высота индуктора
         self.NCT1 = self.message_entry21.get()  # высота индуктора
