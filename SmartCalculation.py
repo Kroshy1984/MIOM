@@ -138,14 +138,14 @@ class SmartCalculation():
         for row in cursor.execute(sql3):
             print(row)
             self.message_entry13.delete(0, 10)
-            self.LCE = row[0]
-            self.message_entry13.insert(0, self.LCE)
+            self.LCE1 = row[0]
+            self.message_entry13.insert(0, self.LCE1)
             self.message_entry14.delete(0, 10)
-            self.СCE = row[1]
-            self.message_entry14.insert(0, self.СCE)
+            self.CCE1 = row[1]
+            self.message_entry14.insert(0, self.CCE1)
             self.message_entry12.delete(0, 10)
-            self.FCE = row[2]
-            self.message_entry12.insert(0, self.FCE)
+            self.FCE1 = row[2]
+            self.message_entry12.insert(0, self.FCE1)
             self.message_entry20.delete(0, 10)
             self.FW = row[3]
             self.message_entry20.insert(0, self.FW)
@@ -158,8 +158,8 @@ class SmartCalculation():
         sql1 = "select Specific_electric_resistance, Material_density from Workpiece_material where Name_of_the_metalls ='"+material+"'"
         for row in cursor.execute(sql1):
             self.message_entry11.delete(0, 10)
-            self.YEMP=row[0]
-            self.message_entry11.insert(0,self.YEMP)
+            self.YEMP1=row[0]
+            self.message_entry11.insert(0,self.YEMP1)
             self.message_entry17.delete(0, 10)
             self.PLM = row[1]
             self.message_entry17.insert(0, self.PLM)
@@ -197,8 +197,15 @@ class SmartCalculation():
         operation = self.message_entry9.get()
         self.SC = self.message_entry15.get()# длина индуктора
         self.HSC = self.message_entry16.get()# высота индуктора
-
+        self.NCT1 = self.message_entry21.get()  # высота индуктора
+        self.YEMP=self.YEMP1*pow(10,-6)
+        self.FCE=self.FCE1*pow(10,3)
+        self.LCE=self.LCE1*pow(10,-6)
+        self.CCE=self.CCE1*pow(10, -6)
         f = Computing.Form(float(self.DOT), float(self.ST), float(self.BCM), float(self.KDM), float(self.MM), float(self.LBT), float(self.KPD), float(self.RC), operation)
+        g = Computing.Inductor(self.LBT, operation, self.DOT, self.ST, self.FW, self.YEMP, self.FCE, self.LCE, 1* pow(10, -12),
+                               self.CCE, self.SC, self.HSC, self.PLM, self.BCM, self.KDM, self.MM, self.KPD,
+                               self.RC, self.NCT1)
         DIB = Computing.Form.DIB(f)
         s="Внутренний диаметр трубчатой заготовки:" + str(DIB) + ",м"
         self.text.insert(1.0, s)
@@ -226,3 +233,4 @@ class SmartCalculation():
         WMUR = Computing.Form.WMUR(f)
         s8="\n"+"Энергоемкость установки:" + str(WMUR) + ",Дж"
         self.text.insert(9.0, s8)
+
