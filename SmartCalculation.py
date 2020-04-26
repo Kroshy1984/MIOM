@@ -21,6 +21,9 @@ class SmartCalculation():
         label3.place(x=10, y=110)
         label4 = tkinter.Label(self.Smart, text="Введите длину деформируемой зоны, м", bg="lightgrey", fg="black")
         label4.place(x=10, y=160)
+        self.LabelG = ["Выберете операцию","Введите радиус цилиндра, м","Максимальный радиус конуса, м","Радиус сферы, м", "Радиус рифта"]
+        self.label5 = tkinter.Label(self.Smart, text=self.LabelG[0], bg="lightgrey", fg="red")
+        self.label5.place(x=10, y=210)
         label6 = tkinter.Label(self.Smart, text="Коэффициент степенной аппроксимации кривой упрочнения материала BCM", bg="lightgrey", fg="black")
         label6.place(x=10, y=260)
         label7 = tkinter.Label(self.Smart, text="Коэффициент степенной аппроксимации кривой упрочнения материала MM", bg="lightgrey", fg="black")
@@ -130,15 +133,18 @@ class SmartCalculation():
         self.Smart.mainloop()
 
     def ChangeLabel(self):
-        self.LabelG="ничего"
         self.operation=self.option.get()
         print(self.operation)
-        if self.operation == "b1":
-            self.LabelG = "Введите радиус цилиндра, м"
-            self.label5 = tkinter.Label(self.Smart, text=self.LabelG, bg="lightgrey", fg="red")
-            self.label5.place(x=10, y=210)
-            self.message_entry4 = tkinter.Entry(self.Smart, textvariable='')
-            self.message_entry4.place(x=600, y=210)
+        if self.operation == "b1" or self.operation == "a1":
+            self.label5["text"] = self.LabelG[1]
+        elif self.operation == "b2" or self.operation == "a2":
+            self.label5["text"] = self.LabelG[2]
+        elif self.operation == "b3" or self.operation == "a3":
+            self.label5["text"] = self.LabelG[3]
+        elif self.operation == "b4" or self.operation == "a4":
+            self.label5["text"] = self.LabelG[4]
+        self.message_entry4 = tkinter.Entry(self.Smart, textvariable='')
+        self.message_entry4.place(x=600, y=210)
 
     def SearchEquipment(self):
         equipment = self.message_entry19.get()
