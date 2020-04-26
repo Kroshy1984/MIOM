@@ -15,11 +15,11 @@ class SmartCalculation():
         self.Smart = tkinter.Tk()
         self.Smart.geometry('1500x1000')  # геометрия окна
         self.Smart.title("Простой расчет формовки и параметров индуктора")  # название окна
-        label2 = tkinter.Label(self.Smart, text="Введите диаметр наружной трубы, м", bg="lightgrey", fg="black")
+        label2 = tkinter.Label(self.Smart, text="Введите диаметр наружной трубы, м", bg="lightgrey", fg="red")
         label2.place(x=10, y=60)
-        label3 = tkinter.Label(self.Smart, text="Введите толщину стенки трубы, м", bg="lightgrey", fg="black")
+        label3 = tkinter.Label(self.Smart, text="Введите толщину стенки трубы, м", bg="lightgrey", fg="red")
         label3.place(x=10, y=110)
-        label4 = tkinter.Label(self.Smart, text="Введите длину деформируемой зоны, м", bg="lightgrey", fg="black")
+        label4 = tkinter.Label(self.Smart, text="Введите длину деформируемой зоны, м", bg="lightgrey", fg="red")
         label4.place(x=10, y=160)
         self.LabelG = ["Выберете операцию","Введите радиус цилиндра, м","Максимальный радиус конуса, м","Радиус сферы, м", "Радиус рифта"]
         self.label5 = tkinter.Label(self.Smart, text=self.LabelG[0], bg="lightgrey", fg="red")
@@ -32,7 +32,7 @@ class SmartCalculation():
                                bg="lightgrey", fg="black")
         label8.place(x=10, y=360)
         label9 = tkinter.Label(self.Smart, text="КПД, ед.",
-                               bg="lightgrey", fg="black")
+                               bg="lightgrey", fg="red")
         label9.place(x=10, y=410)
         label10 = tkinter.Label(self.Smart, text="Операция",
                                bg="lightgrey", fg="black")
@@ -53,10 +53,10 @@ class SmartCalculation():
                                 bg="lightgrey", fg="black")
         label15.place(x=10, y=660)
         label16 = tkinter.Label(self.Smart, text="Длина индуктора",
-                                bg="lightgrey", fg="black")
+                                bg="lightgrey", fg="red")
         label16.place(x=10, y=710)
         label17 = tkinter.Label(self.Smart, text="Высота индуктора",
-                                bg="lightgrey", fg="black")
+                                bg="lightgrey", fg="red")
         label17.place(x=10, y=760)
         label18 = tkinter.Label(self.Smart, text="Плотность материала индуктора",
                                 bg="lightgrey", fg="black")
@@ -71,7 +71,7 @@ class SmartCalculation():
                                 bg="lightgrey", fg="black")
         label21.place(x=10, y=860)
         label21 = tkinter.Label(self.Smart, text="Введите количество витков",
-                                bg="lightgrey", fg="black")
+                                bg="lightgrey", fg="red")
         label21.place(x=10, y=910)
         self.message_entry1 = tkinter.Entry(self.Smart, textvariable='')
         self.message_entry1.place(x=600, y=60)
@@ -92,7 +92,7 @@ class SmartCalculation():
         self.message_entry9=tkinter.OptionMenu(self.Smart,self.option,"a1","a2","a3","a4","b1","b2","b3","b4")# выбор операции
         self.message_entry9.place(x=600, y=460)
         btn5=tkinter.Button(self.Smart, text="Выбрать", bg="orange", fg="black", command=self.ChangeLabel)
-        btn5.place(x=800,y=460)
+        btn5.place(x=500,y=460)
         self.message_entry10 = tkinter.Entry(self.Smart, textvariable='')
         self.message_entry10.place(x=1100, y=60)
         self.message_entry11 = tkinter.Entry(self.Smart, textvariable='')
@@ -128,8 +128,8 @@ class SmartCalculation():
         btn4 = tkinter.Button(self.Smart, text="Найти", bg="lightgreen", fg="black",
                               command=self.SearchEquipment)
         btn4.place(x=1300, y=160)
-        self.text=tkinter.Text(self.Smart, height=20)
-        self.text.place(x=800,y=600)
+        self.text=tkinter.Text(self.Smart, height=35)
+        self.text.place(x=800,y=450)
         self.Smart.mainloop()
 
     def ChangeLabel(self):
@@ -220,7 +220,7 @@ class SmartCalculation():
         self.FCE=self.FCE1*pow(10,3)
         self.LCE=self.LCE1*pow(10,-6)
         self.CCE=self.CCE1*pow(10, -6)
-        f = Computing.Form(float(self.DOT), float(self.ST), float(self.BCM), float(self.KDM), float(self.MM), float(self.LBT), float(self.KPD), float(self.RC), operation)
+        f = Computing.Form(float(self.DOT), float(self.ST), float(self.BCM), float(self.KDM), float(self.MM), float(self.LBT), float(self.KPD), float(self.RC), self.operation)
         g = Computing.Inductor(float(self.LBT), self.operation, float(self.DOT), float(self.ST), float(self.FW), float(self.YEMP), float(self.FCE), float(self.LCE), 1* pow(10, -12),
                                float(self.CCE), float(self.SC), float(self.HSC), float(self.PLM), float(self.BCM), float(self.KDM), float(self.MM), float(self.KPD),
                                float(self.RC), float(self.NCT1))
