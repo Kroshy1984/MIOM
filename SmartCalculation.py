@@ -21,8 +21,6 @@ class SmartCalculation():
         label3.place(x=10, y=110)
         label4 = tkinter.Label(self.Smart, text="Введите длину деформируемой зоны, м", bg="lightgrey", fg="black")
         label4.place(x=10, y=160)
-        label5 = tkinter.Label(self.Smart, text="Введите радиус цилиндра, м", bg="lightgrey", fg="black")
-        label5.place(x=10, y=210)
         label6 = tkinter.Label(self.Smart, text="Коэффициент степенной аппроксимации кривой упрочнения материала BCM", bg="lightgrey", fg="black")
         label6.place(x=10, y=260)
         label7 = tkinter.Label(self.Smart, text="Коэффициент степенной аппроксимации кривой упрочнения материала MM", bg="lightgrey", fg="black")
@@ -78,8 +76,6 @@ class SmartCalculation():
         self.message_entry2.place(x=600, y=110)
         self.message_entry3 = tkinter.Entry(self.Smart, textvariable='')
         self.message_entry3.place(x=600, y=160)
-        self.message_entry4 = tkinter.Entry(self.Smart, textvariable='')
-        self.message_entry4.place(x=600, y=210)
         self.message_entry5 = tkinter.Entry(self.Smart, textvariable='')
         self.message_entry5.place(x=600, y=260)
         self.message_entry6 = tkinter.Entry(self.Smart, textvariable='')
@@ -92,6 +88,8 @@ class SmartCalculation():
         self.option.set("Выбери операцию тут")
         self.message_entry9=tkinter.OptionMenu(self.Smart,self.option,"a1","a2","a3","a4","b1","b2","b3","b4")# выбор операции
         self.message_entry9.place(x=600, y=460)
+        btn5=tkinter.Button(self.Smart, text="Выбрать", bg="orange", fg="black", command=self.ChangeLabel)
+        btn5.place(x=800,y=460)
         self.message_entry10 = tkinter.Entry(self.Smart, textvariable='')
         self.message_entry10.place(x=1100, y=60)
         self.message_entry11 = tkinter.Entry(self.Smart, textvariable='')
@@ -130,6 +128,17 @@ class SmartCalculation():
         self.text=tkinter.Text(self.Smart, height=20)
         self.text.place(x=800,y=600)
         self.Smart.mainloop()
+
+    def ChangeLabel(self):
+        self.LabelG="ничего"
+        self.operation=self.option.get()
+        print(self.operation)
+        if self.operation == "b1":
+            self.LabelG = "Введите радиус цилиндра, м"
+            self.label5 = tkinter.Label(self.Smart, text=self.LabelG, bg="lightgrey", fg="red")
+            self.label5.place(x=10, y=210)
+            self.message_entry4 = tkinter.Entry(self.Smart, textvariable='')
+            self.message_entry4.place(x=600, y=210)
 
     def SearchEquipment(self):
         equipment = self.message_entry19.get()
@@ -197,7 +206,7 @@ class SmartCalculation():
         self.RC = self.message_entry4.get()
         self.BCM = float(self.BCM1)*pow(10,7)
         self.KPD = self.message_entry8.get()
-        operation = self.option.get()#операция
+        self.operation = self.option.get()#операция
         self.SC = self.message_entry15.get()# длина индуктора
         self.HSC = self.message_entry16.get()# высота индуктора
         self.NCT1 = self.message_entry21.get()  # высота индуктора
@@ -206,7 +215,7 @@ class SmartCalculation():
         self.LCE=self.LCE1*pow(10,-6)
         self.CCE=self.CCE1*pow(10, -6)
         f = Computing.Form(float(self.DOT), float(self.ST), float(self.BCM), float(self.KDM), float(self.MM), float(self.LBT), float(self.KPD), float(self.RC), operation)
-        g = Computing.Inductor(float(self.LBT), operation, float(self.DOT), float(self.ST), float(self.FW), float(self.YEMP), float(self.FCE), float(self.LCE), 1* pow(10, -12),
+        g = Computing.Inductor(float(self.LBT), self.operation, float(self.DOT), float(self.ST), float(self.FW), float(self.YEMP), float(self.FCE), float(self.LCE), 1* pow(10, -12),
                                float(self.CCE), float(self.SC), float(self.HSC), float(self.PLM), float(self.BCM), float(self.KDM), float(self.MM), float(self.KPD),
                                float(self.RC), float(self.NCT1))
         DIB = Computing.Form.DIB(f)
