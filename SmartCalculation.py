@@ -40,6 +40,9 @@ class SmartCalculation():
         label11 = tkinter.Label(self.Smart, text="Поиск материала для заготовки в базе",
                                 bg="lightgrey", fg="black")
         label11.place(x=800, y=60)
+        self.label24 = tkinter.Label(self.Smart, text="",
+                                     bg="lightgrey", fg="red")
+        self.label24.place(x=820, y=80)
         label12 = tkinter.Label(self.Smart, text="Удельное электрическое сопротивление материала индуктора",
                                 bg="lightgrey", fg="black")
         label12.place(x=10, y=510)
@@ -64,9 +67,15 @@ class SmartCalculation():
         label19 = tkinter.Label(self.Smart, text="Поиск материала для индуктора в базе",
                                 bg="lightgrey", fg="black")
         label19.place(x=800, y=110)
+        self.label23 = tkinter.Label(self.Smart, text="",
+                                     bg="lightgrey", fg="red")
+        self.label23.place(x=820, y=130)
         label20 = tkinter.Label(self.Smart, text="Поиск установки в базе",
                                 bg="lightgrey", fg="black")
         label20.place(x=800, y=160)
+        self.label22 = tkinter.Label(self.Smart, text="",
+                                bg="lightgrey", fg="red")
+        self.label22.place(x=820, y=180)
         label21 = tkinter.Label(self.Smart, text="Частота тока короткого замыкания",
                                 bg="lightgrey", fg="black")
         label21.place(x=10, y=860)
@@ -147,13 +156,16 @@ class SmartCalculation():
         self.message_entry4.place(x=600, y=210)
 
     def SearchEquipment(self):
+        self.label22["text"] = ""
         equipment = self.message_entry19.get()
         print(equipment)
         conn = sqlite3.connect("mashins.db")
         cursor = conn.cursor()
         sql3 = "select Equipment_inductance,Condenser_capasity,Shot_circuit_current_frequency, FK1 from The_equipments_of_magnetic_pulse_forming where Equipment_brand ='" + equipment + "'"
+        c = 0
         for row in cursor.execute(sql3):
             print(row)
+            c=+1
             self.message_entry13.delete(0, 10)
             self.LCE1 = row[0]
             self.message_entry13.insert(0, self.LCE1)
@@ -166,22 +178,27 @@ class SmartCalculation():
             self.message_entry20.delete(0, 10)
             self.FW = row[3]
             self.message_entry20.insert(0, self.FW)
-
+        if c==0:self.label22["text"]="По вашему запросу в базе ничего не найдено"
     def SearchMaterialForInductor(self):
+        self.label23["text"] = ""
         material = self.message_entry18.get()
         print(material)
         conn = sqlite3.connect("Metalls.db")
         cursor = conn.cursor()
         sql1 = "select Specific_electric_resistance, Material_density from Workpiece_material where Name_of_the_metalls ='"+material+"'"
+        c=0
         for row in cursor.execute(sql1):
+            c=+1
             self.message_entry11.delete(0, 10)
             self.YEMP1=row[0]
             self.message_entry11.insert(0,self.YEMP1)
             self.message_entry17.delete(0, 10)
             self.PLM = row[1]
             self.message_entry17.insert(0, self.PLM)
+        if c == 0: self.label23["text"] = "По вашему запросу в базе ничего не найдено"
 
     def SearchMaterial(self):
+        self.label24["text"] = ""
         material=self.message_entry10.get()
         print(material)
         conn = sqlite3.connect("Metalls.db")
@@ -190,8 +207,10 @@ class SmartCalculation():
         print(sql)
         sql1="select * from Workpiece_material "
         print(cursor.execute(sql))
+        c=0
         for row in cursor.execute(sql):
             print(row)
+            c=+1
             self.message_entry5.delete(0,10)
             self.message_entry6.delete(0,10)
             self.message_entry7.delete(0,10)
@@ -201,6 +220,7 @@ class SmartCalculation():
             self.message_entry5.insert(0,self.BCM1)
             self.message_entry6.insert(0,self.MM)
             self.message_entry7.insert(0,self.KDM)
+        if c == 0: self.label24["text"] = "По вашему запросу в базе ничего не найдено"
 
     def CloseWindow(self):
         self.Smart.destroy()
