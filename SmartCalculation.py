@@ -89,7 +89,8 @@ class SmartCalculation():
         self.message_entry8 = tkinter.Entry(self.Smart, textvariable='')
         self.message_entry8.place(x=600, y=410)
         self.option= tkinter.StringVar(self.Smart)
-        self.message_entry9=tkinter.OptionMenu(self.Smart,self.option,"a1","a2","a3","a4","b1","b2","b3","b4")
+        self.option.set("Выбери операцию тут")
+        self.message_entry9=tkinter.OptionMenu(self.Smart,self.option,"a1","a2","a3","a4","b1","b2","b3","b4")# выбор операции
         self.message_entry9.place(x=600, y=460)
         self.message_entry10 = tkinter.Entry(self.Smart, textvariable='')
         self.message_entry10.place(x=1100, y=60)
@@ -196,7 +197,7 @@ class SmartCalculation():
         self.RC = self.message_entry4.get()
         self.BCM = float(self.BCM1)*pow(10,7)
         self.KPD = self.message_entry8.get()
-        operation = self.option.get()
+        operation = self.option.get()#операция
         self.SC = self.message_entry15.get()# длина индуктора
         self.HSC = self.message_entry16.get()# высота индуктора
         self.NCT1 = self.message_entry21.get()  # высота индуктора
