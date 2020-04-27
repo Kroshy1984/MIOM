@@ -12,7 +12,7 @@ class Basad():
         self.BasaM2.geometry('1330x700')
         self.BasaM2.title("Выбор оборудования МИОМ")
         self.Tree = EditorMashins.ttk.Treeview(self.BasaM2, columns=(
-            "Name", "Max_change_energi", "Condenser_capasity", "Equipment_induct", "SccF"), height=20,
+            "Name", "Max_change_energi", "Condenser_capasity", "Equipment_induct", "SccF", "FK1","FK2","R0"), height=20,
                                                show='headings')
         self.Tree.column("Name", width=250, anchor=EditorMashins.tk.CENTER)
         self.Tree.column("Max_change_energi", width=190, anchor=EditorMashins.tk.CENTER)
@@ -25,6 +25,9 @@ class Basad():
         self.Tree.heading("Condenser_capasity", text="Емкость батареи кондецаторов")
         self.Tree.heading("Equipment_induct", text=" Собственная индуктивность")
         self.Tree.heading("SccF", text="Частота тока короткого замыкания")
+        self.Tree.heading("FK1", text="FK1")
+        self.Tree.heading("FK2", text=" FK2")
+        self.Tree.heading("R0", text="R0")
         self.Tree.place(x=50, y=10)
         self.btn = EditorMashins.Button(self.BasaM2, text="Добавить оборудование", bg="grey", fg="black",
                                         command=self.AddMashins)  # описание объекта типа button названия кнопки
