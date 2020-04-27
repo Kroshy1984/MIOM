@@ -5,6 +5,8 @@ from OperationSwitch import OperationSwitch
 from Materials import Materials
 import Computing
 import sqlite3
+import WindowMashins
+import Materials
 
 
 class SmartCalculation():
@@ -138,17 +140,23 @@ class SmartCalculation():
                               command=self.SearchEquipment)
         btn4.place(x=1300, y=160)
         btn5 = tkinter.Button(self.Smart, text="Открыть базу установок", bg="lightgreen", fg="black",
-                              command=self.SearchEquipment)
+                              command=self.WindowMashines)
         btn5.place(x=1400, y=160)
         btn6 = tkinter.Button(self.Smart, text="Открыть базу материалов", bg="lightgreen", fg="black",
-                              command=self.SearchEquipment)
+                              command=self.SearchMaterials)
         btn6.place(x=1400, y=110)
         btn7 = tkinter.Button(self.Smart, text="Открыть базу материалов", bg="lightgreen", fg="black",
-                              command=self.SearchEquipment)
+                              command=self.SearchMaterials)
         btn7.place(x=1400, y=60)
         self.text=tkinter.Text(self.Smart, height=35)
         self.text.place(x=800,y=450)
         self.Smart.mainloop()
+
+    def SearchMaterials(self):
+        window=Materials.Materials("0","0","0","0")
+
+    def WindowMashines(self):
+        window=WindowMashins.Basad("0","0","0","0")
 
     def ChangeLabel(self):
         self.operation=self.option.get()
