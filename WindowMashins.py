@@ -10,12 +10,12 @@ import EditorMashins
 class Basad():
     def GUI(self):
         self.BasaM2 = Tk()
-        self.BasaM2.geometry('1330x700')
+        self.BasaM2.geometry('820x450+700+200')
         self.BasaM2.title("Выбор оборудования МИОМ")
         self.Tree = Treeview(self.BasaM2, columns=(
             "Name", "Max_change_energi", "Condenser_capasity", "Equipment_induct", "SccF", "R0"), height=20,
                                                show='headings')
-        self.Tree.column("Name", width=150, anchor=CENTER)
+        self.Tree.column("Name", width=120, anchor=CENTER)
         self.Tree.column("Max_change_energi", width=70, anchor=CENTER)
         self.Tree.column("Condenser_capasity", width=50, anchor=CENTER)
         self.Tree.column("Equipment_induct", width=50, anchor=CENTER)
@@ -30,29 +30,29 @@ class Basad():
         self.Tree.heading("R0", text="R0")
         self.Tree.place(x=50, y=10)
         label1 = Label(self.BasaM2, text="W_mash-максимальная мощность разряда", bg="lightgrey", fg="black")
-        label1.place(x=600, y=30)
+        label1.place(x=470, y=30)
         label2=Label(self.BasaM2, text="CCT-Емкость батареи конденсаторов установки", bg="lightgrey", fg="black")
-        label2.place(x=600,y=50)
+        label2.place(x=470,y=50)
         label3 = Label(self.BasaM2, text="LCE-индуктивность", bg="lightgrey", fg="black")
-        label3.place(x=600, y=70)
+        label3.place(x=470, y=70)
         label4 = Label(self.BasaM2, text="FW-величина тока короткого замыкания", bg="lightgrey", fg="black")
-        label4.place(x=600, y=90)
+        label4.place(x=470, y=90)
         label7 = Label(self.BasaM2, text="R0-активное сопротивление установки", bg="lightgrey", fg="black")
-        label7.place(x=600, y=150)
+        label7.place(x=470, y=110)
         self.btn = EditorMashins.Button(self.BasaM2, text="Добавить оборудование", bg="orange", fg="black",
                                         command=self.AddMashins)  # описание объекта типа button названия кнопки
-        self.btn.place(x=300, y=500)  # расположение кнопки
+        self.btn.place(x=470, y=200)  # расположение кнопки
         self.btn5 = EditorMashins.Button(self.BasaM2, text="Редактировать оборудование", bg="orange", fg="black",
                                          command=self.clicked2)  # описание объекта типа button названия кнопки
-        self.btn5.place(x=800, y=500)  # расположение кнопки
+        self.btn5.place(x=470, y=250)  # расположение кнопки
         self.btn2 = EditorMashins.Button(self.BasaM2, text="Удалить оборудование", bg="orange", fg="black",
                                          command=self.DellMashins)  # описание объекта типа button названия кнопки
-        self.btn2.place(x=550, y=500)  # расположение кнопки
+        self.btn2.place(x=470, y=300)  # расположение кнопки
         self.btn1 = EditorMashins.Button(self.BasaM2, text="Отменить", bg='pink', fg='red', command=self.BasaM2.destroy)
-        self.btn1.place(x=1150, y=500)
+        self.btn1.place(x=470, y=350)
         self.btn4 = EditorMashins.Button(self.BasaM2, text="Взять данные в работу", bg='green', fg='black',
                                          command=self.GoToWork)
-        self.btn4.place(x=50, y=500)
+        self.btn4.place(x=470, y=150)
 
     def clicked2(self):
         sel = self.Tree.focus()
