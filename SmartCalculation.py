@@ -13,7 +13,7 @@ class SmartCalculation():
 
     def GUI(self):
         self.Smart = tkinter.Tk()
-        self.Smart.geometry('1500x1000')  # геометрия окна
+        self.Smart.geometry('1700x1000')  # геометрия окна
         self.Smart.title("Простой расчет формовки и параметров индуктора")  # название окна
         label2 = tkinter.Label(self.Smart, text="Введите диаметр наружной трубы, м", bg="lightgrey", fg="red")
         label2.place(x=10, y=60)
@@ -137,6 +137,15 @@ class SmartCalculation():
         btn4 = tkinter.Button(self.Smart, text="Найти", bg="lightgreen", fg="black",
                               command=self.SearchEquipment)
         btn4.place(x=1300, y=160)
+        btn5 = tkinter.Button(self.Smart, text="Открыть базу установок", bg="lightgreen", fg="black",
+                              command=self.SearchEquipment)
+        btn5.place(x=1400, y=160)
+        btn6 = tkinter.Button(self.Smart, text="Открыть базу материалов", bg="lightgreen", fg="black",
+                              command=self.SearchEquipment)
+        btn6.place(x=1400, y=110)
+        btn7 = tkinter.Button(self.Smart, text="Открыть базу материалов", bg="lightgreen", fg="black",
+                              command=self.SearchEquipment)
+        btn7.place(x=1400, y=60)
         self.text=tkinter.Text(self.Smart, height=35)
         self.text.place(x=800,y=450)
         self.Smart.mainloop()
