@@ -5,6 +5,7 @@ from SQL12 import *
 import EntranceData
 import Terminator
 import EditorMashins
+import SmartCalculation
 
 
 class Basad():
@@ -95,15 +96,14 @@ class Basad():
     def GoToWork(self):
         sel = self.Tree.focus()
         self.slct2 = self.Tree.item(sel, option='values')
-        self.field1 = self.slct2[0]
+        print(self.slct2)
         self.BasaM2.destroy()
-        f = EditorMashins.EntranceData.EntranceDataFirst(self.field1, self.f2, self.f3, self.f4)
 
-    def __init__(self, a, b, c, d):
-        self.field1 = a
-        self.f2 = b
-        self.f3 = c
-        self.f4 = d
+    def MachinesInfo(self):
+        return self.slct2
+
+
+    def __init__(self):
         self.GUI()
         self.view_records()
         self.BasaM2.mainloop()

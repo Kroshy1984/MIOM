@@ -156,7 +156,9 @@ class SmartCalculation():
         window=Materials.Materials("0","0","0","0")
 
     def WindowMashines(self):
-        window=WindowMashins.Basad("0","0","0","0")
+        g=WindowMashins.Basad()
+        str=g.MachinesInfo()
+        print(str)
 
     def ChangeLabel(self):
         self.operation=self.option.get()
@@ -174,11 +176,11 @@ class SmartCalculation():
 
     def SearchEquipment(self):
         self.label22["text"] = ""
-        equipment = self.message_entry19.get()
-        print(equipment)
+        self.equipment = self.message_entry19.get()
+        print(self.equipment)
         conn = sqlite3.connect("mashins.db")
         cursor = conn.cursor()
-        sql3 = "select Equipment_inductance,Condenser_capasity,Shot_circuit_current_frequency, FK1 from The_equipments_of_magnetic_pulse_forming where Equipment_brand ='" + equipment + "'"
+        sql3 = "select Equipment_inductance,Condenser_capasity,Shot_circuit_current_frequency, FK1 from The_equipments_of_magnetic_pulse_forming where Equipment_brand ='" + self.equipment + "'"
         c = 0
         for row in cursor.execute(sql3):
             print(row)
