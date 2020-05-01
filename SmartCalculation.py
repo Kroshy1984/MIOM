@@ -1,12 +1,6 @@
 import tkinter
-import WindowMashins
-from SetSizes import SetSizes
-from OperationSwitch import OperationSwitch
-from Materials import Materials
 import Computing
 import sqlite3
-import WindowMashins
-import Materials
 from tkinter.ttk import Treeview
 
 

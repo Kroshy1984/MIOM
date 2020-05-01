@@ -2,9 +2,7 @@ from tkinter import *
 import sqlite3
 from tkinter.ttk import Treeview
 from SQL12 import *
-import EntranceData
 import Terminator
-import EditorMashins
 import SmartCalculation
 from SmartCalculation import SmartCalculation as f
 

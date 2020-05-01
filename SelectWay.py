@@ -1,8 +1,6 @@
 import tkinter
 import StartPage
-import EntranceData
 import SmartCalculation
-from InductorParams import InductorParams
 
 
 class SelectWay():
@@ -16,11 +14,6 @@ class SelectWay():
         frame_bottom = tkinter.Frame(self.SelectWayWindow, bg='lightblue', relief=tkinter.RAISED, borderwidth=5)
         frame_bottom.pack(fill=tkinter.BOTH)
         frame_bottom.pack(padx=10, pady=10, ipadx=30, ipady=30)
-        btn = tkinter.Button(frame_bottom, text="Второй путь", bg="grey", fg="black",
-                             command=self.SecondWay)  # описание объекта типа button названия кнопки
-        btn.place(x=160, y=11)  # расположение кнопки
-        btn2 = tkinter.Button(frame_bottom, text="Первый путь", bg="grey", fg="black", command=self.FirstWay)
-        btn2.place(x=10, y=11)
         btn3 = tkinter.Button(frame_bottom, text="Назад", bg="red", fg="black", command=self.Exit)
         btn3.place(x=500, y=11)
         btn1 = tkinter.Button(frame_bottom, text="Простой расчет", bg="lightblue", fg="black", command=self.SmartCalculation)
