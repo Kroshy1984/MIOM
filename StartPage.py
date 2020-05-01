@@ -1,6 +1,6 @@
 import tkinter
 from tkinter import filedialog as fd  # из библиотеке взяли класс диалог и присвоили индефикатор FD
-import SelectWay
+import SmartCalculation
 
 
 class StartPage():
@@ -41,7 +41,7 @@ class StartPage():
 
     def NewFile(self):
         self.window.destroy()
-        SelectWaywindow = SelectWay.SelectWay()
+        Window=SmartCalculation.SmartCalculation()
 
     def OpennFile(self):
         pass
