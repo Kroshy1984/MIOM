@@ -7,6 +7,7 @@ import Computing
 import sqlite3
 import WindowMashins
 import Materials
+from tkinter.ttk import Treeview
 
 
 class SmartCalculation():
@@ -152,15 +153,59 @@ class SmartCalculation():
         self.text=tkinter.Text(self.Smart, height=35)
         self.text.place(x=800,y=450)
 
-    def InsertData(self,a):
-        self.message_entry19.delete(0, 10)
-        self.message_entry19.insert(0, a)
-
     def SearchMaterials(self):
         window=Materials.Materials("0","0","0","0")
 
     def WindowMashines(self):
-        g=WindowMashins.Basad()
+        self.BasaM2 = tkinter.Toplevel(self.Smart)
+        self.BasaM2.geometry('820x450+700+200')
+        self.BasaM2.title("Выбор оборудования МИОМ")
+        self.Tree = Treeview(self.BasaM2, columns=(
+            "Name", "Max_change_energi", "Condenser_capasity", "Equipment_induct", "SccF", "R0"), height=20,
+                             show='headings')
+        self.Tree.column("Name", width=120, anchor=tkinter.CENTER)
+        self.Tree.column("Max_change_energi", width=70, anchor=tkinter.CENTER)
+        self.Tree.column("Condenser_capasity", width=50, anchor=tkinter.CENTER)
+        self.Tree.column("Equipment_induct", width=50, anchor=tkinter.CENTER)
+        self.Tree.column("SccF", width=60, anchor=tkinter.CENTER)
+        self.Tree.column("R0", width=50, anchor=tkinter.CENTER)
+        self.Tree['show'] = "headings"
+        self.Tree.heading("Name", text="Наименование")
+        self.Tree.heading("Max_change_energi", text="W_mash")
+        self.Tree.heading("Condenser_capasity", text="CCE")
+        self.Tree.heading("Equipment_induct", text="LCE")
+        self.Tree.heading("SccF", text="FW")
+        self.Tree.heading("R0", text="R0")
+        mt = sqlite3.connect("mashins.db")
+        cursor = mt.cursor()
+        cpt = 0
+        for row in cursor.execute("select* from The_equipments_of_magnetic_pulse_forming"):
+            self.Tree.insert('', 'end', text=str(cpt), values=row)
+            cpt += 1
+        self.Tree.place(x=50, y=10)
+        label1 = tkinter.Label(self.BasaM2, text="W_mash-максимальная мощность разряда", bg="lightgrey", fg="black")
+        label1.place(x=470, y=30)
+        label2 = tkinter.Label(self.BasaM2, text="CCT-Емкость батареи конденсаторов установки", bg="lightgrey", fg="black")
+        label2.place(x=470, y=50)
+        label3 = tkinter.Label(self.BasaM2, text="LCE-индуктивность", bg="lightgrey", fg="black")
+        label3.place(x=470, y=70)
+        label4 = tkinter.Label(self.BasaM2, text="FW-величина тока короткого замыкания", bg="lightgrey", fg="black")
+        label4.place(x=470, y=90)
+        label7 = tkinter.Label(self.BasaM2, text="R0-активное сопротивление установки", bg="lightgrey", fg="black")
+        label7.place(x=470, y=110)
+        btn4 = tkinter.Button(self.BasaM2, text="Взять данные в работу", bg='green', fg='black',
+                                    command=self.GoToWork)
+        btn4.place(x=470, y=150)
+
+    def GoToWork(self):
+        sel = self.Tree.focus()
+        self.slct2 = self.Tree.item(sel, option='values')
+        self.row = self.slct2[0]
+        print(self.row)
+        print(self.slct2)
+        self.message_entry19.delete(0, 10)
+        self.message_entry19.insert(0, self.row)
+        self.BasaM2.destroy()
 
     def ChangeLabel(self):
         self.operation=self.option.get()
