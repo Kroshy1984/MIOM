@@ -149,7 +149,7 @@ class SmartCalculation():
 
     def SearchMaterials(self):
         self.Materials = tkinter.Toplevel(self.Smart)
-        self.Materials.geometry('800x700+600+200')
+        self.Materials.geometry('1200x700+600+200')
         self.Materials.title("Выбор материала ")
         self.Tree = Treeview(self.Materials, columns=(
             "Name_of_the_metalls", "Tensile_strength", "Yield_strength", "Material_density", "M_M", "B",
@@ -175,14 +175,27 @@ class SmartCalculation():
         self.Tree.heading("The_coefficient_of_dynamic", text="KDM")
         self.Tree.heading("Еhe_dynamic_modulus_hardening", text="MDM")
         self.Tree.place(x=50, y=10)
+        label1 = tkinter.Label(self.Materials, text="PPM-предел прочность материала", bg="lightgrey", fg="black")
+        label1.place(x=550, y=30)
+        label2 = tkinter.Label(self.Materials, text="PYD-предел упругости материала", bg="lightgrey",
+                               fg="black")
+        label2.place(x=550, y=50)
+        label3 = tkinter.Label(self.Materials, text="PLM-плотность материала", bg="lightgrey", fg="black")
+        label3.place(x=550, y=70)
+        label4 = tkinter.Label(self.Materials, text="M_M и B-вкоэффициенты степенной аппроксимации кривой упрочнения материала", bg="lightgrey", fg="black")
+        label4.place(x=550, y=90)
+        label6 = tkinter.Label(self.Materials, text="YEMP-удельное электрическое сопротивление материала", bg="lightgrey", fg="black")
+        label6.place(x=550, y=110)
+        label7 = tkinter.Label(self.Materials, text="MDM-коэффициент динамичности материала", bg="lightgrey", fg="black")
+        label7.place(x=550, y=130)
         mt = sqlite3.connect("Metalls.db")
         cursor = mt.cursor()
         cpt=0
         for row in cursor.execute("select* from Workpiece_material"):
             self.Tree.insert('', 'end', text=str(cpt), values=row)
             cpt += 1
-        self.btn = tkinter.Button(self.Materials, text="Добавить материал", bg="green", fg="black")  # описание объекта типа button названия кнопки
-        self.btn.place(x=470, y=650)
+        self.btn = tkinter.Button(self.Materials, text="Взять данные в работу", bg="green", fg="black")  # описание объекта типа button названия кнопки
+        self.btn.place(x=550, y=150)
     def WindowMashines(self):
         self.BasaM2 = tkinter.Toplevel(self.Smart)
         self.BasaM2.geometry('820x450+700+200')
