@@ -12,6 +12,7 @@ import Materials
 class SmartCalculation():
     def __init__(self):
         self.GUI()
+        self.Smart.mainloop()
 
     def GUI(self):
         self.Smart = tkinter.Tk()
@@ -122,7 +123,7 @@ class SmartCalculation():
         self.message_entry17.place(x=600, y=810)
         self.message_entry18 = tkinter.Entry(self.Smart, textvariable='')#материал индукора
         self.message_entry18.place(x=1100,y=110)
-        self.message_entry19 = tkinter.Entry(self.Smart, textvariable='')
+        self.message_entry19 = tkinter.Entry(self.Smart, textvariable='')# установка
         self.message_entry19.place(x=1100, y=160)
         self.message_entry20 = tkinter.Entry(self.Smart, textvariable='')# частота тока короткого замыкания
         self.message_entry20.place(x=600, y=860)
@@ -150,15 +151,16 @@ class SmartCalculation():
         btn7.place(x=1400, y=60)
         self.text=tkinter.Text(self.Smart, height=35)
         self.text.place(x=800,y=450)
-        self.Smart.mainloop()
+
+    def InsertData(self,a):
+        self.message_entry19.delete(0, 10)
+        self.message_entry19.insert(0, a)
 
     def SearchMaterials(self):
         window=Materials.Materials("0","0","0","0")
 
     def WindowMashines(self):
         g=WindowMashins.Basad()
-        str=g.MachinesInfo()
-        print(str)
 
     def ChangeLabel(self):
         self.operation=self.option.get()
@@ -180,7 +182,7 @@ class SmartCalculation():
         print(self.equipment)
         conn = sqlite3.connect("mashins.db")
         cursor = conn.cursor()
-        sql3 = "select Equipment_inductance,Condenser_capasity,Shot_circuit_current_frequency, FK1 from The_equipments_of_magnetic_pulse_forming where Equipment_brand ='" + self.equipment + "'"
+        sql3 = "select Equipment_inductance,Condenser_capasity,Shot_circuit_current_frequency from The_equipments_of_magnetic_pulse_forming where Equipment_brand ='" + self.equipment + "'"
         c = 0
         for row in cursor.execute(sql3):
             print(row)

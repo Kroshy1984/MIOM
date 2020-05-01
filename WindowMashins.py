@@ -6,11 +6,11 @@ import EntranceData
 import Terminator
 import EditorMashins
 import SmartCalculation
+from SmartCalculation import SmartCalculation as f
 
-
-class Basad():
+class Basad(f):
     def GUI(self):
-        self.BasaM2 = Tk()
+        self.BasaM2 = Toplevel()
         self.BasaM2.geometry('820x450+700+200')
         self.BasaM2.title("Выбор оборудования МИОМ")
         self.Tree = Treeview(self.BasaM2, columns=(
@@ -40,20 +40,21 @@ class Basad():
         label4.place(x=470, y=90)
         label7 = Label(self.BasaM2, text="R0-активное сопротивление установки", bg="lightgrey", fg="black")
         label7.place(x=470, y=110)
-        self.btn = EditorMashins.Button(self.BasaM2, text="Добавить оборудование", bg="orange", fg="black",
+        btn = EditorMashins.Button(self.BasaM2, text="Добавить оборудование", bg="orange", fg="black",
                                         command=self.AddMashins)  # описание объекта типа button названия кнопки
-        self.btn.place(x=470, y=200)  # расположение кнопки
-        self.btn5 = EditorMashins.Button(self.BasaM2, text="Редактировать оборудование", bg="orange", fg="black",
+        btn.place(x=470, y=200)  # расположение кнопки
+        btn5 = EditorMashins.Button(self.BasaM2, text="Редактировать оборудование", bg="orange", fg="black",
                                          command=self.clicked2)  # описание объекта типа button названия кнопки
-        self.btn5.place(x=470, y=250)  # расположение кнопки
-        self.btn2 = EditorMashins.Button(self.BasaM2, text="Удалить оборудование", bg="orange", fg="black",
+        btn5.place(x=470, y=250)  # расположение кнопки
+        btn2 = EditorMashins.Button(self.BasaM2, text="Удалить оборудование", bg="orange", fg="black",
                                          command=self.DellMashins)  # описание объекта типа button названия кнопки
-        self.btn2.place(x=470, y=300)  # расположение кнопки
-        self.btn1 = EditorMashins.Button(self.BasaM2, text="Отменить", bg='pink', fg='red', command=self.BasaM2.destroy)
-        self.btn1.place(x=470, y=350)
-        self.btn4 = EditorMashins.Button(self.BasaM2, text="Взять данные в работу", bg='green', fg='black',
+        btn2.place(x=470, y=300)  # расположение кнопки
+        btn1 = EditorMashins.Button(self.BasaM2, text="Отменить", bg='pink', fg='red', command=self.BasaM2.destroy)
+        btn1.place(x=470, y=350)
+        btn4 = EditorMashins.Button(self.BasaM2, text="Взять данные в работу", bg='green', fg='black',
                                          command=self.GoToWork)
-        self.btn4.place(x=470, y=150)
+        btn4.place(x=470, y=150)
+
 
     def clicked2(self):
         sel = self.Tree.focus()
@@ -96,14 +97,17 @@ class Basad():
     def GoToWork(self):
         sel = self.Tree.focus()
         self.slct2 = self.Tree.item(sel, option='values')
+        self.row=self.slct2[0]
+        print(self.row)
         print(self.slct2)
         self.BasaM2.destroy()
+        g=SmartCalculation.SmartCalculation()
+        f.InsertData(g,self.row)
 
-    def MachinesInfo(self):
-        return self.slct2
-
+    def MashinesInfo(self):
+      return self.row
 
     def __init__(self):
         self.GUI()
         self.view_records()
-        self.BasaM2.mainloop()
+
