@@ -128,22 +128,15 @@ class SmartCalculation():
         btn.place(x=10, y=950)
         btn1 = tkinter.Button(self.Smart, text="Рассчитать", bg="green", fg="black", command=self.CalculateIt)
         btn1.place(x=280, y=950)
-        btn2 = tkinter.Button(self.Smart, text="Найти", bg="lightgreen", fg="black", command=self.SearchMaterial)
-        btn2.place(x=1300, y=60)
-        btn3 = tkinter.Button(self.Smart, text="Найти", bg="lightgreen", fg="black", command=self.SearchMaterialForInductor)
-        btn3.place(x=1300, y=110)
-        btn4 = tkinter.Button(self.Smart, text="Найти", bg="lightgreen", fg="black",
-                              command=self.SearchEquipment)
-        btn4.place(x=1300, y=160)
         btn5 = tkinter.Button(self.Smart, text="Открыть базу установок", bg="lightgreen", fg="black",
                               command=self.WindowMashines)
-        btn5.place(x=1400, y=160)
+        btn5.place(x=1300, y=160)
         btn6 = tkinter.Button(self.Smart, text="Открыть базу материалов", bg="lightgreen", fg="black",
                               command=self.SearchMaterials)
-        btn6.place(x=1400, y=110)
+        btn6.place(x=1300, y=110)
         btn7 = tkinter.Button(self.Smart, text="Открыть базу материалов", bg="lightgreen", fg="black",
                               command=self.SearchMaterials)
-        btn7.place(x=1400, y=60)
+        btn7.place(x=1300, y=60)
         self.text=tkinter.Text(self.Smart, height=35)
         self.text.place(x=800,y=450)
 
@@ -245,6 +238,18 @@ class SmartCalculation():
         print(self.slct2)
         self.message_entry19.delete(0, 10)
         self.message_entry19.insert(0, self.row)
+        self.message_entry13.delete(0, 10)
+        self.LCE1 = self.slct2[0]
+        self.message_entry13.insert(0, self.LCE1)
+        self.message_entry14.delete(0, 10)
+        self.CCE1 = self.slct2[1]
+        self.message_entry14.insert(0, self.CCE1)
+        self.message_entry12.delete(0, 10)
+        self.FCE1 = self.slct2[2]
+        self.message_entry12.insert(0, self.FCE1)
+        self.message_entry20.delete(0, 10)
+        self.FW = self.slct2[3]
+        self.message_entry20.insert(0, self.FW)
         self.BasaM2.destroy()
 
     def ChangeLabel(self):
@@ -261,30 +266,6 @@ class SmartCalculation():
         self.message_entry4 = tkinter.Entry(self.Smart, textvariable='')
         self.message_entry4.place(x=600, y=210)
 
-    def SearchEquipment(self):
-        self.label22["text"] = ""
-        self.equipment = self.message_entry19.get()
-        print(self.equipment)
-        conn = sqlite3.connect("mashins.db")
-        cursor = conn.cursor()
-        sql3 = "select Equipment_inductance,Condenser_capasity,Shot_circuit_current_frequency from The_equipments_of_magnetic_pulse_forming where Equipment_brand ='" + self.equipment + "'"
-        c = 0
-        for row in cursor.execute(sql3):
-            print(row)
-            c=+1
-            self.message_entry13.delete(0, 10)
-            self.LCE1 = row[0]
-            self.message_entry13.insert(0, self.LCE1)
-            self.message_entry14.delete(0, 10)
-            self.CCE1 = row[1]
-            self.message_entry14.insert(0, self.CCE1)
-            self.message_entry12.delete(0, 10)
-            self.FCE1 = row[2]
-            self.message_entry12.insert(0, self.FCE1)
-            self.message_entry20.delete(0, 10)
-            self.FW = row[3]
-            self.message_entry20.insert(0, self.FW)
-        if c==0:self.label22["text"]="По вашему запросу в базе ничего не найдено"
     def SearchMaterialForInductor(self):
         self.label23["text"] = ""
         material = self.message_entry18.get()
