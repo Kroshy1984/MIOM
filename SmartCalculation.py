@@ -154,8 +154,41 @@ class SmartCalculation():
         self.text.place(x=800,y=450)
 
     def SearchMaterials(self):
-        window=Materials.Materials("0","0","0","0")
-
+        self.Materials = tkinter.Toplevel(self.Smart)
+        self.Materials.geometry('800x700+600+200')
+        self.Materials.title("Выбор материала ")
+        self.Tree = Treeview(self.Materials, columns=(
+            "Name_of_the_metalls", "Tensile_strength", "Yield_strength", "Material_density", "M_M", "B",
+            "Specific_electric_resistance", "The_coefficient_of_dynamic", 'Еhe_dynamic_modulus_hardening'), height=30,
+                                 show='headings')
+        self.Tree.column("Name_of_the_metalls", width=60, anchor=tkinter.CENTER)
+        self.Tree.column("Tensile_strength", width=70, anchor=tkinter.CENTER)
+        self.Tree.column("Yield_strength", width=50, anchor=tkinter.CENTER)
+        self.Tree.column("Material_density", width=50, anchor=tkinter.CENTER)
+        self.Tree.column("M_M", width=50, anchor=tkinter.CENTER)
+        self.Tree.column("B", width=50, anchor=tkinter.CENTER)
+        self.Tree.column("Specific_electric_resistance", width=50, anchor=tkinter.CENTER)
+        self.Tree.column("The_coefficient_of_dynamic", width=50, anchor=tkinter.CENTER)
+        self.Tree.column("Еhe_dynamic_modulus_hardening", width=50, anchor=tkinter.CENTER)
+        self.Tree['show'] = "headings"
+        self.Tree.heading("Name_of_the_metalls", text="Металл")
+        self.Tree.heading("Tensile_strength", text="PPM")
+        self.Tree.heading("Yield_strength", text="PYD")
+        self.Tree.heading("Material_density", text="PLM")
+        self.Tree.heading("M_M", text="M_M")
+        self.Tree.heading("B", text="B")
+        self.Tree.heading("Specific_electric_resistance", text="YEMP")
+        self.Tree.heading("The_coefficient_of_dynamic", text="KDM")
+        self.Tree.heading("Еhe_dynamic_modulus_hardening", text="MDM")
+        self.Tree.place(x=50, y=10)
+        mt = sqlite3.connect("Metalls.db")
+        cursor = mt.cursor()
+        cpt=0
+        for row in cursor.execute("select* from Workpiece_material"):
+            self.Tree.insert('', 'end', text=str(cpt), values=row)
+            cpt += 1
+        self.btn = tkinter.Button(self.Materials, text="Добавить материал", bg="green", fg="black")  # описание объекта типа button названия кнопки
+        self.btn.place(x=470, y=650)
     def WindowMashines(self):
         self.BasaM2 = tkinter.Toplevel(self.Smart)
         self.BasaM2.geometry('820x450+700+200')
