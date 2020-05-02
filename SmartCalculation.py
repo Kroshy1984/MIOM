@@ -28,6 +28,8 @@ class SmartCalculation():
         help.add_command(label="Что вы хотите найти?")
         help.add_command(label="Обратиться к разработчикам")
         menu.add_command(label="Выход", command=quit)
+        label=tkinter.Label(self.Smart, text="Введите наименование детали", bg="lightgrey", fg="red")
+        label.place(x=15,y=10)
         label2 = tkinter.Label(self.Smart, text="Введите диаметр наружной трубы, м", bg="lightgrey", fg="red")
         label2.place(x=10, y=60)
         label3 = tkinter.Label(self.Smart, text="Введите толщину стенки трубы, м", bg="lightgrey", fg="red")
@@ -37,46 +39,24 @@ class SmartCalculation():
         self.LabelG = ["Выберете операцию","Введите радиус цилиндра, м","Максимальный радиус конуса, м","Радиус сферы, м", "Радиус рифта"]
         self.label5 = tkinter.Label(self.Smart, text=self.LabelG[0], bg="lightgrey", fg="red")
         self.label5.place(x=10, y=210)
-        label6 = tkinter.Label(self.Smart, text="Коэффициент степенной аппроксимации кривой упрочнения материала BCM", bg="lightgrey", fg="black")
-        label6.place(x=10, y=260)
-        label7 = tkinter.Label(self.Smart, text="Коэффициент степенной аппроксимации кривой упрочнения материала MM", bg="lightgrey", fg="black")
-        label7.place(x=10, y=310)
-        label8 = tkinter.Label(self.Smart, text="Коэффициент динамичности материала KDM",
-                               bg="lightgrey", fg="black")
-        label8.place(x=10, y=360)
         label9 = tkinter.Label(self.Smart, text="КПД, ед.",
                                bg="lightgrey", fg="red")
-        label9.place(x=10, y=410)
+        label9.place(x=10, y=260)
         label10 = tkinter.Label(self.Smart, text="Операция",
-                               bg="lightgrey", fg="black")
-        label10.place(x=10, y=460)
+                               bg="lightgrey", fg="green")
+        label10.place(x=10, y=310)
         label11 = tkinter.Label(self.Smart, text="Поиск материала для заготовки в базе",
                                 bg="lightgrey", fg="black")
         label11.place(x=800, y=60)
         self.label24 = tkinter.Label(self.Smart, text="",
                                      bg="lightgrey", fg="red")
         self.label24.place(x=820, y=80)
-        label12 = tkinter.Label(self.Smart, text="Удельное электрическое сопротивление материала индуктора",
-                                bg="lightgrey", fg="black")
-        label12.place(x=10, y=510)
-        label13 = tkinter.Label(self.Smart, text="Частота колебаний разрядного тока МИУ в режиме короткого замыкания",
-                                bg="lightgrey", fg="black")
-        label13.place(x=10, y=560)
-        label14 = tkinter.Label(self.Smart, text="Индуктивность",
-                                bg="lightgrey", fg="black")
-        label14.place(x=10, y=610)
-        label15 = tkinter.Label(self.Smart, text="Ёмкость батареи конденсаторов МИУ",
-                                bg="lightgrey", fg="black")
-        label15.place(x=10, y=660)
         label16 = tkinter.Label(self.Smart, text="Длина индуктора",
                                 bg="lightgrey", fg="red")
-        label16.place(x=10, y=710)
+        label16.place(x=10, y=360)
         label17 = tkinter.Label(self.Smart, text="Высота индуктора",
                                 bg="lightgrey", fg="red")
-        label17.place(x=10, y=760)
-        label18 = tkinter.Label(self.Smart, text="Плотность материала индуктора",
-                                bg="lightgrey", fg="black")
-        label18.place(x=10, y=810)
+        label17.place(x=10, y=410)
         label19 = tkinter.Label(self.Smart, text="Поиск материала для индуктора в базе",
                                 bg="lightgrey", fg="black")
         label19.place(x=800, y=110)
@@ -88,61 +68,42 @@ class SmartCalculation():
         label20.place(x=800, y=160)
         self.label22 = tkinter.Label(self.Smart, text="",
                                 bg="lightgrey", fg="red")
-        self.label22.place(x=820, y=180)
-        label21 = tkinter.Label(self.Smart, text="Частота тока короткого замыкания",
-                                bg="lightgrey", fg="black")
-        label21.place(x=10, y=860)
+        self.label22.place(x=820, y=460)
         label21 = tkinter.Label(self.Smart, text="Введите количество витков",
                                 bg="lightgrey", fg="red")
-        label21.place(x=10, y=910)
+        label21.place(x=10, y=460)
+        self.message_entry=tkinter.Entry(self.Smart, textvariable='')
+        self.message_entry.place(x=250, y=10)
         self.message_entry1 = tkinter.Entry(self.Smart, textvariable='')
         self.message_entry1.place(x=600, y=60)
         self.message_entry2 = tkinter.Entry(self.Smart, textvariable='')
         self.message_entry2.place(x=600, y=110)
         self.message_entry3 = tkinter.Entry(self.Smart, textvariable='')
         self.message_entry3.place(x=600, y=160)
-        self.message_entry5 = tkinter.Entry(self.Smart, textvariable='')
-        self.message_entry5.place(x=600, y=260)
-        self.message_entry6 = tkinter.Entry(self.Smart, textvariable='')
-        self.message_entry6.place(x=600, y=310)
-        self.message_entry7 = tkinter.Entry(self.Smart, textvariable='')
-        self.message_entry7.place(x=600, y=360)
         self.message_entry8 = tkinter.Entry(self.Smart, textvariable='')
-        self.message_entry8.place(x=600, y=410)
+        self.message_entry8.place(x=600, y=260)
         self.option= tkinter.StringVar(self.Smart)
         self.option.set("Выбери операцию тут")
         self.message_entry9=tkinter.OptionMenu(self.Smart,self.option,"a1-раздача цилиндра","a2 - раздача конуса","a3 - раздача сферы","a4 - раздача рифта","b1 - обжим цилиндра","b2 - обжим конуса","b3 - обжим сферы","b4 - обжим рифта")# выбор операции
-        self.message_entry9.place(x=600, y=460)
+        self.message_entry9.place(x=600, y=310)
         btn5=tkinter.Button(self.Smart, text="Выбрать", bg="orange", fg="black", command=self.ChangeLabel)
-        btn5.place(x=500,y=460)
+        btn5.place(x=500,y=310)
         self.message_entry10 = tkinter.Entry(self.Smart, textvariable='')
         self.message_entry10.place(x=1100, y=60)
-        self.message_entry11 = tkinter.Entry(self.Smart, textvariable='')
-        self.message_entry11.place(x=600, y=510)
-        self.message_entry12 = tkinter.Entry(self.Smart, textvariable='')
-        self.message_entry12.place(x=600, y=560)
-        self.message_entry13 = tkinter.Entry(self.Smart, textvariable='')
-        self.message_entry13.place(x=600, y=610)
-        self.message_entry14 = tkinter.Entry(self.Smart, textvariable='')
-        self.message_entry14.place(x=600, y=660)
         self.message_entry15 = tkinter.Entry(self.Smart, textvariable='') #длинна индуктора
-        self.message_entry15.place(x=600, y=710)
+        self.message_entry15.place(x=600, y=360)
         self.message_entry16 = tkinter.Entry(self.Smart, textvariable='')
-        self.message_entry16.place(x=600, y=760)
-        self.message_entry17 = tkinter.Entry(self.Smart, textvariable='')
-        self.message_entry17.place(x=600, y=810)
+        self.message_entry16.place(x=600, y=410)
         self.message_entry18 = tkinter.Entry(self.Smart, textvariable='')#материал индукора
         self.message_entry18.place(x=1100,y=110)
         self.message_entry19 = tkinter.Entry(self.Smart, textvariable='')# установка
         self.message_entry19.place(x=1100, y=160)
-        self.message_entry20 = tkinter.Entry(self.Smart, textvariable='')# частота тока короткого замыкания
-        self.message_entry20.place(x=600, y=860)
         self.message_entry21 = tkinter.Entry(self.Smart, textvariable='')  # количество витков
-        self.message_entry21.place(x=600, y=910)
+        self.message_entry21.place(x=600, y=460)
         btn = tkinter.Button(self.Smart, text="Закрыть окно", bg="red", fg="black", command=self.CloseWindow)
-        btn.place(x=10, y=950)
-        btn1 = tkinter.Button(self.Smart, text="Рассчитать", bg="green", fg="black", command=self.CalculateIt)
-        btn1.place(x=280, y=950)
+        btn.place(x=10, y=550)
+        btn1 = tkinter.Button(self.Smart, text="Рассчитать первым путем", bg="green", fg="black", command=self.CalculateIt)
+        btn1.place(x=280, y=550)
         btn5 = tkinter.Button(self.Smart, text="Открыть базу установок", bg="lightgreen", fg="black",
                               command=self.WindowMashines)
         btn5.place(x=1300, y=160)
@@ -152,8 +113,12 @@ class SmartCalculation():
         btn7 = tkinter.Button(self.Smart, text="Открыть базу материалов", bg="lightgreen", fg="black",
                               command=self.SearchMaterials2)
         btn7.place(x=1300, y=60)
+        btn8=tkinter.Button(self.Smart, text="Рассчитать ESP",bg="yellow", fg="black", command=self.CulculateESP)
+        btn8.place(x=600, y=550)
         self.text=tkinter.Text(self.Smart, height=35)
         self.text.place(x=800,y=450)
+
+    def CulculateESP(self):pass
 
     def OnMenuClick(self):
         pass
@@ -268,15 +233,9 @@ class SmartCalculation():
         sel = self.Tree3.focus()
         self.slct = self.Tree3.item(sel, option='values')
         row = self.slct
-        self.message_entry5.delete(0, 10)
-        self.message_entry6.delete(0, 10)
-        self.message_entry7.delete(0, 10)
         self.MM = row[4]
         self.BCM1 = row[5]
         self.KDM = row[7]
-        self.message_entry5.insert(0, self.BCM1)
-        self.message_entry6.insert(0, self.MM)
-        self.message_entry7.insert(0, self.KDM)
         self.message_entry10.delete(0, 10)
         self.message_entry10.insert(0, row[0])
         self.Materials2.destroy()
@@ -285,12 +244,8 @@ class SmartCalculation():
         sel = self.Tree2.focus()
         self.slct = self.Tree2.item(sel, option='values')
         row = self.slct
-        self.message_entry11.delete(0, 10)
         self.YEMP1 = row[6]
-        self.message_entry11.insert(0, self.YEMP1)
-        self.message_entry17.delete(0, 10)
         self.PLM = row[3]
-        self.message_entry17.insert(0, self.PLM)
         self.message_entry18.delete(0, 10)
         self.message_entry18.insert(0, row[0])
         self.Materials.destroy()
@@ -350,18 +305,10 @@ class SmartCalculation():
         print(self.slct2)
         self.message_entry19.delete(0, 10)
         self.message_entry19.insert(0, self.row)
-        self.message_entry13.delete(0, 10)
         self.LCE1 = self.slct2[3]
-        self.message_entry13.insert(0, self.LCE1)
-        self.message_entry14.delete(0, 10)
         self.CCE1 = self.slct2[2]
-        self.message_entry14.insert(0, self.CCE1)
-        self.message_entry12.delete(0, 10)
         self.FCE1 = self.slct2[4]
-        self.message_entry12.insert(0, self.FCE1)
-        self.message_entry20.delete(0, 10)
         self.FW = self.slct2[6]
-        self.message_entry20.insert(0, self.FW)
         self.BasaM2.destroy()
 
     def ChangeLabel(self):
