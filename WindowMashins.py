@@ -5,6 +5,7 @@ from SQL12 import *
 import Terminator
 import SmartCalculation
 from SmartCalculation import SmartCalculation as f
+import EditorMashins
 
 class Basad(f):
     def GUI(self):
@@ -38,20 +39,17 @@ class Basad(f):
         label4.place(x=470, y=90)
         label7 = Label(self.BasaM2, text="R0-активное сопротивление установки", bg="lightgrey", fg="black")
         label7.place(x=470, y=110)
-        btn = EditorMashins.Button(self.BasaM2, text="Добавить оборудование", bg="orange", fg="black",
+        btn = Button(self.BasaM2, text="Добавить оборудование", bg="orange", fg="black",
                                         command=self.AddMashins)  # описание объекта типа button названия кнопки
         btn.place(x=470, y=200)  # расположение кнопки
-        btn5 = EditorMashins.Button(self.BasaM2, text="Редактировать оборудование", bg="orange", fg="black",
+        btn5 = Button(self.BasaM2, text="Редактировать оборудование", bg="orange", fg="black",
                                          command=self.clicked2)  # описание объекта типа button названия кнопки
         btn5.place(x=470, y=250)  # расположение кнопки
-        btn2 = EditorMashins.Button(self.BasaM2, text="Удалить оборудование", bg="orange", fg="black",
+        btn2 = Button(self.BasaM2, text="Удалить оборудование", bg="orange", fg="black",
                                          command=self.DellMashins)  # описание объекта типа button названия кнопки
         btn2.place(x=470, y=300)  # расположение кнопки
-        btn1 = EditorMashins.Button(self.BasaM2, text="Отменить", bg='pink', fg='red', command=self.BasaM2.destroy)
+        btn1 = Button(self.BasaM2, text="Отменить", bg='pink', fg='red', command=self.BasaM2.destroy)
         btn1.place(x=470, y=350)
-        btn4 = EditorMashins.Button(self.BasaM2, text="Взять данные в работу", bg='green', fg='black',
-                                         command=self.GoToWork)
-        btn4.place(x=470, y=150)
 
 
     def clicked2(self):
@@ -79,7 +77,7 @@ class Basad(f):
         print(self.slct2)
         print(self.slct2[0])
         print(self.field1)
-        NewWindow2 = EditorMashins.Terminator.Terminator(self.field1, "mashins.db", EditorMashins.sql8)
+        NewWindow2 = Terminator.Terminator(self.field1, "mashins.db", EditorMashins.sql8)
 
     def view_records(self):
         mt = EditorMashins.sqlite3.connect("mashins.db")
@@ -92,15 +90,6 @@ class Basad(f):
             self.Tree.insert('', 'end', text=str(cpt), values=row)
             cpt += 1
 
-    def GoToWork(self):
-        sel = self.Tree.focus()
-        self.slct2 = self.Tree.item(sel, option='values')
-        self.row=self.slct2[0]
-        print(self.row)
-        print(self.slct2)
-        self.BasaM2.destroy()
-        g=SmartCalculation.SmartCalculation()
-        f.InsertData(g,self.row)
 
     def MashinesInfo(self):
       return self.row

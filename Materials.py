@@ -44,9 +44,6 @@ class Materials():
         self.btn2 = Button(self.Materials, text="Удалить материал", bg="grey", fg="black",
                            command=self.DelMaterial)  # описание объекта типа button названия кнопки
         self.btn2.place(x=400, y=650)  # расположение кнопки
-        self.btn3 = Button(self.Materials, text="Применить", bg="green", fg="black",
-                           command=self.GoToWork)  # описание объекта типа button названия кнопки
-        self.btn3.place(x=150, y=650)  # расположение кнопки
         self.btn1 = Button(self.Materials, text="Отменить", bg='pink', fg='red', command=self.GoToPrevious)
         self.btn1.place(x=1150, y=650)
         self.view_records()
@@ -83,6 +80,4 @@ class Materials():
 
     def GoToPrevious(self):pass
 
-
-    def GoToWork(self):pass
 
