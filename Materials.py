@@ -52,11 +52,7 @@ class Materials():
         self.view_records()
         self.Materials.mainloop()
 
-    def __init__(self, a, b, c, d):
-        self.f1 = a
-        self.f2 = b
-        self.f3 = c
-        self.f4 = d
+    def __init__(self):
         self.GUI()
 
     def view_records(self):
@@ -85,17 +81,8 @@ class Materials():
         print(self.f4)
         NewWindow2 = Terminator(self.f4, "Metalls.db", materials_sql8)
 
-    def GoToPrevious(self):
-        self.f4 = ''
-        self.Materials.destroy()
-        f = EntranceData.EntranceDataFirst(self.f1, self.f2, self.f3, self.f4)
+    def GoToPrevious(self):pass
 
-    def GoToWork(self):
-        sel = self.Tree.focus()
-        self.slct2 = self.Tree.item(sel, option='values')
-        self.f4 = self.slct2[0]
-        print(self.slct2)
-        print(self.slct2[0])
-        print(self.f4)
-        self.Materials.destroy()
-        f = EntranceData.EntranceDataFirst(self.f1, self.f2, self.f3, self.f4)
+
+    def GoToWork(self):pass
+

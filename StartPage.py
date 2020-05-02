@@ -1,7 +1,8 @@
 import tkinter
 from tkinter import filedialog as fd  # из библиотеке взяли класс диалог и присвоили индефикатор FD
 import SmartCalculation
-
+import Materials
+import WindowMashins
 
 class StartPage():
     def __init__(self):
@@ -40,9 +41,11 @@ class StartPage():
         label1.pack()
         self.window.mainloop()
 
-    def WindowMashins(self):pass
+    def WindowMashins(self):
+        f=WindowMashins.Basad()
 
-    def Materials(self):pass
+    def Materials(self):
+        f=Materials.Materials()
 
     def OnMenuClick(self):
         pass
