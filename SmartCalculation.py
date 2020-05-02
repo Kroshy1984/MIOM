@@ -216,10 +216,10 @@ class SmartCalculation():
         self.btn.place(x=550, y=150)
     def WindowMashines(self):
         self.BasaM2 = tkinter.Toplevel(self.Smart)
-        self.BasaM2.geometry('820x450+700+200')
+        self.BasaM2.geometry('1070x450+700+200')
         self.BasaM2.title("Выбор оборудования МИОМ")
         self.Tree = Treeview(self.BasaM2, columns=(
-            "Name", "Max_change_energi", "Condenser_capasity", "Equipment_induct", "SccF", "R0"), height=20,
+            "Name", "Max_change_energi", "Condenser_capasity", "Equipment_induct", "SccF", "R0", "FW"), height=20,
                              show='headings')
         self.Tree.column("Name", width=120, anchor=tkinter.CENTER)
         self.Tree.column("Max_change_energi", width=70, anchor=tkinter.CENTER)
@@ -227,33 +227,39 @@ class SmartCalculation():
         self.Tree.column("Equipment_induct", width=50, anchor=tkinter.CENTER)
         self.Tree.column("SccF", width=60, anchor=tkinter.CENTER)
         self.Tree.column("R0", width=50, anchor=tkinter.CENTER)
+        self.Tree.column("FW", width=50, anchor=tkinter.CENTER)
         self.Tree['show'] = "headings"
         self.Tree.heading("Name", text="Наименование")
         self.Tree.heading("Max_change_energi", text="W_mash")
         self.Tree.heading("Condenser_capasity", text="CCE")
         self.Tree.heading("Equipment_induct", text="LCE")
-        self.Tree.heading("SccF", text="FW")
+        self.Tree.heading("SccF", text="FCE")
         self.Tree.heading("R0", text="R0")
+        self.Tree.heading("FW", text="FW")
+        self.Tree.place(x=50, y=10)
         mt = sqlite3.connect("mashins.db")
         cursor = mt.cursor()
         cpt = 0
-        for row in cursor.execute("select* from The_equipments_of_magnetic_pulse_forming"):
+        for row in cursor.execute("select* from mashines"):
             self.Tree.insert('', 'end', text=str(cpt), values=row)
             cpt += 1
         self.Tree.place(x=50, y=10)
         label1 = tkinter.Label(self.BasaM2, text="W_mash-максимальная мощность разряда", bg="lightgrey", fg="black")
-        label1.place(x=470, y=30)
+        label1.place(x=510, y=30)
         label2 = tkinter.Label(self.BasaM2, text="CCT-Емкость батареи конденсаторов установки", bg="lightgrey", fg="black")
-        label2.place(x=470, y=50)
+        label2.place(x=510, y=50)
         label3 = tkinter.Label(self.BasaM2, text="LCE-индуктивность", bg="lightgrey", fg="black")
-        label3.place(x=470, y=70)
+        label3.place(x=510, y=70)
         label4 = tkinter.Label(self.BasaM2, text="FW-величина тока короткого замыкания", bg="lightgrey", fg="black")
-        label4.place(x=470, y=90)
+        label4.place(x=510, y=90)
         label7 = tkinter.Label(self.BasaM2, text="R0-активное сопротивление установки", bg="lightgrey", fg="black")
-        label7.place(x=470, y=110)
+        label7.place(x=510, y=110)
+        label8 = tkinter.Label(self.BasaM2, text="FCE-частота колебаний разрядного тока МИУ в режиме короткого замыкания",
+                       bg="lightgrey", fg="black")
+        label8.place(x=510, y=130)
         btn4 = tkinter.Button(self.BasaM2, text="Взять данные в работу", bg='green', fg='black',
                                     command=self.GoToWork)
-        btn4.place(x=470, y=150)
+        btn4.place(x=510, y=180)
 
     def GoToWork(self):
         sel = self.Tree.focus()
@@ -264,17 +270,14 @@ class SmartCalculation():
         self.message_entry19.delete(0, 10)
         self.message_entry19.insert(0, self.row)
         self.message_entry13.delete(0, 10)
-        self.LCE1 = self.slct2[0]
+        self.LCE1 = self.slct2[3]
         self.message_entry13.insert(0, self.LCE1)
         self.message_entry14.delete(0, 10)
-        self.CCE1 = self.slct2[1]
+        self.CCE1 = self.slct2[2]
         self.message_entry14.insert(0, self.CCE1)
         self.message_entry12.delete(0, 10)
-        self.FCE1 = self.slct2[2]
+        self.FCE1 = self.slct2[4]
         self.message_entry12.insert(0, self.FCE1)
-        self.message_entry20.delete(0, 10)
-        self.FW = self.slct2[3]
-        self.message_entry20.insert(0, self.FW)
         self.BasaM2.destroy()
 
     def ChangeLabel(self):

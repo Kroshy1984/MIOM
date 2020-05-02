@@ -12,7 +12,7 @@ class Basad():
         self.BasaM2.geometry('820x450+700+200')
         self.BasaM2.title("Выбор оборудования МИОМ")
         self.Tree = Treeview(self.BasaM2, columns=(
-            "Name", "Max_change_energi", "Condenser_capasity", "Equipment_induct", "SccF", "R0"), height=20,
+            "Name", "Max_change_energi", "Condenser_capasity", "Equipment_induct", "SccF", "R0","FW"), height=20,
                                                show='headings')
         self.Tree.column("Name", width=120, anchor=CENTER)
         self.Tree.column("Max_change_energi", width=70, anchor=CENTER)
@@ -20,13 +20,15 @@ class Basad():
         self.Tree.column("Equipment_induct", width=50, anchor=CENTER)
         self.Tree.column("SccF", width=60, anchor=CENTER)
         self.Tree.column("R0", width=50, anchor=CENTER)
+        self.Tree.column("FW", width=50, anchor=CENTER)
         self.Tree['show'] = "headings"
         self.Tree.heading("Name", text="Наименование")
         self.Tree.heading("Max_change_energi", text="W_mash")
         self.Tree.heading("Condenser_capasity", text="CCE")
         self.Tree.heading("Equipment_induct", text="LCE")
-        self.Tree.heading("SccF", text="FW")
+        self.Tree.heading("SccF", text="FCE")
         self.Tree.heading("R0", text="R0")
+        self.Tree.heading("FW", text="FW")
         self.Tree.place(x=50, y=10)
         label1 = Label(self.BasaM2, text="W_mash-максимальная мощность разряда", bg="lightgrey", fg="black")
         label1.place(x=470, y=30)
@@ -38,6 +40,8 @@ class Basad():
         label4.place(x=470, y=90)
         label7 = Label(self.BasaM2, text="R0-активное сопротивление установки", bg="lightgrey", fg="black")
         label7.place(x=470, y=110)
+        label8 = Label(self.BasaM2, text="FCE-частота колебаний разрядного тока МИУ в режиме короткого замыкания", bg="lightgrey", fg="black")
+        label8.place(x=470, y=110)
         btn = Button(self.BasaM2, text="Добавить оборудование", bg="orange", fg="black",
                                         command=self.AddMashins)  # описание объекта типа button названия кнопки
         btn.place(x=470, y=200)  # расположение кнопки
