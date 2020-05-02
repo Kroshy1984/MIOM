@@ -150,7 +150,7 @@ class SmartCalculation():
                               command=self.SearchMaterials)
         btn6.place(x=1300, y=110)
         btn7 = tkinter.Button(self.Smart, text="Открыть базу материалов", bg="lightgreen", fg="black",
-                              command=self.SearchMaterials)
+                              command=self.SearchMaterials2)
         btn7.place(x=1300, y=60)
         self.text=tkinter.Text(self.Smart, height=35)
         self.text.place(x=800,y=450)
@@ -163,7 +163,6 @@ class SmartCalculation():
 
     def Materials(self):
         f=Materials.Materials()
-
 
     def SearchMaterials(self):
         self.Materials = tkinter.Toplevel(self.Smart)
@@ -214,6 +213,73 @@ class SmartCalculation():
             cpt += 1
         self.btn = tkinter.Button(self.Materials, text="Взять данные в работу", bg="green", fg="black", command=self.GoToWork_in)  # описание объекта типа button названия кнопки
         self.btn.place(x=550, y=150)
+
+    def SearchMaterials2(self):
+        self.Materials2 = tkinter.Toplevel(self.Smart)
+        self.Materials2.geometry('1200x700+600+200')
+        self.Materials2.title("Выбор материала заготовки")
+        self.Tree3 = Treeview(self.Materials2, columns=(
+            "Name_of_the_metalls", "Tensile_strength", "Yield_strength", "Material_density", "M_M", "B",
+            "Specific_electric_resistance", "The_coefficient_of_dynamic", 'Еhe_dynamic_modulus_hardening'), height=30,
+                                 show='headings')
+        self.Tree3.column("Name_of_the_metalls", width=60, anchor=tkinter.CENTER)
+        self.Tree3.column("Tensile_strength", width=70, anchor=tkinter.CENTER)
+        self.Tree3.column("Yield_strength", width=50, anchor=tkinter.CENTER)
+        self.Tree3.column("Material_density", width=50, anchor=tkinter.CENTER)
+        self.Tree3.column("M_M", width=50, anchor=tkinter.CENTER)
+        self.Tree3.column("B", width=50, anchor=tkinter.CENTER)
+        self.Tree3.column("Specific_electric_resistance", width=50, anchor=tkinter.CENTER)
+        self.Tree3.column("The_coefficient_of_dynamic", width=50, anchor=tkinter.CENTER)
+        self.Tree3.column("Еhe_dynamic_modulus_hardening", width=50, anchor=tkinter.CENTER)
+        self.Tree3['show'] = "headings"
+        self.Tree3.heading("Name_of_the_metalls", text="Металл")
+        self.Tree3.heading("Tensile_strength", text="PPM")
+        self.Tree3.heading("Yield_strength", text="PYD")
+        self.Tree3.heading("Material_density", text="PLM")
+        self.Tree3.heading("M_M", text="M_M")
+        self.Tree3.heading("B", text="B")
+        self.Tree3.heading("Specific_electric_resistance", text="YEMP")
+        self.Tree3.heading("The_coefficient_of_dynamic", text="KDM")
+        self.Tree3.heading("Еhe_dynamic_modulus_hardening", text="MDM")
+        self.Tree3.place(x=50, y=10)
+        label1 = tkinter.Label(self.Materials2, text="PPM-предел прочность материала", bg="lightgrey", fg="black")
+        label1.place(x=550, y=30)
+        label2 = tkinter.Label(self.Materials2, text="PYD-предел упругости материала", bg="lightgrey",
+                               fg="black")
+        label2.place(x=550, y=50)
+        label3 = tkinter.Label(self.Materials2, text="PLM-плотность материала", bg="lightgrey", fg="black")
+        label3.place(x=550, y=70)
+        label4 = tkinter.Label(self.Materials2, text="M_M и B-вкоэффициенты степенной аппроксимации кривой упрочнения материала", bg="lightgrey", fg="black")
+        label4.place(x=550, y=90)
+        label6 = tkinter.Label(self.Materials2, text="YEMP-удельное электрическое сопротивление материала", bg="lightgrey", fg="black")
+        label6.place(x=550, y=110)
+        label7 = tkinter.Label(self.Materials2, text="MDM-коэффициент динамичности материала", bg="lightgrey", fg="black")
+        label7.place(x=550, y=130)
+        mt = sqlite3.connect("Metalls.db")
+        cursor = mt.cursor()
+        cpt=0
+        for row in cursor.execute("select* from material"):
+            self.Tree3.insert('', 'end', text=str(cpt), values=row)
+            cpt += 1
+        self.btn = tkinter.Button(self.Materials2, text="Взять данные в работу", bg="green", fg="black", command=self.GoToWork_z)  # описание объекта типа button названия кнопки
+        self.btn.place(x=550, y=150)
+
+    def GoToWork_z(self):
+        sel = self.Tree3.focus()
+        self.slct = self.Tree3.item(sel, option='values')
+        row = self.slct
+        self.message_entry5.delete(0, 10)
+        self.message_entry6.delete(0, 10)
+        self.message_entry7.delete(0, 10)
+        self.MM = row[4]
+        self.BCM1 = row[5]
+        self.KDM = row[7]
+        self.message_entry5.insert(0, self.BCM1)
+        self.message_entry6.insert(0, self.MM)
+        self.message_entry7.insert(0, self.KDM)
+        self.message_entry10.delete(0, 10)
+        self.message_entry10.insert(0, row[0])
+        self.Materials2.destroy()
 
     def GoToWork_in(self):
         sel = self.Tree2.focus()
@@ -312,31 +378,6 @@ class SmartCalculation():
         self.message_entry4 = tkinter.Entry(self.Smart, textvariable='')
         self.message_entry4.place(x=600, y=210)
 
-     def SearchMaterial(self):
-        self.label24["text"] = ""
-        material=self.message_entry10.get()
-        print(material)
-        conn = sqlite3.connect("Metalls.db")
-        cursor = conn.cursor()
-        sql="select M_M, B, The_coefficient_of_dynamic from Workpiece_material where Name_of_the_metalls ='" + material + "'"
-        print(sql)
-        sql1="select * from Workpiece_material "
-        print(cursor.execute(sql))
-        c=0
-        for row in cursor.execute(sql):
-            print(row)
-            c=+1
-            self.message_entry5.delete(0,10)
-            self.message_entry6.delete(0,10)
-            self.message_entry7.delete(0,10)
-            self.MM=row[0]
-            self.BCM1=row[1]
-            self.KDM=row[2]
-            self.message_entry5.insert(0,self.BCM1)
-            self.message_entry6.insert(0,self.MM)
-            self.message_entry7.insert(0,self.KDM)
-        if c == 0: self.label24["text"] = "По вашему запросу в базе ничего не найдено"
-
     def CloseWindow(self):
         self.Smart.destroy()
 
@@ -351,10 +392,10 @@ class SmartCalculation():
         self.SC = self.message_entry15.get()# длина индуктора
         self.HSC = self.message_entry16.get()# высота индуктора
         self.NCT1 = self.message_entry21.get()  # высота индуктора
-        self.YEMP=self.YEMP1*pow(10,-8)
-        self.FCE=self.FCE1*pow(10,3)
-        self.LCE=self.LCE1*pow(10,-6)
-        self.CCE=self.CCE1*pow(10, -6)
+        self.YEMP=float(self.YEMP1)*pow(10,-8)
+        self.FCE=float(self.FCE1)*pow(10,3)
+        self.LCE=float(self.LCE1)*pow(10,-6)
+        self.CCE=float(self.CCE1)*pow(10, -6)
         f = Computing.Form(float(self.DOT), float(self.ST), float(self.BCM), float(self.KDM), float(self.MM), float(self.LBT), float(self.KPD), float(self.RC), self.operation)
         g = Computing.Inductor(float(self.LBT), self.operation, float(self.DOT), float(self.ST), float(self.FW), float(self.YEMP), float(self.FCE), float(self.LCE), 1* pow(10, -12),
                                float(self.CCE), float(self.SC), float(self.HSC), float(self.PLM), float(self.BCM), float(self.KDM), float(self.MM), float(self.KPD),
