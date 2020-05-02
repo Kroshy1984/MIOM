@@ -72,34 +72,54 @@ class SmartCalculation():
         label21 = tkinter.Label(self.Smart, text="Введите количество витков",
                                 bg="lightgrey", fg="red")
         label21.place(x=10, y=460)
+        label23 = tkinter.Label(self.Smart, text="R0",
+                                bg="lightgrey", fg="red")
+        label23.place(x=1050, y=210)
+        label24 = tkinter.Label(self.Smart, text="Толщина изоляции витка",
+                                bg="lightgrey", fg="red")
+        label24.place(x=900, y=260)
+        label25 = tkinter.Label(self.Smart, text="Толщина основной изоляции индуктора",
+                                bg="lightgrey", fg="red")
+        label25.place(x=800, y=310)
+        label26 = tkinter.Label(self.Smart, text="Толщина воздушного зазора",
+                                bg="lightgrey", fg="red")
+        label26.place(x=880, y=360)
         self.message_entry=tkinter.Entry(self.Smart, textvariable='')
-        self.message_entry.place(x=250, y=10)
+        self.message_entry.place(x=300, y=10)
         self.message_entry1 = tkinter.Entry(self.Smart, textvariable='')
-        self.message_entry1.place(x=600, y=60)
+        self.message_entry1.place(x=300, y=60)
         self.message_entry2 = tkinter.Entry(self.Smart, textvariable='')
-        self.message_entry2.place(x=600, y=110)
+        self.message_entry2.place(x=300, y=110)
         self.message_entry3 = tkinter.Entry(self.Smart, textvariable='')
-        self.message_entry3.place(x=600, y=160)
+        self.message_entry3.place(x=300, y=160)
         self.message_entry8 = tkinter.Entry(self.Smart, textvariable='')
-        self.message_entry8.place(x=600, y=260)
+        self.message_entry8.place(x=300, y=260)
         self.option= tkinter.StringVar(self.Smart)
         self.option.set("Выбери операцию тут")
         self.message_entry9=tkinter.OptionMenu(self.Smart,self.option,"a1-раздача цилиндра","a2 - раздача конуса","a3 - раздача сферы","a4 - раздача рифта","b1 - обжим цилиндра","b2 - обжим конуса","b3 - обжим сферы","b4 - обжим рифта")# выбор операции
-        self.message_entry9.place(x=600, y=310)
+        self.message_entry9.place(x=300, y=310)
         btn5=tkinter.Button(self.Smart, text="Выбрать", bg="orange", fg="black", command=self.ChangeLabel)
-        btn5.place(x=500,y=310)
+        btn5.place(x=200,y=310)
         self.message_entry10 = tkinter.Entry(self.Smart, textvariable='')
         self.message_entry10.place(x=1100, y=60)
         self.message_entry15 = tkinter.Entry(self.Smart, textvariable='') #длинна индуктора
-        self.message_entry15.place(x=600, y=360)
+        self.message_entry15.place(x=300, y=360)
         self.message_entry16 = tkinter.Entry(self.Smart, textvariable='')
-        self.message_entry16.place(x=600, y=410)
+        self.message_entry16.place(x=300, y=410)
         self.message_entry18 = tkinter.Entry(self.Smart, textvariable='')#материал индукора
         self.message_entry18.place(x=1100,y=110)
         self.message_entry19 = tkinter.Entry(self.Smart, textvariable='')# установка
         self.message_entry19.place(x=1100, y=160)
         self.message_entry21 = tkinter.Entry(self.Smart, textvariable='')  # количество витков
-        self.message_entry21.place(x=600, y=460)
+        self.message_entry21.place(x=300, y=460)
+        self.message_entry23 = tkinter.Entry(self.Smart, textvariable='')  # количество витков
+        self.message_entry23.place(x=1100, y=210) # R0
+        self.message_entry24 = tkinter.Entry(self.Smart, textvariable='')  # количество витков
+        self.message_entry24.place(x=1100, y=260)  # Толщина изоляции витка ZS
+        self.message_entry25 = tkinter.Entry(self.Smart, textvariable='')  # количество витков
+        self.message_entry25.place(x=1100, y=310)  # Толщина основной изоляции индуктора ZB
+        self.message_entry25 = tkinter.Entry(self.Smart, textvariable='')  # количество витков
+        self.message_entry25.place(x=1100, y=360)  # Толщина воздушного зазора ZA
         btn = tkinter.Button(self.Smart, text="Закрыть окно", bg="red", fg="black", command=self.CloseWindow)
         btn.place(x=10, y=550)
         btn1 = tkinter.Button(self.Smart, text="Рассчитать первым путем", bg="green", fg="black", command=self.CalculateIt)
