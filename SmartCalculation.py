@@ -113,12 +113,25 @@ class SmartCalculation():
         btn7 = tkinter.Button(self.Smart, text="Открыть базу материалов", bg="lightgreen", fg="black",
                               command=self.SearchMaterials2)
         btn7.place(x=1300, y=60)
-        btn8=tkinter.Button(self.Smart, text="Рассчитать ESP",bg="yellow", fg="black", command=self.CulculateESP)
+        btn8=tkinter.Button(self.Smart, text="Рассчитать EPS",bg="yellow", fg="black", command=self.CulculateEPS)
         btn8.place(x=600, y=550)
         self.text=tkinter.Text(self.Smart, height=35)
         self.text.place(x=800,y=450)
 
-    def CulculateESP(self):pass
+    def CulculateEPS(self):
+        self.DOT = self.message_entry1.get()
+        self.ST = self.message_entry2.get()
+        self.LBT = self.message_entry3.get()
+        self.RC = self.message_entry4.get()
+        self.BCM = float(self.BCM1) * pow(10, 7)
+        self.KPD = self.message_entry8.get()
+        f = Computing.Form(float(self.DOT), float(self.ST), float(self.BCM), float(self.KDM), float(self.MM),
+                           float(self.LBT), float(self.KPD), float(self.RC), self.operation)
+        EPS=Computing.Form.EPS(f,float(self.RC))
+        self.message_entry22 = tkinter.Entry(self.Smart, textvariable=str(EPS))  # EPS
+        self.message_entry22.place(x=600, y=580)
+        self.message_entry22.delete(0, 10)
+        self.message_entry22.insert(0, EPS)
 
     def OnMenuClick(self):
         pass
