@@ -278,6 +278,9 @@ class SmartCalculation():
         self.message_entry12.delete(0, 10)
         self.FCE1 = self.slct2[4]
         self.message_entry12.insert(0, self.FCE1)
+        self.message_entry20.delete(0, 10)
+        self.FW = self.slct2[6]
+        self.message_entry20.insert(0, self.FW)
         self.BasaM2.destroy()
 
     def ChangeLabel(self):
