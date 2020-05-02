@@ -2,6 +2,8 @@ import tkinter
 import Computing
 import sqlite3
 from tkinter.ttk import Treeview
+import WindowMashins
+import Materials
 
 
 class SmartCalculation():
@@ -13,6 +15,19 @@ class SmartCalculation():
         self.Smart = tkinter.Tk()
         self.Smart.geometry('1700x1000')  # геометрия окна
         self.Smart.title("Простой расчет формовки и параметров индуктора")  # название окна
+        menu = tkinter.Menu(self.Smart)  # объект меню
+        help = tkinter.Menu(menu)
+        BD = tkinter.Menu(menu)
+        self.Smart.config(menu=menu)  # конфигурируем окно с добавлением меню
+        menu.add_command(label="Открыть файл")
+        menu.add_cascade(label="Базы данных", menu=BD, underline=0)
+        BD.add_command(label="База данных материалов", command=self.WindowMashins)
+        BD.add_command(label="База данных установок", command=self.Materials)
+        menu.add_command(label="О разработчиках", command=self.OnMenuClick)
+        menu.add_cascade(label="F1 Help", menu=help, underline=0)  # добавления пункта меню
+        help.add_command(label="Что вы хотите найти?")
+        help.add_command(label="Обратиться к разработчикам")
+        menu.add_command(label="Выход", command=quit)
         label2 = tkinter.Label(self.Smart, text="Введите диаметр наружной трубы, м", bg="lightgrey", fg="red")
         label2.place(x=10, y=60)
         label3 = tkinter.Label(self.Smart, text="Введите толщину стенки трубы, м", bg="lightgrey", fg="red")
@@ -139,6 +154,16 @@ class SmartCalculation():
         btn7.place(x=1300, y=60)
         self.text=tkinter.Text(self.Smart, height=35)
         self.text.place(x=800,y=450)
+
+    def OnMenuClick(self):
+        pass
+
+    def WindowMashins(self):
+        f=WindowMashins.Basad()
+
+    def Materials(self):
+        f=Materials.Materials()
+
 
     def SearchMaterials(self):
         self.Materials = tkinter.Toplevel(self.Smart)

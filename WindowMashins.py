@@ -4,10 +4,9 @@ from tkinter.ttk import Treeview
 from SQL12 import *
 import Terminator
 import SmartCalculation
-from SmartCalculation import SmartCalculation as f
 import EditorMashins
 
-class Basad(f):
+class Basad():
     def GUI(self):
         self.BasaM2 = Toplevel()
         self.BasaM2.geometry('820x450+700+200')
