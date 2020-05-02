@@ -23,7 +23,7 @@ class Inductor():
         self.MM = MM
         # self.LBT=MM
         self.KPD = KPD
-        self.ZS = 0.00065  # Толщина изоляции медной шины
+        self.ZS = 0.00065  # Толщина изоляции витка
         self.ZB = 0.001  # Толщина основной изоляции индуктора
         self.ZA = 0.00025  # Толщина воздушного зазора
         self.LTC = 0.7 * pow(10, -7)  # Индуктивность токов индуктора
@@ -279,8 +279,8 @@ class Form():
         self.DIB = self.DOT - 2 * self.ST  # Внутренний диаметр трубчатой заготовки
         self.RIB = self.DIB / 2  # Внутренний радиус трубчатой заготовки
         self.BCMD = self.BCM * self.KDM  # Динамическое значение коэффициента аппроксимации кривой упрочнения
-        ESP = self.ESP(geometry)
-        self.WYD = (self.BCMD / (1 + self.MM)) * pow(self.ESP, (1 + self.MM))  # Удельная работа деформации WYD
+        EPS = self.EPS(geometry)
+        self.WYD = (self.BCMD / (1 + self.MM)) * pow(self.EPS, (1 + self.MM))  # Удельная работа деформации WYD
         self.DVB = 3.14 * (self.DOT - self.ST) * self.ST * self.LBT  # Деформируемый объем заготовки DVB
         self.WDB = self.WYD * self.DVB  # Работа деформации заготовки WDB
         self.WMIR = self.WDB / self.KPD  # Необходимая энергия для выполнения операции WMIR
@@ -292,23 +292,23 @@ class Form():
     def RIB(self):  # Внутренний радиус трубчатой заготовки
         return self.RIB
 
-    def ESP(self, geometry):  # cредняя величина деформации ESR заготовки
+    def EPS(self, geometry):  # cредняя величина деформации ESR заготовки
         if self.operation == "a1":
-            self.ESP = (geometry / self.RIB) - 1
+            self.EPS = (geometry / self.RIB) - 1
         elif self.operation == "a2":
-            self.ESP = (geometry / (self.RIB - 1)) / 2
+            self.EPS = (geometry / (self.RIB - 1)) / 2
         elif self.operation == "a3":
-            self.ESP = (geometry / (self.RIB - 1)) / pow(2, 0.5)
+            self.EPS = (geometry / (self.RIB - 1)) / pow(2, 0.5)
         elif self.operation == "a4":
-            self.ESP = (3.14 * geometry) / (self.RIB * 4)
+            self.EPS = (3.14 * geometry) / (self.RIB * 4)
         elif self.operation == "b1":
-            #self.ESP = ((self.RIB / geometry) - 1)
-            self.ESP=0.02
+            #self.EPS = ((self.RIB / geometry) - 1)
+            self.EPS=0.02
         elif self.operation == "b2":
-            self.ESP = (((geometry / self.RIB - 1) / 2) - 1) / 2
+            self.EPS = (((geometry / self.RIB - 1) / 2) - 1) / 2
         elif self.operation == "b3":
-            self.ESP = ((self.RIB / geometry) - 1) / math.sqrt(2)
-        return self.ESP
+            self.EPS = ((self.RIB / geometry) - 1) / math.sqrt(2)
+        return self.EPS
 
     def BCMD(self):  # Динамическое значение коэффициента аппроксимации кривой упрочнения
         return self.BCMD
