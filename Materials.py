@@ -44,19 +44,12 @@ class Materials():
         self.btn2 = Button(self.Materials, text="Удалить материал", bg="grey", fg="black",
                            command=self.DelMaterial)  # описание объекта типа button названия кнопки
         self.btn2.place(x=400, y=650)  # расположение кнопки
-        self.btn3 = Button(self.Materials, text="Применить", bg="green", fg="black",
-                           command=self.GoToWork)  # описание объекта типа button названия кнопки
-        self.btn3.place(x=150, y=650)  # расположение кнопки
         self.btn1 = Button(self.Materials, text="Отменить", bg='pink', fg='red', command=self.GoToPrevious)
         self.btn1.place(x=1150, y=650)
         self.view_records()
         self.Materials.mainloop()
 
-    def __init__(self, a, b, c, d):
-        self.f1 = a
-        self.f2 = b
-        self.f3 = c
-        self.f4 = d
+    def __init__(self):
         self.GUI()
 
     def view_records(self):
@@ -85,17 +78,6 @@ class Materials():
         print(self.f4)
         NewWindow2 = Terminator(self.f4, "Metalls.db", materials_sql8)
 
-    def GoToPrevious(self):
-        self.f4 = ''
-        self.Materials.destroy()
-        f = EntranceData.EntranceDataFirst(self.f1, self.f2, self.f3, self.f4)
+    def GoToPrevious(self):pass
 
-    def GoToWork(self):
-        sel = self.Tree.focus()
-        self.slct2 = self.Tree.item(sel, option='values')
-        self.f4 = self.slct2[0]
-        print(self.slct2)
-        print(self.slct2[0])
-        print(self.f4)
-        self.Materials.destroy()
-        f = EntranceData.EntranceDataFirst(self.f1, self.f2, self.f3, self.f4)
+

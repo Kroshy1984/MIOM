@@ -280,7 +280,7 @@ def topy(poisk,pro,R0,lm,c0, h0,p3,mod_upr,pm,dh,l0,v,l1,dv,kn,mm, Lzag):
         flag = flag + 1
     Until{1} (abt < 1) {конец}
     if poisk = 1 then
-    begin
+    #begin
         print(brus, ' Контроль текущих параметров')
         print(brus, '')
         print(brus, ' радиальная ширина витка индуктора, мм < ', 5000 * x1:6: 3)
