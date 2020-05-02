@@ -111,7 +111,7 @@ class SmartCalculation():
         self.message_entry8.place(x=600, y=410)
         self.option= tkinter.StringVar(self.Smart)
         self.option.set("Выбери операцию тут")
-        self.message_entry9=tkinter.OptionMenu(self.Smart,self.option,"a1","a2","a3","a4","b1","b2","b3","b4")# выбор операции
+        self.message_entry9=tkinter.OptionMenu(self.Smart,self.option,"a1-раздача цилиндра","a2 - раздача конуса","a3 - раздача сферы","a4 - раздача рифта","b1 - обжим цилиндра","b2 - обжим конуса","b3 - обжим сферы","b4 - обжим рифта")# выбор операции
         self.message_entry9.place(x=600, y=460)
         btn5=tkinter.Button(self.Smart, text="Выбрать", bg="orange", fg="black", command=self.ChangeLabel)
         btn5.place(x=500,y=460)
@@ -367,14 +367,16 @@ class SmartCalculation():
     def ChangeLabel(self):
         self.operation=self.option.get()
         print(self.operation)
-        if self.operation == "b1" or self.operation == "a1":
+        if self.operation == "b1 - обжим цилиндра" or self.operation == "a1-раздача цилиндра":
             self.label5["text"] = self.LabelG[1]
-        elif self.operation == "b2" or self.operation == "a2":
+        elif self.operation == "b2 - обжим конуса" or self.operation == "a2 - раздача конуса":
             self.label5["text"] = self.LabelG[2]
-        elif self.operation == "b3" or self.operation == "a3":
+        elif self.operation == "b3 - обжим сферы" or self.operation == "a3 - раздача сферы":
             self.label5["text"] = self.LabelG[3]
-        elif self.operation == "b4" or self.operation == "a4":
+        elif self.operation == "b4 - обжим рифта" or self.operation == "a4 - раздача рифта":
             self.label5["text"] = self.LabelG[4]
+        self.operation=self.operation[0:2]
+        print(self.operation)
         self.message_entry4 = tkinter.Entry(self.Smart, textvariable='')
         self.message_entry4.place(x=600, y=210)
 
@@ -388,7 +390,6 @@ class SmartCalculation():
         self.RC = self.message_entry4.get()
         self.BCM = float(self.BCM1)*pow(10,7)
         self.KPD = self.message_entry8.get()
-        self.operation = self.option.get()#операция
         self.SC = self.message_entry15.get()# длина индуктора
         self.HSC = self.message_entry16.get()# высота индуктора
         self.NCT1 = self.message_entry21.get()  # высота индуктора
