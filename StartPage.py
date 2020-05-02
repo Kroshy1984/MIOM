@@ -10,11 +10,15 @@ class StartPage():
         self.window.title("Программа расчета технологического процесса МИОМ")  # название окна
         menu = tkinter.Menu(self.window)  # объект меню
         help = tkinter.Menu(menu)
+        BD=tkinter.Menu(menu)
         self.window.config(menu=menu)  # конфигурируем окно с добавлением меню
         menu.add_cascade(label="Помощь", menu=help, underline=0)  # добавления пункта меню
         help.add_command(label="Что вы хотите найти?")
         help.add_command(label="Обратиться к разработчикам")
         menu.add_command(label="Открыть файл")
+        menu.add_cascade(label="Базы данных",menu=BD,underline=0)
+        BD.add_command(label="База данных материалов", command=self.WindowMashins)
+        BD.add_command(label="База данных установок", command=self.Materials)
         menu.add_command(label="О разработчиках", command=self.OnMenuClick)
         menu.add_command(label="Выход", command=quit)
         menu.add_separator()
@@ -35,6 +39,10 @@ class StartPage():
                                bg="white", fg="black")
         label1.pack()
         self.window.mainloop()
+
+    def WindowMashins(self):pass
+
+    def Materials(self):pass
 
     def OnMenuClick(self):
         pass
