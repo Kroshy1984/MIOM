@@ -48,13 +48,10 @@ class SmartCalculation():
         label11 = tkinter.Label(self.Smart, text="Поиск материала для заготовки в базе",
                                 bg="lightgrey", fg="black")
         label11.place(x=600, y=60)
-        self.label24 = tkinter.Label(self.Smart, text="",
-                                     bg="lightgrey", fg="red")
-        self.label24.place(x=620, y=80)
-        label16 = tkinter.Label(self.Smart, text="Длина индуктора",
+        label16 = tkinter.Label(self.Smart, text="Длина индуктора, м",
                                 bg="lightgrey", fg="red")
         label16.place(x=10, y=360)
-        label17 = tkinter.Label(self.Smart, text="Высота индуктора",
+        label17 = tkinter.Label(self.Smart, text="Высота индуктора, м",
                                 bg="lightgrey", fg="red")
         label17.place(x=10, y=410)
         label19 = tkinter.Label(self.Smart, text="Поиск материала для индуктора в базе",
@@ -63,27 +60,27 @@ class SmartCalculation():
         label20 = tkinter.Label(self.Smart, text="Поиск установки в базе",
                                 bg="lightgrey", fg="black")
         label20.place(x=600, y=160)
-        label21 = tkinter.Label(self.Smart, text="Введите количество витков",
+        label21 = tkinter.Label(self.Smart, text="Введите количество витков, шт.",
                                 bg="lightgrey", fg="red")
         label21.place(x=10, y=460)
         label23 = tkinter.Label(self.Smart, text="R0",
                                 bg="lightgrey", fg="red")
         label23.place(x=850, y=210)
-        label24 = tkinter.Label(self.Smart, text="Толщина изоляции витка",
+        label24 = tkinter.Label(self.Smart, text="Толщина изоляции витка, м",
                                 bg="lightgrey", fg="red")
-        label24.place(x=700, y=260)
-        label25 = tkinter.Label(self.Smart, text="Толщина основной изоляции индуктора",
+        label24.place(x=690, y=260)
+        label25 = tkinter.Label(self.Smart, text="Толщина основной изоляции индуктора, м",
                                 bg="lightgrey", fg="red")
-        label25.place(x=600, y=310)
-        label26 = tkinter.Label(self.Smart, text="Толщина воздушного зазора",
+        label25.place(x=590, y=310)
+        label26 = tkinter.Label(self.Smart, text="Толщина воздушного зазора, м",
                                 bg="lightgrey", fg="red")
-        label26.place(x=680, y=360)
-        label27 = tkinter.Label(self.Smart, text="Удельное сопротивление шины",
+        label26.place(x=620, y=360)
+        label27 = tkinter.Label(self.Smart, text="Удельное сопротивление шины, Ом х Е-07",
                                 bg="lightgrey", fg="red")
-        label27.place(x=650, y=410)
-        label28 = tkinter.Label(self.Smart, text="Индуктивность токоподводов индуктора",
+        label27.place(x=580, y=410)
+        label28 = tkinter.Label(self.Smart, text="Индуктивность токоподводов индуктора Гн х E-08",
                                 bg="lightgrey", fg="red")
-        label28.place(x=600, y=460)
+        label28.place(x=530, y=460)
         label29 = tkinter.Label(self.Smart, text="А_ТП",
                                 bg="lightgrey", fg="red")
         label29.place(x=1350, y=60)
