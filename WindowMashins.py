@@ -151,12 +151,24 @@ class Basad():
 
     def DellMashins(self):
         sel = self.Tree.focus()
-        self.slct2 = self.Tree.item(sel, option='values')
-        self.field1 = self.slct2[0]
-        print(self.slct2)
-        print(self.slct2[0])
-        print(self.field1)
-        NewWindow2 = Terminator.Terminator(self.field1, "mashins.db", EditorMashins.sql8)
+        slct2 = self.Tree.item(sel, option='values')
+        field1 = slct2[0]
+        self.shot = a
+        print('удаляем, где ', self.shot)
+        self.SBasa = Toplevel(self.BasaM2)
+        self.SBasa.geometry('600x200')
+        self.SBasa.title("Удаление оборудования МИОМ")
+        self.SBasa.lift()  # команда выталкивает окно на верх
+        self.SBasa.attributes('-topmost', True)  # окно будет поверх окон
+        label1 = Label(self.SBasa, text="Вы действительно хотите удалить это обрудование?  ", bg="grey", fg="black")
+        label1.place(x=50, y=50)
+        label1 = Label(self.SBasa, text="Внимание! Речь идет о " + a + ". Это может быть важная запись!", bg="grey",
+                   fg="black")
+        label1.place(x=50, y=70)
+        btn1 = Button(self.SBasa, text="Закрыть", bg='pink', fg='red', command=self.SBasa.destroy)
+        btn1.place(x=30, y=150)
+        btn2 = Button(self.SBasa, text="Я все понял. Удалить", bg='green', fg='black')
+        btn2.place(x=350, y=150)
 
     def view_records(self):
         mt = EditorMashins.sqlite3.connect("mashins.db")
