@@ -66,12 +66,43 @@ class Basad():
         NewWindow = EditorMashins.Editor(self.field1, self.field2, self.field3, self.field4, self.field5)
 
     def AddMashins(self):
-        self.field1 = ""
-        self.field2 = ""
-        self.field3 = ""
-        self.field4 = ""
-        self.field5 = ""
-        NewWindow = EditorMashins.Editor(self.field1, self.field2, self.field3, self.field4, self.field5)
+        self.Editor = Toplevel(self.BasaM2)
+        self.Editor.geometry('350x400+1200+400')
+        self.Editor.title("Добавить Материал")
+        self.Editor.lift()
+        self.Editor.attributes('-topmost', True)
+        label1 = Label(self.Editor, text="Наименование", bg="lightgrey", fg="black")
+        self.message_entry = Entry(self.Editor, textvariable="")
+        self.message_entry.place(x=150, y=10)
+        label2 = Label(self.Editor, text="W_mash", bg="lightgrey", fg="black")
+        self.message_entry1 = Entry(self.Editor, textvariable="")
+        self.message_entry1.place(x=150, y=60)
+        label3 = Label(self.Editor, text="CCE", bg="lightgrey", fg="black")
+        self.message_entry2 = Entry(self.Editor, textvariable="")
+        self.message_entry2.place(x=150, y=110)
+        label4 = Label(self.Editor, text="LCE", bg="lightgrey", fg="black")
+        self.message_entry3 = Entry(self.Editor, textvariable="")
+        self.message_entry3.place(x=150, y=160)
+        label5 = Label(self.Editor, text="FCE", bg="lightgrey", fg="black")
+        self.message_entry4 = Entry(self.Editor, textvariable="")
+        self.message_entry4.place(x=150, y=210)
+        label6 = Label(self.Editor, text="R0", bg="lightgrey", fg="black")
+        self.message_entry5 = Entry(self.Editor, textvariable="")
+        self.message_entry5.place(x=150, y=260)
+        label7 = Label(self.Editor, text="Fw", bg="lightgrey", fg="black")
+        self.message_entry6 = Entry(self.Editor, textvariable="")
+        self.message_entry6.place(x=150, y=310)
+        label1.place(x=10, y=10)
+        label2.place(x=10, y=60)
+        label3.place(x=10, y=110)
+        label4.place(x=10, y=160)
+        label5.place(x=10, y=210)
+        label6.place(x=10, y=260)
+        label7.place(x=10, y=310)
+        btn1 = Button(self.Editor, text="Закрыть", bg='red', fg='black', command=self.Editor.destroy)
+        btn1.place(x=30, y=350)
+        btn2 = Button(self.Editor, text="Запомнить", bg='lightgreen', fg='black', command=self.clicked2)
+        btn2.place(x=200, y=350)
 
     def DellMashins(self):
         sel = self.Tree.focus()
