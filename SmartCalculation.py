@@ -120,7 +120,7 @@ class SmartCalculation():
         btn5.place(x=200,y=310)
         self.message_entry10 = tkinter.Entry(self.Smart, textvariable='')
         self.message_entry10.place(x=900, y=60) #оиск материала заготовки в базе
-        self.message_entry15 = tkinter.Entry(self.Smart, textvariable='') #длинна индуктора
+        self.message_entry15 = tkinter.Entry(self.Smart, textvariable='') #длина индуктора
         self.message_entry15.place(x=300, y=360)
         self.message_entry16 = tkinter.Entry(self.Smart, textvariable='')
         self.message_entry16.place(x=300, y=410)
@@ -168,7 +168,7 @@ class SmartCalculation():
         self.message_entry34.place(x=1400, y=310)  # B_ТП
         btn = tkinter.Button(self.Smart, text="Закрыть окно", bg="red", fg="black", command=self.CloseWindow)
         btn.place(x=10, y=550)
-        btn1 = tkinter.Button(self.Smart, text="Рассчитать первым путем", bg="green", fg="black", command=self.CalculateIt)
+        btn1 = tkinter.Button(self.Smart, text="Рассчитать индуктор", bg="green", fg="black", command=self.CalculateIt)
         btn1.place(x=280, y=550)
         btn5 = tkinter.Button(self.Smart, text="Открыть базу установок", bg="lightgreen", fg="black",
                               command=self.WindowMashines)
@@ -181,6 +181,8 @@ class SmartCalculation():
         btn7.place(x=1100, y=60)
         btn8=tkinter.Button(self.Smart, text="Рассчитать EPS",bg="yellow", fg="black", command=self.CulculateEPS)
         btn8.place(x=600, y=550)
+        btn9 = tkinter.Button(self.Smart, text="Рассчитать формовку", bg="brown", fg="black", command=self.CalculateForm)
+        btn9.place(x=280, y=600)
         self.text=tkinter.Text(self.Smart, height=35)
         self.text.place(x=1100,y=360)
 
@@ -409,6 +411,42 @@ class SmartCalculation():
     def CloseWindow(self):
         self.Smart.destroy()
 
+    def CalculateForm(self):
+        self.DOT = self.message_entry1.get()
+        self.ST = self.message_entry2.get()
+        self.LBT = self.message_entry3.get()
+        self.RC = self.message_entry4.get()
+        self.BCM = float(self.BCM1) * pow(10, 7)
+        self.KPD = self.message_entry8.get()
+        f = Computing.Form(float(self.DOT), float(self.ST), float(self.BCM), float(self.KDM), float(self.MM),
+                           float(self.LBT), float(self.KPD), float(self.RC), self.operation)
+        DIB = Computing.Form.DIB(f)
+        s = "Внутренний диаметр трубчатой заготовки:" + str(DIB) + ",м"
+        self.text.insert(1.0, s)
+        RIB = Computing.Form.RIB(f)
+        s1 = "\n" + "Внутренний радиус трубчатой заготовки:" + str(RIB) + ",м"
+        self.text.insert(2.0, s1)
+        ESP = Computing.Form.EPS(f, self.RC)
+        s2 = "\n" + "Cредняя величина деформации заготовки:" + str(ESP) + ",м"
+        self.text.insert(3.0, s2)
+        BCMD = Computing.Form.BCMD(f)
+        s3 = "\n" + "Динамическое значение коэффициента аппроксимации кривой упрочнения:" + str(BCMD)
+        self.text.insert(4.0, s3)
+        WYD = Computing.Form.WYD(f)
+        s4 = "\n" + "Удельная работа деформации:" + str(WYD) + ",Дж"
+        self.text.insert(5.0, s4)
+        DVB = Computing.Form.DVB(f)
+        s5 = "\n" + "Деформируемый объем заготовки:" + str(DVB) + ",mm3"
+        self.text.insert(6.0, s5)
+        WDB = Computing.Form.WDB(f)
+        s6 = "\n" + "Работа деформации заготовки:" + str(WDB) + ",Дж"
+        self.text.insert(7.0, s6)
+        WMIR = Computing.Form.WMIR(f)
+        s7 = "\n" + 'Необходимая энергия для выполнения операции:' + str(WMIR) + ",Дж"
+        self.text.insert(8.0, s7)
+        WMUR = Computing.Form.WMUR(f)
+        s8 = "\n" + "Энергоемкость установки:" + str(WMUR) + ",Дж"
+        self.text.insert(9.0, s8)
     def CalculateIt(self):
         self.DOT = self.message_entry1.get()
         self.ST = self.message_entry2.get()
