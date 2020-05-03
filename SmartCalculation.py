@@ -30,8 +30,8 @@ class SmartCalculation():
         menu.add_command(label="Выход", command=quit)
         label=tkinter.Label(self.Smart, text="Введите наименование детали", bg="lightgrey", fg="red")
         label.place(x=15,y=10)
-        label2 = tkinter.Label(self.Smart, text="Введите диаметр наружной трубы, м", bg="lightgrey", fg="red")
-        label2.place(x=10, y=60)
+        label2 = tkinter.Label(self.Smart, text="Введите наружный диаметр заготовки, м", bg="lightgrey", fg="red")
+        label2.place(x=1, y=60)
         label3 = tkinter.Label(self.Smart, text="Введите толщину стенки трубы, м", bg="lightgrey", fg="red")
         label3.place(x=10, y=110)
         label4 = tkinter.Label(self.Smart, text="Введите длину деформируемой зоны, м", bg="lightgrey", fg="red")
@@ -48,10 +48,10 @@ class SmartCalculation():
         label11 = tkinter.Label(self.Smart, text="Поиск материала для заготовки в базе",
                                 bg="lightgrey", fg="black")
         label11.place(x=600, y=60)
-        label16 = tkinter.Label(self.Smart, text="Длина индуктора, м",
+        label16 = tkinter.Label(self.Smart, text="Шаг между витками, м",
                                 bg="lightgrey", fg="red")
         label16.place(x=10, y=360)
-        label17 = tkinter.Label(self.Smart, text="Высота индуктора, м",
+        label17 = tkinter.Label(self.Smart, text="Толщина витка, м",
                                 bg="lightgrey", fg="red")
         label17.place(x=10, y=410)
         label19 = tkinter.Label(self.Smart, text="Поиск материала для индуктора в базе",
