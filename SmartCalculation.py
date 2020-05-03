@@ -84,7 +84,24 @@ class SmartCalculation():
         label28 = tkinter.Label(self.Smart, text="Индуктивность токоподводов индуктора",
                                 bg="lightgrey", fg="red")
         label28.place(x=600, y=460)
-
+        label29 = tkinter.Label(self.Smart, text="А_ТП",
+                                bg="lightgrey", fg="red")
+        label29.place(x=1350, y=60)
+        label30 = tkinter.Label(self.Smart, text="B_ТП",
+                                bg="lightgrey", fg="red")
+        label30.place(x=1350, y=110)
+        label31 = tkinter.Label(self.Smart, text="HB_ТП",
+                                bg="lightgrey", fg="red")
+        label31.place(x=1350, y=160)
+        label32 = tkinter.Label(self.Smart, text="LB_ТП",
+                                bg="lightgrey", fg="red")
+        label32.place(x=1350, y=210)
+        label33 = tkinter.Label(self.Smart, text="Кп_3%",
+                                bg="lightgrey", fg="red")
+        label33.place(x=1350, y=260)
+        label33 = tkinter.Label(self.Smart, text="Kappa",
+                                bg="lightgrey", fg="red")
+        label33.place(x=1350, y=310)
         self.message_entry=tkinter.Entry(self.Smart, textvariable='')
         self.message_entry.place(x=300, y=10)
         self.message_entry1 = tkinter.Entry(self.Smart, textvariable='')
@@ -125,6 +142,18 @@ class SmartCalculation():
         self.message_entry27.place(x=900, y=410)  # Толщина воздушного зазора ZA
         self.message_entry28 = tkinter.Entry(self.Smart, textvariable='')  #
         self.message_entry28.place(x=900, y=460)  # Толщина воздушного зазора ZA
+        self.message_entry29 = tkinter.Entry(self.Smart, textvariable='')  #
+        self.message_entry29.place(x=1400, y=60)  # A_ТП
+        self.message_entry30 = tkinter.Entry(self.Smart, textvariable='')  #
+        self.message_entry30.place(x=1400, y=110)  # B_ТП
+        self.message_entry31 = tkinter.Entry(self.Smart, textvariable='')  #
+        self.message_entry31.place(x=1400, y=160)  # B_ТП
+        self.message_entry32 = tkinter.Entry(self.Smart, textvariable='')  #
+        self.message_entry32.place(x=1400, y=210)  # B_ТП
+        self.message_entry33 = tkinter.Entry(self.Smart, textvariable='')  #
+        self.message_entry33.place(x=1400, y=260)  # B_ТП
+        self.message_entry34 = tkinter.Entry(self.Smart, textvariable='')  #
+        self.message_entry34.place(x=1400, y=310)  # B_ТП
         btn = tkinter.Button(self.Smart, text="Закрыть окно", bg="red", fg="black", command=self.CloseWindow)
         btn.place(x=10, y=550)
         btn1 = tkinter.Button(self.Smart, text="Рассчитать первым путем", bg="green", fg="black", command=self.CalculateIt)
@@ -141,7 +170,7 @@ class SmartCalculation():
         btn8=tkinter.Button(self.Smart, text="Рассчитать EPS",bg="yellow", fg="black", command=self.CulculateEPS)
         btn8.place(x=600, y=550)
         self.text=tkinter.Text(self.Smart, height=35)
-        self.text.place(x=1100,y=210)
+        self.text.place(x=1100,y=360)
 
     def CulculateEPS(self):
         self.DOT = self.message_entry1.get()
