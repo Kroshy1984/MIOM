@@ -55,11 +55,9 @@ class Materials():
     def view_records(self):
         mt = sqlite3.connect("Metalls.db")
         cursor = mt.cursor()
-        cursor.execute(sql10)
-        cursor.execute(sql10)
-        for row in cursor.execute(sql10): print(row)
+        for row in cursor.execute("select* from material"): print(row)
         cpt = 0
-        for row in cursor.execute(sql10):
+        for row in cursor.execute("select* from material"):
             self.Tree.insert('', 'end', text=str(cpt), values=row)
             cpt += 1
 
