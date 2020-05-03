@@ -21,8 +21,8 @@ class SmartCalculation():
         self.Smart.config(menu=menu)  # конфигурируем окно с добавлением меню
         menu.add_command(label="Открыть файл")
         menu.add_cascade(label="Базы данных", menu=BD, underline=0)
-        BD.add_command(label="База данных материалов", command=self.WindowMashins)
-        BD.add_command(label="База данных установок", command=self.Materials)
+        BD.add_command(label="База данных материалов", command=self.Materials)
+        BD.add_command(label="База данных установок", command=self.WindowMashins)
         menu.add_command(label="О разработчиках", command=self.OnMenuClick)
         menu.add_cascade(label="F1 Help", menu=help, underline=0)  # добавления пункта меню
         help.add_command(label="Что вы хотите найти?")
