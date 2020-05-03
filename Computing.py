@@ -12,7 +12,7 @@ import math
 
 class Inductor():
     def __init__(self, LBT, operation, DOT, ST, FW, YEMP, FCE, LCE, LCB, CCE, SC, HSC, PLM, BCM, KDM, MM, KPD,
-                 geometry,NCT1):
+                 geometry,NCT1,ZS,ZB,ZA,YEMC,LTC):
         mu = 4 * 3.14 * pow(10, -7)  # магнитная проницаемость в вакууме
         self.LBT = LBT
         self.operation = operation
@@ -23,12 +23,12 @@ class Inductor():
         self.MM = MM
         # self.LBT=MM
         self.KPD = KPD
-        self.ZS = 0.00065  # Толщина изоляции витка
-        self.ZB = 0.001  # Толщина основной изоляции индуктора
-        self.ZA = 0.00025  # Толщина воздушного зазора
-        self.LTC = 0.7 * pow(10, -7)  # Индуктивность токоподводов индуктора
+        self.ZS = ZS  # Толщина изоляции витка
+        self.ZB = ZB  # Толщина основной изоляции индуктора
+        self.ZA = ZA  # Толщина воздушного зазора
+        self.LTC = LTC  # Индуктивность токоподводов индуктора
         self.YEMP = YEMP  # обозначение удельного электрического сопротивления заготовки
-        self.YEMC = 1.78 * pow(10, -8)# удельное сопротивление шины(медь)
+        self.YEMC = YEMC# удельное сопротивление шины(медь)
         self.FCE = FCE
         self.CCE = CCE  # емкость батареи конденсаторов МИУ
         self.LCE = LCE  # индуктивность собственная

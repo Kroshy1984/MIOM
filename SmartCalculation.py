@@ -136,17 +136,24 @@ class SmartCalculation():
         self.message_entry24.place(x=900, y=260)  # Толщина изоляции витка ZS
         self.message_entry25 = tkinter.Entry(self.Smart, textvariable='')  #
         self.message_entry24.insert(0, "0.00065")
+        self.ZS=self.message_entry24.get()
         self.message_entry25.place(x=900, y=310)  # Толщина основной изоляции индуктора ZB
         self.message_entry25.insert(0, "0.001")
+        self.ZB = self.message_entry25.get()
         self.message_entry26 = tkinter.Entry(self.Smart, textvariable='')  #
         self.message_entry26.place(x=900, y=360)  # Толщина воздушного зазора ZA
         self.message_entry26.insert(0, "0.00025")
+        self.ZA=self.message_entry26.get()
         self.message_entry27 = tkinter.Entry(self.Smart, textvariable='')  #
         self.message_entry27.place(x=900, y=410)  # YEMC
         self.message_entry27.insert(0, "1.78")
+        self.YEMC=self.message_entry27.get()
+        self.YEMC=float(self.YEMC)*pow(10,-8)
         self.message_entry28 = tkinter.Entry(self.Smart, textvariable='')  #
         self.message_entry28.place(x=900, y=460)  # Толщина воздушного зазора ZA
         self.message_entry28.insert(0, "0.7")#LTC
+        self.LTC=self.message_entry28.get()
+        self.LTC=float(self.LTC)*pow(10,-7)
         self.message_entry29 = tkinter.Entry(self.Smart, textvariable='')  #
         self.message_entry29.place(x=1400, y=60)  # A_ТП
         self.message_entry30 = tkinter.Entry(self.Smart, textvariable='')  #
@@ -397,7 +404,7 @@ class SmartCalculation():
         self.operation=self.operation[0:2]
         print(self.operation)
         self.message_entry4 = tkinter.Entry(self.Smart, textvariable='')
-        self.message_entry4.place(x=600, y=210)
+        self.message_entry4.place(x=300, y=210)
 
     def CloseWindow(self):
         self.Smart.destroy()
@@ -419,14 +426,14 @@ class SmartCalculation():
         f = Computing.Form(float(self.DOT), float(self.ST), float(self.BCM), float(self.KDM), float(self.MM), float(self.LBT), float(self.KPD), float(self.RC), self.operation)
         g = Computing.Inductor(float(self.LBT), self.operation, float(self.DOT), float(self.ST), float(self.FW), float(self.YEMP), float(self.FCE), float(self.LCE), 1* pow(10, -12),
                                float(self.CCE), float(self.SC), float(self.HSC), float(self.PLM), float(self.BCM), float(self.KDM), float(self.MM), float(self.KPD),
-                               float(self.RC), float(self.NCT1))
+                               float(self.RC), float(self.NCT1), float(self.ZS),float(self.ZB),float(self.ZA),float(self.YEMC),float(self.LTC))
         DIB = Computing.Form.DIB(f)
         s="Внутренний диаметр трубчатой заготовки:" + str(DIB) + ",м"
         self.text.insert(1.0, s)
         RIB = Computing.Form.RIB(f)
         s1="\n"+"Внутренний радиус трубчатой заготовки:" + str(RIB) + ",м"
         self.text.insert(2.0, s1)
-        ESP = Computing.Form.ESP(f, self.RC)
+        ESP = Computing.Form.EPS(f, self.RC)
         s2="\n"+"Cредняя величина деформации заготовки:" + str(ESP) + ",м"
         self.text.insert(3.0, s2)
         BCMD = Computing.Form.BCMD(f)
