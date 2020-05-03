@@ -213,7 +213,7 @@ class SmartCalculation():
         self.Materials.title("Выбор материала ")
         self.Tree2 = Treeview(self.Materials, columns=(
             "Name_of_the_metalls", "Tensile_strength", "Yield_strength", "Material_density", "M_M", "B",
-            "Specific_electric_resistance", "The_coefficient_of_dynamic", 'Еhe_dynamic_modulus_hardening'), height=30,
+            "Specific_electric_resistance", "The_coefficient_of_dynamic", 'Еhe_dynamic_modulus_hardening','E_z','E_up'), height=30,
                                  show='headings')
         self.Tree2.column("Name_of_the_metalls", width=60, anchor=tkinter.CENTER)
         self.Tree2.column("Tensile_strength", width=70, anchor=tkinter.CENTER)
@@ -224,6 +224,8 @@ class SmartCalculation():
         self.Tree2.column("Specific_electric_resistance", width=50, anchor=tkinter.CENTER)
         self.Tree2.column("The_coefficient_of_dynamic", width=50, anchor=tkinter.CENTER)
         self.Tree2.column("Еhe_dynamic_modulus_hardening", width=50, anchor=tkinter.CENTER)
+        self.Tree2.column("E_z", width=50, anchor=tkinter.CENTER)
+        self.Tree2.column("E_up", width=50, anchor=tkinter.CENTER)
         self.Tree2['show'] = "headings"
         self.Tree2.heading("Name_of_the_metalls", text="Металл")
         self.Tree2.heading("Tensile_strength", text="PPM")
@@ -234,6 +236,8 @@ class SmartCalculation():
         self.Tree2.heading("Specific_electric_resistance", text="YEMP")
         self.Tree2.heading("The_coefficient_of_dynamic", text="KDM")
         self.Tree2.heading("Еhe_dynamic_modulus_hardening", text="MDM")
+        self.Tree2.heading("E_z", text="E_z")
+        self.Tree2.heading("E_up", text="E_up")
         self.Tree2.place(x=50, y=10)
         label1 = tkinter.Label(self.Materials, text="PPM-предел прочность материала", bg="lightgrey", fg="black")
         label1.place(x=550, y=30)
@@ -263,7 +267,7 @@ class SmartCalculation():
         self.Materials2.title("Выбор материала заготовки")
         self.Tree3 = Treeview(self.Materials2, columns=(
             "Name_of_the_metalls", "Tensile_strength", "Yield_strength", "Material_density", "M_M", "B",
-            "Specific_electric_resistance", "The_coefficient_of_dynamic", 'Еhe_dynamic_modulus_hardening'), height=30,
+            "Specific_electric_resistance", "The_coefficient_of_dynamic", 'Еhe_dynamic_modulus_hardening','E_z','E_up'), height=30,
                                  show='headings')
         self.Tree3.column("Name_of_the_metalls", width=60, anchor=tkinter.CENTER)
         self.Tree3.column("Tensile_strength", width=70, anchor=tkinter.CENTER)
@@ -274,6 +278,8 @@ class SmartCalculation():
         self.Tree3.column("Specific_electric_resistance", width=50, anchor=tkinter.CENTER)
         self.Tree3.column("The_coefficient_of_dynamic", width=50, anchor=tkinter.CENTER)
         self.Tree3.column("Еhe_dynamic_modulus_hardening", width=50, anchor=tkinter.CENTER)
+        self.Tree3.column("E_z", width=50, anchor=tkinter.CENTER)
+        self.Tree3.column("E_up", width=50, anchor=tkinter.CENTER)
         self.Tree3['show'] = "headings"
         self.Tree3.heading("Name_of_the_metalls", text="Металл")
         self.Tree3.heading("Tensile_strength", text="PPM")
@@ -284,6 +290,8 @@ class SmartCalculation():
         self.Tree3.heading("Specific_electric_resistance", text="YEMP")
         self.Tree3.heading("The_coefficient_of_dynamic", text="KDM")
         self.Tree3.heading("Еhe_dynamic_modulus_hardening", text="MDM")
+        self.Tree3.heading("E_z", text="E_z")
+        self.Tree3.heading("E_up", text="E_up")
         self.Tree3.place(x=50, y=10)
         label1 = tkinter.Label(self.Materials2, text="PPM-предел прочность материала", bg="lightgrey", fg="black")
         label1.place(x=550, y=30)
