@@ -145,8 +145,23 @@ class Basad():
         label7.place(x=10, y=310)
         btn1 = Button(self.Editor, text="Закрыть", bg='red', fg='black', command=self.Editor.destroy)
         btn1.place(x=30, y=350)
-        btn2 = Button(self.Editor, text="Запомнить", bg='lightgreen', fg='black')
+        btn2 = Button(self.Editor, text="Запомнить", bg='lightgreen', fg='black',command=self.Insert)
         btn2.place(x=200, y=350)
+
+    def Insert(self):
+        f1 = self.message_entry.get()
+        f2 = self.message_entry1.get()
+        f3 = self.message_entry2.get()
+        f4 = self.message_entry4.get()
+        f5 = self.message_entry4.get()
+        f6 = self.message_entry5.get()
+        f7 = self.message_entry6.get()
+        mt = sqlite3.connect("mashins.db")
+        cursor = mt.cursor()
+        cursor.execute('''Insert into Mashines values (?,?,?,?,?,?,?);''', (f1, f2, f3, f4, f5, f6, f7))
+        mt.commit()
+        self.Tree.delete(*self.Tree.get_children())
+        self.view_records()
 
     def DellMashins(self):
         sel = self.Tree.focus()
@@ -175,10 +190,6 @@ class Basad():
         for row in cursor.execute("select* from Mashines"):
             self.Tree.insert('', 'end', text=str(cpt), values=row)
             cpt += 1
-
-
-    def MashinesInfo(self):
-      return self.row
 
     def __init__(self):
         self.GUI()
