@@ -54,7 +54,7 @@ class Inductor():
         self.K1 = (pow(self.FDC, 2) - pow(self.FW, 2)) / pow(self.FDC, 2)  # Величина коэффициента согласования
         self.ZEK = self.ZCP + 0.5 * (self.BC + self.BP)  # Значение эквивалентного зазора между индуктором и заготовкой
         self.LCA()
-        self.NCTC = pow(self.K1 * self.LDC * self.LCA / (3.14 * mu * self.DCA * self.ZEK * (1 - self.K1)),
+        self.NCTC = pow(abs(self.K1 * self.LDC * self.LCA / (3.14 * mu * self.DCA * self.ZEK * (1 - self.K1))),
                         0.5)  # Количество витков индуктора
         self.NCT = round(self.NCTC)  # Целое количество рабочих витков
         self.LU = self.SC * self.NCT  # Длина индуктора
@@ -121,7 +121,8 @@ class Inductor():
         DL05 = L1S / LOZ
         DEZ = self.ZCP / DL05
         # =====K1=====
-        self.K1 = 1 - (self.FR / self.FDC) * (self.FR / self.FDC)
+        self.K1 = 1 - pow(self.FR / self.FDC,2)
+        print(self.K1)
         # ====K2======
         self.K2 = math.exp(-math.atan(2 * QS) / QS)
         # ===Коэффициент К3

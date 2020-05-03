@@ -311,6 +311,7 @@ class SmartCalculation():
         sel = self.Tree3.focus()
         self.slct = self.Tree3.item(sel, option='values')
         row = self.slct
+        self.PLM = row[3]
         self.MM = row[4]
         self.BCM1 = row[5]
         self.KDM = row[7]
@@ -323,7 +324,6 @@ class SmartCalculation():
         self.slct = self.Tree2.item(sel, option='values')
         row = self.slct
         self.YEMP1 = row[6]
-        self.PLM = row[3]
         self.message_entry18.delete(0, 10)
         self.message_entry18.insert(0, row[0])
         self.Materials.destroy()
