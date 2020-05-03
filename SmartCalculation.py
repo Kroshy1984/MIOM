@@ -412,6 +412,7 @@ class SmartCalculation():
         self.Smart.destroy()
 
     def CalculateForm(self):
+        self.text.delete(1.0, tkinter.END)
         self.DOT = self.message_entry1.get()
         self.ST = self.message_entry2.get()
         self.LBT = self.message_entry3.get()
@@ -448,6 +449,7 @@ class SmartCalculation():
         s8 = "\n" + "Энергоемкость установки:" + str(WMUR) + ",Дж"
         self.text.insert(9.0, s8)
     def CalculateIt(self):
+        self.text.delete(1.0, tkinter.END)
         self.DOT = self.message_entry1.get()
         self.ST = self.message_entry2.get()
         self.LBT = self.message_entry3.get()
