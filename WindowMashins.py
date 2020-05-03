@@ -2,9 +2,7 @@ from tkinter import *
 import sqlite3
 from tkinter.ttk import Treeview
 from SQL12 import *
-import Terminator
 import SmartCalculation
-import EditorMashins
 
 class Basad():
     def GUI(self):
