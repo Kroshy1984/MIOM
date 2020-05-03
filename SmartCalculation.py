@@ -135,13 +135,18 @@ class SmartCalculation():
         self.message_entry24 = tkinter.Entry(self.Smart, textvariable='')  #
         self.message_entry24.place(x=900, y=260)  # Толщина изоляции витка ZS
         self.message_entry25 = tkinter.Entry(self.Smart, textvariable='')  #
+        self.message_entry24.insert(0, "0.00065")
         self.message_entry25.place(x=900, y=310)  # Толщина основной изоляции индуктора ZB
+        self.message_entry25.insert(0, "0.001")
         self.message_entry26 = tkinter.Entry(self.Smart, textvariable='')  #
         self.message_entry26.place(x=900, y=360)  # Толщина воздушного зазора ZA
+        self.message_entry26.insert(0, "0.00025")
         self.message_entry27 = tkinter.Entry(self.Smart, textvariable='')  #
-        self.message_entry27.place(x=900, y=410)  # Толщина воздушного зазора ZA
+        self.message_entry27.place(x=900, y=410)  # YEMC
+        self.message_entry27.insert(0, "1.78")
         self.message_entry28 = tkinter.Entry(self.Smart, textvariable='')  #
         self.message_entry28.place(x=900, y=460)  # Толщина воздушного зазора ZA
+        self.message_entry28.insert(0, "0.7")#LTC
         self.message_entry29 = tkinter.Entry(self.Smart, textvariable='')  #
         self.message_entry29.place(x=1400, y=60)  # A_ТП
         self.message_entry30 = tkinter.Entry(self.Smart, textvariable='')  #
