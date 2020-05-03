@@ -106,8 +106,26 @@ class Basad():
         label7.place(x=10, y=310)
         btn1 = Button(self.Editor, text="Закрыть", bg='red', fg='black', command=self.Editor.destroy)
         btn1.place(x=30, y=350)
-        btn2 = Button(self.Editor, text="Запомнить", bg='lightgreen', fg='black')
+        self.a = self.message_entry.get()
+        btn2 = Button(self.Editor, text="Запомнить", bg='lightgreen', fg='black', command=self.Update)
         btn2.place(x=200, y=350)
+
+    def Update(self):
+        f1 = self.message_entry.get()
+        f2 = self.message_entry1.get()
+        f3 = self.message_entry2.get()
+        f4 = self.message_entry4.get()
+        f5 = self.message_entry4.get()
+        f6 = self.message_entry5.get()
+        f7 = self.message_entry6.get()
+        print(f1)
+        mt = sqlite3.connect("mashins.db")
+        cursor = mt.cursor()
+        cursor.execute('''Update Mashines set Name=?,W_mash =?,CCE =?,LCE =?,FCE =?,Ro =?,FW =? where Name =?''', (f1, f2, f3, f4, f5, f6, f7,self.a))
+        mt.commit()
+        self.Tree.delete(*self.Tree.get_children())
+        self.view_records()
+        self.Editor.destroy()
 
     def AddMashins(self):
         self.Editor = Toplevel(self.BasaM2)
@@ -162,6 +180,7 @@ class Basad():
         mt.commit()
         self.Tree.delete(*self.Tree.get_children())
         self.view_records()
+        self.Editor.destroy()
 
     def DellMashins(self):
         sel = self.Tree.focus()
@@ -182,10 +201,10 @@ class Basad():
         btn2 = Button(self.SBasa, text="Я все понял. Удалить", bg='green', fg='black')
         btn2.place(x=350, y=150)
 
+
     def view_records(self):
         mt = EditorMashins.sqlite3.connect("mashins.db")
         cursor = mt.cursor()
-        for row in cursor.execute("select* from Mashines"): print(row)
         cpt = 0
         for row in cursor.execute("select* from Mashines"):
             self.Tree.insert('', 'end', text=str(cpt), values=row)
