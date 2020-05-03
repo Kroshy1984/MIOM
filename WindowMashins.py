@@ -183,7 +183,7 @@ class Basad():
     def DellMashins(self):
         sel = self.Tree.focus()
         slct2 = self.Tree.item(sel, option='values')
-        field1 = slct2[0]
+        self.shotit = slct2[0]
         self.SBasa = Toplevel(self.BasaM2)
         self.SBasa.geometry('600x200+1000+400')
         self.SBasa.title("Удаление оборудования МИОМ")
@@ -191,17 +191,25 @@ class Basad():
         self.SBasa.attributes('-topmost', True)  # окно будет поверх окон
         label1 = Label(self.SBasa, text="Вы действительно хотите удалить это обрудование?  ", bg="lightgrey", fg="black")
         label1.place(x=50, y=50)
-        label1 = Label(self.SBasa, text="Внимание! Речь идет о " + field1 + ". Это может быть важная запись!", bg="lightgrey",
+        label1 = Label(self.SBasa, text="Внимание! Речь идет о " +self.shotit + ". Это может быть важная запись!", bg="lightgrey",
                    fg="black")
         label1.place(x=50, y=70)
         btn1 = Button(self.SBasa, text="Закрыть", bg='pink', fg='red', command=self.SBasa.destroy)
         btn1.place(x=30, y=150)
-        btn2 = Button(self.SBasa, text="Я все понял. Удалить", bg='green', fg='black')
+        btn2 = Button(self.SBasa, text="Я все понял. Удалить", bg='green', fg='black',command=self.Delete)
         btn2.place(x=350, y=150)
 
+    def Delete(self):
+        mt = sqlite3.connect("mashins.db")
+        cursor = mt.cursor()
+        cursor.execute("Delete from Mashines where Name =?", (self.shotit,))
+        mt.commit()
+        self.Tree.delete(*self.Tree.get_children())
+        self.view_records()
+        self.SBasa.destroy()
 
     def view_records(self):
-        mt = EditorMashins.sqlite3.connect("mashins.db")
+        mt = sqlite3.connect("mashins.db")
         cursor = mt.cursor()
         cpt = 0
         for row in cursor.execute("select* from Mashines"):
