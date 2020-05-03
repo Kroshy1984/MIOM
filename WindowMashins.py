@@ -9,7 +9,7 @@ import EditorMashins
 class Basad():
     def GUI(self):
         self.BasaM2 = Toplevel()
-        self.BasaM2.geometry('820x450+700+200')
+        self.BasaM2.geometry('1100x450+700+200')
         self.BasaM2.title("Выбор оборудования МИОМ")
         self.Tree = Treeview(self.BasaM2, columns=(
             "Name", "Max_change_energi", "Condenser_capasity", "Equipment_induct", "SccF", "R0","FW"), height=20,
@@ -31,28 +31,28 @@ class Basad():
         self.Tree.heading("FW", text="FW")
         self.Tree.place(x=50, y=10)
         label1 = Label(self.BasaM2, text="W_mash-максимальная мощность разряда", bg="lightgrey", fg="black")
-        label1.place(x=470, y=30)
+        label1.place(x=510, y=30)
         label2=Label(self.BasaM2, text="CCT-Емкость батареи конденсаторов установки", bg="lightgrey", fg="black")
-        label2.place(x=470,y=50)
+        label2.place(x=510,y=50)
         label3 = Label(self.BasaM2, text="LCE-индуктивность", bg="lightgrey", fg="black")
-        label3.place(x=470, y=70)
+        label3.place(x=510, y=70)
         label4 = Label(self.BasaM2, text="FW-величина тока короткого замыкания", bg="lightgrey", fg="black")
-        label4.place(x=470, y=90)
+        label4.place(x=510, y=90)
         label7 = Label(self.BasaM2, text="R0-активное сопротивление установки", bg="lightgrey", fg="black")
-        label7.place(x=470, y=110)
+        label7.place(x=510, y=110)
         label8 = Label(self.BasaM2, text="FCE-частота колебаний разрядного тока МИУ в режиме короткого замыкания", bg="lightgrey", fg="black")
-        label8.place(x=470, y=110)
+        label8.place(x=510, y=110)
         btn = Button(self.BasaM2, text="Добавить оборудование", bg="orange", fg="black",
                                         command=self.AddMashins)  # описание объекта типа button названия кнопки
-        btn.place(x=470, y=200)  # расположение кнопки
+        btn.place(x=510, y=200)  # расположение кнопки
         btn5 = Button(self.BasaM2, text="Редактировать оборудование", bg="orange", fg="black",
                                          command=self.clicked2)  # описание объекта типа button названия кнопки
-        btn5.place(x=470, y=250)  # расположение кнопки
+        btn5.place(x=510, y=250)  # расположение кнопки
         btn2 = Button(self.BasaM2, text="Удалить оборудование", bg="orange", fg="black",
                                          command=self.DellMashins)  # описание объекта типа button названия кнопки
-        btn2.place(x=470, y=300)  # расположение кнопки
+        btn2.place(x=510, y=300)  # расположение кнопки
         btn1 = Button(self.BasaM2, text="Отменить", bg='pink', fg='red', command=self.BasaM2.destroy)
-        btn1.place(x=470, y=350)
+        btn1.place(x=510, y=350)
 
 
     def clicked2(self):
@@ -85,11 +85,9 @@ class Basad():
     def view_records(self):
         mt = EditorMashins.sqlite3.connect("mashins.db")
         cursor = mt.cursor()
-        cursor.execute(EditorMashins.sql6)
-        cursor.execute(EditorMashins.sql6)
-        for row in cursor.execute(EditorMashins.sql6): print(row)
+        for row in cursor.execute("select* from Mashines"): print(row)
         cpt = 0
-        for row in cursor.execute(EditorMashins.sql6):
+        for row in cursor.execute("select* from Mashines"):
             self.Tree.insert('', 'end', text=str(cpt), values=row)
             cpt += 1
 
