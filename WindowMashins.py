@@ -54,7 +54,6 @@ class Basad():
         btn1 = Button(self.BasaM2, text="Отменить", bg='pink', fg='red', command=self.BasaM2.destroy)
         btn1.place(x=510, y=350)
 
-
     def Edit(self):
         sel = self.Tree.focus()
         slct2 = self.Tree.item(sel, option='values')
@@ -146,23 +145,21 @@ class Basad():
         label7.place(x=10, y=310)
         btn1 = Button(self.Editor, text="Закрыть", bg='red', fg='black', command=self.Editor.destroy)
         btn1.place(x=30, y=350)
-        btn2 = Button(self.Editor, text="Запомнить", bg='lightgreen', fg='black', command=self.clicked2)
+        btn2 = Button(self.Editor, text="Запомнить", bg='lightgreen', fg='black')
         btn2.place(x=200, y=350)
 
     def DellMashins(self):
         sel = self.Tree.focus()
         slct2 = self.Tree.item(sel, option='values')
         field1 = slct2[0]
-        self.shot = a
-        print('удаляем, где ', self.shot)
         self.SBasa = Toplevel(self.BasaM2)
-        self.SBasa.geometry('600x200')
+        self.SBasa.geometry('600x200+1000+400')
         self.SBasa.title("Удаление оборудования МИОМ")
         self.SBasa.lift()  # команда выталкивает окно на верх
         self.SBasa.attributes('-topmost', True)  # окно будет поверх окон
-        label1 = Label(self.SBasa, text="Вы действительно хотите удалить это обрудование?  ", bg="grey", fg="black")
+        label1 = Label(self.SBasa, text="Вы действительно хотите удалить это обрудование?  ", bg="lightgrey", fg="black")
         label1.place(x=50, y=50)
-        label1 = Label(self.SBasa, text="Внимание! Речь идет о " + a + ". Это может быть важная запись!", bg="grey",
+        label1 = Label(self.SBasa, text="Внимание! Речь идет о " + field1 + ". Это может быть важная запись!", bg="lightgrey",
                    fg="black")
         label1.place(x=50, y=70)
         btn1 = Button(self.SBasa, text="Закрыть", bg='pink', fg='red', command=self.SBasa.destroy)
