@@ -1,7 +1,6 @@
 from tkinter import *
 import sqlite3
 from tkinter.ttk import Treeview
-from SQL12 import *
 import SmartCalculation
 
 class Basad():

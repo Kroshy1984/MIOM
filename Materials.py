@@ -2,7 +2,6 @@ import tkinter as tk
 from tkinter import *
 from tkinter import ttk
 import sqlite3
-from SQL12 import *
 
 
 class Materials():
@@ -159,7 +158,7 @@ class Materials():
     def EditMaterial(self):
         sel = self.Tree.focus()
         self.slct2 = self.Tree.item(sel, option='values')
-        name=self.slct2[0]
+        self.name=self.slct2[0]
         PPM=self.slct2[1]
         PYD=self.slct2[2]
         PLM=self.slct2[3]
@@ -177,7 +176,7 @@ class Materials():
         self.SBasa.attributes('-topmost', True)
         label1 = Label(self.SBasa, text="Металл", bg="lightgrey", fg="black")
         self.message_entry = Entry(self.SBasa, textvariable="")
-        self.message_entry.insert(0,name)
+        self.message_entry.insert(0,self.name)
         self.message_entry.place(x=100, y=10)
         label2 = Label(self.SBasa, text="PPM", bg="lightgrey", fg="black")
         self.message_entry1 = Entry(self.SBasa, textvariable="")
@@ -232,8 +231,29 @@ class Materials():
         label11.place(x=10, y=510)
         btn1 = Button(self.SBasa, text="Закрыть", bg='pink', fg='red', command=self.SBasa.destroy)
         btn1.place(x=10, y=550)
-        btn2 = Button(self.SBasa, text="Запомнить", bg='green', fg='black')
+        btn2 = Button(self.SBasa, text="Запомнить", bg='green', fg='black', command=self.Update)
         btn2.place(x=150, y=550)
+
+    def Update(self):
+        f1 = self.message_entry.get()
+        f2 = self.message_entry1.get()
+        f3 = self.message_entry2.get()
+        f4 = self.message_entry3.get()
+        f5 = self.message_entry4.get()
+        f6 = self.message_entry5.get()
+        f7 = self.message_entry6.get()
+        f8 = self.message_entry7.get()
+        f9 = self.message_entry8.get()
+        f10 = self.message_entry9.get()
+        f11 = self.message_entry10.get()
+        mt = sqlite3.connect("Metalls.db")
+        cursor = mt.cursor()
+        cursor.execute('''Update material set name =?,PPM =?,PYD =?,PLM =?,M_m =?,B =?,YEMP =?,MDM=?,KDM=?,E_z=?,E_up=? where name =?''',
+                       (f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11,self.name))
+        mt.commit()
+        self.Tree.delete(*self.Tree.get_children())
+        self.view_records()
+        self.SBasa.destroy()
 
     def DelMaterial(self):
         sel = self.Tree.focus()
