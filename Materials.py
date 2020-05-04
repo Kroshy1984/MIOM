@@ -63,7 +63,7 @@ class Materials():
         self.btn2 = Button(self.Materials, text="Удалить материал", bg="orange", fg="black",
                            command=self.DelMaterial)  # описание объекта типа button названия кнопки
         self.btn2.place(x=650, y=250)  # расположение кнопки
-        self.btn1 = Button(self.Materials, text="Отменить", bg='pink', fg='red', command=self.GoToPrevious)
+        self.btn1 = Button(self.Materials, text="Закрыть", bg='pink', fg='red', command=self.Materials.destroy)
         self.btn1.place(x=650, y=300)
         self.view_records()
         self.Materials.mainloop()
@@ -258,11 +258,30 @@ class Materials():
     def DelMaterial(self):
         sel = self.Tree.focus()
         self.slct2 = self.Tree.item(sel, option='values')
-        self.f4 = self.slct2[0]
-        print(self.slct2)
-        print(self.slct2[0])
-        print(self.f4)
+        self.shotit = self.slct2[0]
+        self.T = Toplevel(self.Materials)
+        self.T.geometry('600x200+1000+400')
+        self.T.title("Удаление оборудования МИОМ")
+        self.T.lift()  # команда выталкивает окно на верх
+        self.T.attributes('-topmost', True)  # окно будет поверх окон
+        label1 = Label(self.T, text="Вы действительно хотите удалить это обрудование?  ", bg="lightgrey",
+                       fg="black")
+        label1.place(x=50, y=50)
+        label1 = Label(self.T, text="Внимание! Речь идет о " + self.shotit + ". Это может быть важная запись!",
+                       bg="lightgrey",
+                       fg="black")
+        label1.place(x=50, y=70)
+        btn1 = Button(self.T, text="Закрыть", bg='pink', fg='red', command=self.T.destroy)
+        btn1.place(x=30, y=150)
+        btn2 = Button(self.T, text="Я все понял. Удалить", bg='green', fg='black', command=self.Delete)
+        btn2.place(x=350, y=150)
+
+    def Delete(self):
+        mt = sqlite3.connect("Metalls.db")
+        cursor = mt.cursor()
+        cursor.execute("Delete from material where name =?", (self.shotit,))
+        mt.commit()
+        self.Tree.delete(*self.Tree.get_children())
+        self.view_records()
+        self.T.destroy()
        
-    def GoToPrevious(self):pass
-
-
