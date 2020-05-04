@@ -136,8 +136,20 @@ class Materials():
         btn2 = Button(self.SBasa2, text="Запомнить", bg='green', fg='black')
         btn2.place(x=150, y=550)
 
-
     def EditMaterial(self):
+        sel = self.Tree.focus()
+        self.slct2 = self.Tree.item(sel, option='values')
+        name=self.slct2[0]
+        PPM=self.slct2[1]
+        PYD=self.slct2[2]
+        PLM=self.slct2[3]
+        M_m=self.slct2[4]
+        B=self.slct2[5]
+        YEMP=self.slct2[6]
+        MDM=self.slct2[7]
+        KDM=self.slct2[8]
+        E_z=self.slct2[9]
+        E_up=self.slct2[10]
         self.SBasa = Toplevel(self.Materials)
         self.SBasa.geometry('300x600+800+300')
         self.SBasa.title("Добавить Материал")
@@ -145,37 +157,48 @@ class Materials():
         self.SBasa.attributes('-topmost', True)
         label1 = Label(self.SBasa, text="Металл", bg="lightgrey", fg="black")
         self.message_entry = Entry(self.SBasa, textvariable="")
+        self.message_entry.insert(0,name)
         self.message_entry.place(x=100, y=10)
         label2 = Label(self.SBasa, text="PPM", bg="lightgrey", fg="black")
         self.message_entry1 = Entry(self.SBasa, textvariable="")
+        self.message_entry1.insert(0,PPM)
         self.message_entry1.place(x=100, y=60)
         label3 = Label(self.SBasa, text="PYD", bg="lightgrey", fg="black")
         self.message_entry2 = Entry(self.SBasa, textvariable="")
+        self.message_entry2.insert(0, PYD)
         self.message_entry2.place(x=100, y=110)
         label4 = Label(self.SBasa, text="PLM", bg="lightgrey", fg="black")
         self.message_entry3 = Entry(self.SBasa, textvariable="")
+        self.message_entry3.insert(0, PLM)
         self.message_entry3.place(x=100, y=160)
         label5 = Label(self.SBasa, text="М_м", bg="lightgrey", fg="black")
         self.message_entry4 = Entry(self.SBasa, textvariable="")
+        self.message_entry4.insert(0, M_m)
         self.message_entry4.place(x=100, y=210)
         label6 = Label(self.SBasa, text="В", bg="lightgrey", fg="black")
         self.message_entry5 = Entry(self.SBasa, textvariable="")
+        self.message_entry5.insert(0, B)
         self.message_entry5.place(x=100, y=260)
         label7 = Label(self.SBasa, text="YEMP", bg="lightgrey", fg="black")
         self.message_entry6 = Entry(self.SBasa, textvariable="")
+        self.message_entry6.insert(0, YEMP)
         self.message_entry6.place(x=100, y=310)
         label8 = Label(self.SBasa, text="MDM", bg="lightgrey", fg="black")
-        self.message_entry6 = Entry(self.SBasa, textvariable="")
-        self.message_entry6.place(x=100, y=360)
-        label9 = Label(self.SBasa, text="KDM", bg="lightgrey", fg="black")
         self.message_entry7 = Entry(self.SBasa, textvariable="")
-        self.message_entry7.place(x=100, y=410)
+        self.message_entry7.insert(0, MDM)
+        self.message_entry7.place(x=100, y=360)
+        label9 = Label(self.SBasa, text="KDM", bg="lightgrey", fg="black")
+        self.message_entry8 = Entry(self.SBasa, textvariable="")
+        self.message_entry8.insert(0, KDM)
+        self.message_entry8.place(x=100, y=410)
         label10 = Label(self.SBasa, text="E_z", bg="lightgrey", fg="black")
-        self.message_entry8 = Entry(self.SBasa, textvariable="")
-        self.message_entry8.place(x=100, y=460)
+        self.message_entry9 = Entry(self.SBasa, textvariable="")
+        self.message_entry9.insert(0, E_z)
+        self.message_entry9.place(x=100, y=460)
         label11 = Label(self.SBasa, text="E_up", bg="lightgrey", fg="black")
-        self.message_entry8 = Entry(self.SBasa, textvariable="")
-        self.message_entry8.place(x=100, y=510)
+        self.message_entry10 = Entry(self.SBasa, textvariable="")
+        self.message_entry10.insert(0,E_up)
+        self.message_entry10.place(x=100, y=510)
         label1.place(x=10, y=10)
         label2.place(x=10, y=60)
         label3.place(x=10, y=110)
