@@ -209,7 +209,7 @@ class SmartCalculation():
 
     def SearchMaterials(self):
         self.Materials = tkinter.Toplevel(self.Smart)
-        self.Materials.geometry('1200x700+600+200')
+        self.Materials.geometry('1300x700+600+200')
         self.Materials.title("Выбор материала ")
         self.Tree2 = Treeview(self.Materials, columns=(
             "Name_of_the_metalls", "Tensile_strength", "Yield_strength", "Material_density", "M_M", "B",
@@ -240,18 +240,18 @@ class SmartCalculation():
         self.Tree2.heading("E_up", text="E_up")
         self.Tree2.place(x=50, y=10)
         label1 = tkinter.Label(self.Materials, text="PPM-предел прочность материала", bg="lightgrey", fg="black")
-        label1.place(x=550, y=30)
+        label1.place(x=650, y=30)
         label2 = tkinter.Label(self.Materials, text="PYD-предел упругости материала", bg="lightgrey",
                                fg="black")
-        label2.place(x=550, y=50)
+        label2.place(x=650, y=50)
         label3 = tkinter.Label(self.Materials, text="PLM-плотность материала", bg="lightgrey", fg="black")
-        label3.place(x=550, y=70)
+        label3.place(x=650, y=70)
         label4 = tkinter.Label(self.Materials, text="M_M и B-вкоэффициенты степенной аппроксимации кривой упрочнения материала", bg="lightgrey", fg="black")
-        label4.place(x=550, y=90)
+        label4.place(x=650, y=90)
         label6 = tkinter.Label(self.Materials, text="YEMP-удельное электрическое сопротивление материала", bg="lightgrey", fg="black")
-        label6.place(x=550, y=110)
+        label6.place(x=650, y=110)
         label7 = tkinter.Label(self.Materials, text="MDM-коэффициент динамичности материала", bg="lightgrey", fg="black")
-        label7.place(x=550, y=130)
+        label7.place(x=650, y=130)
         mt = sqlite3.connect("Metalls.db")
         cursor = mt.cursor()
         cpt=0
@@ -259,7 +259,7 @@ class SmartCalculation():
             self.Tree2.insert('', 'end', text=str(cpt), values=row)
             cpt += 1
         self.btn = tkinter.Button(self.Materials, text="Взять данные в работу", bg="green", fg="black", command=self.GoToWork_in)  # описание объекта типа button названия кнопки
-        self.btn.place(x=550, y=150)
+        self.btn.place(x=650, y=150)
 
     def SearchMaterials2(self):
         self.Materials2 = tkinter.Toplevel(self.Smart)
@@ -294,18 +294,18 @@ class SmartCalculation():
         self.Tree3.heading("E_up", text="E_up")
         self.Tree3.place(x=50, y=10)
         label1 = tkinter.Label(self.Materials2, text="PPM-предел прочность материала", bg="lightgrey", fg="black")
-        label1.place(x=550, y=30)
+        label1.place(x=650, y=30)
         label2 = tkinter.Label(self.Materials2, text="PYD-предел упругости материала", bg="lightgrey",
                                fg="black")
-        label2.place(x=550, y=50)
+        label2.place(x=650, y=50)
         label3 = tkinter.Label(self.Materials2, text="PLM-плотность материала", bg="lightgrey", fg="black")
-        label3.place(x=550, y=70)
+        label3.place(x=650, y=70)
         label4 = tkinter.Label(self.Materials2, text="M_M и B-вкоэффициенты степенной аппроксимации кривой упрочнения материала", bg="lightgrey", fg="black")
-        label4.place(x=550, y=90)
+        label4.place(x=650, y=90)
         label6 = tkinter.Label(self.Materials2, text="YEMP-удельное электрическое сопротивление материала", bg="lightgrey", fg="black")
-        label6.place(x=550, y=110)
+        label6.place(x=650, y=110)
         label7 = tkinter.Label(self.Materials2, text="MDM-коэффициент динамичности материала", bg="lightgrey", fg="black")
-        label7.place(x=550, y=130)
+        label7.place(x=650, y=130)
         mt = sqlite3.connect("Metalls.db")
         cursor = mt.cursor()
         cpt=0
@@ -313,7 +313,7 @@ class SmartCalculation():
             self.Tree3.insert('', 'end', text=str(cpt), values=row)
             cpt += 1
         self.btn = tkinter.Button(self.Materials2, text="Взять данные в работу", bg="green", fg="black", command=self.GoToWork_z)  # описание объекта типа button названия кнопки
-        self.btn.place(x=550, y=150)
+        self.btn.place(x=650, y=150)
 
     def GoToWork_z(self):
         sel = self.Tree3.focus()
