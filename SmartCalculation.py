@@ -180,8 +180,37 @@ class SmartCalculation():
         btn8.place(x=600, y=550)
         btn9 = tkinter.Button(self.Smart, text="Рассчитать формовку", bg="brown", fg="black", command=self.CalculateForm)
         btn9.place(x=280, y=600)
+        btn10 = tkinter.Button(self.Smart, text="Рассчитать K1", bg="yellow", fg="black",
+                              command=self.K1)
+        btn10.place(x=600, y=700)
         self.text=tkinter.Text(self.Smart, height=35)
         self.text.place(x=1100,y=360)
+
+    def K1(self):
+        self.DOT = self.message_entry1.get()
+        self.ST = self.message_entry2.get()
+        self.LBT = self.message_entry3.get()
+        self.RC = self.message_entry4.get()
+        self.BCM = float(self.BCM1) * pow(10, 7)
+        self.KPD = self.message_entry8.get()
+        self.SC = self.message_entry15.get()  # длина индуктора
+        self.HSC = self.message_entry16.get()  # высота индуктора
+        self.NCT1 = self.message_entry21.get()  # высота индуктора
+        self.YEMP = float(self.YEMP1) * pow(10, -8)
+        self.FCE = float(self.FCE1) * pow(10, 3)
+        self.LCE = float(self.LCE1) * pow(10, -6)
+        self.CCE = float(self.CCE1) * pow(10, -6)
+        g = Computing.Inductor(float(self.LBT), self.operation, float(self.DOT), float(self.ST), float(self.FW),
+                               float(self.YEMP), float(self.FCE), float(self.LCE), 1 * pow(10, -12),
+                               float(self.CCE), float(self.SC), float(self.HSC), float(self.PLM), float(self.BCM),
+                               float(self.KDM), float(self.MM), float(self.KPD),
+                               float(self.RC), float(self.NCT1), float(self.ZS), float(self.ZB), float(self.ZA),
+                               float(self.YEMC), float(self.LTC))
+        K1 = Computing.Inductor.K1(g)
+        self.message_entry23 = tkinter.Entry(self.Smart, textvariable="")  # EPS
+        self.message_entry23.place(x=600, y=780)
+        self.message_entry23.delete(0, 10)
+        self.message_entry23.insert(0, K1)
 
     def CulculateEPS(self):
         self.DOT = self.message_entry1.get()

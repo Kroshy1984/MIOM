@@ -64,7 +64,7 @@ class Basad():
         field7 = slct2[4]
         self.Editor = Toplevel(self.BasaM2)
         self.Editor.geometry('350x400+1200+400')
-        self.Editor.title("Редактировать Материал")
+        self.Editor.title("Редактировать Оборудование")
         self.Editor.lift()
         self.Editor.attributes('-topmost', True)
         label1 = Label(self.Editor, text="Наименование", bg="lightgrey", fg="black")
@@ -128,7 +128,7 @@ class Basad():
     def AddMashins(self):
         self.Editor = Toplevel(self.BasaM2)
         self.Editor.geometry('350x400+1200+400')
-        self.Editor.title("Добавить Материал")
+        self.Editor.title("Добавить Оборудование")
         self.Editor.lift()
         self.Editor.attributes('-topmost', True)
         label1 = Label(self.Editor, text="Наименование", bg="lightgrey", fg="black")
