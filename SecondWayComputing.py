@@ -52,6 +52,25 @@ f3 = w3 / 2 / 3.14  # { собственная частота }
     # _____________________________________________________________________________________________________________________________
     #     { dh-НАРУЖНЫЙ ДИАМЕТР ЗАГОТОВКИ }
 db = dh - 2 * h0  # { db-ВНУТРЕННИЙ ДИАМЕТР ЗАГОТОВКИ
+
+def Prikids(y,ek,u1):
+        ZOLOTO = (pow(5, 0.5)-1)/2
+        def1 = y
+        defold = def1
+        if def1 < ek: def1 = defold + ZOLOTO*abs(defold-ek)
+        else: def1 = ek + (1-ZOLOTO)*abs(defold-ek)
+        drob = (def1 + ek) / ek/2
+        if defold-ek > 0:
+            if drob < 1:
+             uu0 = u1 * drob
+            else: uu0 = u1 / drob
+        else:
+            if drob < 1: uu0 = u1 / drob
+            else: uu0 = u1 * drob
+        if (defold/ek) < 0.01:
+            uu0 = 2 * u1 / drob
+        print("Предлагаемое значение [кВ] Uo = "+str(uu0)+" кВ")
+
 if v == 1:  # раздача }
     ly = l0 / db
 
