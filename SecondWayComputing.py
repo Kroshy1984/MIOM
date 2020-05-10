@@ -1,6 +1,7 @@
 import math
 poisk=1
-
+flag=1
+y=1
 v=1
 kn=0
 mc=1
@@ -73,6 +74,8 @@ def Prikids(y,ek,u1):
 
 if v == 1:  # раздача }
     ly = l0 / db
+    print("Раздача")
+    print(ly)
 
 else:  # { ОБЖИМ }
     ly = l1 / dv
@@ -108,6 +111,7 @@ if poisk==1 and mm > 0:
     U0 = u1
     print("U0 = "+str(U0)+"кВ")
     u2=int(input("Задайте U0, кВ"))
+    Prikids(y,ek,u1)
     u1 = u2 * 1000
     U0 = u1
 if poisk==0 and mmm > 0:
