@@ -1,8 +1,8 @@
 import math
 poisk=1
-flag=2
+
 v=1
-kn=0.05
+kn=0
 mc=1
 r2l=1
 mm=1
@@ -76,22 +76,22 @@ if v == 1:  # раздача }
 
 else:  # { ОБЖИМ }
     ly = l1 / dv
-    if kn < 0.1:
-        if poisk==1:
-            print("L/D = ", ly)
-            if ly < 1:
-                kn = 3.783890521981891 * ly - 7.795224937947945 * ly * ly + 4.714887625113096 * math.pow(ly,
+if kn < 0.1:
+    if poisk==1:
+        print("L/D = ", ly)
+        if ly < 1:
+            kn = 3.783890521981891 * ly - 7.795224937947945 * ly * ly + 4.714887625113096 * math.pow(ly,
                                                                                                       3) + 6.984777813396215 * math.pow(
                 ly, 4) - 13.53957485592525 * math.pow(ly, 5) + 9.187983184383594 * math.pow(ly,
                                                                                         6) - 3.048218155556006 * math.pow(
                 ly, 7) + 0.4929535896014099 * math.pow(ly, 8) - 3.094887626324646E-2 * math.pow(ly, 9)
+        else:
+            if ly < 2:
+                kn = 0.69026 + 0.06 * ly
             else:
-                if ly < 2:
-                    kn = 0.69026 + 0.06 * ly
-                else:
-                    kn = 0.7669266667 + 0.021666667 * ly
+                kn = 0.7669266667 + 0.021666667 * ly
 if poisk==1:
-    print(" Фактор поля , Кн = ",kn)
+    print(" Фактор поля , Кн = ", kn)
     if fz < (f0/2):
         fp = 0.5 * f0
     if abs(fz - f0) < f0 / 2:
