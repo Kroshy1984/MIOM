@@ -53,6 +53,34 @@ f3 = w3 / 2 / 3.14  # { собственная частота }
     # _____________________________________________________________________________________________________________________________
     #     { dh-НАРУЖНЫЙ ДИАМЕТР ЗАГОТОВКИ }
 db = dh - 2 * h0  # { db-ВНУТРЕННИЙ ДИАМЕТР ЗАГОТОВКИ
+
+def rezult(y,Time_x,poisk,NS,NI,brus1,brus):
+    dc = dh-h0
+    zaz= dh-2*h0-dn
+    i2 = ( y[4]*alfa3-y[5]*m13 ) / ( (1+alfa1)*alfa3-m13*m13 )
+    i4 = (y[4]*m13-y[5]*(1+alfa1))/( (1+alfa1)*alfa3-m13*m13 )*(-1.0)
+    S_tek = dc*y[1]*1000
+    pc = 0.5*((vg-1)*(2.0*i2+i4)*i4+(vg+1)*i4*i4)*(zaz/(zaz+kappa*S_tek/1000))
+    Iind = i2*U0/math.sqrt(lw/c0)
+    U_tek = y[3]*U0
+    Izag = i4*n1*U0/math.sqrt(lw/c0)
+    P_tek = pc*b1
+    Time_tek = Time_x*math.sqrt(lw*c0)
+    V_tek = dc*y[2]/math.sqrt(c0*lw)
+    if poisk == 0:
+        if (NI==NS):
+            print("&#39; t = &#39;"+str(Time_tek*1e6)+"&#39; │ &#39;,&#39; e = &#39;"+str(y[1]*100)+"&#39; │ V = &#39"+str(V_tek))
+            NI=0
+        NI=NI+1
+    if poisk == 1:
+        if (NI==NS):
+            print(str(Time_tek*1e6)+"&#39;│&#39;"+ str(y[1]*100)+"&#39;│&#39;"+str(V_tek))
+            print(brus1,Time_tek*1e6,V_tek)
+            print(str(brus)+"&#39;│&#39;"+str(Time_tek*1e6)+"&#39;│&#39;"+str(U_tek)+"&#39;│&#39;"+str(Iind)+"&#39;│&#39;"+str(Izag)+"&#39;│&#39;"+str(P_tek/1e6)+"&#39;│&#39;"+str(y[1]*100)+"&#39;│&#39;"+str(y[2]*1000)+"&#39;│&#39;"+str(S_tek)+"&#39;│&#39;"+str(V_tek)+"&#39;│&#39;")
+            NI = 0
+        NI = NI + 1
+        
+
 def difur():
     N_Y = 5
     print()
