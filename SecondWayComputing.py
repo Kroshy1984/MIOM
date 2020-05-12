@@ -17,7 +17,7 @@ di = 1
 #c0 = 1
 lm = 1.2 * math.pow(10, -7) #Lm_у СОБСТВ. ИНДУКТИВНОСТЬ УСТАНОВКИ
 
-C0 = 254*math.pow(10, -6)#Co_у ЕМКОСТЬ КОНДЕНСАТОРОВ УСТАНОВКИ
+c0 = 254*math.pow(10, -6)#Co_у ЕМКОСТЬ КОНДЕНСАТОРОВ УСТАНОВКИ
 p3 = 7.1*math.pow(10, -8)#RO_з УДЕЛ. Э/СОПРОТИВЛЕНИЕ ЗАГОТОВКИ,
 mod_upr = 68*math.pow(10, 9)#E_з МОДУЛЬ УПРУГОСТИ ЗАГОТОВКИ,
 pm = 2640 # Pm_з ПЛОТНОСТЬ ЗАГОТОВКИ, ( кг/м3)
@@ -46,7 +46,7 @@ kappa = 1
 flag=0
 mu0=4*math.pi*1e-7
 r2l = R0*R0/4/lm/lm
-lmc = lm*C0
+lmc = lm*c0
 if 1/lmc<r2l:
     print("Разряд апериодический")
 f0 = 0.5 / (3.14 * math.pow((1 / lmc - r2l), 0.5))
@@ -268,8 +268,8 @@ if c9 < 0 and flag > 1:
  #_______________________________________________________________________________
 if c9 < 0:
     ww = 1
-    q1 = ww / s1
-    q3 = ww * (Lzag / Rzag)
+q1 = ww / s1
+q3 = ww * (Lzag / Rzag)
 if c9 < 0:
     f1 = 0
 else:
@@ -287,9 +287,63 @@ else:
 if c9 < 0:  # then
     fq = 10
 else:
-    fq=ww/(2.0 * 3.14)
+    fq = ww/(2.0 * 3.14)
         # Repeat{3}
 print(' Для продолжения ===> Жми на <Enter> >>')
+print("F0=", f0)
+print("Fz=", fz)
+print("Fp=", fp)
+print("f3=", f3)
+print("h3=", h3)
+print("l3=", l3)
+print("vg=", vg)
+print("dz=", dz)
+print("ef=", ef)
+print("wr=", wr)
+print("db=", db)
+print("dm=", dm)
+print("x3=", x3)
+print("x1=", x1)
+print("xb=", xb)
+print("z=", z)
+print("xi=", xi)
+print("di=", di)
+print("Li=", Lind)
+print("xr=", xr)
+print("Ri=", Rind)
+print("xz=", xz)
+print("dr=", dr)
+print("Lz=", Lzag)
+print("xs=", xs)
+print("Rz=", Rzag)
+print("Ms=", M_ind_zag)
+print("k=", kq)
+print("qq=", qq)
+print("k2=", k2)
+print("Ln=", lnn)
+print("Rn=", rn)
+print("L0=", lo)
+print("Ro=", ro)
+print("Ls=", ls)
+print("Rs=", rs)
+print("s1=", s1)
+print("ww=", ww)
+print("q3=", q3)
+print("q1=", q1)
+print("Kн=", kn)
+print("f1=", f1)
+print("s3=", s3)
+print("k3=", k3)
+print("E0=", E0)
+print("Pw=", pw)
+print("Rтп=", rb)
+print("n1=", n1)
+print("Uo=", U0)
+print("Pmax=", pq)
+print("Hвит=", hm)
+print("Fr0=", over_f0)
+print("fq=", fq)
+
 """q0q = Ord(klav)
         gotoxy(1, 1)
     Until
