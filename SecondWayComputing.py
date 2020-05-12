@@ -1,7 +1,7 @@
 import math
 #def main1
 poisk = 1
-v = 1
+v = 0
 kn = 0
 #mc=1
 #r2l=1
@@ -283,7 +283,7 @@ if (v == 0):  # then { ОБЖИМ }
 else:
     # { РАЗДАЧА }
     pw = (mu0 * E0 * kq * kq * kn * kn) / (ls * l3 * l3)
-    pq = pw * math.exp(0 - 3.14 / (2.0 * q1))
+pq = pw * math.exp(0 - 3.14 / (2.0 * q1))
 if c9 < 0:  # then
     fq = 10
 else:
@@ -354,18 +354,19 @@ print("fq=", fq)
         if (abt > 1):
             fp = fq
             flag = flag + 1
-        while (abt < 1):
-        io = 1  # { МИОМ(Э) , c. 79 }
-        lw = lm + lb
-        alfa1 = Lind / lw
-        alfa3 = Lzag * n1 * n1 / lw
-        m13 = M_ind_zag * n1 / lw
-        Gamma0 = R0 * math.pow((c0 / lw), 0.5)
-        Gamma1 = Rind * math.pow((c0 / lw), 0.5)
-        Gamma3 = Rzag * n1 * n1 * math.pow((c0 / lw), 0.5)
-        ka = 4 * ey * lw * c0 / pm / dh / dh
-        dd = 4 * sp * lw * c0 / pm / dh / dh
-        bb = mu0 * (c0 * U0 * n1 * kn) * (c0 * U0 * n1 * kn) / (pm * dh * h0 * l0 * l0)
-        b1 = mu0 * c0 / 2.0 / lw * n1 * U0 * kn / l3 * n1 * U0 * kn / l3"""
-
+        while (abt < 1):"""
+io = 1  # { МИОМ(Э) , c. 79 }
+lw = lm + lb
+alfa1 = Lind / lw
+alfa3 = Lzag * n1 * n1 / lw
+m13 = M_ind_zag * n1 / lw
+Gamma0 = R0 * math.pow((c0 / lw), 0.5)
+Gamma1 = Rind * math.pow((c0 / lw), 0.5)
+Gamma3 = Rzag * n1 * n1 * math.pow((c0 / lw), 0.5)
+ka = 4 * ey * lw * c0 / pm / dh / dh
+dd = 4 * sp * lw * c0 / pm / dh / dh
+bb = mu0 * (c0 * U0 * n1 * kn) * (c0 * U0 * n1 * kn) / (pm * dh * h0 * l0 * l0)
+b1 = mu0 * c0 / 2.0 / lw * n1 * U0 * kn / l3 * n1 * U0 * kn / l3
+print(io, lw, alfa1, alfa3, m13, Gamma0, Gamma1, Gamma3)
+print(ka, dd, bb, b1)
 
