@@ -232,7 +232,7 @@ if l1 / di > 1.0:
 else:
     Lind = di * di / l1 * (4.1 + 3.9 * (l1 / di - 0.3)) * n1 * n1 * pow(10,-7)
 
-if v == 0:
+if v == 1:
     if l1 / di < 1.0:
         fb = 4.8
     else:
@@ -240,14 +240,15 @@ if v == 0:
         m9 = fb * pow((1 + (l1 + l3) * (l1 + l3)) / (di*di), 0.5) - 4.5 * pow(((1 + (l1 - l3) * (l1 - l3) / di / di), 0.5) * (n1 * pow(10,-7)))
         m8 = (dr * dr * di) / (l1 * l3)
         M_ind_zag = m9 * m8
-if v == 1:
+
+if v == 2:
     if l3 / dr < 1:
         fb = 4.8
     else:
         fb = 5.0
-        m9 = fb * pow(1 + (l1 + l3) * (l1 + l3) / dr*dr, 0.5)-4.5*pow((1 + (l1 - l3) * (l1 - l3) / (dr*dr), 0.5)*n1*pow(10, -7)
-        m8 = (dr * dr * di) / (l1 * l3)
-        M_ind_zag = m9 * m8
+m9 = fb* pow(1 + (l1 + l3) * (l1 + l3) / dr*dr,0.5)-4.5*pow(1 + (l1 - l3) * (l1 - l3) / (dr*dr),0.5)*n1*pow(10,-7)
+m8 = dr * di * di / (l3 * l1)
+M_ind_zag = m8 * m9
 
 #++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 kq = M_ind_zag / Lzag
@@ -289,7 +290,7 @@ else:
     fq=ww/(2.0 * 3.14)
         # Repeat{3}
 print(' Для продолжения ===> Жми на <Enter> >>')
-q0q = Ord(klav)
+"""q0q = Ord(klav)
         gotoxy(1, 1)
     Until
     {3}(q0q=13)
