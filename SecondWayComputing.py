@@ -366,9 +366,22 @@ ka = 4 * ey * lw * c0 / pm / dh / dh
 dd = 4 * sp * lw * c0 / pm / dh / dh
 bb = mu0 * (c0 * U0 * n1 * kn) * (c0 * U0 * n1 * kn) / (pm * dh * h0 * l0 * l0)
 b1 = mu0 * c0 / 2.0 / lw * n1 * U0 * kn / l3 * n1 * U0 * kn / l3
+pstrag =h3*2*sp/dz*(vb+(1-vb)*q0)
+print("Давление страгивания====>(МПа)", pstrag/1e6)
 print(io, lw, alfa1, alfa3, m13, Gamma0, Gamma1, Gamma3)
 print(ka, dd, bb, b1)
-
+#_________________________________________end TOPY_________________________________________________________________
+#+++++++++++++++++++++++++++++++++++++++++++++++++Difur++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+k0 = 0.02*math.pi*pow((1+alfa1), 0.5)*pow((lw*c0), 0.5)
+print("Рекомендуемый шаг счета============>", k0*1e6)
+k0 = float(input("Задайте шаг счета"))
+NS = float(input("Задайте кратность печати"))
+Time_h = k0/(math.sqrt(lw*c0)*pow(10,6))
+Time_x=0
+y=[0, 0, 1, 0, 0]
+w=[0, 0, 1, 0, 0]
+print(Time_h)
+#+++++++++++++++++++++++++++++++++++++++++++++++++Difur end+++++++++++++++++++++++++++++++++++++++++++++++++++++++
 def Ston(io,vb,ka,vg,q0,dd,bb,pc,i2,Gamma0,Gamma1,Gamma3,i4,f,y):
 
     if (io == 1):
@@ -384,10 +397,10 @@ def Ston(io,vb,ka,vg,q0,dd,bb,pc,i2,Gamma0,Gamma1,Gamma3,i4,f,y):
             ss1 =((4.0/3.0-vb/3.0)*ka*vg*math.log(1+vg*y[1])/(1.0+vg*y[1]),math.exp(1))
             ss2 =(vb+(1.0-vb)*q0)*dd/(1.0+vg*y[1])
             ss3 =bb*pc*(vb*math.sqrt(1.0+vg*y[1])+(1.0-vb)*(1.0+vg*y[1]))
-            f[2]=ss3-ss1-ss2
-    f[3] = i2*(-1.0)
-    f[4] = y[3]-i2*(Gamma0+Gamma1)
-    f[5] = Gamma3*(-i4)
+            f[1]=ss3-ss1-ss2
+    f[2] = i2*(-1.0)
+    f[3] = y[2]-i2*(Gamma0+Gamma1)
+    f[4] = Gamma3*(-i4)
     print(f)
     print(y)
 
@@ -408,27 +421,23 @@ def zub3(N_Y,Time_h,f,k,y,w):
         vk = Time_h * f[j]
         k[j] = k[j] + vk * 2.0
         y[j] = w[j] + vk
-y=[0,0,1,0,0,0,0]
-f=[0,0,1,0,0,0,0]
-k=[0,0,0,0,0,0,0]
-w=[0,0,0,0,0,0,0]
+
 alfa1 = Lind/lw
 alfa3 = Lzag*n1*n1/lw
-i2 = ( y[4]*alfa3-y[5]*m13 ) / ( (1+alfa1)*alfa3-m13*m13 )
-i4 = (y[4]*m13-y[5]*(1+alfa1))/( (1+alfa1)*alfa3-m13*m13 )*(-1.0)
+i2 = (y[3]*alfa3-y[4]*m13 ) / ( (1+alfa1)*alfa3-m13*m13 )
+i4 = (y[3]*m13-y[4]*(1+alfa1))/( (1+alfa1)*alfa3-m13*m13 )*(-1.0)
 zaz = dh-2*h0-dn
 dc = dh-h0
 S_tek = dc*y[1]*1000
 pc = 0.5*((vg-1)*(2.0*i2+i4)*i4+(vg+1)*i4*i4)*(zaz/(zaz+kappa*S_tek/1000))
-i2 = (y[4]*alfa3-y[5]*m13 ) / ( (1+alfa1)*alfa3-m13*m13 )
+i2 = (y[3]*alfa3-y[4]*m13 ) / ( (1+alfa1)*alfa3-m13*m13 )
 Gamma0 = R0 * math.pow((c0 / lw), 0.5)
 Gamma1 = Rind * math.pow((c0 / lw), 0.5)
 Gamma3 = Rzag * n1 * n1 * math.pow((c0 / lw), 0.5)
-i4 = (y[4]*m13-y[5]*(1+alfa1))/( (1+alfa1)*alfa3-m13*m13 )*(-1.0)
+i4 = (y[3]*m13-y[4]*(1+alfa1))/( (1+alfa1)*alfa3-m13*m13 )*(-1.0)
 N_Y=5
 k0=1
-Time_h = k0/(math.sqrt(lw*c0)*pow(10,6))
-Time_x=0
+
 
 Ston(io,vb,ka,vg,q0,dd,bb,pc,i2,Gamma0,Gamma1,Gamma3,i4,f,y)
 zub1(N_Y,Time_h,f,w,k,y)
