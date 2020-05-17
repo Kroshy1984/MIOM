@@ -53,16 +53,19 @@ Gamma0 = R0 * math.pow((c0 / lw), 0.5)
 Gamma1 = Rind * math.pow((c0 / lw), 0.5)
 Gamma3 = Rzag * n1 * n1 * math.pow((c0 / lw), 0.5)
 i4 = (y[4]*m13-y[5]*(1+alfa1))/( (1+alfa1)*alfa3-m13*m13 )*(-1.0)
+N_Y=5
+Time_h = k0/(math.sqrt(lw*c0)*pow(10,6))
+Time_x=0
 
 Ston(io,vb,ka,vg,q0,dd,bb,pc,i2,Gamma0,Gamma1,Gamma3,i4)
 zub1(N_Y,Time_h,f,w)
 Time_x = Time_x + Time_h/2.0
-Ston(io,vb,ka,vg,Ln,q0,dd,bb,pc,i2,Gamma0,Gamma1,Gamma3,i4)
+Ston(io,vb,ka,vg,q0,dd,bb,pc,i2,Gamma0,Gamma1,Gamma3,i4)
 zub2(N_Y,Time_h,w,f,k,y)
-Ston(io,vb,ka,vg,Ln,q0,dd,bb,pc,i2,Gamma0,Gamma1,Gamma3,i4)
+Ston(io,vb,ka,vg,q0,dd,bb,pc,i2,Gamma0,Gamma1,Gamma3,i4)
 zub3(N_Y,Time_h,f,k,y,w)
 Time_x = Time_x + Time_h/2.0
-Ston(io,vb,ka,vg,Ln,q0,dd,bb,pc,i2,Gamma0,Gamma1,Gamma3,i4)
+Ston(io,vb,ka,vg,q0,dd,bb,pc,i2,Gamma0,Gamma1,Gamma3,i4)
 for j in range (N_Y):
-    y[j] := w[j] + (k[j] + Time_h*f[j])/6.0;
-    w[j] := y[j];
+    y[j] = w[j] + (k[j] + Time_h*f[j])/6.0
+    w[j] = y[j]
