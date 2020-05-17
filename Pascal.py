@@ -34,21 +34,21 @@ def zub2(N_Y,Time_h,w,f,k,y):
         k[j] = k[j] + 2.0 * vk
         y[j] = w[j] + vk / 2.0
 
-def zyb3(N_Y,Time_h,f,k,y,w):
+def zub3(N_Y,Time_h,f,k,y,w):
     for j in range(N_Y):
         vk = Time_h * f[j]
         k[j] = k[j] + vk * 2.0
         y[j] = w[j] + vk
 
-Ston()
-zub1()
+Ston(io,vb,ka,vg,Ln,q0,dd,bb,pc,i2,Gamma0,Gamma1,Gamma3,i4)
+zub1(N_Y,Time_h,f,w)
 Time_x = Time_x + Time_h/2.0
-Ston()
-zub2()
-Ston()
-zub3()
+Ston(io,vb,ka,vg,Ln,q0,dd,bb,pc,i2,Gamma0,Gamma1,Gamma3,i4)
+zub2(N_Y,Time_h,w,f,k,y)
+Ston(io,vb,ka,vg,Ln,q0,dd,bb,pc,i2,Gamma0,Gamma1,Gamma3,i4)
+zub3(N_Y,Time_h,f,k,y,w)
 Time_x = Time_x + Time_h/2.0
-Ston()
+Ston(io,vb,ka,vg,Ln,q0,dd,bb,pc,i2,Gamma0,Gamma1,Gamma3,i4)
 for j in range (N_Y):
     y[j] := w[j] + (k[j] + Time_h*f[j])/6.0;
     w[j] := y[j];
