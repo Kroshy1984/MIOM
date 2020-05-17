@@ -288,8 +288,8 @@ if c9 < 0:  # then
     fq = 10
 else:
     fq = ww/(2.0 * 3.14)
-        # Repeat{3}
-print(' Для продолжения ===> Жми на <Enter> >>')
+"""        # Repeat{3}
+print(' Для продолжения ===> Жми на <Enter> >>')"""
 print("F0=", f0)
 print("Fz=", fz)
 print("Fp=", fp)
