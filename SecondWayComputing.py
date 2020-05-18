@@ -382,9 +382,9 @@ y=[0, 0, 1, 0, 0]
 w=[0, 0, 1, 0, 0]
 f=[0,0,1,0,0]
 k=[0,0,1,0,0]
-pc=1
-i2=1
-i4=1
+i2 = ( y[3]*alfa3-y[4]*m13 ) / ( (1+alfa1)*alfa3-m13*m13 )
+i4 = (y[3]*m13-y[4]*(1+alfa1))/( (1+alfa1)*alfa3-m13*m13 )*(-1.0)
+pc = 0.5*((vg-1)*(2.0*i2+i4)*i4+(vg+1)*i4*i4)*(zaz/(zaz+kappa*S_tek/1000))
 N_Y=0
 print(Time_h)
 #+++++++++++++++++++++++++++++++++++++++++++++++++Difur end+++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -508,7 +508,16 @@ NI=0
 
 while io!=3:
     rezult(NI)
-    var1(pc,brus, Time_tek,U_tek,Iind,Izag,P_tek, S_tek, V_tek)
+    dc = dh - h0
+    zaz = dh - 2 * h0 - dn
+    Iind = i2 * U0 / math.sqrt(lw / c0)
+    U_tek = y[2] * U0
+    Izag = i4 * n1 * U0 / math.sqrt(lw / c0)
+    P_tek = pc * b1
+    Time_tek = Time_x * math.sqrt(lw * c0)
+    V_tek = dc * y[1] / math.sqrt(c0 * lw)
+    S_tek = dc * y[1] * 1000
+    var1(pc,Time_tek,U_tek,Iind,Izag,P_tek, S_tek, V_tek)
     var2()
     Ston(io,vb,ka,vg,q0,dd,bb,pc,i2,Gamma0,Gamma1,Gamma3,i4,f,y)
     zub1(N_Y,Time_h,f,w,k,y)
