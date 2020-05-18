@@ -388,13 +388,13 @@ i4=1
 N_Y=0
 print(Time_h)
 #+++++++++++++++++++++++++++++++++++++++++++++++++Difur end+++++++++++++++++++++++++++++++++++++++++++++++++++++++
-def var1(pc,brus, Time_tek,U_tek,Iind,Izag,P_tek, S_tek, V_tek):
+def var1(pc, Time_tek,U_tek,Iind,Izag,P_tek, S_tek, V_tek):
     ss6 = (vb+(1.0-vb)*q0)*dd
     ss7 = bb*pc
     if (ss7-ss6==0):
         io = 2
         if poisk == 1:
-            print(brus,Time_tek,U_tek,Iind,Izag,P_tek,y[1]*100,y[2]*1000,S_tek,V_tek)
+            print(Time_tek,U_tek,Iind,Izag,P_tek,y[1]*100,y[2]*1000,S_tek,V_tek)
         if (ss7-ss6 == 0) and ( Time_tek*1e6 == 100):
             io = 3
 def var2():
