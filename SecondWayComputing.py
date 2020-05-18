@@ -380,6 +380,12 @@ Time_h = k0/(math.sqrt(lw*c0)*pow(10,6))
 Time_x=0
 y=[0, 0, 1, 0, 0]
 w=[0, 0, 1, 0, 0]
+f=[0,0,1,0,0]
+k=[0,0,1,0,0]
+pc=1
+i2=1
+i4=1
+N_Y=0
 print(Time_h)
 #+++++++++++++++++++++++++++++++++++++++++++++++++Difur end+++++++++++++++++++++++++++++++++++++++++++++++++++++++
 def var1(pc,brus, Time_tek,U_tek,Iind,Izag,P_tek, S_tek, V_tek):
@@ -498,26 +504,12 @@ def zub3(N_Y,Time_h,f,k,y,w):
         k[j] = k[j] + vk * 2.0
         y[j] = w[j] + vk
 
-alfa1 = Lind/lw
-alfa3 = Lzag*n1*n1/lw
-i2 = (y[3]*alfa3-y[4]*m13 ) / ( (1+alfa1)*alfa3-m13*m13 )
-i4 = (y[3]*m13-y[4]*(1+alfa1))/( (1+alfa1)*alfa3-m13*m13 )*(-1.0)
-zaz = dh-2*h0-dn
-dc = dh-h0
-S_tek = dc*y[1]*1000
-pc = 0.5*((vg-1)*(2.0*i2+i4)*i4+(vg+1)*i4*i4)*(zaz/(zaz+kappa*S_tek/1000))
-i2 = (y[3]*alfa3-y[4]*m13 ) / ( (1+alfa1)*alfa3-m13*m13 )
-Gamma0 = R0 * math.pow((c0 / lw), 0.5)
-Gamma1 = Rind * math.pow((c0 / lw), 0.5)
-Gamma3 = Rzag * n1 * n1 * math.pow((c0 / lw), 0.5)
-i4 = (y[3]*m13-y[4]*(1+alfa1))/( (1+alfa1)*alfa3-m13*m13 )*(-1.0)
-N_Y=5
-k0=1
 NI=0
 
-shapka()
 while io!=3:
     rezult(NI)
+    var1(pc,brus, Time_tek,U_tek,Iind,Izag,P_tek, S_tek, V_tek)
+    var2()
     Ston(io,vb,ka,vg,q0,dd,bb,pc,i2,Gamma0,Gamma1,Gamma3,i4,f,y)
     zub1(N_Y,Time_h,f,w,k,y)
     Time_x = Time_x + Time_h/2.0
