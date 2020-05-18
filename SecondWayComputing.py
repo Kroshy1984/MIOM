@@ -382,8 +382,64 @@ y=[0, 0, 1, 0, 0]
 w=[0, 0, 1, 0, 0]
 print(Time_h)
 #+++++++++++++++++++++++++++++++++++++++++++++++++Difur end+++++++++++++++++++++++++++++++++++++++++++++++++++++++
-def shapka():
-    pstrag = h3*2*sp/dz*(vb+(1.0-vb)*q0)
+def var1(pc,brus, Time_tek,U_tek,Iind,Izag,P_tek, S_tek, V_tek):
+    ss6 = (vb+(1.0-vb)*q0)*dd
+    ss7 = bb*pc
+    if (ss7-ss6==0):
+        io = 2
+        if poisk == 1:
+            print(brus,Time_tek,U_tek,Iind,Izag,P_tek,y[1]*100,y[2]*1000,S_tek,V_tek)
+        if (ss7-ss6 == 0) and ( Time_tek*1e6 == 100):
+            io = 3
+def var2():
+    z1 = y[1]
+    h_tek = h0*(vb/math.sqrt(1.0+vg*z1)+(1.0-vb)/(1.0+vg*z1))
+    if(x3 == h_tek/3.0) :
+        xx = x3/2.0
+    else:
+        xx = h_tek/3.0
+    if(x3 == h_tek):
+        xe = x3
+    else:
+        xe = h_tek
+    if(vb == 0) : # Короткая заготовка}
+        h_zag = h0/(1+vg*z1)
+    else: # Длинная заготовка}
+        h_zag = h0/math.sqrt(1+vg*z1)
+        zn = dh*(1.0+vg*z1)
+        zb = zn-2*h_zag
+        d_tek = (1.0-vg)/2.0*(zn-2.0*xx)+(1.0+vg)/2.0*(zb+2.0*xx)
+        l_tek = l0*(vb/math.sqrt(1.0+vg*z1)+1.0-vb)
+    if(vb == 0) : # Короткая заготовка}
+        L_zag_tek = d_tek*d_tek/l_tek*(9.9-3.2*d_tek/l_tek)*1e-7
+    else: # Длинная заготовка}
+        L_zag_tek = d_tek*d_tek/l_tek*(4.15+3.96*(l_tek/d_tek-0.32))*1e-7
+    if (vg == 0) : # vg = 1 раздача }
+        if (l_tek/d_tek == 1) :
+            fb = 5.0
+        else:
+            fb = 4.8
+            m8 = d_tek*di*di/l_tek/l1
+            m9 = ( fb*math.sqrt(1+(l1+l_tek)*(l1+l_tek)/d_tek/d_tek)
+            - 4.5*math.sqrt(1+(l1-l_tek)*(l1-l_tek)/d_tek/d_tek) )*n1*1e-7
+            M_ind_zag_tek = m8 * m9
+    else: # vg = -1 обжим }
+        if (l1/di == 1) :
+            fb = 5.0
+        else:
+            fb = 4.8
+            m9 = ( fb*math.sqrt(1.0+(l1+l_tek)*(l1+l_tek)/di/di)
+            - 4.5*math.sqrt(1.0+(l1-l_tek)*(l1-l_tek)/di/di) )*n1*1e-7
+            m8 = d_tek*d_tek*di/l1/l_tek
+            M_ind_zag_tek = m9*m8
+    alfa3 = n1*n1* L_zag_tek /lw
+    R_zag_tek = 3.14*p3*d_tek/l_tek/xe
+    m13 = M_ind_zag_tek *n1/lw
+    Gamma3 = R_zag_tek *math.sqrt(c0/lw)*n1*n1
+    if(z1 == 0) :
+        print("&#39; Финиш !!!&#39;")
+    if(y[2] == 0) :
+        io = 3
 
 def rezult(NI):
     dc = dh-h0
@@ -457,19 +513,22 @@ Gamma3 = Rzag * n1 * n1 * math.pow((c0 / lw), 0.5)
 i4 = (y[3]*m13-y[4]*(1+alfa1))/( (1+alfa1)*alfa3-m13*m13 )*(-1.0)
 N_Y=5
 k0=1
+NI=0
 
-
-Ston(io,vb,ka,vg,q0,dd,bb,pc,i2,Gamma0,Gamma1,Gamma3,i4,f,y)
-zub1(N_Y,Time_h,f,w,k,y)
-Time_x = Time_x + Time_h/2.0
-Ston(io,vb,ka,vg,q0,dd,bb,pc,i2,Gamma0,Gamma1,Gamma3,i4,f,y)
-zub2(N_Y,Time_h,w,f,k,y)
-Ston(io,vb,ka,vg,q0,dd,bb,pc,i2,Gamma0,Gamma1,Gamma3,i4,f,y)
-zub3(N_Y,Time_h,f,k,y,w)
-Time_x = Time_x + Time_h/2.0
-Ston(io,vb,ka,vg,q0,dd,bb,pc,i2,Gamma0,Gamma1,Gamma3,i4,f,y)
-for j in range (N_Y):
-    y[j] = w[j] + (k[j] + Time_h*f[j])/6.0
-    w[j] = y[j]
+shapka()
+while io!=3:
+    rezult(NI)
+    Ston(io,vb,ka,vg,q0,dd,bb,pc,i2,Gamma0,Gamma1,Gamma3,i4,f,y)
+    zub1(N_Y,Time_h,f,w,k,y)
+    Time_x = Time_x + Time_h/2.0
+    Ston(io,vb,ka,vg,q0,dd,bb,pc,i2,Gamma0,Gamma1,Gamma3,i4,f,y)
+    zub2(N_Y,Time_h,w,f,k,y)
+    Ston(io,vb,ka,vg,q0,dd,bb,pc,i2,Gamma0,Gamma1,Gamma3,i4,f,y)
+    zub3(N_Y,Time_h,f,k,y,w)
+    Time_x = Time_x + Time_h/2.0
+    Ston(io,vb,ka,vg,q0,dd,bb,pc,i2,Gamma0,Gamma1,Gamma3,i4,f,y)
+    for j in range (N_Y):
+        y[j] = w[j] + (k[j] + Time_h*f[j])/6.0
+        w[j] = y[j]
 
 
