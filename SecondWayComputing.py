@@ -388,16 +388,16 @@ def shapka():
 def rezult(NI):
     dc = dh-h0
     zaz= dh-2*h0-dn
-    i2 = ( y[4]*alfa3-y[5]*m13 ) / ( (1+alfa1)*alfa3-m13*m13 )
-    i4 = (y[4]*m13-y[5]*(1+alfa1))/( (1+alfa1)*alfa3-m13*m13 )*(-1.0)
+    i2 = ( y[3]*alfa3-y[4]*m13 ) / ( (1+alfa1)*alfa3-m13*m13 )
+    i4 = (y[3]*m13-y[4]*(1+alfa1))/( (1+alfa1)*alfa3-m13*m13 )*(-1.0)
     S_tek = dc*y[1]*1000
     pc = 0.5*((vg-1)*(2.0*i2+i4)*i4+(vg+1)*i4*i4)*(zaz/(zaz+kappa*S_tek/1000))
     Iind = i2*U0/math.sqrt(lw/c0)
-    U_tek = y[3]*U0
+    U_tek = y[2]*U0
     Izag = i4*n1*U0/math.sqrt(lw/c0)
     P_tek = pc*b1
     Time_tek = Time_x*math.sqrt(lw*c0)
-    V_tek = dc*y[2]/math.sqrt(c0*lw)
+    V_tek = dc*y[1]/math.sqrt(c0*lw)
     if poisk == 0:
         if (NI == NS): NI = 0
         NI = NI + 1
