@@ -382,6 +382,26 @@ y=[0, 0, 1, 0, 0]
 w=[0, 0, 1, 0, 0]
 print(Time_h)
 #+++++++++++++++++++++++++++++++++++++++++++++++++Difur end+++++++++++++++++++++++++++++++++++++++++++++++++++++++
+def shapka():
+    pstrag = h3*2*sp/dz*(vb+(1.0-vb)*q0)
+
+def rezult(NI):
+    dc = dh-h0
+    zaz= dh-2*h0-dn
+    i2 = ( y[4]*alfa3-y[5]*m13 ) / ( (1+alfa1)*alfa3-m13*m13 )
+    i4 = (y[4]*m13-y[5]*(1+alfa1))/( (1+alfa1)*alfa3-m13*m13 )*(-1.0)
+    S_tek = dc*y[1]*1000
+    pc = 0.5*((vg-1)*(2.0*i2+i4)*i4+(vg+1)*i4*i4)*(zaz/(zaz+kappa*S_tek/1000))
+    Iind = i2*U0/math.sqrt(lw/c0)
+    U_tek = y[3]*U0
+    Izag = i4*n1*U0/math.sqrt(lw/c0)
+    P_tek = pc*b1
+    Time_tek = Time_x*math.sqrt(lw*c0)
+    V_tek = dc*y[2]/math.sqrt(c0*lw)
+    if poisk == 0:
+        if (NI == NS): NI = 0
+        NI = NI + 1
+
 def Ston(io,vb,ka,vg,q0,dd,bb,pc,i2,Gamma0,Gamma1,Gamma3,i4,f,y):
 
     if (io == 1):
