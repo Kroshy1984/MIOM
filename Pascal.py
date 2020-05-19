@@ -401,17 +401,16 @@ class Pascal():
             for j in range(N_Y):
                 y[j] = w[j] + (k[j] + Time_h * f[j]) / 6.0
                 w[j] = y[j]
-        def var1(self,pc, Time_tek, U_tek, Iind, Izag, P_tek, S_tek, V_tek):
-            ss6 = (vb + (1.0 - vb) * q0) * dd
-            ss7 = bb * pc
-            if (ss7 - ss6 == 0):
-                io = 2
-                if poisk == 1:
-                    print(Time_tek, U_tek, Iind, Izag, P_tek, y[1] * 100, y[2] * 1000, S_tek, V_tek)
-                if (ss7 - ss6 == 0) and (Time_tek * 1e6 == 100):
-                    io = 3
 
-        def var2(self):
+    def var1(self):
+        ss6 = (vb + (1.0 - vb) * q0) * dd
+        ss7 = bb * pc
+        if (ss7 - ss6 == 0):
+            io = 2
+            if poisk == 1:print(Time_tek, U_tek, Iind, Izag, P_tek, y[1] * 100, y[2] * 1000, S_tek, V_tek)
+            if (ss7 - ss6 == 0) and (Time_tek * 1e6 == 100):io = 3
+
+    def var2(self):
             z1 = y[1]
             h_tek = h0 * (vb / math.sqrt(1.0 + vg * z1) + (1.0 - vb) / (1.0 + vg * z1))
             if (x3 == h_tek / 3.0):
@@ -462,60 +461,61 @@ class Pascal():
                 io = 3
             print(io)
 
-        def rezult(self,NI):
-            dc = dh - h0
-            zaz = dh - 2 * h0 - dn
-            i2 = (y[3] * alfa3 - y[4] * m13) / ((1 + alfa1) * alfa3 - m13 * m13)
-            i4 = (y[3] * m13 - y[4] * (1 + alfa1)) / ((1 + alfa1) * alfa3 - m13 * m13) * (-1.0)
-            S_tek = dc * y[1] * 1000
-            self.pc = 0.5 * ((vg - 1) * (2.0 * i2 + i4) * i4 + (vg + 1) * i4 * i4) * (zaz / (zaz + kappa * S_tek / 1000))
-            Iind = i2 * U0 / math.sqrt(lw / c0)
-            U_tek = y[2] * U0
-            Izag = i4 * n1 * U0 / math.sqrt(lw / c0)
-            P_tek = self.pc * b1
-            Time_tek = Time_x * math.sqrt(lw * c0)
-            V_tek = dc * y[1] / math.sqrt(c0 * lw)
-            if poisk == 0:
-                if (NI == NS): NI = 0
-                NI = NI + 1
+    def rezult(self):
+        dc = dh - h0
+        zaz = dh - 2 * h0 - dn
+        i2 = (y[3] * alfa3 - y[4] * m13) / ((1 + alfa1) * alfa3 - m13 * m13)
+        i4 = (y[3] * m13 - y[4] * (1 + alfa1)) / ((1 + alfa1) * alfa3 - m13 * m13) * (-1.0)
+        S_tek = dc * y[1] * 1000
+        self.pc = 0.5 * ((vg - 1) * (2.0 * i2 + i4) * i4 + (vg + 1) * i4 * i4) * (zaz / (zaz + kappa * S_tek / 1000))
+        Iind = i2 * U0 / math.sqrt(lw / c0)
+        U_tek = y[2] * U0
+        Izag = i4 * n1 * U0 / math.sqrt(lw / c0)
+        P_tek = self.pc * b1
+        Time_tek = Time_x * math.sqrt(lw * c0)
+        V_tek = dc * y[1] / math.sqrt(c0 * lw)
+        if poisk == 0:
+        if (NI == NS): NI = 0
+        NI = NI + 1
 
-        def Ston(self,io, vb, ka, vg, q0, dd, bb, pc, i2, Gamma0, Gamma1, Gamma3, i4, f, y):
-            if (io == 1):
-                f[0] = 0
-                f[1] = 0
-            elif (io == 3):
-                f[0] = 0
-                f[1] = 0
-                y[1] = 0
-            else:
-                f[0] = y[1]
-                ss1 = ((4.0 / 3.0 - vb / 3.0) * ka * vg * math.log(1 + vg * y[1]) / (1.0 + vg * y[1]), math.exp(1))
-                ss2 = (vb + (1.0 - vb) * q0) * dd / (1.0 + vg * y[1])
-                ss3 = bb * pc * (vb * math.sqrt(1.0 + vg * y[1]) + (1.0 - vb) * (1.0 + vg * y[1]))
-                f[1] = ss3 - ss1 - ss2
-            f[2] = i2 * (-1.0)
-            f[3] = y[2] - i2 * (Gamma0 + Gamma1)
-            f[4] = Gamma3 * (-i4)
-            print(f)
-            print(y)
+    def Ston(self):
+        if (io == 1):
+            f[0] = 0
+            f[1] = 0
+        elif (io == 3):
+            f[0] = 0
+            f[1] = 0
+            y[1] = 0
+        else:
+            f[0] = y[1]
+            ss1 = ((4.0 / 3.0 - vb / 3.0) * ka * vg * math.log(1 + vg * y[1]) / (1.0 + vg * y[1]), math.exp(1))
+            ss2 = (vb + (1.0 - vb) * q0) * dd / (1.0 + vg * y[1])
+            ss3 = bb * pc * (vb * math.sqrt(1.0 + vg * y[1]) + (1.0 - vb) * (1.0 + vg * y[1]))
+            f[1] = ss3 - ss1 - ss2
+        f[2] = i2 * (-1.0)
+        f[3] = y[2] - i2 * (Gamma0 + Gamma1)
+        f[4] = Gamma3 * (-i4)
+        print(f)
+        print(y)
 
-        def zub1(self,N_Y, Time_h, f, w, k, y):
-            for j in range(N_Y):
-                vk = Time_h * f[j]
-                k[j] = vk
-                y[j] = w[j] + vk / 2.0
+    def zub1(self):
+        for j in range(N_Y):
+            vk = Time_h * f[j]
+            k[j] = vk
+            y[j] = w[j] + vk / 2.0
 
-        def zub2(self,N_Y, Time_h, w, f, k, y):
-            for j in range(N_Y):
-                vk = Time_h * f[j]
-                k[j] = k[j] + 2.0 * vk
-                y[j] = w[j] + vk / 2.0
+    def zub2(self,N_Y, Time_h, w, f, k, y):
+        for j in range(N_Y):
+            vk = Time_h * f[j]
+            k[j] = k[j] + 2.0 * vk
+            y[j] = w[j] + vk / 2.0
 
-        def zub3(self,N_Y, Time_h, f, k, y, w):
-            for j in range(N_Y):
-                vk = Time_h * f[j]
-                k[j] = k[j] + vk * 2.0
-                y[j] = w[j] + vk
+    def zub3(self):
+        for j in range(N_Y):
+            vk = Time_h * f[j]
+            k[j] = k[j] + vk * 2.0
+            y[j] = w[j] + vk
+
 
 
 
