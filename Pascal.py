@@ -386,6 +386,7 @@ class Pascal():
         # +++++++++++++++++++++++++++++++++++++++++++++++++self.difur end+++++++++++++++++++++++++++++++++++++++++++++++++++++++
         self.NI = 0
         while self.io != 3:
+            print(f"io - {self.io}")
             self.rezult()
             if self.io==1: self.var1()
             else: self.var2()
@@ -405,7 +406,9 @@ class Pascal():
     def var1(self):
         ss6 = (self.vb + (1.0 - self.vb) * self.q0) * self.dd
         ss7 = self.bb * self.pc
-        if (ss7 - ss6 == 0):
+        print(f"bb - {self.bb}")
+        print(f"ss6 - {ss6},ss7 - {ss7}")
+        if (ss7 - ss6 < 0):
             self.io = 2
             if self.poisk == 1:print(self.Time_tek, self.U_tek, self.Iind, self.Izag, self.P_tek, self.y[1] * 100, self.y[2] * 1000, self.S_tek, self.V_tek)
             if (ss7 - ss6 == 0) and (self.Time_tek * 1e6 == 100):self.io = 3
@@ -459,7 +462,6 @@ class Pascal():
                 print("&#39; Финиш !!!&#39;")
             if (self.y[1] == 0):
                 self.io = 3
-            print(self.io)
 
     def rezult(self):
         dc = self.dh - self.h0
@@ -468,6 +470,7 @@ class Pascal():
         self.i4 = (self.y[3] * self.m13 - self.y[4] * (1 + self.alfa1)) / ((1 + self.alfa1) * self.alfa3 - self.m13 * self.m13) * (-1.0)
         self.S_tek = dc * self.y[1] * 1000
         self.pc = 0.5 * ((self.vg - 1) * (2.0 * self.i2 + self.i4) * self.i4 + (self.vg + 1) * self.i4 * self.i4) * (zaz / (zaz + self.kappa * self.S_tek / 1000))
+        print(f"pc -{self.pc}")
         self.Iind = self.i2 * self.U0 / math.sqrt(self.lw / self.c0)
         self.U_tek = self.y[2] * self.U0
         self.Izag = self.i4 * self.n1 * self.U0 / math.sqrt(self.lw / self.c0)
@@ -496,8 +499,7 @@ class Pascal():
         self.f[2] = self.i2 * (-1.0)
         self.f[3] = self.y[2] - self.i2 * (self.Gamma0 + self.Gamma1)
         self.f[4] = self.Gamma3 * (-self.i4)
-        print(self.f)
-        print(self.y)
+
 
     def zub1(self):
         for j in range(self.N_Y):
