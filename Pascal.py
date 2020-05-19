@@ -398,6 +398,7 @@ class Pascal():
             self.Ston()
             self.zub3()
             self.Time_x = self.Time_x + self.Time_h / 2.0
+            print(f"Time_x - {self.Time_x} мс")
             self.Ston()
             for j in range(self.N_Y):
                 self.y[j] = self.w[j] + (self.k[j] + self.Time_h * self.f[j]) / 6.0
@@ -408,7 +409,7 @@ class Pascal():
         ss7 = self.bb * self.pc
         print(f"bb - {self.bb}")
         print(f"ss6 - {ss6},ss7 - {ss7}")
-        if (ss7 - ss6 < 0):
+        if (ss7 - ss6 == 0):
             self.io = 2
             if self.poisk == 1:print(self.Time_tek, self.U_tek, self.Iind, self.Izag, self.P_tek, self.y[1] * 100, self.y[2] * 1000, self.S_tek, self.V_tek)
             if (ss7 - ss6 == 0) and (self.Time_tek * 1e6 == 100):self.io = 3
