@@ -61,24 +61,6 @@ class Pascal():
         #     { self.dh-НАРУЖНЫЙ ДИАМЕТР ЗАГОТОВКИ }
         db = self.dh - 2 * self.h0  # { db-ВНУТРЕННИЙ ДИАМЕТР ЗАГОТОВКИ
 
-        """def Prikids(y,ek,u1):
-                ZOLOTO = (pow(5, 0.5)-1)/2
-                def1 = y
-                defold = def1
-                if def1 < ek: def1 = defold + ZOLOTO*abs(defold-ek)
-                else: def1 = ek + (1-ZOLOTO)*abs(defold-ek)
-                drob = (def1 + ek) / ek/2
-                if defold-ek > 0:
-                    if drob < 1:
-                     uself.U0 = u1 * drob
-                    else: uself.U0 = u1 / drob
-                else:
-                    if drob < 1: uself.U0 = u1 / drob
-                    else: uself.U0 = u1 * drob
-                if (defold/ek) < 0.01:
-                    uself.U0 = 2 * u1 / drob
-                print("Предлагаемое значение [кВ] Uo = "+str(uself.U0)+" кВ")"""
-
         if v == 1:  # раздача }
             ly = self.l0 / db
 
@@ -130,10 +112,7 @@ class Pascal():
             else:
                 ef = 0.25 * ek
         # =======
-        """if self.poisk==1 or mm==0:
-                    print(' КОНТРОЛЬ ПАРАМЕТРОВ [ 1 - ДА ], [ 0 - НЕТ ] ? ')  # необходимо вывести окно с данным вопросом
-                    kp1=input()
-                 else: """
+
         kp1 = 0
         if self.poisk == 1 and mm > 0:
             self.U0 = u1
@@ -296,8 +275,6 @@ class Pascal():
             fq = 10
         else:
             fq = ww / (2.0 * 3.14)
-        """        # Repeat{3}
-        print(' Для продолжения ===> Жми на <Enter> >>')"""
         print("F0=", f0)
         print("Fz=", fz)
         print("Fp=", fp)
@@ -409,13 +386,8 @@ class Pascal():
     def var1(self):
         ss6 = (self.vb + (1.0 - self.vb) * self.q0) * self.dd
         ss7 = self.bb * self.pc
-        '''print(f"bb - {self.bb}")
-        print(f"pc - {self.pc}")
-        print(f"ss6 - {ss6},ss7 - {ss7}")
-        print(f"разница - {ss7-ss6}")'''
         if (ss7-ss6 > 0):
             self.io = 2
-
         if (ss7-ss6 < 0) and (self.Time_tek * 1e6 > 100): self.io = 3
         print(f"Time_tek - {self.Time_tek},U_tek- {self.U_tek},Iind- {self.Iind}, - {self.Izag},P_tek - {self.P_tek}, {self.y[1] * 100},.y[2]- {self.y[2] * 1000}, S_tek - {self.S_tek},V_tek- {self.V_tek}")
 
@@ -476,9 +448,6 @@ class Pascal():
         self.i4 = (self.y[3] * self.m13 - self.y[4  ] * (1 + self.alfa1)) / ((1 + self.alfa1) * self.alfa3 - self.m13 * self.m13) * (-1.0)
         self.S_tek = dc * self.y[1] * 1000
         self.pc = 0.5 * ((self.vg - 1) * (2.0 * self.i2 + self.i4) * self.i4 + (self.vg + 1) * self.i4 * self.i4) * (zaz / ((zaz + self.kappa * self.S_tek * 1000)))
-        '''print(f" vg - {self.vg}, i2 - {self.i2}, i4 - {self.i4}, vg - {self.vg}, zaz - {zaz}, kappa - {self.kappa}, S.tek - {self.S_tek}")
-        print(f"1 -{((self.vg - 1) * (2.0 * self.i2 + self.i4) * self.i4 + (self.vg + 1) * self.i4 * self.i4)}")
-        print(f"pc -{self.pc}")'''
         self.Iind = self.i2 * self.U0 / math.sqrt(self.lw / self.c0)
         self.U_tek = self.y[2] * self.U0
         self.Izag = self.i4 * self.n1 * self.U0 / math.sqrt(self.lw / self.c0)
