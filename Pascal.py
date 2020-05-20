@@ -89,12 +89,7 @@ class Pascal():
         if fz > 1.5 * f0:
             print(
                 " ОБРАБОТКА НА МИУ НЕЦЕЛЕСООБРАЗНА ")  # вместо данной команды необходимо выдать окно с данной надписью и вернуться в ввод данных
-        # <<<<<<< HEAD
-        # if self.poisk==1 or mm==0:
-        #   print(' КОНТРОЛЬ ПАРАМЕТРОВ [ 1 - ДА ], [ 0 - НЕТ ] ? ')  # необходимо вывести окно с данным вопросом
-        #  kp1 = input()
-        # else:
-        #   kp1 = 0
+
         if self.poisk == 1 and mm > 0:
             self.U0 = u1
             u1 = u1 * 1000
@@ -102,7 +97,7 @@ class Pascal():
         if self.poisk == 0 and mmm > 0:
             self.U0 = self.U0
 
-        # {1} Repeat {начало}
+
         wq = fp * 2.0 * 3.14
         if w3 > wq * 3:
             ef = 0.5 * ek
@@ -111,7 +106,6 @@ class Pascal():
                 ef = 0
             else:
                 ef = 0.25 * ek
-        # =======
 
         kp1 = 0
         if self.poisk == 1 and mm > 0:
@@ -363,7 +357,6 @@ class Pascal():
         # +++++++++++++++++++++++++++++++++++++++++++++++++self.difur end+++++++++++++++++++++++++++++++++++++++++++++++++++++++
         self.NI = 0
         while self.io != 3:
-            #print(f"io - {self.io}")
             self.rezult()
             if self.io==1: self.var1()
             else: self.var2()
@@ -375,13 +368,10 @@ class Pascal():
             self.Ston()
             self.zub3()
             self.Time_x = self.Time_x + self.Time_h / 2.0
-            #print(f"Time_x - {self.Time_x} мс")
             self.Ston()
             for j in range(self.N_Y):
                 self.y[j] = self.w[j] + (self.k[j] + self.Time_h * self.f[j]) / 6.0
-                #print(f"j - {j}, y[j] - {self.y[j]}")
                 self.w[j] = self.y[j]
-            #print(f"y -{self.y}")
 
     def var1(self):
         ss6 = (self.vb + (1.0 - self.vb) * self.q0) * self.dd
@@ -389,7 +379,7 @@ class Pascal():
         if (ss7-ss6 > 0):
             self.io = 2
         if (ss7-ss6 < 0) and (self.Time_tek * 1e6 > 100): self.io = 3
-        print(f"Time_tek - {self.Time_tek},U_tek- {self.U_tek},Iind- {self.Iind}, - {self.Izag},P_tek - {self.P_tek}, {self.y[1] * 100},.y[2]- {self.y[2] * 1000}, S_tek - {self.S_tek},V_tek- {self.V_tek}")
+        print(f"Time_tek - {int(self.Time_tek*pow(10,6))},U_tek- {self.U_tek},Iind- {self.Iind}, - {self.Izag},P_tek - {self.P_tek}, {self.y[1] * 100},.y[2]- {self.y[2] * 1000}, S_tek - {self.S_tek},V_tek- {self.V_tek}")
 
     def var2(self):
             z1 = self.y[1]
@@ -476,7 +466,6 @@ class Pascal():
         self.f[2] = self.i2 * (-1.0)
         self.f[3] = self.y[2] - self.i2 * (self.Gamma0 + self.Gamma1)
         self.f[4] = self.Gamma3 * (-self.i4)
-
 
     def zub1(self):
         for j in range(self.N_Y):
