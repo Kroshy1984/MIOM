@@ -359,7 +359,11 @@ class Pascal():
         while self.io != 3:
             self.rezult()
             if self.io==1: self.var1()
-            else: self.var2()
+            elif self.io==2:
+                self.var1()
+                self.var2()
+            else:
+                self.var1()
             self.Ston()
             self.zub1()
             self.Time_x = self.Time_x + self.Time_h / 2.0
@@ -378,7 +382,10 @@ class Pascal():
         ss7 = self.bb * self.pc
         if (ss7-ss6 > 0):
             self.io = 2
-        if (ss7-ss6 < 0) and (self.Time_tek * 1e6 > 100): self.io = 3
+            print("заготовка движется")
+        if (ss7-ss6 < 0) and (self.Time_tek * 1e6 > 100):
+            self.io = 3
+            print("заготовка остановилась")
         print(f"Time_tek - {int(self.Time_tek*pow(10,6))},U_tek- {self.U_tek},Iind- {self.Iind}, - {self.Izag},P_tek - {self.P_tek}, {self.y[1] * 100},.y[2]- {self.y[2] * 1000}, S_tek - {self.S_tek},V_tek- {self.V_tek}")
 
     def var2(self):
