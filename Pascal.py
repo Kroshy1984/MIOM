@@ -3,25 +3,25 @@ import math
 class Pascal():
     def __init__(self):
         # def maiself.n1
-        self.poisk = 1
+        self.poisk = 0
         v = 0
         kn = 0
         # mc=1
         # r2l=1
-        mm = 0
-        u1 = 1
+        #mm = 0
+        #u1 = 1
         mmm = 0
-        self.U0 = 1
+        #self.U0 = 1
         ek = 0.02
         fb = 1
         self.l1 = 1
         l3 = 1
-        self.di = 1
+        #self.di = 1
         # self.c0 = 1
         lm = 1.2 * math.pow(10, -7)  # Lm_у СОБСТВ. ИНДУКТИВНОСТЬ УСТАНОВКИ
         self.c0 = 254 * math.pow(10, -6)  # Co_у ЕМКОСТЬ КОНДЕНСАТОРОВ УСТАНОВКИ
         self.p3 = 7.1 * math.pow(10, -8)  # RO_з УДЕЛ. Э/СОПРОТИВЛЕНИЕ ЗАГОТОВКИ,
-        mod_upr = 68 * math.pow(10, 9)  # E_з МОДУЛЬ УПРУГОСТИ ЗАГОТОВКИ,
+        self.mod_upr = 68 * math.pow(10, 9)  # E_з МОДУЛЬ УПРУГОСТИ ЗАГОТОВКИ,
         pm = 2640  # Pm_з ПЛОТНОСТЬ ЗАГОТОВКИ, ( кг/м3)
         self.l0 = 0.030  # lo_з ДЛИНА ЗАГОТОВКИ, м
         self.dh = 0.1514  # Dн_з НАРУЖНЫЙ ДИАМЕТР ЗАГОТОВКИ, м
@@ -36,12 +36,12 @@ class Pascal():
         self.l1 = 0.036  # self.l1_и ДЛИНА (ВЫСОТА) ИНДУКТОРА, м
         R0 = 4.25 * math.pow(10, -3)  # Ro_у СОПРОТИВЛЕНИЕ УСТАНОВКИ, Ом
         self.dn = 0.169  # Dн_и НАРУЖНЫЙ ДИАМЕТР ИНДУКТОРА , м
-        sp = 700 * math.pow(10, 6)  # SP_з ПРЕДЕЛ ТЕКУЧЕСТИ ЗАГОТОВКИ, Н/м2
+        self.sp = 700 * math.pow(10, 6)  # SP_з ПРЕДЕЛ ТЕКУЧЕСТИ ЗАГОТОВКИ, Н/м2
         h1 = 0.004  # Hи_1 ВЫСОТА ВИТКА ИНДУКТОРА (ПО ДЛИНЕ), м
-        ey = 700 * math.pow(10, 6)  # e'_з МОДУЛЬ УПРОЧНЕНИЯ ЗАГОТОВКИ, Н/м2
+        self.ey = 700 * math.pow(10, 6)  # e'_з МОДУЛЬ УПРОЧНЕНИЯ ЗАГОТОВКИ, Н/м2
         eps = 0.0001  # eo_з КОНЕЧНАЯ ОТНОСИТЕЛЬНАЯ ДЕФОРМАЦИЯ ЗАГОТОВКИ - 𝑒𝜑𝑘
         H_izol = 0.0009  # Hизол_и - ТОЛЩИНА ИЗОЛЯЦИИ МЕЖДУ ВИТКАМИ, м
-        self.U0 = 7000  # Uo_у НАЧАЛЬНОЕ НАПРЯЖЕНИЕ УСТАНОВКИ, В
+        self.U0 = 8000  # Uo_у НАЧАЛЬНОЕ НАПРЯЖЕНИЕ УСТАНОВКИ, В
         self.kappa = 1
 
         flag = 0
@@ -54,7 +54,7 @@ class Pascal():
         over_f0 = 0.5 / (3.14 * math.pow(lmc, 0.5))
         fz = self.p3 / (3.14 * mu0 * self.h0 * self.h0)  # минимальная рабочая частота разряда, Гц
         # {для недопущения эффекта "магнитной подушки"}
-        w3 = math.pow(mod_upr / pm, 0.5) * 2 / self.dh
+        w3 = math.pow(self.mod_upr / pm, 0.5) * 2 / self.dh
         f3 = w3 / 2 / 3.14  # { собственная частота }
         #     { колебаний заготовки, Гц }
         # _____________________________________________________________________________________________________________________________
@@ -90,12 +90,12 @@ class Pascal():
             print(
                 " ОБРАБОТКА НА МИУ НЕЦЕЛЕСООБРАЗНА ")  # вместо данной команды необходимо выдать окно с данной надписью и вернуться в ввод данных
 
-        if self.poisk == 1 and mm > 0:
+        """if self.poisk == 1 and mm > 0:
             self.U0 = u1
             u1 = u1 * 1000
             self.U0 = u1
         if self.poisk == 0 and mmm > 0:
-            self.U0 = self.U0
+            self.U0 = self.U0"""
 
 
         wq = fp * 2.0 * 3.14
@@ -108,12 +108,12 @@ class Pascal():
                 ef = 0.25 * ek
 
         kp1 = 0
-        if self.poisk == 1 and mm > 0:
+        if self.poisk == 1:
             self.U0 = u1
-            u1 = u1 * 1000
-            self.U0 = u1
-        if self.poisk == 0 and mmm > 0:
-            self.U0 = self.U0
+            #u1 = u1 * 1000
+            #self.U0 = u1
+        #if self.poisk == 0 and mmm > 0:
+            #self.U0 = self.U0
 
         # ___________________________________________________________________________________________________________________
         else:  # РАЗДАЧА
@@ -330,11 +330,11 @@ class Pascal():
         self.Gamma0 = R0 * math.pow((self.c0 / self.lw), 0.5)
         self.Gamma1 = Rind * math.pow((self.c0 / self.lw), 0.5)
         self.Gamma3 = Rzag * self.n1 * self.n1 * math.pow((self.c0 / self.lw), 0.5)
-        self.ka = 4 * ey * self.lw * self.c0 / pm / self.dh / self.dh
-        self.dd = 4 * sp * self.lw * self.c0 / pm / self.dh / self.dh
+        self.ka = 4 * self.ey * self.lw * self.c0 / pm / self.dh / self.dh
+        self.dd = 4 * self.sp * self.lw * self.c0 / pm / self.dh / self.dh
         self.bb = mu0 * (self.c0 * self.U0 * self.n1 * kn) * (self.c0 * self.U0 * self.n1 * kn) / (pm * self.dh * self.h0 * self.l0 * self.l0)
         self.b1 = mu0 * self.c0 / 2.0 / self.lw * self.n1 * self.U0 * kn / l3 * self.n1 * self.U0 * kn / l3
-        pstrag = h3 * 2 * sp / dz * (self.vb + (1 - self.vb) * self.q0)
+        pstrag = h3 * 2 * self.sp / dz * (self.vb + (1 - self.vb) * self.q0)
         print("Давление страгивания====>(МПа)", pstrag / 1e6)
         print(self.io, self.lw, self.alfa1, self.alfa3, self.m13, self.Gamma0, self.Gamma1, self.Gamma3)
         print(self.ka, self.dd, self.bb, self.b1)
@@ -344,16 +344,17 @@ class Pascal():
         print("Рекомендуемый шаг счета============>", k0 * 1e6)
         k0 = float(input("Задайте шаг счета"))
         self.NS = float(input("Задайте кратность печати"))
-        self.Time_h = k0 / (math.sqrt(self.lw * self.c0) * pow(10, 6))
+        self.Time_h = k0 / (math.sqrt(self.lw * self.c0) / pow(10, 6))
         self.Time_x = 0
+        self.NI=0
         self.y = [0, 0, 1, 0, 0]
         self.w = [0, 0, 1, 0, 0]
         self.f = [0, 0, 1, 0, 0]
         self.k = [0, 0, 1, 0, 0]
-        self.i2 = (self.y[3] * self.alfa3 - self.y[4] * self.m13) / ((1 + self.alfa1) * self.alfa3 - self.m13 * self.m13)
-        self.i4 = (self.y[3] * self.m13 - self.y[4] * (1 + self.alfa1)) / ((1 + self.alfa1) * self.alfa3 - self.m13 * self.m13) * (-1.0)
+
         self.N_Y = 5
         print(self.Time_h)
+        print("vb=", self.vb, "q0=", self.q0, "dd=", self.dd, "bb=", self.bb)
         # +++++++++++++++++++++++++++++++++++++++++++++++++self.difur end+++++++++++++++++++++++++++++++++++++++++++++++++++++++
         self.NI = 0
         while self.io != 3:
@@ -442,15 +443,20 @@ class Pascal():
         dc = self.dh - self.h0
         zaz = self.dh - 2 * self.h0 - self.dn
         self.i2 = (self.y[3] * self.alfa3 - self.y[4] * self.m13) / ((1 + self.alfa1) * self.alfa3 - self.m13 * self.m13)
-        self.i4 = (self.y[3] * self.m13 - self.y[4  ] * (1 + self.alfa1)) / ((1 + self.alfa1) * self.alfa3 - self.m13 * self.m13) * (-1.0)
-        self.S_tek = dc * self.y[1] * 1000
-        self.pc = 0.5 * ((self.vg - 1) * (2.0 * self.i2 + self.i4) * self.i4 + (self.vg + 1) * self.i4 * self.i4) * (zaz / ((zaz + self.kappa * self.S_tek * 1000)))
+        self.i4 = (self.y[3] * self.m13 - self.y[4] * (1 + self.alfa1)) / ((1 + self.alfa1) * self.alfa3 - self.m13 * self.m13) * (-1.0)
+        self.S_tek = dc * self.y[0] * 1000
+        self.pc = 0.5 * ((self.vg - 1) * (2.0 * self.i2 + self.i4) * self.i4 + (self.vg + 1) * self.i4 * self.i4) * (zaz / ((zaz + self.kappa * self.S_tek /1000)))
         self.Iind = self.i2 * self.U0 / math.sqrt(self.lw / self.c0)
         self.U_tek = self.y[2] * self.U0
         self.Izag = self.i4 * self.n1 * self.U0 / math.sqrt(self.lw / self.c0)
         self.P_tek = self.pc * self.b1
         self.Time_tek = self.Time_x * math.sqrt(self.lw * self.c0)
         self.V_tek = dc * self.y[1] / math.sqrt(self.c0 * self.lw)
+        self.SSS_tek=y[0]*self.mod_upr
+        if self.SSS_tek>self.sp:
+            self.Sig_tek=self.sp+y[0]*self.ey
+        else:
+            self.Sig_tek = self.SSS_tek
         if self.poisk == 0:
             if (self.NI == self.NS):
                 self.NI = 0
@@ -466,9 +472,9 @@ class Pascal():
             self.y[1] = 0
         else:
             self.f[0] = self.y[1]
-            ss1 = ((4.0 / 3.0 - self.vb / 3.0) * self.ka * self.vg * math.log1p(1 + self.vg * self.y[1]) / (1.0 + self.vg * self.y[1]))
-            ss2 = (self.vb + (1.0 - self.vb) * self.q0) * self.dd / (1.0 + self.vg * self.y[1])
-            ss3 = self.bb * self.pc * (self.vb * math.sqrt(1.0 + self.vg * self.y[1]) + (1.0 - self.vb) * (1.0 + self.vg * self.y[1]))
+            ss1 = ((4.0 / 3.0 - self.vb / 3.0) * self.ka * self.vg * math.log1p(1 + self.vg * self.y[0]) / (1.0 + self.vg * self.y[0]))
+            ss2 = (self.vb + (1.0 - self.vb) * self.q0) * self.dd / (1.0 + self.vg * self.y[0])
+            ss3 = self.bb * self.pc * (self.vb * math.sqrt(1.0 + self.vg * self.y[0]) + (1.0 - self.vb) * (1.0 + self.vg * self.y[0]))
             self.f[1] = ss3 - ss1 - ss2
         self.f[2] = self.i2 * (-1.0)
         self.f[3] = self.y[2] - self.i2 * (self.Gamma0 + self.Gamma1)
