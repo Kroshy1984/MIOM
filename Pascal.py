@@ -19,7 +19,7 @@ class Pascal():
         lm = 1.2 * math.pow(10, -7)  # Lm_у СОБСТВ. ИНДУКТИВНОСТЬ УСТАНОВКИ
         self.c0 = 254 * math.pow(10, -6)  # Co_у ЕМКОСТЬ КОНДЕНСАТОРОВ УСТАНОВКИ
         self.p3 = 7.1 * math.pow(10, -8)  # RO_з УДЕЛ. Э/СОПРОТИВЛЕНИЕ ЗАГОТОВКИ,
-        mod_upr = 68 * math.pow(10, 9)  # E_з МОДУЛЬ УПРУГОСТИ ЗАГОТОВКИ,
+        self.mod_upr = 68 * math.pow(10, 9)  # E_з МОДУЛЬ УПРУГОСТИ ЗАГОТОВКИ,
         pm = 2640  # Pm_з ПЛОТНОСТЬ ЗАГОТОВКИ, ( кг/м3)
         self.l0 = 0.030  # lo_з ДЛИНА ЗАГОТОВКИ, м
         self.dh = 0.1514  # Dн_з НАРУЖНЫЙ ДИАМЕТР ЗАГОТОВКИ, м
@@ -34,9 +34,9 @@ class Pascal():
         self.l1 = 0.036  # self.l1_и ДЛИНА (ВЫСОТА) ИНДУКТОРА, м
         R0 = 4.25 * math.pow(10, -3)  # Ro_у СОПРОТИВЛЕНИЕ УСТАНОВКИ, Ом
         self.dn = 0.169  # Dн_и НАРУЖНЫЙ ДИАМЕТР ИНДУКТОРА , м
-        sp = 700 * math.pow(10, 6)  # SP_з ПРЕДЕЛ ТЕКУЧЕСТИ ЗАГОТОВКИ, Н/м2
+        self.sp = 700 * math.pow(10, 6)  # SP_з ПРЕДЕЛ ТЕКУЧЕСТИ ЗАГОТОВКИ, Н/м2
         h1 = 0.004  # Hи_1 ВЫСОТА ВИТКА ИНДУКТОРА (ПО ДЛИНЕ), м
-        ey = 700 * math.pow(10, 6)  # e'_з МОДУЛЬ УПРОЧНЕНИЯ ЗАГОТОВКИ, Н/м2
+        self.ey = 700 * math.pow(10, 6)  # e'_з МОДУЛЬ УПРОЧНЕНИЯ ЗАГОТОВКИ, Н/м2
         eps = 0.0001  # eo_з КОНЕЧНАЯ ОТНОСИТЕЛЬНАЯ ДЕФОРМАЦИЯ ЗАГОТОВКИ - 𝑒𝜑𝑘
         H_izol = 0.0009  # Hизол_и - ТОЛЩИНА ИЗОЛЯЦИИ МЕЖДУ ВИТКАМИ, м
         self.U0 = 7000  # Uo_у НАЧАЛЬНОЕ НАПРЯЖЕНИЕ УСТАНОВКИ, В
@@ -52,7 +52,7 @@ class Pascal():
         over_f0 = 0.5 / (3.14 * math.pow(lmc, 0.5))
         fz = self.p3 / (3.14 * mu0 * self.h0 * self.h0)  # минимальная рабочая частота разряда, Гц
         # {для недопущения эффекта "магнитной подушки"}
-        w3 = math.pow(mod_upr / pm, 0.5) * 2 / self.dh
+        w3 = math.pow(self.mod_upr / pm, 0.5) * 2 / self.dh
         f3 = w3 / 2 / 3.14  # { собственная частота }
         #     { колебаний заготовки, Гц }
         # _____________________________________________________________________________________________________________________________
@@ -105,7 +105,7 @@ class Pascal():
             else:
                 ef = 0.25 * self.ek
 
-        if self.poisk == 1 and mm > 0:
+        if self.poisk == 1:
             self.U0 = self.u1
             self.u1 = self.u1 * 1000
             self.U0 = self.u1
@@ -337,11 +337,11 @@ class Pascal():
         self.Gamma0 = R0 * math.pow((self.c0 / self.lw), 0.5)
         self.Gamma1 = Rind * math.pow((self.c0 / self.lw), 0.5)
         self.Gamma3 = Rzag * self.n1 * self.n1 * math.pow((self.c0 / self.lw), 0.5)
-        self.ka = 4 * ey * self.lw * self.c0 / pm / self.dh / self.dh
-        self.dd = 4 * sp * self.lw * self.c0 / pm / self.dh / self.dh
+        self.ka = 4 * self.ey * self.lw * self.c0 / pm / self.dh / self.dh
+        self.dd = 4 * self.sp * self.lw * self.c0 / pm / self.dh / self.dh
         self.bb = mu0 * (self.c0 * self.U0 * self.n1 * kn) * (self.c0 * self.U0 * self.n1 * kn) / (pm * self.dh * self.h0 * self.l0 * self.l0)
         self.b1 = mu0 * self.c0 / 2.0 / self.lw * self.n1 * self.U0 * kn / l3 * self.n1 * self.U0 * kn / l3
-        pstrag = h3 * 2 * sp / dz * (self.vb + (1 - self.vb) * self.q0)
+        pstrag = h3 * 2 * self.sp / dz * (self.vb + (1 - self.vb) * self.q0)
         print("Давление страгивания====>(МПа)", pstrag / 1e6)
         print(self.io, self.lw, self.alfa1, self.alfa3, self.m13, self.Gamma0, self.Gamma1, self.Gamma3)
         print(self.ka, self.dd, self.bb, self.b1)
@@ -353,15 +353,14 @@ class Pascal():
         self.NS = float(input("Задайте кратность печати"))
         self.Time_h = k0 / (math.sqrt(self.lw * self.c0) * pow(10, 6))
         self.Time_x = 0
+        self.NI=0
         self.y = [0, 0, 1, 0, 0]
         self.w = [0, 0, 1, 0, 0]
         self.f = [0, 0, 1, 0, 0]
         self.k = [0, 0, 1, 0, 0]
-        self.i2 = (self.y[3] * self.alfa3 - self.y[4] * self.m13) / ((1 + self.alfa1) * self.alfa3 - self.m13 * self.m13)
-        self.i4 = (self.y[3] * self.m13 - self.y[4] * (1 + self.alfa1)) / ((1 + self.alfa1) * self.alfa3 - self.m13 * self.m13) * (-1.0)
+
         self.N_Y = 5
         print(self.Time_h)
-        self.U0=self.Prikids()
         # +++++++++++++++++++++++++++++++++++++++++++++++++self.difur end+++++++++++++++++++++++++++++++++++++++++++++++++++++++
         self.NI = 0
         self.Y=[]
@@ -408,6 +407,7 @@ class Pascal():
         if (ss7-ss6 < 0) and (self.Time_tek * 1e6 > 100):
             self.io = 3
             print("заготовка остановилась")
+        print(f"Time_tek - {int(self.Time_tek*pow(10,6))},U_tek- {self.U_tek},Iind- {self.Iind}, - {self.Izag},P_tek - {self.P_tek}, {self.y[1] * 100},.y[2]- {self.y[2] * 1000}, S_tek - {self.S_tek},V_tek- {self.V_tek}")
 
     def var2(self):
             z1 = self.y[1]
@@ -467,13 +467,18 @@ class Pascal():
         self.i2 = (self.y[3] * self.alfa3 - self.y[4] * self.m13) / ((1 + self.alfa1) * self.alfa3 - self.m13 * self.m13)
         self.i4 = (self.y[3] * self.m13 - self.y[4] * (1 + self.alfa1)) / ((1 + self.alfa1) * self.alfa3 - self.m13 * self.m13) * (-1.0)
         self.S_tek = dc * self.y[0] * 1000
-        self.pc = 0.5 * ((self.vg - 1) * (2.0 * self.i2 + self.i4) * self.i4 + (self.vg + 1) * self.i4 * self.i4) * (zaz / ((zaz + self.kappa * self.S_tek / 1000)))
+        self.pc = 0.5 * ((self.vg - 1) * (2.0 * self.i2 + self.i4) * self.i4 + (self.vg + 1) * self.i4 * self.i4) * (zaz / ((zaz + self.kappa * self.S_tek /1000)))
         self.Iind = self.i2 * self.U0 / math.sqrt(self.lw / self.c0)
         self.U_tek = self.y[2] * self.U0
         self.Izag = self.i4 * self.n1 * self.U0 / math.sqrt(self.lw / self.c0)
         self.P_tek = self.pc * self.b1
         self.Time_tek = self.Time_x * math.sqrt(self.lw * self.c0)
         self.V_tek = dc * self.y[1] / math.sqrt(self.c0 * self.lw)
+        self.SSS_tek=self.y[0]*self.mod_upr
+        if self.SSS_tek>self.sp:
+            self.Sig_tek=self.sp+self.y[0]*self.ey
+        else:
+            self.Sig_tek = self.SSS_tek
         if self.poisk == 0:
             if (self.NI == self.NS):
                 self.NI = 0
@@ -502,46 +507,19 @@ class Pascal():
             vk = self.Time_h * self.f[j]
             self.k[j] = vk
             self.y[j] = self.w[j] + vk / 2.0
-            print(self.w[j], vk, self.y[j])
-        print(self.y)
+
     def zub2(self):
         for j in range(self.N_Y):
             vk = self.Time_h * self.f[j]
             self.k[j] = self.k[j] + 2.0 * vk
             self.y[j] = self.w[j] + vk / 2.0
-            print(self.w[j], vk, self.y[j])
-        print(self.y)
+
     def zub3(self):
         for j in range(self.N_Y):
             vk = self.Time_h * self.f[j]
             self.k[j] = self.k[j] + vk * 2.0
             self.y[j] = self.w[j] + vk
-            print(self.w[j], vk, self.y[j])
-        print(self.y)
 
-    def Prikids(self):
-        ZOLOTO = (pow(5, 0.5) - 1) / 2
-        def1 = self.y[0]
-        defold = def1
-        if def1 < self.ek:
-            def1 = defold + ZOLOTO * abs(defold - self.ek)
-        else:
-            def1 = self.ek + (1 - ZOLOTO) * abs(defold - self.ek)
-        drob = (def1 + self.ek) / self.ek / 2
-        if defold - self.ek > 0:
-            if drob < 1:
-                uu0 = self.U0 * drob
-            else:
-                uu0 = self.U0 / drob
-        else:
-            if drob < 1:
-                uu0 = self.U0 / drob
-            else:
-                uu0 = self.U0 * drob
-        if (defold / self.ek) < 0.01:
-            uu0 = 2 * self.U0 / drob
-        print("Предлагаемое значение [кВ] Uo = " + str(uu0) + " кВ")
-        return uu0
 
 
 
