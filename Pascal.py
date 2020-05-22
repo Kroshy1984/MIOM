@@ -3,20 +3,18 @@ import math
 class Pascal():
     def __init__(self):
         # def maiself.n1
-        self.poisk = 1
+        self.poisk = 0
         v = 0
         kn = 0
         # mc=1
         # r2l=1
         mm = 0
-        u1 = 1
-        mmm = 0
-        self.U0 = 1
-        ek = 0.02
+        self.ek = 0.02
         fb = 1
         self.l1 = 1
         l3 = 1
         self.di = 1
+        mmm=0
         # self.c0 = 1
         lm = 1.2 * math.pow(10, -7)  # Lm_у СОБСТВ. ИНДУКТИВНОСТЬ УСТАНОВКИ
         self.c0 = 254 * math.pow(10, -6)  # Co_у ЕМКОСТЬ КОНДЕНСАТОРОВ УСТАНОВКИ
@@ -91,31 +89,40 @@ class Pascal():
                 " ОБРАБОТКА НА МИУ НЕЦЕЛЕСООБРАЗНА ")  # вместо данной команды необходимо выдать окно с данной надписью и вернуться в ввод данных
 
         if self.poisk == 1 and mm > 0:
-            self.U0 = u1
-            u1 = u1 * 1000
-            self.U0 = u1
+            self.U0 = self.u1
+            self.u1 = self.u1 * 1000
+            self.U0 = self.u1
         if self.poisk == 0 and mmm > 0:
             self.U0 = self.U0
 
 
         wq = fp * 2.0 * 3.14
         if w3 > wq * 3:
-            ef = 0.5 * ek
+            ef = 0.5 * self.ek
         else:
             if w3 < wq / 3:
                 ef = 0
             else:
-                ef = 0.25 * ek
+                ef = 0.25 * self.ek
 
-        kp1 = 0
         if self.poisk == 1 and mm > 0:
-            self.U0 = u1
-            u1 = u1 * 1000
-            self.U0 = u1
+            self.U0 = self.u1
+            self.u1 = self.u1 * 1000
+            self.U0 = self.u1
         if self.poisk == 0 and mmm > 0:
             self.U0 = self.U0
 
         # ___________________________________________________________________________________________________________________
+        if (v == 1) :
+            vg = 1
+            if (self.l0 / db < 1.0):
+                self.l3 = self.l0
+                h3 = self.h0
+            else:
+                l3 = self.l0
+                h3 = self.h0
+                dz = self.dh
+                dm = dz - 2.0 * h3
         else:  # РАЗДАЧА
             # { ОБЖИМ }
             self.vg = 1 * (-1)
@@ -354,8 +361,11 @@ class Pascal():
         self.i4 = (self.y[3] * self.m13 - self.y[4] * (1 + self.alfa1)) / ((1 + self.alfa1) * self.alfa3 - self.m13 * self.m13) * (-1.0)
         self.N_Y = 5
         print(self.Time_h)
+        self.U0=self.Prikids()
         # +++++++++++++++++++++++++++++++++++++++++++++++++self.difur end+++++++++++++++++++++++++++++++++++++++++++++++++++++++
         self.NI = 0
+        self.Y=[]
+        self.Time=[]
         while self.io != 3:
             self.rezult()
             if self.io==1: self.var1()
@@ -377,16 +387,27 @@ class Pascal():
                 self.y[j] = self.w[j] + (self.k[j] + self.Time_h * self.f[j]) / 6.0
                 self.w[j] = self.y[j]
 
+            print(f"Time_tek - {int(self.Time_tek * pow(10, 6))},U_tek- {self.U_tek},Iind- {self.Iind},Izag - {self.Izag},P_tek - {self.P_tek}, {self.y[1] * 100},.y[2]- {self.y[2] * 1000}, S_tek - {self.S_tek},V_tek- {self.V_tek}")
+            self.Y.append(self.y[2])
+            self.Time.append(self.Time_tek)
+
+    def U(self):
+        return self.Y
+
+    def Time(self):
+        return self.Time
+
     def var1(self):
         ss6 = (self.vb + (1.0 - self.vb) * self.q0) * self.dd
         ss7 = self.bb * self.pc
+        print(f"bb - {self.bb}, pc - {self.pc}")
+        print(f"разница -{ss7-ss6}, ss7 - {ss7}, ss6 - {ss6}")
         if (ss7-ss6 > 0):
             self.io = 2
             print("заготовка движется")
         if (ss7-ss6 < 0) and (self.Time_tek * 1e6 > 100):
             self.io = 3
             print("заготовка остановилась")
-        print(f"Time_tek - {int(self.Time_tek*pow(10,6))},U_tek- {self.U_tek},Iind- {self.Iind}, - {self.Izag},P_tek - {self.P_tek}, {self.y[1] * 100},.y[2]- {self.y[2] * 1000}, S_tek - {self.S_tek},V_tek- {self.V_tek}")
 
     def var2(self):
             z1 = self.y[1]
@@ -439,12 +460,14 @@ class Pascal():
                 self.io = 3
 
     def rezult(self):
+        print(f"vg -{self.vg}")
+        self.vg=1
         dc = self.dh - self.h0
         zaz = self.dh - 2 * self.h0 - self.dn
         self.i2 = (self.y[3] * self.alfa3 - self.y[4] * self.m13) / ((1 + self.alfa1) * self.alfa3 - self.m13 * self.m13)
-        self.i4 = (self.y[3] * self.m13 - self.y[4  ] * (1 + self.alfa1)) / ((1 + self.alfa1) * self.alfa3 - self.m13 * self.m13) * (-1.0)
-        self.S_tek = dc * self.y[1] * 1000
-        self.pc = 0.5 * ((self.vg - 1) * (2.0 * self.i2 + self.i4) * self.i4 + (self.vg + 1) * self.i4 * self.i4) * (zaz / ((zaz + self.kappa * self.S_tek * 1000)))
+        self.i4 = (self.y[3] * self.m13 - self.y[4] * (1 + self.alfa1)) / ((1 + self.alfa1) * self.alfa3 - self.m13 * self.m13) * (-1.0)
+        self.S_tek = dc * self.y[0] * 1000
+        self.pc = 0.5 * ((self.vg - 1) * (2.0 * self.i2 + self.i4) * self.i4 + (self.vg + 1) * self.i4 * self.i4) * (zaz / ((zaz + self.kappa * self.S_tek / 1000)))
         self.Iind = self.i2 * self.U0 / math.sqrt(self.lw / self.c0)
         self.U_tek = self.y[2] * self.U0
         self.Izag = self.i4 * self.n1 * self.U0 / math.sqrt(self.lw / self.c0)
@@ -479,19 +502,46 @@ class Pascal():
             vk = self.Time_h * self.f[j]
             self.k[j] = vk
             self.y[j] = self.w[j] + vk / 2.0
-
+            print(self.w[j], vk, self.y[j])
+        print(self.y)
     def zub2(self):
         for j in range(self.N_Y):
             vk = self.Time_h * self.f[j]
             self.k[j] = self.k[j] + 2.0 * vk
             self.y[j] = self.w[j] + vk / 2.0
-
+            print(self.w[j], vk, self.y[j])
+        print(self.y)
     def zub3(self):
         for j in range(self.N_Y):
             vk = self.Time_h * self.f[j]
             self.k[j] = self.k[j] + vk * 2.0
             self.y[j] = self.w[j] + vk
+            print(self.w[j], vk, self.y[j])
+        print(self.y)
 
+    def Prikids(self):
+        ZOLOTO = (pow(5, 0.5) - 1) / 2
+        def1 = self.y[0]
+        defold = def1
+        if def1 < self.ek:
+            def1 = defold + ZOLOTO * abs(defold - self.ek)
+        else:
+            def1 = self.ek + (1 - ZOLOTO) * abs(defold - self.ek)
+        drob = (def1 + self.ek) / self.ek / 2
+        if defold - self.ek > 0:
+            if drob < 1:
+                uu0 = self.U0 * drob
+            else:
+                uu0 = self.U0 / drob
+        else:
+            if drob < 1:
+                uu0 = self.U0 / drob
+            else:
+                uu0 = self.U0 * drob
+        if (defold / self.ek) < 0.01:
+            uu0 = 2 * self.U0 / drob
+        print("Предлагаемое значение [кВ] Uo = " + str(uu0) + " кВ")
+        return uu0
 
 
 
