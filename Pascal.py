@@ -363,8 +363,12 @@ class Pascal():
         print(self.Time_h)
         # +++++++++++++++++++++++++++++++++++++++++++++++++self.difur end+++++++++++++++++++++++++++++++++++++++++++++++++++++++
         self.NI = 0
-        self.Y=[]
+        self.Y3=[]
         self.Time=[]
+        self.Y0=[]
+        self.Y1=[]
+        self.Y2=[]
+        self.Y4=[]
         while self.io != 3:
             self.rezult()
             if self.io==1: self.var1()
@@ -387,11 +391,25 @@ class Pascal():
                 self.w[j] = self.y[j]
 
             print(f"Time_tek - {int(self.Time_tek * pow(10, 6))},U_tek- {self.U_tek},Iind- {self.Iind},Izag - {self.Izag},P_tek - {self.P_tek}, {self.y[1] * 100},.y[2]- {self.y[2] * 1000}, S_tek - {self.S_tek},V_tek- {self.V_tek}")
-            self.Y.append(self.y[2])
+            self.Y3.append(self.y[2])
             self.Time.append(self.Time_tek)
+            self.Y0.append(self.y[0])
+            self.Y1.append(self.y[1])
+            self.Y2.append(self.y[2])
+            self.Y3.append(self.y[3])
+            self.Y4.append(self.y[4])
 
-    def U(self):
-        return self.Y
+    def Y0(self):
+        return self.Y0
+    def Y1(self):
+        return self.Y1
+    def Y3(self):
+        return self.Y3
+    def Y2(self):
+        return self.Y2
+    def Y4(self):
+        return self.Y4
+
 
     def Time(self):
         return self.Time
