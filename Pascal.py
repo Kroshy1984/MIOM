@@ -379,6 +379,11 @@ class Pascal():
         self.W2=[]
         self.W3=[]
         self.W4=[]
+        self.SS1=[]
+        self.SS2=[]
+        self.SS3=[]
+        self.SS6=[]
+        self.SS7=[]
         while self.io != 3:
             self.rezult()
             if self.io==1: self.var1()
@@ -417,6 +422,11 @@ class Pascal():
             self.W2.append(self.w[2])
             self.W3.append(self.w[3])
             self.W4.append(self.w[4])
+            """self.SS1.append(self.ss1)
+            self.SS2.append(self.ss2)
+            self.SS3.append(self.ss3)"""
+            self.SS6.append(self.ss6)
+            self.SS7.append(self.ss7)
 
     def Y0(self):
         return self.Y0
@@ -448,19 +458,30 @@ class Pascal():
         return self.W2
     def W4(self):
         return self.W4
+    """def SS1(self):
+        return self.SS1
+    def SS2(self):
+        return self.SS2
+    def SS3(self):
+        return self.SS3"""
+    def SS6(self):
+        return self.SS6
+    def SS7(self):
+        return self.SS7
+
 
     def Time(self):
         return self.Time
 
     def var1(self):
-        ss6 = (self.vb + (1.0 - self.vb) * self.q0) * self.dd
-        ss7 = self.bb * self.pc
+        self.ss6 = (self.vb + (1.0 - self.vb) * self.q0) * self.dd
+        self.ss7 = self.bb * self.pc
         print(f"bb - {self.bb}, pc - {self.pc}")
-        print(f"разница -{ss7-ss6}, ss7 - {ss7}, ss6 - {ss6}")
-        if (ss7-ss6 > 0):
+        print(f"разница -{self.ss7-self.ss6}, self.ss7 - {self.ss7}, self.ss6 - {self.ss6}")
+        if (self.ss7-self.ss6 > 0):
             self.io = 2
             print("заготовка движется")
-        if (ss7-ss6 < 0) and (self.Time_tek * 1e6 > 100):
+        if (self.ss7-self.ss6 < 0) and (self.Time_tek * 1e6 > 100):
             self.io = 3
             print("заготовка остановилась")
         print(f"Time_tek - {int(self.Time_tek*pow(10,6))},U_tek- {self.U_tek},Iind- {self.Iind}, - {self.Izag},P_tek - {self.P_tek}, {self.y[1] * 100},.y[2]- {self.y[2] * 1000}, S_tek - {self.S_tek},V_tek- {self.V_tek}")
@@ -530,11 +551,11 @@ class Pascal():
         self.P_tek = self.pc * self.b1
         self.Time_tek = self.Time_x * math.sqrt(self.lw * self.c0)
         self.V_tek = dc * self.y[1] / math.sqrt(self.c0 * self.lw)
-        self.SSS_tek=self.y[0]*self.mod_upr
-        if self.SSS_tek>self.sp:
+        self.S_tek=self.y[0]*self.mod_upr
+        if self.S_tek>self.sp:
             self.Sig_tek=self.sp+self.y[0]*self.ey
         else:
-            self.Sig_tek = self.SSS_tek
+            self.Sig_tek = self.S_tek
         if self.poisk == 0:
             if (self.NI == self.NS):
                 self.NI = 0
@@ -550,10 +571,10 @@ class Pascal():
             self.y[1] = 0
         else:
             self.f[0] = self.y[1]
-            ss1 = ((4.0 / 3.0 - self.vb / 3.0) * self.ka * self.vg * math.log1p(1 + self.vg * self.y[1]) / (1.0 + self.vg * self.y[1]))
-            ss2 = (self.vb + (1.0 - self.vb) * self.q0) * self.dd / (1.0 + self.vg * self.y[1])
-            ss3 = self.bb * self.pc * (self.vb * math.sqrt(1.0 + self.vg * self.y[1]) + (1.0 - self.vb) * (1.0 + self.vg * self.y[1]))
-            self.f[1] = ss3 - ss1 - ss2
+            self.ss1 = ((4.0 / 3.0 - self.vb / 3.0) * self.ka * self.vg * math.log1p(1 + self.vg * self.y[1]) / (1.0 + self.vg * self.y[1]))
+            self.ss2 = (self.vb + (1.0 - self.vb) * self.q0) * self.dd / (1.0 + self.vg * self.y[1])
+            self.ss3 = self.bb * self.pc * (self.vb * math.sqrt(1.0 + self.vg * self.y[1]) + (1.0 - self.vb) * (1.0 + self.vg * self.y[1]))
+            self.f[1] = self.ss3 - self.ss1 - self.ss2
         self.f[2] = self.i2 * (-1.0)
         self.f[3] = self.y[2] - self.i2 * (self.Gamma0 + self.Gamma1)
         self.f[4] = self.Gamma3 * (-self.i4)
