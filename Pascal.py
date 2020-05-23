@@ -374,6 +374,11 @@ class Pascal():
         self.F2=[]
         self.F3=[]
         self.F4=[]
+        self.W0=[]
+        self.W1=[]
+        self.W2=[]
+        self.W3=[]
+        self.W4=[]
         while self.io != 3:
             self.rezult()
             if self.io==1: self.var1()
@@ -407,6 +412,11 @@ class Pascal():
             self.F2.append(self.f[2])
             self.F3.append(self.f[3])
             self.F4.append(self.f[4])
+            self.W0.append(self.w[0])
+            self.W1.append(self.w[1])
+            self.W2.append(self.w[2])
+            self.W3.append(self.w[3])
+            self.W4.append(self.w[4])
 
     def Y0(self):
         return self.Y0
@@ -428,6 +438,16 @@ class Pascal():
         return self.F2
     def F4(self):
         return self.F4
+    def W0(self):
+        return self.W0
+    def W1(self):
+        return self.W1
+    def W3(self):
+        return self.W3
+    def W2(self):
+        return self.W2
+    def W4(self):
+        return self.W4
 
     def Time(self):
         return self.Time
