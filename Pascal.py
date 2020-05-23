@@ -41,7 +41,7 @@ class Pascal():
         self.ey = 700 * math.pow(10, 6)  # e'_з МОДУЛЬ УПРОЧНЕНИЯ ЗАГОТОВКИ, Н/м2
         eps = 0.0001  # eo_з КОНЕЧНАЯ ОТНОСИТЕЛЬНАЯ ДЕФОРМАЦИЯ ЗАГОТОВКИ - 𝑒𝜑𝑘
         H_izol = 0.0009  # Hизол_и - ТОЛЩИНА ИЗОЛЯЦИИ МЕЖДУ ВИТКАМИ, м
-        self.U0 = 8000  # Uo_у НАЧАЛЬНОЕ НАПРЯЖЕНИЕ УСТАНОВКИ, В
+        self.U0 = 7000  # Uo_у НАЧАЛЬНОЕ НАПРЯЖЕНИЕ УСТАНОВКИ, В
         self.kappa = 1
 
         flag = 0
@@ -344,7 +344,7 @@ class Pascal():
         print("Рекомендуемый шаг счета============>", k0 * 1e6)
         k0 = float(input("Задайте шаг счета"))
         self.NS = float(input("Задайте кратность печати"))
-        self.Time_h = k0 / (math.sqrt(self.lw * self.c0) / pow(10, 6))
+        self.Time_h = k0 / (math.sqrt(self.lw * self.c0) * pow(10, 6))
         self.Time_x = 0
         self.NI=0
         self.y = [0, 0, 1, 0, 0]
@@ -353,7 +353,7 @@ class Pascal():
         self.k = [0, 0, 1, 0, 0]
 
         self.N_Y = 5
-        print(self.Time_h)
+        print("Time_h=",self.Time_h)
         print("vb=", self.vb, "q0=", self.q0, "dd=", self.dd, "bb=", self.bb)
         # +++++++++++++++++++++++++++++++++++++++++++++++++self.difur end+++++++++++++++++++++++++++++++++++++++++++++++++++++++
         self.NI = 0
@@ -452,9 +452,9 @@ class Pascal():
         self.P_tek = self.pc * self.b1
         self.Time_tek = self.Time_x * math.sqrt(self.lw * self.c0)
         self.V_tek = dc * self.y[1] / math.sqrt(self.c0 * self.lw)
-        self.SSS_tek=y[0]*self.mod_upr
+        self.SSS_tek=self.y[0]*self.mod_upr
         if self.SSS_tek>self.sp:
-            self.Sig_tek=self.sp+y[0]*self.ey
+            self.Sig_tek=self.sp+self.y[0]*self.ey
         else:
             self.Sig_tek = self.SSS_tek
         if self.poisk == 0:
