@@ -60,7 +60,7 @@ w1=matplotlib.pyplot.plot(Time,SS6, label="SS6")
 w2=matplotlib.pyplot.plot(Time,SS7, label="SS7")
 matplotlib.pyplot.ylabel("SS") # ось абсцисс
 matplotlib.pyplot.xlabel("Time") # ось ординат
-matplotlib.pyplot.yscale('log')
+#matplotlib.pyplot.yscale('log')
 grid4 = matplotlib.pyplot.grid(True)
 legend4=matplotlib.pyplot.legend()
 matplotlib.pyplot.show()
