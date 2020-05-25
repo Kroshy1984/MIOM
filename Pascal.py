@@ -553,9 +553,14 @@ class Pascal():
                 self.W2.append(self.w[2])
                 self.W3.append(self.w[3])
                 self.W4.append(self.w[4])
-                """self.SS1.append(self.ss1)
-                self.SS2.append(self.ss2)
-                self.SS3.append(self.ss3)"""
+                if self.io!=2:
+                    self.SS1.append(0)
+                    self.SS2.append(0)
+                    self.SS3.append(0)
+                else:
+                    self.SS1.append(self.ss1)
+                    self.SS2.append(self.ss2)
+                    self.SS3.append(self.ss3)
                 self.SS6.append(self.ss6)
                 self.SS7.append(self.ss7)
 
@@ -610,12 +615,12 @@ class Pascal():
         return self.W2
     def W4(self):
         return self.W4
-    """def SS1(self):
+    def SS1(self):
         return self.SS1
     def SS2(self):
         return self.SS2
     def SS3(self):
-        return self.SS3"""
+        return self.SS3
     def SS6(self):
         return self.SS6
     def SS7(self):
@@ -751,14 +756,14 @@ class Pascal():
         else:
             # TODO: проверила формулы
             self.f[0] = self.y[1]
-            # ss1 = (4.0 / 3.0 - self.vb / 3.0) * self.ka * self.vg * \
+            # self.ss1 = (4.0 / 3.0 - self.vb / 3.0) * self.ka * self.vg * \
             #       math.log1p(1 + self.vg * self.y[0]) / (1.0 + self.vg * self.y[0])
-            ss1 = (4.0 / 3.0 - self.vb / 3.0) * self.ka * self.vg * \
+            self.ss1 = (4.0 / 3.0 - self.vb / 3.0) * self.ka * self.vg * \
                   math.log(1 + self.vg * self.y[0]) / (1.0 + self.vg * self.y[0])
-            ss2 = (self.vb + (1.0 - self.vb) * self.q0) * self.dd / (1.0 + self.vg * self.y[0])
-            ss3 = self.bb * self.pc * (
+            self.ss2 = (self.vb + (1.0 - self.vb) * self.q0) * self.dd / (1.0 + self.vg * self.y[0])
+            self.ss3 = self.bb * self.pc * (
                     self.vb * math.sqrt(1.0 + self.vg * self.y[0]) + (1.0 - self.vb) * (1.0 + self.vg * self.y[0]))
-            self.f[1] = ss3 - ss1 - ss2
+            self.f[1] = self.ss3 - self.ss1 - self.ss2
             # TODO: проверила формулы
         self.f[2] = self.i2 * (-1.0)
         self.f[3] = self.y[2] - self.i2 * (self.Gamma0 + self.Gamma1)
