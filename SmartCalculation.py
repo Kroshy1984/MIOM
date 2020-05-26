@@ -63,9 +63,9 @@ class SmartCalculation():
         label21 = tkinter.Label(self.Smart, text="Введите количество витков, шт.",
                                 bg="lightgrey", fg="red")
         label21.place(x=10, y=460)
-        label23 = tkinter.Label(self.Smart, text="R0",
+        label23 = tkinter.Label(self.Smart, text="Погрешность расчета индуктора",
                                 bg="lightgrey", fg="red")
-        label23.place(x=850, y=210)
+        label23.place(x=650, y=210)
         label24 = tkinter.Label(self.Smart, text="Размер межвитковой изоляции, м",
                                 bg="lightgrey", fg="red")
         label24.place(x=650, y=260)
@@ -403,7 +403,7 @@ class SmartCalculation():
         label3.place(x=510, y=70)
         label4 = tkinter.Label(self.BasaM2, text="FW-величина тока короткого замыкания", bg="lightgrey", fg="black")
         label4.place(x=510, y=90)
-        label7 = tkinter.Label(self.BasaM2, text="R0-активное сопротивление установки", bg="lightgrey", fg="black")
+        label7 = tkinter.Label(self.BasaM2, text="R0", bg="lightgrey", fg="black")
         label7.place(x=510, y=110)
         label8 = tkinter.Label(self.BasaM2, text="FCE-частота колебаний разрядного тока МИУ в режиме короткого замыкания",
                        bg="lightgrey", fg="black")
