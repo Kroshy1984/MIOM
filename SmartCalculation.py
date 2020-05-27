@@ -4,7 +4,7 @@ import sqlite3
 from tkinter.ttk import Treeview
 import WindowMashins
 import Materials
-
+import datetime
 
 class SmartCalculation():
     def __init__(self):
@@ -183,8 +183,14 @@ class SmartCalculation():
         btn10 = tkinter.Button(self.Smart, text="Рассчитать K1", bg="yellow", fg="black",
                               command=self.K1)
         btn10.place(x=600, y=700)
+        btn11 = tkinter.Button(self.Smart, text="Записать результаты в базу", bg="black", fg="white", command=self.WriteResults)
+        btn11.place(x=850, y=900)
         self.text=tkinter.Text(self.Smart, height=35)
         self.text.place(x=1100,y=360)
+
+    def WriteResults(self):
+        a=datetime.datetime.now()
+        print(a)
 
     def K1(self):
         self.DOT = self.message_entry1.get()
