@@ -207,6 +207,17 @@ class SmartCalculation():
         cursor.execute('''Insert into EntranceData values (?,?,?,?,?,?,?,?,?,?,?,?,?);''',
                        (f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11, f12, f13))
         mt.commit()
+        f14=self.DIB
+        f15=self.RIB
+        f16=self.ESP
+        f17=self.WYD
+        f18=self.WDB
+        f19=self.WMIR
+        f20=self.WMUR
+        cursor = mt.cursor()
+        cursor.execute('''Insert into form values (?,?,?,?,?,?,?,?,?);''',
+                       (f1, f2, f14, f15, f16, f17, f18, f19, f20))
+        mt.commit()
 
     def K1(self):
         self.DOT = self.message_entry1.get()
@@ -477,34 +488,37 @@ class SmartCalculation():
         self.RC = self.message_entry4.get()
         self.BCM = float(self.BCM1) * pow(10, 7)
         self.KPD = self.message_entry8.get()
+        self.SC = self.message_entry15.get()  # длина индуктора
+        self.HSC = self.message_entry16.get()  # высота индуктора
+        self.NCT1 = self.message_entry21.get()  # высота индуктора
         f = Computing.Form(float(self.DOT), float(self.ST), float(self.BCM), float(self.KDM), float(self.MM),
                            float(self.LBT), float(self.KPD), float(self.RC), self.operation)
-        DIB = Computing.Form.DIB(f)
-        s = "Внутренний диаметр трубчатой заготовки:" + str(DIB) + ",м"
+        self.DIB = Computing.Form.DIB(f)
+        s = "Внутренний диаметр трубчатой заготовки:" + str(self.DIB) + ",м"
         self.text.insert(1.0, s)
-        RIB = Computing.Form.RIB(f)
-        s1 = "\n" + "Внутренний радиус трубчатой заготовки:" + str(RIB) + ",м"
+        self.RIB = Computing.Form.RIB(f)
+        s1 = "\n" + "Внутренний радиус трубчатой заготовки:" + str(self.RIB) + ",м"
         self.text.insert(2.0, s1)
-        ESP = Computing.Form.EPS(f, self.RC)
-        s2 = "\n" + "Cредняя величина деформации заготовки:" + str(ESP) + ",м"
+        self.ESP = Computing.Form.EPS(f, self.RC)
+        s2 = "\n" + "Cредняя величина деформации заготовки:" + str(self.ESP) + ",м"
         self.text.insert(3.0, s2)
-        BCMD = Computing.Form.BCMD(f)
-        s3 = "\n" + "Динамическое значение коэффициента аппроксимации кривой упрочнения:" + str(BCMD)
+        self.BCMD = Computing.Form.BCMD(f)
+        s3 = "\n" + "Динамическое значение коэффициента аппроксимации кривой упрочнения:" + str(self.BCMD)
         self.text.insert(4.0, s3)
-        WYD = Computing.Form.WYD(f)
-        s4 = "\n" + "Удельная работа деформации:" + str(WYD) + ",Дж"
+        self.WYD = Computing.Form.WYD(f)
+        s4 = "\n" + "Удельная работа деформации:" + str(self.WYD) + ",Дж"
         self.text.insert(5.0, s4)
-        DVB = Computing.Form.DVB(f)
-        s5 = "\n" + "Деформируемый объем заготовки:" + str(DVB) + ",mm3"
+        self.DVB = Computing.Form.DVB(f)
+        s5 = "\n" + "Деформируемый объем заготовки:" + str(self.DVB) + ",mm3"
         self.text.insert(6.0, s5)
-        WDB = Computing.Form.WDB(f)
-        s6 = "\n" + "Работа деформации заготовки:" + str(WDB) + ",Дж"
+        self.WDB = Computing.Form.WDB(f)
+        s6 = "\n" + "Работа деформации заготовки:" + str(self.WDB) + ",Дж"
         self.text.insert(7.0, s6)
-        WMIR = Computing.Form.WMIR(f)
-        s7 = "\n" + 'Необходимая энергия для выполнения операции:' + str(WMIR) + ",Дж"
+        self.WMIR = Computing.Form.WMIR(f)
+        s7 = "\n" + 'Необходимая энергия для выполнения операции:' + str(self.WMIR) + ",Дж"
         self.text.insert(8.0, s7)
-        WMUR = Computing.Form.WMUR(f)
-        s8 = "\n" + "Энергоемкость установки:" + str(WMUR) + ",Дж"
+        self.WMUR = Computing.Form.WMUR(f)
+        s8 = "\n" + "Энергоемкость установки:" + str(self.WMUR) + ",Дж"
         self.text.insert(9.0, s8)
     def CalculateIt(self):
         self.text.delete(1.0, tkinter.END)
