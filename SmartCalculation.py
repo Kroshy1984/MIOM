@@ -188,9 +188,25 @@ class SmartCalculation():
         self.text=tkinter.Text(self.Smart, height=35)
         self.text.place(x=1100,y=360)
 
-    def WriteResults(self):
-        a=datetime.datetime.now()
-        print(a)
+    def WriteResults(self): #запись результатов в таблицу базы данных
+        f1 = self.message_entry.get()
+        f2 = datetime.datetime.now()
+        f3 = self.DOT
+        f4 = self.ST
+        f5 = self.RC
+        f6 = self.operation
+        f7 = self.row
+        f8 = self.inductor
+        f9 = self.z
+        f10 = self.KPD
+        f11 = self.LBT
+        f12 = self.SC
+        f13 = self.HSC
+        mt = sqlite3.connect("results.db")
+        cursor = mt.cursor()
+        cursor.execute('''Insert into EntranceData values (?,?,?,?,?,?,?,?,?,?,?,?,?);''',
+                       (f1, f2, f3, f4, f5, f6, f7, f8, f9, f10, f11, f12, f13))
+        mt.commit()
 
     def K1(self):
         self.DOT = self.message_entry1.get()
@@ -358,6 +374,7 @@ class SmartCalculation():
         self.MM = row[4]
         self.BCM1 = row[5]
         self.KDM = row[7]
+        self.z=row[0]
         self.message_entry10.delete(0, 10)
         self.message_entry10.insert(0, row[0])
         self.Materials2.destroy()
@@ -366,6 +383,7 @@ class SmartCalculation():
         sel = self.Tree2.focus()
         self.slct = self.Tree2.item(sel, option='values')
         row = self.slct
+        self.inductor=row[0]
         self.YEMP1 = row[6]
         self.message_entry18.delete(0, 10)
         self.message_entry18.insert(0, row[0])
