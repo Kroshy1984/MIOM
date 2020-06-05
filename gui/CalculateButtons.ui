@@ -15,28 +15,28 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
-    <widget class="QPushButton" name="pushButton">
+    <widget class="QPushButton" name="pushButtonInductor">
      <property name="text">
       <string>Рассчитать индуктор</string>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QPushButton" name="pushButton_4">
+    <widget class="QPushButton" name="pushButtonForm">
      <property name="text">
       <string>Рассчитать формовку</string>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QPushButton" name="pushButton_3">
+    <widget class="QPushButton" name="pushButtonEps">
      <property name="text">
       <string>Рассчитать Eps</string>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QPushButton" name="pushButton_2">
+    <widget class="QPushButton" name="pushButtonK1">
      <property name="text">
       <string>Рассчитать K1</string>
      </property>

@@ -38,5 +38,5 @@ class SecondParams(QWidget):
         :return:
         """
         print("Open mashins ind db")
-        db_name = "Metalls.db"
+        db_name = "mashins.db"
         self.db_view = BaseView(db_name)

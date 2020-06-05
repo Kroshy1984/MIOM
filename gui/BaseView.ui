@@ -27,7 +27,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton">
+      <widget class="QPushButton" name="pushButtonChoose">
        <property name="text">
         <string>Выбрать</string>
        </property>
