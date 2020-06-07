@@ -14,17 +14,32 @@ class InitialParameters(QWidget):
         self.pushButtonMachine.released.connect(self.open_machines_db)
 
         self.radioButtonCalc.setChecked(True)
-        # self.radioButtonCalc.toggled.connect(self.inductor_calculations_option())
+        self.radioButtonCalc.toggled.connect(self.inductor_calculations_option)
+        self.radioButtonCalc.toggled.emit(True)
 
         self.db_view = BaseView()
 
-    def inductor_calculations_option(self):
+    @pyqtSlot(bool)
+    def inductor_calculations_option(self, selected):
         """
         Блокирование полей ввода при автоматическом расчете индуктора
         :return:
         """
         print("inductor_calculations_option")
-        # self.lineEditWidthCoilInductor.setReadOnly(True)
+        print(selected)
+        blocked = not selected
+        self.lineEditWidthCoilInductor.setEnabled(blocked)
+        self.lineEditHeightCoilInductor.setEnabled(blocked)
+        self.lineEditNumberCoilsInductor.setEnabled(blocked)
+        self.lineEditSizeIsolationInductor.setEnabled(blocked)
+        self.lineEditInductance.setEnabled(blocked)
+        self.lineEditA_tp.setEnabled(blocked)
+        self.lineEditB_tp.setEnabled(blocked)
+        self.lineEditHB_tp.setEnabled(blocked)
+        self.lineEditLB_tp.setEnabled(blocked)
+        # self.lineEditLB_tp.setText("0.1")
+        self.pushButtonCalcInductor.setEnabled(selected)
+
 
     @pyqtSlot()
     def open_materials_db_billet(self):
