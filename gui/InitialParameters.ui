@@ -30,7 +30,7 @@
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="QLineEdit" name="lineEdit"/>
+         <widget class="QLineEdit" name="lineEditBilletName"/>
         </item>
         <item row="1" column="0">
          <widget class="QLabel" name="label_2">
@@ -61,18 +61,18 @@
          </widget>
         </item>
         <item row="1" column="1">
-         <widget class="QLineEdit" name="lineEdit_13"/>
+         <widget class="QLineEdit" name="lineEditOuterDiameter"/>
         </item>
         <item row="2" column="1">
-         <widget class="QLineEdit" name="lineEdit_14"/>
+         <widget class="QLineEdit" name="lineEditSideThickness"/>
         </item>
         <item row="3" column="1">
-         <widget class="QLineEdit" name="lineEdit_15"/>
+         <widget class="QLineEdit" name="lineEditLengthDeform"/>
         </item>
         <item row="4" column="1">
          <layout class="QHBoxLayout" name="horizontalLayout_4">
           <item>
-           <widget class="QLineEdit" name="lineEdit_16"/>
+           <widget class="QLineEdit" name="lineEditBilletMaterial"/>
           </item>
           <item>
            <spacer name="horizontalSpacer_2">
@@ -113,7 +113,7 @@
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="QComboBox" name="comboBox"/>
+         <widget class="QComboBox" name="comboBoxOperationType"/>
         </item>
         <item row="1" column="0">
          <widget class="QLabel" name="label_7">
@@ -123,7 +123,7 @@
          </widget>
         </item>
         <item row="1" column="1">
-         <widget class="QComboBox" name="comboBox_2"/>
+         <widget class="QComboBox" name="comboBoxOperationName"/>
         </item>
         <item row="2" column="0">
          <widget class="QLabel" name="label_8">
@@ -133,7 +133,7 @@
          </widget>
         </item>
         <item row="2" column="1">
-         <widget class="QLineEdit" name="lineEdit_17"/>
+         <widget class="QLineEdit" name="lineEditKPD"/>
         </item>
        </layout>
       </widget>
@@ -152,7 +152,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QLineEdit" name="lineEdit_3"/>
+         <widget class="QLineEdit" name="lineEditMachineName"/>
         </item>
         <item>
          <widget class="QPushButton" name="pushButtonMachine">
@@ -174,7 +174,7 @@
         </widget>
        </item>
        <item row="0" column="1">
-        <widget class="QLineEdit" name="lineEdit_18"/>
+        <widget class="QLineEdit" name="lineEditKP"/>
        </item>
        <item row="1" column="0">
         <widget class="QLabel" name="label_21">
@@ -184,7 +184,7 @@
         </widget>
        </item>
        <item row="1" column="1">
-        <widget class="QLineEdit" name="lineEdit_19"/>
+        <widget class="QLineEdit" name="lineEditKappa"/>
        </item>
       </layout>
      </item>
@@ -253,7 +253,7 @@
           <item row="0" column="1">
            <layout class="QHBoxLayout" name="horizontalLayout">
             <item>
-             <widget class="QLineEdit" name="lineEdit_2"/>
+             <widget class="QLineEdit" name="lineEditMaterialInductor"/>
             </item>
             <item>
              <spacer name="horizontalSpacer">
@@ -360,7 +360,7 @@
           <item row="9" column="0">
            <widget class="QLabel" name="label_18">
             <property name="text">
-             <string>LLB_ТП</string>
+             <string>LB_ТП</string>
             </property>
            </widget>
           </item>
@@ -370,6 +370,20 @@
          </layout>
         </item>
        </layout>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButtonLoadParameters">
+       <property name="text">
+        <string>Загрузить готовые параметры...</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButtonCalcFirsPhase">
+       <property name="text">
+        <string>Рассчитать первый этап</string>
+       </property>
       </widget>
      </item>
      <item>

@@ -15,19 +15,19 @@ class MainWindow(QMainWindow):
         self.setWindowTitle('Простой расчет формовки и параметров индуктора')
         vbox = QVBoxLayout()
         hbox_params = QHBoxLayout()
-        inParam = InitialParameters()
-        # secondParam = SecondParams()
+        self.initial_parameters = InitialParameters(parent=self)
+        self.secondary_parameters = SecondaryParameters()
         # thirdParam = ThirdParams()
         # hbox.addStretch(1)
-        hbox_params.addWidget(inParam)
-        # hbox_params.addWidget(secondParam)
+        hbox_params.addWidget(self.initial_parameters)
+        hbox_params.addWidget(self.secondary_parameters)
         # hbox_params.addWidget(thirdParam)
 
         hbox_calculate = QHBoxLayout()
         calc = CalculateButtons()
         winout = OutputWindow()
-        hbox_calculate.addWidget(calc)
-        hbox_calculate.addWidget(winout)
+        # hbox_calculate.addWidget(calc)
+        # hbox_calculate.addWidget(winout)
 
 
 
