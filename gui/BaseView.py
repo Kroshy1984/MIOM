@@ -3,13 +3,13 @@ from PyQt5.QtWidgets import QWidget
 from PyQt5.uic import loadUi
 
 class BaseView(QWidget):
-    def __init__(self, db_name, parent=None):
+    def __init__(self, parent=None):
         QWidget.__init__(self, parent)
         loadUi('./gui/BaseView.ui', self)
         self.pushButtonChoose.released.connect(self.choose_button_clicked)
         print("base")
-        print(db_name)
-        self.show()
+        # print(db_name)
+        # self.show()
 
     @pyqtSlot()
     def choose_button_clicked(self):
@@ -19,3 +19,8 @@ class BaseView(QWidget):
         """
         print("Choosed record")
         self.close()
+
+    def show_db_view(self, name):
+        print("Вывод бд:", name)
+
+        self.show()
