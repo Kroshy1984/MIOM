@@ -99,7 +99,7 @@ class InitialParameters(QWidget):
         self.lineEditBilletName.setText("Наименование")
         self.lineEditOuterDiameter.setText("Наружный диаметр")
         self.lineEditSideThickness.setText("Толщина стенки")
-        self.lineEditLengthDeform.setText("Дина деформируемой зоны")
+        self.lineEditLengthDeform.setText("Длина деформируемой зоны")
         self.lineEditBilletMaterial.setText("Материал")
 
         self.lineEditKPD.setText("КПД")
@@ -117,3 +117,12 @@ class InitialParameters(QWidget):
         self.lineEditB_tp.setText("B_ТП")
         self.lineEditHB_tp.setText("HB_ТП")
         self.lineEditLB_tp.setText("LB_ТП")
+
+    def get_parameters(self):
+        self.name=self.lineEditBilletName.text()
+        self.DOT=self.lineEditOuterDiameter.text()
+        self.ST=self.lineEditSideThickness.text()
+        self.LBT=self.lineEditSideThickness.text()
+        self.RC=self.lineEditLengthDeform.text()
+
+
