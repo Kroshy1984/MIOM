@@ -87,6 +87,7 @@ class InitialParameters(QWidget):
     def start_calc_first_phase(self):
         print("start_calc_first_phase")
         self._parent.secondary_parameters._show(True)
+        self.get_parameters()
 
 
 
@@ -124,5 +125,7 @@ class InitialParameters(QWidget):
         self.ST=self.lineEditSideThickness.text()
         self.LBT=self.lineEditSideThickness.text()
         self.RC=self.lineEditLengthDeform.text()
+
+
 
 

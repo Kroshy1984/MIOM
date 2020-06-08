@@ -1,6 +1,8 @@
 from PyQt5.QtCore import pyqtSlot
 from PyQt5.QtWidgets import QWidget
 from PyQt5.uic import loadUi
+from PyQt5 import QtSql
+import sqlite3
 
 class BaseView(QWidget):
     def __init__(self, parent=None):
@@ -22,5 +24,13 @@ class BaseView(QWidget):
 
     def show_db_view(self, name):
         print("Вывод бд:", name)
+        query = QtSql.QSqlQuery()
+        db = QtSql.QSqlDatabase.addDatabase("QSQLITE")
+        db.setDatabaseName("Metalls.db")
+        db.open()
+        model = QtSql.QSqlQueryModel()
+        model.setQuery("SELECT * FROM Mettals")
+        #self.tableWidget.setModel(model)
+
 
         self.show()
