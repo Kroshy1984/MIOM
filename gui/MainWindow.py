@@ -3,8 +3,6 @@ from PyQt5.QtWidgets import QWidget, QVBoxLayout, QMainWindow, QPushButton, QHBo
 from PyQt5.uic import loadUi
 from gui.InitialParameters import InitialParameters
 from gui.SecondaryParameters import SecondaryParameters
-from gui.ThirdParams import ThirdParams
-from gui.CalculateButtons import CalculateButtons
 from gui.OutputWindow import OutputWindow
 from gui.BaseView import BaseView
 
@@ -24,8 +22,7 @@ class MainWindow(QMainWindow):
         # hbox_params.addWidget(thirdParam)
 
         hbox_calculate = QHBoxLayout()
-        calc = CalculateButtons()
-        winout = OutputWindow()
+        # winout = OutputWindow()
         # hbox_calculate.addWidget(calc)
         # hbox_calculate.addWidget(winout)
 
