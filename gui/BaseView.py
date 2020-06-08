@@ -31,6 +31,4 @@ class BaseView(QWidget):
         model = QtSql.QSqlQueryModel()
         model.setQuery("select* from material")
         self.tableView.setModel(model)
-
-
         self.show()
