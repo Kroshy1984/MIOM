@@ -29,8 +29,8 @@ class BaseView(QWidget):
         db.setDatabaseName("Metalls.db")
         db.open()
         model = QtSql.QSqlQueryModel()
-        model.setQuery("SELECT * FROM Mettals")
-        #self.tableWidget.setModel(model)
+        model.setQuery("select* from material")
+        self.tableView.setModel(model)
 
 
         self.show()
