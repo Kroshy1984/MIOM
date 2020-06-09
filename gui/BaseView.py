@@ -10,20 +10,19 @@ class BaseView(QWidget):
         loadUi('./gui/BaseView.ui', self)
         self.pushButtonChoose.released.connect(self.choose_button_clicked)
         self.tableView.setSelectionBehavior(QAbstractItemView.SelectRows)
+        self.tableView.setSelectionMode(QAbstractItemView.SingleSelection)
         print("base")
-        # selectionModel = self.tableView.selectionModel()
-        # print(self.tableView.selectionModel())
         self.tableView.clicked.connect(self.selectChanged)
-        # self.
-        # print(db_name)
-        # self.show()
+
 
     @pyqtSlot()
     def selectChanged(self):
-        indexes = self.tableView.selectionModel().selectedRows()
-        for index in sorted(indexes):
-            print('Row %d is selected' % index.row())
-        # print(selected)
+        row = self.tableView.selectionModel().selectedRows()[0].row()
+        record = self.model.record(row) #.value(column);
+        self.current_record = dict()
+        for i in range(record.count()):
+            self.current_record[record.fieldName(i)] = record.value(i)
+        print(self.current_record)
 
     @pyqtSlot()
     def choose_button_clicked(self):
@@ -32,9 +31,13 @@ class BaseView(QWidget):
         :return:
         """
         print("Choosed record")
-        print(self.tableView.selectionModel().selectedRows())
+        if self.tableView.selectionModel().hasSelection():
+            self.selectChanged()
+            self.close()
+        else:
+            print("Нет выбранных строк")
 
-        self.close()
+
 
     def show_db_view(self, name,sql):
         print("Вывод бд:", name)
@@ -43,9 +46,9 @@ class BaseView(QWidget):
         db.open()
         model = QtSql.QSqlQueryModel()
         model.setQuery(sql)
+        self.model = model
         self.tableView.setModel(model)
         cell_text = self.tableView.selectionModel().selectedRows()
-        print(self.tableView.selectionModel().selectedRows(), self.tableView.selectionModel().selectedColumns())
         print(cell_text)
         db.close()
         self.show()
