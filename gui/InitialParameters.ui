@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>720</width>
-    <height>440</height>
+    <width>726</width>
+    <height>463</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -49,7 +49,7 @@
         <item row="3" column="0">
          <widget class="QLabel" name="label_4">
           <property name="text">
-           <string>Дина деформируемой зоны</string>
+           <string>Длина деформируемой зоны</string>
           </property>
          </widget>
         </item>
@@ -327,56 +327,58 @@
           <item row="5" column="1">
            <widget class="QLineEdit" name="lineEditInductance"/>
           </item>
-          <item row="6" column="0">
-           <widget class="QLabel" name="label_15">
-            <property name="text">
-             <string>A_ТП</string>
-            </property>
-           </widget>
-          </item>
-          <item row="6" column="1">
-           <widget class="QLineEdit" name="lineEditA_tp"/>
-          </item>
-          <item row="7" column="0">
-           <widget class="QLabel" name="label_16">
-            <property name="text">
-             <string>B_ТП</string>
-            </property>
-           </widget>
-          </item>
-          <item row="7" column="1">
-           <widget class="QLineEdit" name="lineEditB_tp"/>
-          </item>
-          <item row="8" column="0">
-           <widget class="QLabel" name="label_17">
-            <property name="text">
-             <string>HB_ТП</string>
-            </property>
-           </widget>
-          </item>
-          <item row="8" column="1">
-           <widget class="QLineEdit" name="lineEditHB_tp"/>
-          </item>
-          <item row="9" column="0">
-           <widget class="QLabel" name="label_18">
-            <property name="text">
-             <string>LB_ТП</string>
-            </property>
-           </widget>
-          </item>
-          <item row="9" column="1">
-           <widget class="QLineEdit" name="lineEditLB_tp"/>
-          </item>
          </layout>
         </item>
+        <item>
+         <widget class="QGroupBox" name="groupBox_6">
+          <property name="title">
+           <string>Данные выводов индуктора</string>
+          </property>
+          <layout class="QFormLayout" name="formLayout_6">
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_15">
+             <property name="text">
+              <string>A_ТП</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QLineEdit" name="lineEditA_tp"/>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="label_16">
+             <property name="text">
+              <string>B_ТП</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <widget class="QLineEdit" name="lineEditB_tp"/>
+           </item>
+           <item row="2" column="0">
+            <widget class="QLabel" name="label_18">
+             <property name="text">
+              <string>LB_ТП</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="QLineEdit" name="lineEditLB_tp"/>
+           </item>
+           <item row="3" column="0">
+            <widget class="QLabel" name="label_17">
+             <property name="text">
+              <string>HB_ТП</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="1">
+            <widget class="QLineEdit" name="lineEditHB_tp"/>
+           </item>
+          </layout>
+         </widget>
+        </item>
        </layout>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="pushButtonLoadParameters">
-       <property name="text">
-        <string>Загрузить готовые параметры...</string>
-       </property>
       </widget>
      </item>
      <item>
