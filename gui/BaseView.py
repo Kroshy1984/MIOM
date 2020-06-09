@@ -22,13 +22,13 @@ class BaseView(QWidget):
         print("Choosed record")
         self.close()
 
-    def show_db_view(self, name):
+    def show_db_view(self, name,sql):
         print("Вывод бд:", name)
         query = QtSql.QSqlQuery()
         db = QtSql.QSqlDatabase.addDatabase("QSQLITE")
         db.setDatabaseName("Metalls.db")
         db.open()
         model = QtSql.QSqlQueryModel()
-        model.setQuery("select* from material")
+        model.setQuery(sql)
         self.tableView.setModel(model)
         self.show()

@@ -61,7 +61,8 @@ class InitialParameters(QWidget):
         """
         print("Open materials db")
         db_name = "Metalls.db"
-        self.db_view.show_db_view(db_name)
+        sql="select* from material"
+        self.db_view.show_db_view(db_name, sql)
 
     @pyqtSlot()
     def open_materials_db_inductor(self):
