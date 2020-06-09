@@ -26,7 +26,7 @@ class BaseView(QWidget):
         print("Вывод бд:", name)
         query = QtSql.QSqlQuery()
         db = QtSql.QSqlDatabase.addDatabase("QSQLITE")
-        db.setDatabaseName("Metalls.db")
+        db.setDatabaseName(name)
         db.open()
         model = QtSql.QSqlQueryModel()
         model.setQuery(sql)

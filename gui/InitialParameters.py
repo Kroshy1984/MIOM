@@ -83,7 +83,8 @@ class InitialParameters(QWidget):
         """
         print("Open mashins ind db")
         db_name = "mashins.db"
-        self.db_view.show_db_view(db_name)
+        sql="select* from Mashines"
+        self.db_view.show_db_view(db_name,sql)
 
     @pyqtSlot()
     def start_calc_first_phase(self):
