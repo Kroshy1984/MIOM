@@ -24,11 +24,13 @@ class BaseView(QWidget):
 
     def show_db_view(self, name,sql):
         print("Вывод бд:", name)
-        query = QtSql.QSqlQuery()
         db = QtSql.QSqlDatabase.addDatabase("QSQLITE")
         db.setDatabaseName(name)
         db.open()
         model = QtSql.QSqlQueryModel()
         model.setQuery(sql)
         self.tableView.setModel(model)
+        cell_text = self.tableView.selectionModel().selectedIndexes()
+        print(cell_text)
+        db.close()
         self.show()
