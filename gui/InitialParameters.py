@@ -25,7 +25,7 @@ class InitialParameters(QWidget):
         self.radioButtonCalc.toggled.connect(self.inductor_calculations_option)
         self.radioButtonCalc.toggled.emit(True)
 
-        self.pushButtonLoadParameters.released.connect(self.load_parameters)
+        # self.pushButtonLoadParameters.released.connect(self.load_parameters)
         self.pushButtonCalcFirsPhase.released.connect(self.start_calc_first_phase)
 
         # self.set_default_parameters()
@@ -44,11 +44,11 @@ class InitialParameters(QWidget):
         self.lineEditHeightCoilInductor.setEnabled(blocked)
         self.lineEditNumberCoilsInductor.setEnabled(blocked)
         self.lineEditSizeIsolationInductor.setEnabled(blocked)
-        self.lineEditInductance.setEnabled(blocked)
-        self.lineEditA_tp.setEnabled(blocked)
-        self.lineEditB_tp.setEnabled(blocked)
-        self.lineEditHB_tp.setEnabled(blocked)
-        self.lineEditLB_tp.setEnabled(blocked)
+        # self.lineEditInductance.setEnabled(blocked)
+        # self.lineEditA_tp.setEnabled(blocked)
+        # self.lineEditB_tp.setEnabled(blocked)
+        # self.lineEditHB_tp.setEnabled(blocked)
+        # self.lineEditLB_tp.setEnabled(blocked)
         # self.lineEditLB_tp.setText("0.1")
         self.pushButtonCalcInductor.setEnabled(selected)
 

@@ -10,6 +10,7 @@ class SecondaryParameters(QWidget):
         print("2")
         self.setVisible(False)
         self.pushButtonCalcSecondPhase.released.connect(self.start_calc_second_phase)
+        # self.set_default_parameters()
 
     def set_blocked(self):
         print("set_blocked")
@@ -24,3 +25,20 @@ class SecondaryParameters(QWidget):
         :return:
         """
         print("start_calc_second_phase")
+
+    def set_default_parameters(self):
+        print("set_default_parameters")
+        self.lineEditPressure.setText("Давление")
+        self.lineEditFrequencyAmper.setText("Частота разрядного тока")
+        self.lineEditDischargeEnergy.setText("Энергия разряда")
+
+        self.lineEditK1.setText("K1")
+        self.lineEditK2.setText("K2")
+        self.lineEditK3.setText("K3")
+        self.lineEditK4.setText("K4")
+        self.lineEditKe.setText("Ke")
+
+        self.lineEditI0.setText("I0")
+        self.lineEditF.setText("F")
+        self.lineEditDelta.setText("Delta")
+        self.lineEditEps.setText("Eps")
