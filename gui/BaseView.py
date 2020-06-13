@@ -23,6 +23,18 @@ class BaseView(QWidget):
         for i in range(record.count()):
             self.current_record[record.fieldName(i)] = record.value(i)
         print(self.current_record)
+        self.name=self.current_record.get("Name")
+        self.PPM=self.current_record.get("PPM")
+        self.PYD=self.current_record.get("PYD")
+        self.PLM=self.current_record.get("PLM")
+        self.M_M=self.current_record.get("M_M")
+        self.B=self.current_record.get("B")
+        self.YEMP=self.current_record.get("YEMP")
+        self.KDM=self.current_record.get("KDM")
+        self.MDM=self.current_record.get("MDM")
+        self.E_z=self.current_record.get("E_z")
+        self.E_up=self.current_record.get("E_up")
+        print (self.name, self.PPM,self.PYD, self.PLM, self.M_M, self.B, self.YEMP, self.KDM, self.MDM, self.E_z, self.E_up)
 
     @pyqtSlot()
     def choose_button_clicked(self):
