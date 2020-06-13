@@ -34,7 +34,15 @@ class BaseView(QWidget):
         self.MDM=self.current_record.get("MDM")
         self.E_z=self.current_record.get("E_z")
         self.E_up=self.current_record.get("E_up")
-        print (self.name, self.PPM,self.PYD, self.PLM, self.M_M, self.B, self.YEMP, self.KDM, self.MDM, self.E_z, self.E_up)
+        self.W_mash=self.current_record.get("W_mash")
+        self.CCE=self.current_record.get("CCE")
+        self.LCE=self.current_record.get("LCE")
+        self.FCE=self.current_record.get("FCE")
+        self.Ro=self.current_record.get("Ro")
+        self.FW=self.current_record.get("FW")
+        print(self.name, self.PPM, self.PYD, self.PLM, self.M_M, self.B, self.YEMP, self.KDM, self.MDM, self.E_z,
+              self.E_up)
+        print(self.W_mash, self.CCE, self.LCE, self.FCE, self.Ro, self.FW)
 
     @pyqtSlot()
     def choose_button_clicked(self):
