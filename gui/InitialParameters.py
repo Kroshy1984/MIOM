@@ -88,7 +88,7 @@ class InitialParameters(QWidget):
         slot_name = "machines"
         sql="select* from Mashines"
         self.db_view.show_db_view(db_name, sql, slot_name)
-        #self.lineEditMachineName.setText(self.nama_mash)
+
 
     @pyqtSlot()
     def start_calc_first_phase(self):
@@ -136,13 +136,29 @@ class InitialParameters(QWidget):
     def set_billet_material(self, billet):
         self.billet_material = billet
         print("self.billet_material =", self.billet_material)
+        self.name = self.billet_material.get("Name")
+        self.PLM = self.billet_material.get("PLM")  #
+        self.M_M = self.billet_material.get("M_M")  #
+        self.BCM = self.billet_material.get("B")  #
+        self.KDM = self.billet_material.get("KDM")
+        self.lineEditBilletMaterial.setText(self.name)
 
     def set_inductor_material(self, inductor):
         self.inductor_material = inductor
         print("self.inductor_material =", self.inductor_material)
+        self.name_in = self.inductor_material.get("Name")
+        self.YEMP = self.inductor_material.get("YEMP")
+        self.lineEditMaterialInductor.setText(self.name_in)
+
 
     def set_machine(self, machine):
         self.machine = machine
         print("self.machine =", self.machine)
+        self.nama_mash = self.machine.get("Name")
+        self.LCE = self.machine.get("LCE")
+        self.CCE = self.machine.get("CCE")
+        self.FCE = self.machine.get("FCE")
+        self.FW = self.machine.get("FW")
+        self.lineEditMachineName.setText(self.nama_mash)
 
 

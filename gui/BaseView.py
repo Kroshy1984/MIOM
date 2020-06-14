@@ -33,12 +33,12 @@ class BaseView(QWidget):
             current_record[record.fieldName(i)] = record.value(i)
         print(current_record)
         self.current_record_billet = current_record
-        self.name = current_record.get("Name")
+        """self.name = current_record.get("Name")
         self.PLM = current_record.get("PLM")  #
         self.M_M = current_record.get("M_M")  #
         self.BCM = current_record.get("B")  #
         self.KDM = current_record.get("KDM")  #
-        print(self.name, self.PLM, self.BCM, self.KDM)
+        print(self.name, self.PLM, self.BCM, self.KDM)"""
 
     @pyqtSlot()
     def selectChanged_inductor(self):
@@ -50,9 +50,9 @@ class BaseView(QWidget):
             current_record[record.fieldName(i)] = record.value(i)
         print(current_record)
         self.current_record_inductor = current_record
-        self.name_in = self.current_record_inductor.get("Name")
+        """self.name_in = self.current_record_inductor.get("Name")
         self.YEMP = self.current_record_inductor.get("YEMP")
-        print(self.name_in, self.YEMP)
+        print(self.name_in, self.YEMP)"""
 
     @pyqtSlot()
     def selectChanged_machines(self):
@@ -64,12 +64,12 @@ class BaseView(QWidget):
             current_record[record.fieldName(i)] = record.value(i)
         print(current_record)
         self.current_record_machine = current_record
-        self.nama_mash = self.current_record_machine.get("Name")
+        """self.nama_mash = self.current_record_machine.get("Name")
         self.LCE = self.current_record_machine.get("LCE")
         self.CCE = self.current_record_machine.get("CCE")
         self.FCE = self.current_record_machine.get("FCE")
         self.FW = self.current_record_machine.get("FW")
-        print(self.nama_mash, self.LCE, self.FCE, self.FW)
+        print(self.nama_mash, self.LCE, self.FCE, self.FW)"""
 
     @pyqtSlot()
     def choose_button_clicked(self):
