@@ -88,6 +88,7 @@ class InitialParameters(QWidget):
         slot_name = "machines"
         sql="select* from Mashines"
         self.db_view.show_db_view(db_name, sql, slot_name)
+        #self.lineEditMachineName.setText(self.nama_mash)
 
     @pyqtSlot()
     def start_calc_first_phase(self):
