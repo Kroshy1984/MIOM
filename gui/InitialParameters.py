@@ -61,8 +61,9 @@ class InitialParameters(QWidget):
         """
         print("Open materials db")
         db_name = "Metalls.db"
+        slot_name = "billet"
         sql="select* from material"
-        self.db_view.show_db_view(db_name, sql)
+        self.db_view.show_db_view(db_name, sql, slot_name)
 
     @pyqtSlot()
     def open_materials_db_inductor(self):
@@ -72,8 +73,9 @@ class InitialParameters(QWidget):
         """
         print("Open materials ind db")
         db_name = "Metalls.db"
+        slot_name = "inductor"
         sql="select* from material"
-        self.db_view.show_db_view(db_name,sql)
+        self.db_view.show_db_view(db_name, sql, slot_name)
 
     @pyqtSlot()
     def open_machines_db(self):
@@ -83,8 +85,9 @@ class InitialParameters(QWidget):
         """
         print("Open mashins ind db")
         db_name = "mashins.db"
+        slot_name = "machines"
         sql="select* from Mashines"
-        self.db_view.show_db_view(db_name,sql)
+        self.db_view.show_db_view(db_name, sql, slot_name)
 
     @pyqtSlot()
     def start_calc_first_phase(self):
