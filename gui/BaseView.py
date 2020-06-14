@@ -33,25 +33,11 @@ class BaseView(QWidget):
         print(current_record)
         self.current_record_billet = current_record
         self.name=current_record.get("Name")
-        self.PPM=current_record.get("PPM")
-        self.PYD=current_record.get("PYD")
-        self.PLM=current_record.get("PLM")
-        self.M_M=current_record.get("M_M")
-        self.B=current_record.get("B")
-        self.YEMP=current_record.get("YEMP")
-        self.KDM=current_record.get("KDM")
-        self.MDM=current_record.get("MDM")
-        self.E_z=current_record.get("E_z")
-        self.E_up=current_record.get("E_up")
-        self.W_mash=current_record.get("W_mash")
-        self.CCE=current_record.get("CCE")
-        self.LCE=current_record.get("LCE")
-        self.FCE=current_record.get("FCE")
-        self.Ro=current_record.get("Ro")
-        self.FW=current_record.get("FW")
-        print(self.name, self.PPM, self.PYD, self.PLM, self.M_M, self.B, self.YEMP, self.KDM, self.MDM, self.E_z,
-              self.E_up)
-        print(self.W_mash, self.CCE, self.LCE, self.FCE, self.Ro, self.FW)
+        self.PLM=current_record.get("PLM")#
+        self.M_M=current_record.get("M_M")#
+        self.BCM=current_record.get("B")#
+        self.KDM=current_record.get("KDM")#
+        print(self.name,self.PLM,self.BCM,self.KDM)
 
     @pyqtSlot()
     def selectChanged_inductor(self):
@@ -63,6 +49,9 @@ class BaseView(QWidget):
             current_record[record.fieldName(i)] = record.value(i)
         print(current_record)
         self.current_record_inductor = current_record
+        self.name_in=self.current_record_inductor.get("Name")
+        self.YEMP=self.current_record_inductor.get("YEMP")
+        print(self.name_in,self.YEMP)
 
 
     @pyqtSlot()
@@ -75,6 +64,13 @@ class BaseView(QWidget):
             current_record[record.fieldName(i)] = record.value(i)
         print(current_record)
         self.current_record_machine = current_record
+        self.nama_mash=self.current_record_machine.get("Name")
+        self.LCE=self.current_record_machine.get("LCE")
+        self.CCE=self.current_record_machine.get("CCE")
+        self.FCE=self.current_record_machine.get("FCE")
+        self.FW=self.current_record_machine.get("FW")
+        print(self.nama_mash,self.LCE,self.FCE, self.FW)
+
 
 
 
