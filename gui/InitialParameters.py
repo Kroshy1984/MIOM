@@ -29,7 +29,7 @@ class InitialParameters(QWidget):
         self.pushButtonCalcFirsPhase.released.connect(self.start_calc_first_phase)
 
         # self.set_default_parameters()
-        self.db_view = BaseView()
+        self.db_view = BaseView(caller_view=self)
 
     @pyqtSlot(bool)
     def inductor_calculations_option(self, selected):
@@ -133,6 +133,16 @@ class InitialParameters(QWidget):
         self.LBT=self.lineEditSideThickness.text()
         self.RC=self.lineEditLengthDeform.text()
 
+    def set_billet_material(self, billet):
+        self.billet_material = billet
+        print("self.billet_material =", self.billet_material)
 
+    def set_inductor_material(self, inductor):
+        self.inductor_material = inductor
+        print("self.inductor_material =", self.inductor_material)
+
+    def set_machine(self, machine):
+        self.machine = machine
+        print("self.machine =", self.machine)
 
 
