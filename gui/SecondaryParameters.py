@@ -28,6 +28,8 @@ class SecondaryParameters(QWidget):
 
     def set_default_parameters(self):
         print("set_default_parameters")
+        self.lineEditAttenuationCoefField.setText("Коэффициент ослабления поля")
+        self.lineEditFieldFactor.setText("Фактор поля в заготовке, %")
         self.lineEditPressure.setText("Давление")
         self.lineEditFrequencyAmper.setText("Частота разрядного тока")
         self.lineEditDischargeEnergy.setText("Энергия разряда")
