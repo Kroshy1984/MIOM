@@ -2,6 +2,7 @@ from PyQt5.QtCore import pyqtSlot
 from PyQt5.QtWidgets import QWidget, QAbstractItemView, QDialog
 from PyQt5.uic import loadUi
 from PyQt5 import QtSql
+from gui.AddRecord import AddRecord
 from PyQt5 import QtCore
 from PyQt5 import QtGui
 import sqlite3
@@ -18,6 +19,8 @@ class BaseView(QWidget):
         self.tableView.setSelectionMode(QAbstractItemView.SingleSelection)
         print("base")
         self.tableView.clicked.connect(self.selectChanged_billet)
+
+        self.pushButtonAddRecord.released.connect(self.add_button_clicked)
         # self.setWindowModality(QtCore.Qt.WindowModal)
         # self.setWindowModality(QtCore.Qt.ApplicationModal)
         # self.setAttribute(QtCore.Qt.WA_DeleteOnClose, True)
@@ -120,3 +123,12 @@ class BaseView(QWidget):
         print(cell_text)
         db.close()
         self.show()
+
+    @pyqtSlot()
+    def add_button_clicked(self):
+        print("add_button_clicked")
+        self.show_add_record_view()
+
+    def show_add_record_view(self):
+        self.rec = AddRecord()
+        self.rec.show()

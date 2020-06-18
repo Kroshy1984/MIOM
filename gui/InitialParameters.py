@@ -13,7 +13,6 @@ class InitialParameters(QWidget):
         self.pushButtonMaterialBillet.released.connect(self.open_materials_db_billet)
         self.pushButtonMaterialInductor.released.connect(self.open_materials_db_inductor)
         self.pushButtonMachine.released.connect(self.open_machines_db)
-
         self.comboBoxOperationType.addItems(["Не выбрано", "Обжим", "Раздача"])
         self.comboBoxOperationName.addItems(["Не выбрано",
                                              "Формовка цилиндра",
