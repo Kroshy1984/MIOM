@@ -2,6 +2,7 @@ from PyQt5.QtCore import pyqtSlot
 from PyQt5.QtWidgets import QWidget
 from PyQt5.uic import loadUi
 from gui.BaseView import BaseView
+from Computing import Form
 
 class InitialParameters(QWidget):
     def __init__(self, parent=None):
@@ -91,12 +92,12 @@ class InitialParameters(QWidget):
 
 
     @pyqtSlot()
-    def start_calc_first_phase(self):
+    def start_calc_first_phase(self): # рассчитать первый этап
         print("start_calc_first_phase")
         self._parent.secondary_parameters._show(True)
         self.get_parameters()
-
-
+        а=Form(float(self.DOT), float(self.ST), float(self.BCM), float(self.KDM), float(self.MM),
+                           float(self.LBT), float(self.KPD), float(self.RC), self.operation)
 
     @pyqtSlot()
     def load_parameters(self):
@@ -132,16 +133,18 @@ class InitialParameters(QWidget):
         self.ST=self.lineEditSideThickness.text()
         self.LBT=self.lineEditSideThickness.text()
         self.RC=self.lineEditLengthDeform.text()
+        self.operation=self.comboBoxOperationType.currentText()
 
     def set_billet_material(self, billet):
         self.billet_material = billet
         print("self.billet_material =", self.billet_material)
-        self.name = self.billet_material.get("Name")
+        self.name_mat = self.billet_material.get("Name")
         self.PLM = self.billet_material.get("PLM")  #
         self.M_M = self.billet_material.get("M_M")  #
         self.BCM = self.billet_material.get("B")  #
         self.KDM = self.billet_material.get("KDM")
-        self.lineEditBilletMaterial.setText(self.name)
+
+        self.lineEditBilletMaterial.setText(self.name_mat)
 
     def set_inductor_material(self, inductor):
         self.inductor_material = inductor
