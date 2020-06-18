@@ -14,6 +14,7 @@ class InitialParameters(QWidget):
         self.pushButtonMaterialBillet.released.connect(self.open_materials_db_billet)
         self.pushButtonMaterialInductor.released.connect(self.open_materials_db_inductor)
         self.pushButtonMachine.released.connect(self.open_machines_db)
+        self.pushButtonCalcInductor.released.connect(self.calculate_inductor)
 
         self.comboBoxOperationType.addItems(["Не выбрано", "Обжим", "Раздача"])
         self.comboBoxOperationName.addItems(["Не выбрано",
@@ -31,6 +32,16 @@ class InitialParameters(QWidget):
 
         # self.set_default_parameters()
         self.db_view = BaseView(caller_view=self)
+
+    @pyqtSlot()
+    def calculate_inductor(self):
+        """
+        Расчет индуктора
+        :return:
+        """
+        print("calculate_inductor")
+
+
 
     @pyqtSlot(bool)
     def inductor_calculations_option(self, selected):
