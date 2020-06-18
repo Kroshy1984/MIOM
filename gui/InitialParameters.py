@@ -35,6 +35,10 @@ class InitialParameters(QWidget):
 
     @pyqtSlot()
     def calculate_inductor(self):
+        self.get_parameters()
+        print(self.operation)
+        а = Form(float(self.DOT), float(self.ST), float(self.BCM), float(self.KDM), float(self.MM),
+                 float(self.LBT), float(self.KPD), float(self.RC), self.operation)
         """
         Расчет индуктора
         :return:
@@ -107,6 +111,7 @@ class InitialParameters(QWidget):
         print("start_calc_first_phase")
         self._parent.secondary_parameters._show(True)
         self.get_parameters()
+        print(self.operation)
         а=Form(float(self.DOT), float(self.ST), float(self.BCM), float(self.KDM), float(self.MM),
                            float(self.LBT), float(self.KPD), float(self.RC), self.operation)
 
@@ -144,15 +149,21 @@ class InitialParameters(QWidget):
         self.ST=self.lineEditSideThickness.text()
         self.LBT=self.lineEditSideThickness.text()
         self.RC=self.lineEditLengthDeform.text()
-        self.operation=self.comboBoxOperationType.currentText()
+        self.operation1=self.comboBoxOperationType.currentText()
+        self.operation2=self.comboBoxOperationName.currentText()
+        print(self.operation2)
+        if self.operation1 == "Раздача" and self.operation2 == "Формовка цилиндра":
+            self.operation="a1"
+        self.KPD=self.lineEditKPD.text()
 
     def set_billet_material(self, billet):
         self.billet_material = billet
         print("self.billet_material =", self.billet_material)
         self.name_mat = self.billet_material.get("Name")
         self.PLM = self.billet_material.get("PLM")  #
-        self.M_M = self.billet_material.get("M_M")  #
-        self.BCM = self.billet_material.get("B")  #
+        self.MM = self.billet_material.get("M_M")  #
+        self.BCM1 = self.billet_material.get("B")  #
+        self.BCM=float(self.BCM1) * pow(10, 7)
         self.KDM = self.billet_material.get("KDM")
 
         self.lineEditBilletMaterial.setText(self.name_mat)
