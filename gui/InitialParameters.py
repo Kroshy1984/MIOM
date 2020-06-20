@@ -37,8 +37,9 @@ class InitialParameters(QWidget):
     def calculate_inductor(self):#расчет индуктора
         self.get_parameters()
         print(self.operation)
-        а = Form(float(self.DOT), float(self.ST), float(self.BCM), float(self.KDM), float(self.MM),
+        a = Form(float(self.DOT), float(self.ST), float(self.BCM), float(self.KDM), float(self.MM),
                  float(self.LBT), float(self.KPD), float(self.RC), self.operation)
+        print(a)
         """
         Расчет индуктора
         :return:
