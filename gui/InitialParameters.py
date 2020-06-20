@@ -34,7 +34,7 @@ class InitialParameters(QWidget):
         self.db_view = BaseView(caller_view=self)
 
     @pyqtSlot()
-    def calculate_inductor(self):
+    def calculate_inductor(self):#расчет индуктора
         self.get_parameters()
         print(self.operation)
         а = Form(float(self.DOT), float(self.ST), float(self.BCM), float(self.KDM), float(self.MM),
