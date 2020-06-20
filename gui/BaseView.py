@@ -3,6 +3,7 @@ from PyQt5.QtWidgets import QWidget, QAbstractItemView, QDialog
 from PyQt5.uic import loadUi
 from PyQt5 import QtSql
 from gui.AddRecord import AddRecord
+from gui.AddMachine import AddMachine
 from PyQt5 import QtCore
 from PyQt5 import QtGui
 import sqlite3
@@ -130,5 +131,8 @@ class BaseView(QWidget):
         self.show_add_record_view()
 
     def show_add_record_view(self):
-        self.rec = AddRecord()
+        if self.current_slot in ["billet", "inductor"] :
+            self.rec = AddRecord()
+        elif self.current_slot in ["machines"]:
+            self.rec = AddMachine()
         self.rec.show()
