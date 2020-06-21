@@ -48,10 +48,11 @@ class InitialParameters(QWidget):
         s2=f"Установка{self.nama_mash}\n Материал индуктора {self.name_in}\n Материал индуктора {self.name_mat}\n "
 
         date=datetime.datetime.now()
-        f_obj = open(f"{date}_{self.name}_{self.operation1}_{self.operation2}.txt", "w", encoding='UTF-8')
+        f_obj = open(f"{date}_{self.name}_Формовка.txt", "w", encoding='UTF-8')
         f_obj.write(s1+s2)
-        f_obj.write("*** Р А С Ч Е Т    И Н Д У К Т О Р А ***"+"\n")
+        f_obj.write("*** Р А С Ч Е Т    Ф О Р М О В К И ***"+"\n")
         f_obj.write(f"Наименование детали {self.name}"+str(date)+"\n")
+        f_obj.write(f"{self.operation1} - {self.operation2}\n")
         f_obj.write(s)
         f_obj.close()
         """
@@ -132,6 +133,20 @@ class InitialParameters(QWidget):
                                float(self.CCE), float(self.SC), float(self.HSC), float(self.PLM), float(self.BCM), float(self.KDM), float(self.MM), float(self.KPD),
                                float(self.RC), float(self.NCT1), float(self.ZS),float(self.ZB),float(self.ZA),float(self.YEMC),float(self.LTC))
 
+        s1 = f"Внешний диаметр {self.DOT}\n Толщина стенки трубы {self.ST}\n Коэффициент упрочнения материала {self.BCM}\n" \
+             f"Динамический коэффициент {self.KDM}\n  Коэффициент степенной апроксимации {self.MM}\n Длина деформируемой зоны {self.LBT}\n" \
+             f"Коэффициент полезного действия {self.KPD}\n Радиус цилиндра {self.RC}\n"
+        s2 = f"Установка{self.nama_mash}\n Материал индуктора {self.name_in}\n Материал индуктора {self.name_mat}\n "
+        s3=f""
+        date=datetime.datetime.now()
+        s=str(i)
+        f_obj = open(f"{date}_{self.name}_Индуктор.txt", "w", encoding='UTF-8')
+        f_obj.write(s1 + s2)
+        f_obj.write("*** Р А С Ч Е Т    И Н Д У К Т О Р А ***" + "\n")
+        f_obj.write(f"Наименование детали {self.name}" + str(date) + "\n")
+        f_obj.write(f"{self.operation1} - {self.operation2}\n")
+        f_obj.write(s)
+        f_obj.close()
     def get_parameters_in(self):
         self.SC=self.lineEditWidthCoilInductor.text()
         self.HSC= self.lineEditHeightCoilInductor.text()
