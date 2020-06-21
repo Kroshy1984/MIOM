@@ -2,6 +2,7 @@ from PyQt5.QtCore import pyqtSlot
 from PyQt5.QtWidgets import QWidget
 from PyQt5.uic import loadUi
 from gui.BaseView import BaseView
+from Pascal import Pascal
 
 class SecondaryParameters(QWidget):
     def __init__(self, parent=None):
@@ -24,6 +25,7 @@ class SecondaryParameters(QWidget):
         Начало расчета второй фазы
         :return:
         """
+        f = Pascal()
         print("start_calc_second_phase")
 
     def set_default_parameters(self):

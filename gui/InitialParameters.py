@@ -137,16 +137,18 @@ class InitialParameters(QWidget):
              f"Динамический коэффициент {self.KDM}\n  Коэффициент степенной апроксимации {self.MM}\n Длина деформируемой зоны {self.LBT}\n" \
              f"Коэффициент полезного действия {self.KPD}\n Радиус цилиндра {self.RC}\n"
         s2 = f"Установка{self.nama_mash}\n Материал индуктора {self.name_in}\n Материал индуктора {self.name_mat}\n "
-        s3=f""
+        s3=f"Ширина витка -{self.SC} \n высота витка {self.HSC}\n количество витков - {self.NCT1}\n Толщина воздушной изоляции - {self.ZS}\n" \
+           f"ZB-{self.ZB}, ZA-{self.ZA}, YEMC- {self.YEMC}, LTC- {self.LTC}\n"
         date=datetime.datetime.now()
         s=str(i)
         f_obj = open(f"{date}_{self.name}_Индуктор.txt", "w", encoding='UTF-8')
-        f_obj.write(s1 + s2)
+        f_obj.write(s1+s2+s3)
         f_obj.write("*** Р А С Ч Е Т    И Н Д У К Т О Р А ***" + "\n")
         f_obj.write(f"Наименование детали {self.name}" + str(date) + "\n")
         f_obj.write(f"{self.operation1} - {self.operation2}\n")
         f_obj.write(s)
         f_obj.close()
+
     def get_parameters_in(self):
         self.SC=self.lineEditWidthCoilInductor.text()
         self.HSC= self.lineEditHeightCoilInductor.text()
