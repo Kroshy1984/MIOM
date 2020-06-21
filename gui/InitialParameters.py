@@ -2,7 +2,7 @@ from PyQt5.QtCore import pyqtSlot
 from PyQt5.QtWidgets import QWidget
 from PyQt5.uic import loadUi
 from gui.BaseView import BaseView
-from Computing import Form
+from Computing import Form, Inductor
 import datetime
 
 class InitialParameters(QWidget):
@@ -48,7 +48,7 @@ class InitialParameters(QWidget):
         s2=f"Установка{self.nama_mash}\n Материал индуктора {self.name_in}\n Материал индуктора {self.name_mat}\n "
 
         date=datetime.datetime.now()
-        f_obj = open(f"{date}_{self.name}_{self.operation1}_{self.operation2}", "w", encoding='UTF-8')
+        f_obj = open(f"{date}_{self.name}_{self.operation1}_{self.operation2}.txt", "w", encoding='UTF-8')
         f_obj.write(s1+s2)
         f_obj.write("*** Р А С Ч Е Т    И Н Д У К Т О Р А ***"+"\n")
         f_obj.write(f"Наименование детали {self.name}"+str(date)+"\n")
@@ -126,9 +126,22 @@ class InitialParameters(QWidget):
         print("start_calc_first_phase")
         self._parent.secondary_parameters._show(True)
         self.get_parameters()
+        self.get_parameters_in()
         print(self.operation)
-        а=Form(float(self.DOT), float(self.ST), float(self.BCM), float(self.KDM), float(self.MM),
-                           float(self.LBT), float(self.KPD), float(self.RC), self.operation)
+        i=Inductor(float(self.LBT), self.operation, float(self.DOT), float(self.ST), float(self.FW), float(self.YEMP), float(self.FCE), float(self.LCE), 1* pow(10, -12),
+                               float(self.CCE), float(self.SC), float(self.HSC), float(self.PLM), float(self.BCM), float(self.KDM), float(self.MM), float(self.KPD),
+                               float(self.RC), float(self.NCT1), float(self.ZS),float(self.ZB),float(self.ZA),float(self.YEMC),float(self.LTC))
+
+    def get_parameters_in(self):
+        self.SC=self.lineEditWidthCoilInductor.text()
+        self.HSC= self.lineEditHeightCoilInductor.text()
+        self.NCT1= self.lineEditNumberCoilsInductor.text()
+        self.ZS=0.00065
+        self.ZB=0.001
+        self.ZA=0.0025
+        self.YEMC=1.78
+        self.LTC=0.7*pow(10,-7)
+
 
     @pyqtSlot()
     def load_parameters(self):
@@ -176,7 +189,7 @@ class InitialParameters(QWidget):
         print("self.billet_material =", self.billet_material)
         self.name_mat = self.billet_material.get("Name")
         self.PLM = self.billet_material.get("PLM")  #
-        self.MM = self.billet_material.get("M_M")  #
+        self.MM = float(self.billet_material.get("M_M"))  #
         self.BCM1 = self.billet_material.get("B")  #
         self.BCM=float(self.BCM1) * pow(10, 7)
         self.KDM = self.billet_material.get("KDM")
@@ -187,7 +200,8 @@ class InitialParameters(QWidget):
         self.inductor_material = inductor
         print("self.inductor_material =", self.inductor_material)
         self.name_in = self.inductor_material.get("Name")
-        self.YEMP = self.inductor_material.get("YEMP")
+        self.YEMP1 = self.inductor_material.get("YEMP")
+        self.YEMP=self.YEMP1*pow(10,-8)
         self.lineEditMaterialInductor.setText(self.name_in)
 
 
@@ -196,7 +210,7 @@ class InitialParameters(QWidget):
         print("self.machine =", self.machine)
         self.nama_mash = self.machine.get("Name")
         self.LCE = self.machine.get("LCE")
-        self.CCE = self.machine.get("CCE")
+        self.CCE = float(self.machine.get("CCE"))
         self.FCE = self.machine.get("FCE")
         self.FW = self.machine.get("FW")
         self.lineEditMachineName.setText(self.nama_mash)
