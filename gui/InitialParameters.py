@@ -42,11 +42,16 @@ class InitialParameters(QWidget):
                  float(self.LBT), float(self.KPD), float(self.RC), self.operation)
         print(a)
         s=str(a)
-        s1=f"Внешний диаметр {self.DOT}\n Толщина стенки трубы {self.ST}\n Коэффициент упрочнения материала {}"
+        s1=f"Внешний диаметр {self.DOT}\n Толщина стенки трубы {self.ST}\n Коэффициент упрочнения материала {self.BCM}\n" \
+           f"Динамический коэффициент {self.KDM}\n  Коэффициент степенной апроксимации {self.MM}\n Длина деформируемой зоны {self.LBT}\n" \
+           f"Коэффициент полезного действия {self.KPD}\n Радиус цилиндра {self.RC}\n"
+        s2=f"Установка{self.nama_mash}\n Материал индуктора {self.name_in}\n Материал индуктора {self.name_mat}\n "
+
         date=datetime.datetime.now()
         f_obj = open(f"{date}_{self.name}_{self.operation1}_{self.operation2}", "w", encoding='UTF-8')
-        f_obj.write("Наименование детали"+str(date)+"\n")
-        f_obj.write(str(self.name)+"\n")
+        f_obj.write(s1+s2)
+        f_obj.write("*** Р А С Ч Е Т    И Н Д У К Т О Р А ***"+"\n")
+        f_obj.write(f"Наименование детали {self.name}"+str(date)+"\n")
         f_obj.write(s)
         f_obj.close()
         """
