@@ -126,7 +126,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton">
+       <widget class="QPushButton" name="pushButtonSaveParameters">
         <property name="text">
          <string>Сохранить параметры расчета</string>
         </property>
@@ -250,14 +250,14 @@
         </property>
         <layout class="QHBoxLayout" name="horizontalLayout_3">
          <item>
-          <widget class="QRadioButton" name="radioButton_2">
+          <widget class="QRadioButton" name="radioButtonManual">
            <property name="text">
             <string>Ручной</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QRadioButton" name="radioButton">
+          <widget class="QRadioButton" name="radioButtonAuto">
            <property name="text">
             <string>Автоматический</string>
            </property>
@@ -267,7 +267,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QCheckBox" name="checkBox">
+       <widget class="QCheckBox" name="checkBoxParametersControl">
         <property name="text">
          <string>Контроль параметров</string>
         </property>

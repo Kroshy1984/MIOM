@@ -24,6 +24,8 @@ class InitialParameters(QWidget):
         self.radioButtonCalc.toggled.connect(self.inductor_calculations_option)
         self.radioButtonCalc.toggled.emit(True)
 
+
+
         # self.pushButtonLoadParameters.released.connect(self.load_parameters)
         self.pushButtonCalcFirsPhase.released.connect(self.start_calc_first_phase)
 
