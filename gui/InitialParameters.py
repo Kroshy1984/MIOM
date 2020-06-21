@@ -3,6 +3,7 @@ from PyQt5.QtWidgets import QWidget
 from PyQt5.uic import loadUi
 from gui.BaseView import BaseView
 from Computing import Form
+import datetime
 
 class InitialParameters(QWidget):
     def __init__(self, parent=None):
@@ -40,6 +41,14 @@ class InitialParameters(QWidget):
         a = Form(float(self.DOT), float(self.ST), float(self.BCM), float(self.KDM), float(self.MM),
                  float(self.LBT), float(self.KPD), float(self.RC), self.operation)
         print(a)
+        s=str(a)
+        s1=f"Внешний диаметр {self.DOT}\n Толщина стенки трубы {self.ST}\n Коэффициент упрочнения материала {}"
+        date=datetime.datetime.now()
+        f_obj = open(f"{date}_{self.name}_{self.operation1}_{self.operation2}", "w", encoding='UTF-8')
+        f_obj.write("Наименование детали"+str(date)+"\n")
+        f_obj.write(str(self.name)+"\n")
+        f_obj.write(s)
+        f_obj.close()
         """
         Расчет индуктора
         :return:
