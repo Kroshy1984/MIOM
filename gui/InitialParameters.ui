@@ -163,15 +163,25 @@
          <item row="1" column="1">
           <widget class="QComboBox" name="comboBoxOperationName"/>
          </item>
-         <item row="2" column="0">
+         <item row="3" column="0">
           <widget class="QLabel" name="label_8">
            <property name="text">
             <string>КПД</string>
            </property>
           </widget>
          </item>
-         <item row="2" column="1">
+         <item row="3" column="1">
           <widget class="QLineEdit" name="lineEditKPD"/>
+         </item>
+         <item row="2" column="0">
+          <widget class="QLabel" name="labelRadius">
+           <property name="text">
+            <string>TextLabel</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1">
+          <widget class="QLineEdit" name="lineEditRadius"/>
          </item>
         </layout>
        </widget>
