@@ -21,7 +21,10 @@ class InitialParameters(QWidget):
                                              "Формовка сферы",
                                              "Формовка рифтов"])
 
+        self.comboBoxOperationType.currentTextChanged.connect(self.changed_type)
+        # self.comboBoxOperationType.currentTextChanged.emit(True, "Не выбрано")
         self.comboBoxOperationName.currentTextChanged.connect(self.changed)
+        # self.comboBoxOperationName.currentTextChanged.emit(True, "Не выбрано")
         self.radioButtonCalc.setChecked(True)
         self.radioButtonCalc.toggled.connect(self.inductor_calculations_option)
         self.radioButtonCalc.toggled.emit(True)
@@ -33,7 +36,25 @@ class InitialParameters(QWidget):
         self.labelRadius.setVisible(False)
         self.lineEditRadius.setVisible(False)
         # self.set_default_parameters()
+        # шрифт MS Shell Dlg 2
         self.db_view = BaseView(caller_view=self)
+    #
+    #
+
+    @pyqtSlot('QString')
+    def changed_type(self, text):
+        print("changed_type")
+        print(text)
+        if text == "Не выбрано":
+            self.widget_2.setVisible(False)
+        else:
+            self.widget_2.setVisible(True)
+            if text == "Обжим":
+                self.labelDiameter.setText("Внутренний диаметр индуктора")
+            else:
+                self.labelDiameter.setText("Внешний диаметр индуктора")
+
+
 
     @pyqtSlot('QString')
     def changed(self, text):
@@ -64,13 +85,24 @@ class InitialParameters(QWidget):
         Блокирование полей ввода при автоматическом расчете индуктора
         :return:
         """
+        if selected:
+            print("выбран расчет")
+            # self.groupBox_7.setVisible(True)
+            # self.groupBox_8.setVisible(False)
+            self.groupBox_7.setEnabled(False)
+            # self.groupBox_8.setEnabled(False)
+        else:
+            # self.groupBox_7.setVisible(False)
+            # self.groupBox_8.setVisible(True)
+            self.groupBox_7.setEnabled(True)
+            # self.groupBox_8.setEnabled(True)
         # print("inductor_calculations_option")
         # print(selected)
-        blocked = not selected
-        self.lineEditWidthCoilInductor.setEnabled(blocked)
-        self.lineEditHeightCoilInductor.setEnabled(blocked)
-        self.lineEditNumberCoilsInductor.setEnabled(blocked)
-        self.lineEditSizeIsolationInductor.setEnabled(blocked)
+        # blocked = not selected
+        # self.lineEditWidthCoilInductor.setEnabled(blocked)
+        # self.lineEditHeightCoilInductor.setEnabled(blocked)
+        # self.lineEditNumberCoilsInductor.setEnabled(blocked)
+        # self.lineEditSizeIsolationInductor.setEnabled(blocked)
         # self.lineEditInductance.setEnabled(blocked)
         # self.lineEditA_tp.setEnabled(blocked)
         # self.lineEditB_tp.setEnabled(blocked)
