@@ -34,7 +34,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton">
+      <widget class="QPushButton" name="pushButtonAddRecord">
        <property name="text">
         <string>Добавить</string>
        </property>
