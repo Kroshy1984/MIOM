@@ -129,8 +129,8 @@ class InitialParameters(QWidget):
 
         self.lineEditKPD.setText("КПД")
         self.lineEditMachineName.setText("Оборудование")
-        self.lineEditKP.setText("Кп_3%")
-        self.lineEditKappa.setText("Kappa")
+        # self.lineEditKP.setText("Кп_3%")
+        # self.lineEditKappa.setText("Kappa")
 
         self.lineEditMaterialInductor.setText("Метериал индуктора")
         self.lineEditWidthCoilInductor.setText("Ширина витка по оси детали")
