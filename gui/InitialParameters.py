@@ -1,8 +1,10 @@
 from PyQt5.QtCore import pyqtSlot
-from PyQt5.QtWidgets import QWidget
+# from PyQt5.QtWidgets import QWidget
+from PyQt5.QtWidgets import QWidget, QLineEdit, QLabel
 from PyQt5.uic import loadUi
 from gui.BaseView import BaseView
 from Computing import Form
+
 
 class InitialParameters(QWidget):
     def __init__(self, parent=None):
@@ -23,15 +25,39 @@ class InitialParameters(QWidget):
                                              "Формовка сферы",
                                              "Формовка рифтов"])
 
+        self.comboBoxOperationType.currentTextChanged.connect(self.changed_type)
+        # self.comboBoxOperationType.currentTextChanged.emit(True, "Не выбрано")
+        self.comboBoxOperationName.currentTextChanged.connect(self.changed)
+        # self.comboBoxOperationName.currentTextChanged.emit(True, "Не выбрано")
         self.radioButtonCalc.setChecked(True)
         self.radioButtonCalc.toggled.connect(self.inductor_calculations_option)
         self.radioButtonCalc.toggled.emit(True)
 
         # self.pushButtonLoadParameters.released.connect(self.load_parameters)
         self.pushButtonCalcFirsPhase.released.connect(self.start_calc_first_phase)
-
+        # self.lineEditRadius = QLineEdit()
+        # self.labelRadius = QLabel()
+        self.labelRadius.setVisible(False)
+        self.lineEditRadius.setVisible(False)
         # self.set_default_parameters()
+        # шрифт MS Shell Dlg 2
         self.db_view = BaseView(caller_view=self)
+    #
+    #
+
+    @pyqtSlot('QString')
+    def changed_type(self, text):
+        print("changed_type")
+        print(text)
+        if text == "Не выбрано":
+            self.widget_2.setVisible(False)
+        else:
+            self.widget_2.setVisible(True)
+            if text == "Обжим":
+                self.labelDiameter.setText("Внутренний диаметр индуктора")
+            else:
+                self.labelDiameter.setText("Внешний диаметр индуктора")
+
 
     @pyqtSlot()
     def calculate_inductor(self):
@@ -45,7 +71,28 @@ class InitialParameters(QWidget):
         """
         print("calculate_inductor")
 
+    @pyqtSlot('QString')
+    def changed(self, text):
+        print("changed")
+        print(text)
+        if text == "Не выбрано":
+            self.labelRadius.setVisible(False)
+            self.lineEditRadius.setVisible(False)
+            return
+        elif text in ["Формовка цилиндра", "Формовка конуса", "Формовка сферы", "Формовка рифтов"]:
+            self.labelRadius.setVisible(True)
+            self.lineEditRadius.setVisible(True)
+            t = text.split()[1]
+            if t == "конуса":
+                label = "Максимальный радиус " + text.split()[1]
+            else:
+                label = "Радиус " + text.split()[1]
+            self.labelRadius.setText(label)
+            print(label)
+            # self.
 
+        # if
+        # if self.comboBoxOperationName.
 
     @pyqtSlot(bool)
     def inductor_calculations_option(self, selected):
@@ -53,13 +100,24 @@ class InitialParameters(QWidget):
         Блокирование полей ввода при автоматическом расчете индуктора
         :return:
         """
+        if selected:
+            print("выбран расчет")
+            # self.groupBox_7.setVisible(True)
+            # self.groupBox_8.setVisible(False)
+            self.groupBox_7.setEnabled(False)
+            # self.groupBox_8.setEnabled(False)
+        else:
+            # self.groupBox_7.setVisible(False)
+            # self.groupBox_8.setVisible(True)
+            self.groupBox_7.setEnabled(True)
+            # self.groupBox_8.setEnabled(True)
         # print("inductor_calculations_option")
         # print(selected)
-        blocked = not selected
-        self.lineEditWidthCoilInductor.setEnabled(blocked)
-        self.lineEditHeightCoilInductor.setEnabled(blocked)
-        self.lineEditNumberCoilsInductor.setEnabled(blocked)
-        self.lineEditSizeIsolationInductor.setEnabled(blocked)
+        # blocked = not selected
+        # self.lineEditWidthCoilInductor.setEnabled(blocked)
+        # self.lineEditHeightCoilInductor.setEnabled(blocked)
+        # self.lineEditNumberCoilsInductor.setEnabled(blocked)
+        # self.lineEditSizeIsolationInductor.setEnabled(blocked)
         # self.lineEditInductance.setEnabled(blocked)
         # self.lineEditA_tp.setEnabled(blocked)
         # self.lineEditB_tp.setEnabled(blocked)
@@ -67,7 +125,6 @@ class InitialParameters(QWidget):
         # self.lineEditLB_tp.setEnabled(blocked)
         # self.lineEditLB_tp.setText("0.1")
         self.pushButtonCalcInductor.setEnabled(selected)
-
 
     @pyqtSlot()
     def open_materials_db_billet(self):
@@ -78,7 +135,7 @@ class InitialParameters(QWidget):
         print("Open materials db")
         db_name = "Metalls.db"
         slot_name = "billet"
-        sql="select* from material"
+        sql = "select* from material"
         self.db_view.show_db_view(db_name, sql, slot_name)
 
     @pyqtSlot()
@@ -90,7 +147,7 @@ class InitialParameters(QWidget):
         print("Open materials ind db")
         db_name = "Metalls.db"
         slot_name = "inductor"
-        sql="select* from material"
+        sql = "select* from material"
         self.db_view.show_db_view(db_name, sql, slot_name)
 
     @pyqtSlot()
@@ -102,18 +159,17 @@ class InitialParameters(QWidget):
         print("Open mashins ind db")
         db_name = "mashins.db"
         slot_name = "machines"
-        sql="select* from Mashines"
+        sql = "select* from Mashines"
         self.db_view.show_db_view(db_name, sql, slot_name)
 
-
     @pyqtSlot()
-    def start_calc_first_phase(self): # рассчитать первый этап
+    def start_calc_first_phase(self):  # рассчитать первый этап
         print("start_calc_first_phase")
         self._parent.secondary_parameters._show(True)
         self.get_parameters()
         print(self.operation)
-        а=Form(float(self.DOT), float(self.ST), float(self.BCM), float(self.KDM), float(self.MM),
-                           float(self.LBT), float(self.KPD), float(self.RC), self.operation)
+        а = Form(float(self.DOT), float(self.ST), float(self.BCM), float(self.KDM), float(self.MM),
+                 float(self.LBT), float(self.KPD), float(self.RC), self.operation)
 
     @pyqtSlot()
     def load_parameters(self):
@@ -144,17 +200,17 @@ class InitialParameters(QWidget):
         self.lineEditLB_tp.setText("LB_ТП")
 
     def get_parameters(self):
-        self.name=self.lineEditBilletName.text()
-        self.DOT=self.lineEditOuterDiameter.text()
-        self.ST=self.lineEditSideThickness.text()
-        self.LBT=self.lineEditSideThickness.text()
-        self.RC=self.lineEditLengthDeform.text()
-        self.operation1=self.comboBoxOperationType.currentText()
-        self.operation2=self.comboBoxOperationName.currentText()
+        self.name = self.lineEditBilletName.text()
+        self.DOT = self.lineEditOuterDiameter.text()
+        self.ST = self.lineEditSideThickness.text()
+        self.LBT = self.lineEditSideThickness.text()
+        self.RC = self.lineEditLengthDeform.text()
+        self.operation1 = self.comboBoxOperationType.currentText()
+        self.operation2 = self.comboBoxOperationName.currentText()
         print(self.operation2)
         if self.operation1 == "Раздача" and self.operation2 == "Формовка цилиндра":
-            self.operation="a1"
-        self.KPD=self.lineEditKPD.text()
+            self.operation = "a1"
+        self.KPD = self.lineEditKPD.text()
 
     def set_billet_material(self, billet):
         self.billet_material = billet
@@ -163,7 +219,7 @@ class InitialParameters(QWidget):
         self.PLM = self.billet_material.get("PLM")  #
         self.MM = self.billet_material.get("M_M")  #
         self.BCM1 = self.billet_material.get("B")  #
-        self.BCM=float(self.BCM1) * pow(10, 7)
+        self.BCM = float(self.BCM1) * pow(10, 7)
         self.KDM = self.billet_material.get("KDM")
 
         self.lineEditBilletMaterial.setText(self.name_mat)
@@ -175,7 +231,6 @@ class InitialParameters(QWidget):
         self.YEMP = self.inductor_material.get("YEMP")
         self.lineEditMaterialInductor.setText(self.name_in)
 
-
     def set_machine(self, machine):
         self.machine = machine
         print("self.machine =", self.machine)
@@ -185,5 +240,3 @@ class InitialParameters(QWidget):
         self.FCE = self.machine.get("FCE")
         self.FW = self.machine.get("FW")
         self.lineEditMachineName.setText(self.nama_mash)
-
-

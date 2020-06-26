@@ -309,6 +309,8 @@ class Form():
             self.EPS = (((geometry / self.RIB - 1) / 2) - 1) / 2
         elif self.operation == "b3":
             self.EPS = ((self.RIB / geometry) - 1) / math.sqrt(2)
+        elif self.operation == "b4":
+            self.EPS = (3.14 * geometry) / (self.RIB * 4)
         return self.EPS
 
     def BCMD(self):  # Динамическое значение коэффициента аппроксимации кривой упрочнения
