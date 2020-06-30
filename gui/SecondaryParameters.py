@@ -11,6 +11,11 @@ class SecondaryParameters(QWidget):
         print("2")
         self.setVisible(False)
         self.pushButtonCalcSecondPhase.released.connect(self.start_calc_second_phase)
+        self.pushButtonSaveParameters.released.connect(self.save_parameters)
+
+        self.radioButtonManual.setChecked(True)
+        self.radioButtonManual.toggled.connect(self.calculation_option_search)
+        self.radioButtonManual.toggled.emit(True)
         # self.set_default_parameters()
 
     def set_blocked(self):
@@ -28,8 +33,28 @@ class SecondaryParameters(QWidget):
         f = Pascal()
         print("start_calc_second_phase")
 
+
+    @pyqtSlot()
+    def save_parameters(self):
+        """
+        Сохранение параметров расчета первого этапа в БД
+        :return:
+        """
+        print("save_parameters")
+
+    @pyqtSlot(bool)
+    def calculation_option_search(self, selected):
+        """
+        Обработка : ручной или автоматический поиск
+        :return:
+        """
+        print("calculation_option_search")
+
+
     def set_default_parameters(self):
         print("set_default_parameters")
+        self.lineEditAttenuationCoefField.setText("Коэффициент ослабления поля")
+        self.lineEditFieldFactor.setText("Фактор поля в заготовке, %")
         self.lineEditPressure.setText("Давление")
         self.lineEditFrequencyAmper.setText("Частота разрядного тока")
         self.lineEditDischargeEnergy.setText("Энергия разряда")

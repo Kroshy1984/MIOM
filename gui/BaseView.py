@@ -2,6 +2,9 @@ from PyQt5.QtCore import pyqtSlot
 from PyQt5.QtWidgets import QWidget, QAbstractItemView, QDialog
 from PyQt5.uic import loadUi
 from PyQt5 import QtSql
+from gui.AddRecord import AddRecord
+from gui.AddMachine import AddMachine
+from utils.tex_to_qpixmap import mathTex_to_QPixmap
 from PyQt5 import QtCore
 from PyQt5 import QtGui
 import sqlite3
@@ -18,6 +21,7 @@ class BaseView(QWidget):
         self.tableView.setSelectionMode(QAbstractItemView.SingleSelection)
         print("base")
         self.tableView.clicked.connect(self.selectChanged_billet)
+        self.pushButtonAddRecord.released.connect(self.add_button_clicked)
         # self.setWindowModality(QtCore.Qt.WindowModal)
         # self.setWindowModality(QtCore.Qt.ApplicationModal)
         # self.setAttribute(QtCore.Qt.WA_DeleteOnClose, True)
@@ -103,10 +107,13 @@ class BaseView(QWidget):
         self.tableView.clicked.disconnect()
         if name_slot == "billet":
             self.tableView.clicked.connect(self.selectChanged_billet)
+            self.setWindowTitle("База метериалов")
         elif name_slot == "inductor":
             self.tableView.clicked.connect(self.selectChanged_inductor)
+            self.setWindowTitle("База метериалов")
         elif name_slot == "machines":
             self.tableView.clicked.connect(self.selectChanged_machines)
+            self.setWindowTitle("База установок")
         else:
             print("Нет подходящего слота")
         db = QtSql.QSqlDatabase.addDatabase("QSQLITE")
@@ -116,7 +123,54 @@ class BaseView(QWidget):
         model.setQuery(sql)
         self.model = model
         self.tableView.setModel(model)
+        self.tableView.resizeColumnsToContents()
         cell_text = self.tableView.selectionModel().selectedRows()
         print(cell_text)
         db.close()
+        self.change_headers()
+        self.tableView.resizeColumnsToContents()
         self.show()
+
+    @pyqtSlot()
+    def add_button_clicked(self):
+        print("add_button_clicked")
+        self.show_add_record_view()
+
+    def show_add_record_view(self):
+        if self.current_slot in ["billet", "inductor"]:
+            self.rec = AddRecord()
+        elif self.current_slot in ["machines"]:
+            self.rec = AddMachine()
+        self.rec.show()
+
+    def change_headers(self):
+        qpixmaps = []
+        indx = 0
+        headerLabels = [
+            'Марка',
+            '$(PPM), \\sigma_{u} \cdot 10^7, Pa$',
+            '$(PYM), \\sigma_{y} \cdot 10^7, Pa$',
+            '$(PLM), \\rho_{u} \cdot 10^3, kg/m^3$',
+            '$(MM), m_{m}$',
+            '$(BCM), B \cdot 10^7, Pa$',
+            '$(YEM), \\rho_{e} \cdot 10^{-8}, \Omega_{m}$',
+            '$(KDM), K_{d} $',
+            '$E_z$',
+            '$E_up$'
+            # '$C_{soil}=(1 - n) C_m + \\theta_w C_w$',
+            # '$k_{soil}=\\frac{\\sum f_j k_j \\theta_j}{\\sum f_j \\theta_j}$',
+            # '$\\lambda_{soil}=k_{soil} / C_{soil}$'
+        ]
+        fontsize = 12
+        for labels in headerLabels:
+            qpixmaps.append(mathTex_to_QPixmap(labels, fontsize))
+            self.tableView.setColumnWidth(indx, qpixmaps[indx].size().width() + 16)
+            indx += 1
+
+        print(self.tableView.horizontalHeader())
+
+        # self.tableView.horizontalHeader().qpixmaps = qpixmaps
+        # self.tableView.horizontalHeader().setHorizontalHeaderLabels(headerLabels)
+        # self.tableView.horizontalHeader().setStretchLastSection(True)
+
+        # super(self.tableView).setHorizontalHeaderLabels(headerLabels)
