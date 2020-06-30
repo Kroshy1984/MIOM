@@ -4,6 +4,7 @@ from PyQt5.QtWidgets import QWidget, QLineEdit, QLabel
 from PyQt5.uic import loadUi
 from gui.BaseView import BaseView
 from Computing import Form
+# from core.FirstPhase import Form
 
 
 class InitialParameters(QWidget):
@@ -39,9 +40,10 @@ class InitialParameters(QWidget):
         # self.labelRadius = QLabel()
         self.labelRadius.setVisible(False)
         self.lineEditRadius.setVisible(False)
-        # self.set_default_parameters()
+        self.set_default_parameters()
         # шрифт MS Shell Dlg 2
         self.db_view = BaseView(caller_view=self)
+
     #
     #
 
@@ -58,18 +60,25 @@ class InitialParameters(QWidget):
             else:
                 self.labelDiameter.setText("Внешний диаметр индуктора")
 
-
     @pyqtSlot()
     def calculate_inductor(self):
-        self.get_parameters()
-        print(self.operation)
-        а = Form(float(self.DOT), float(self.ST), float(self.BCM), float(self.KDM), float(self.MM),
-                 float(self.LBT), float(self.KPD), float(self.RC), self.operation)
         """
         Расчет индуктора
         :return:
         """
         print("calculate_inductor")
+        self.get_parameters()
+        print(self.operation)
+        # try:
+        #     float(self.DOT)
+        # except:
+        #     print("1")
+        # try:
+        #     float(self.ST)
+        # except:
+        #     print("2")
+        а = Form(float(self.DOT), float(self.ST), float(self.BCM), float(self.KDM), float(self.MM),
+                 float(self.LBT), float(self.KPD), float(self.RC), self.operation)
 
     @pyqtSlot('QString')
     def changed(self, text):
@@ -102,28 +111,10 @@ class InitialParameters(QWidget):
         """
         if selected:
             print("выбран расчет")
-            # self.groupBox_7.setVisible(True)
-            # self.groupBox_8.setVisible(False)
             self.groupBox_7.setEnabled(False)
-            # self.groupBox_8.setEnabled(False)
         else:
-            # self.groupBox_7.setVisible(False)
-            # self.groupBox_8.setVisible(True)
             self.groupBox_7.setEnabled(True)
-            # self.groupBox_8.setEnabled(True)
-        # print("inductor_calculations_option")
-        # print(selected)
-        # blocked = not selected
-        # self.lineEditWidthCoilInductor.setEnabled(blocked)
-        # self.lineEditHeightCoilInductor.setEnabled(blocked)
-        # self.lineEditNumberCoilsInductor.setEnabled(blocked)
-        # self.lineEditSizeIsolationInductor.setEnabled(blocked)
-        # self.lineEditInductance.setEnabled(blocked)
-        # self.lineEditA_tp.setEnabled(blocked)
-        # self.lineEditB_tp.setEnabled(blocked)
-        # self.lineEditHB_tp.setEnabled(blocked)
-        # self.lineEditLB_tp.setEnabled(blocked)
-        # self.lineEditLB_tp.setText("0.1")
+
         self.pushButtonCalcInductor.setEnabled(selected)
 
     @pyqtSlot()
@@ -168,6 +159,7 @@ class InitialParameters(QWidget):
         self._parent.secondary_parameters._show(True)
         self.get_parameters()
         print(self.operation)
+
         а = Form(float(self.DOT), float(self.ST), float(self.BCM), float(self.KDM), float(self.MM),
                  float(self.LBT), float(self.KPD), float(self.RC), self.operation)
 
@@ -177,23 +169,47 @@ class InitialParameters(QWidget):
 
     def set_default_parameters(self):
         print("set_default_parameters")
+        # self.lineEditBilletName.setText("Наименование")
+        # self.lineEditOuterDiameter.setText("Наружный диаметр")
+        # self.lineEditSideThickness.setText("Толщина стенки")
+        # self.lineEditLengthDeform.setText("Длина деформируемой зоны")
+        # self.lineEditBilletMaterial.setText("Материал")
+        #
+        # self.lineEditKPD.setText("КПД")
+        # self.lineEditMachineName.setText("Оборудование")
+        # self.lineEditMaterialInductor.setText("Метериал индуктора")
+        # self.lineEditWidthCoilInductor.setText("Ширина витка по оси детали")
+        # self.lineEditHeightCoilInductor.setText("Высота витка")
+        # self.lineEditNumberCoilsInductor.setText("Количество витков")
+        # self.lineEditSizeIsolationInductor.setText("Размер межвитковой изоляции")
+        # self.lineEditInductance.setText("Индуктивность токоподводов индуктора")
+        # self.lineEditA_tp.setText("A_ТП")
+        # self.lineEditB_tp.setText("B_ТП")
+        # self.lineEditHB_tp.setText("HB_ТП")
+        # self.lineEditLB_tp.setText("LB_ТП")
+        self.comboBoxOperationType.setCurrentIndex(1)
+        self.comboBoxOperationName.setCurrentIndex(1)
+
         self.lineEditBilletName.setText("Наименование")
-        self.lineEditOuterDiameter.setText("Наружный диаметр")
-        self.lineEditSideThickness.setText("Толщина стенки")
-        self.lineEditLengthDeform.setText("Длина деформируемой зоны")
+        self.lineEditOuterDiameter.setText("151.4")
+        self.lineEditSideThickness.setText("1.2")
+        self.lineEditLengthDeform.setText("30")
         self.lineEditBilletMaterial.setText("Материал")
 
-        self.lineEditKPD.setText("КПД")
+        self.lineEditKPD.setText("0.03")
         self.lineEditMachineName.setText("Оборудование")
         # self.lineEditKP.setText("Кп_3%")
         # self.lineEditKappa.setText("Kappa")
-
+        self.lineEditRadius.setText("75.2")
+        self.lineEditGapWidth.setText("0.25")
+        self.lineEditMainIsolation.setText("1")
+        self.lineEditSizeIsolationInductor.setText("-")
         self.lineEditMaterialInductor.setText("Метериал индуктора")
-        self.lineEditWidthCoilInductor.setText("Ширина витка по оси детали")
-        self.lineEditHeightCoilInductor.setText("Высота витка")
+        self.lineEditWidthCoilInductor.setText("4")
+        self.lineEditHeightCoilInductor.setText("8")
         self.lineEditNumberCoilsInductor.setText("Количество витков")
-        self.lineEditSizeIsolationInductor.setText("Размер межвитковой изоляции")
-        self.lineEditInductance.setText("Индуктивность токоподводов индуктора")
+        self.lineEditSizeIsolationInductor.setText("0.65")
+        self.lineEditInductance.setText("0.07")
         self.lineEditA_tp.setText("A_ТП")
         self.lineEditB_tp.setText("B_ТП")
         self.lineEditHB_tp.setText("HB_ТП")
@@ -208,8 +224,10 @@ class InitialParameters(QWidget):
         self.operation1 = self.comboBoxOperationType.currentText()
         self.operation2 = self.comboBoxOperationName.currentText()
         print(self.operation2)
-        if self.operation1 == "Раздача" and self.operation2 == "Формовка цилиндра":
-            self.operation = "a1"
+        self.operation = self.get_operation()
+        # if self.operation1 == "Раздача" and self.operation2 == "Формовка цилиндра":
+        #     self.operation = "a1"
+        print(self.operation)
         self.KPD = self.lineEditKPD.text()
 
     def set_billet_material(self, billet):
@@ -240,3 +258,20 @@ class InitialParameters(QWidget):
         self.FCE = self.machine.get("FCE")
         self.FW = self.machine.get("FW")
         self.lineEditMachineName.setText(self.nama_mash)
+
+    def get_operation(self):
+        operation_name = ""
+        type = self.comboBoxOperationType.currentText()
+        print(type)
+        if type == "Обжим":
+            operation_name = "b"
+        elif type == "Раздача":
+            operation_name = "a"
+        else:
+            print("Not found operation type, choose from ComboBox!")
+        # self.comboBoxOperationType.setCurrentIndex(1)
+        name = self.comboBoxOperationName.currentIndex()
+        print("name =", name)
+        if 1 <= name <= 4:
+            operation_name += str(name)
+        return operation_name

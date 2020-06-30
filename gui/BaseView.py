@@ -107,10 +107,10 @@ class BaseView(QWidget):
         self.tableView.clicked.disconnect()
         if name_slot == "billet":
             self.tableView.clicked.connect(self.selectChanged_billet)
-            self.setWindowTitle("База метериалов")
+            self.setWindowTitle("База материалов")
         elif name_slot == "inductor":
             self.tableView.clicked.connect(self.selectChanged_inductor)
-            self.setWindowTitle("База метериалов")
+            self.setWindowTitle("База материалов")
         elif name_slot == "machines":
             self.tableView.clicked.connect(self.selectChanged_machines)
             self.setWindowTitle("База установок")

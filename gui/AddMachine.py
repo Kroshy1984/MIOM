@@ -1,9 +1,9 @@
 from PyQt5.QtCore import pyqtSlot
-from PyQt5.QtWidgets import QWidget, QAbstractItemView
+from PyQt5.QtWidgets import QWidget, QAbstractItemView, QDialog
 from PyQt5.uic import loadUi
 from utils.tex_to_qpixmap import mathTex_to_QPixmap
 
-class AddMachine(QWidget):
+class AddMachine(QDialog):
     def __init__(self, parent=None):
         QWidget.__init__(self, parent)
         loadUi('./gui/AddMachine.ui', self)
