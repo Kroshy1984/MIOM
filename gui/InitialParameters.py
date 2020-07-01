@@ -77,8 +77,9 @@ class InitialParameters(QWidget):
         #     float(self.ST)
         # except:
         #     print("2")
-        а = Form(float(self.DOT), float(self.ST), float(self.BCM), float(self.KDM), float(self.MM),
+        a = Form(float(self.DOT), float(self.ST), float(self.BCM), float(self.KDM), float(self.MM),
                  float(self.LBT), float(self.KPD), float(self.RC), self.operation)
+        print(a)
 
     @pyqtSlot('QString')
     def changed(self, text):
@@ -160,8 +161,9 @@ class InitialParameters(QWidget):
         self.get_parameters()
         print(self.operation)
 
-        а = Form(float(self.DOT), float(self.ST), float(self.BCM), float(self.KDM), float(self.MM),
+        a = Form(float(self.DOT), float(self.ST), float(self.BCM), float(self.KDM), float(self.MM),
                  float(self.LBT), float(self.KPD), float(self.RC), self.operation)
+        print(a)
 
     @pyqtSlot()
     def load_parameters(self):

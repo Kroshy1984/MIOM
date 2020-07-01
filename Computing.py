@@ -9,7 +9,6 @@
 # собственное значение индукционного тока FWE
 import math
 
-
 class Inductor():
     def __init__(self, LBT, operation, DOT, ST, FW, YEMP, FCE, LCE, LCB, CCE, SC, HSC, PLM, BCM, KDM, MM, KPD,
                  geometry,NCT1,ZS,ZB,ZA,YEMC,LTC):
@@ -325,8 +324,8 @@ class Form():
         elif self.operation == "a4":
             self.EPS = (3.14 * geometry) / (self.RIB * 4)
         elif self.operation == "b1":
-            #self.EPS = ((self.RIB / geometry) - 1)
-            self.EPS=0.02
+            self.EPS = ((self.RIB / geometry) - 1)
+            #self.EPS=0.02
         elif self.operation == "b2":
             self.EPS = (((geometry / self.RIB - 1) / 2) - 1) / 2
         elif self.operation == "b3":
