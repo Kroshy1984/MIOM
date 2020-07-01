@@ -113,10 +113,12 @@ class InitialParameters(QWidget):
         if selected:
             print("выбран расчет")
             self.groupBox_7.setEnabled(False)
+            self.flag=True
         else:
             self.groupBox_7.setEnabled(True)
-
+            self.flag=False
         self.pushButtonCalcInductor.setEnabled(selected)
+        print(self.flag)
 
     @pyqtSlot()
     def open_materials_db_billet(self):
