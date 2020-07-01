@@ -3,7 +3,7 @@ from PyQt5.QtCore import pyqtSlot
 from PyQt5.QtWidgets import QWidget, QLineEdit, QLabel
 from PyQt5.uic import loadUi
 from gui.BaseView import BaseView
-from Computing import Form
+from Computing import *
 # from core.FirstPhase import Form
 
 
@@ -80,6 +80,13 @@ class InitialParameters(QWidget):
         a = Form(float(self.DOT), float(self.ST), float(self.BCM), float(self.KDM), float(self.MM),
                  float(self.LBT), float(self.KPD), float(self.RC), self.operation)
         print(a)
+        g = Inductor(float(self.LBT), self.operation, float(self.DOT), float(self.ST), float(self.FW),
+                               float(self.YEMP), float(self.FCE), float(self.LCE), 1 * pow(10, -12),
+                               float(self.CCE), float(self.SC), float(self.HSC), float(self.PLM), float(self.BCM),
+                               float(self.KDM), float(self.MM), float(self.KPD),
+                               float(self.RC), float(self.NCT1), float(self.ZS), float(self.ZB), float(self.ZA),
+                               float(self.YEMC), float(self.LTC))
+        print(g)
 
     @pyqtSlot('QString')
     def changed(self, text):
@@ -233,6 +240,14 @@ class InitialParameters(QWidget):
         #     self.operation = "a1"
         print(self.operation)
         self.KPD = self.lineEditKPD.text()
+        self.SC = 1
+        self.HSC =1
+        self.NCT1=11
+        self.ZS = 0.65
+        self.ZB = 0.75
+        self.ZA =1.00
+        self.YEMC=1
+        self.LTC=1
 
     def set_billet_material(self, billet):
         self.billet_material = billet
