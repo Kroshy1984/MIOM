@@ -20,9 +20,8 @@ class Inductor():
         self.BCM = BCM
         self.KDM = KDM
         self.MM = MM
-        # self.LBT=MM
         self.KPD = KPD
-        self.ZS = ZS  # Толщина изоляции витка
+        self.ZS = ZS  # Толщина изоляции витка индуктора
         self.ZB = ZB  # Толщина основной изоляции индуктора
         self.ZA = ZA  # Толщина воздушного зазора
         self.LTC = LTC  # Индуктивность токоподводов индуктора
@@ -32,7 +31,7 @@ class Inductor():
         self.CCE = CCE  # емкость батареи конденсаторов МИУ
         self.LCE = LCE  # индуктивность собственная
         self.LCB = LCB  # индуктивность кабеля
-        self.SC = SC  # шина изоляции
+        self.SC = SC  # шина изоляции (Ширина шины изоляции) Индуктора. Ширина витка по оси детали
         self.HSC = HSC  # высота шины
         self.PLM = PLM  # плотность
         self.ZCP = self.ZS + self.ZB + self.ZA
@@ -40,7 +39,7 @@ class Inductor():
         self.FW = FW  # Частота разрядного тока
         self.BC = pow(self.YEMC / (3.14 * mu * self.FW), 0.5)  # Глубина проникновения ИМП в материал индуктор
         self.BP = pow(self.YEMP / (3.14 * mu * self.FW), 0.5)  # Глубина проникновения ИМП в материал заготовки
-        self.NCT1=NCT1
+        """self.NCT1=NCT1"""
         if self.BP > self.ST:
             self.FW = self.YEMP / (3.14 * mu * pow(self.ST, 2))
             print('FW=' + str(self.FW))
@@ -65,7 +64,7 @@ class Inductor():
         self.NCWC = self.LBT / self.SCIC  # Расчетное количество рабочих витков
         self.NCW = round(self.NCWC)
         self.NCF = round(self.NCT - self.NCW)  # Количество свободных витков
-        if self.NCF == 0:
+        """if self.NCF == 0:
             self.NCT = self.NCT1
             self.LU = self.SC * self.NCT  # Длина индуктора
             self.SCIC = (self.LCA / self.NCT)  # Расчетный шаг витков индуктора
@@ -75,7 +74,7 @@ class Inductor():
             self.KEC = pow(((2 * self.ROC / self.RIC) * (self.ZEK / self.RIC) - 1), 2)
             self.NCWC = self.LBT / self.SCIC  # Расчетное количество рабочих витков
             self.NCW = round(self.NCWC)
-            self.NCF = round(self.NCT - self.NCW)  # Количество свободных витков
+            self.NCF = round(self.NCT - self.NCW)  # Количество свободных витков"""
         self.LCC = (3.14 * mu * (self.DCA + self.ZCP) * self.NCT * self.ZCP * self.NCT) / (self.KEC * self.LU)
         self.LUC2 = self.LCC
         f = Form(self.DOT, self.ST, self.BCM, self.KDM, self.MM, self.LBT, self.KPD, geometry, self.operation)
