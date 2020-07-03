@@ -246,7 +246,7 @@ class InitialParameters(QWidget):
         self.ZS =self.lineEditSizeIsolationInductor.text()
         self.ZB =self.lineEditMainIsolation.text()
         self.ZA =self.lineEditGapWidth.text()
-        self.LTC=1
+        self.LTC=self.lineEditInductance.text()
 
     def set_billet_material(self, billet):
         self.billet_material = billet
