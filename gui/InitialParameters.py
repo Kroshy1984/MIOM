@@ -240,12 +240,12 @@ class InitialParameters(QWidget):
         #     self.operation = "a1"
         print(self.operation)
         self.KPD = self.lineEditKPD.text()
-        self.SC = 1
-        self.HSC =1
+        self.SC = self.lineEditSizeIsolationInductor.text()
+        self.HSC =self.lineEditHeightCoilInductor.text()
         self.NCT1=11
-        self.ZS = 0.65
-        self.ZB = 0.75
-        self.ZA =1.00
+        self.ZS =self.lineEditSizeIsolationInductor.text()
+        self.ZB =self.lineEditMainIsolation.text()
+        self.ZA =self.lineEditGapWidth.text()
         self.YEMC=1
         self.LTC=1
 
