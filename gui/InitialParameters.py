@@ -246,7 +246,6 @@ class InitialParameters(QWidget):
         self.ZS =self.lineEditSizeIsolationInductor.text()
         self.ZB =self.lineEditMainIsolation.text()
         self.ZA =self.lineEditGapWidth.text()
-        self.YEMC=1
         self.LTC=1
 
     def set_billet_material(self, billet):
@@ -258,14 +257,14 @@ class InitialParameters(QWidget):
         self.BCM1 = self.billet_material.get("B")  #
         self.BCM = float(self.BCM1) * pow(10, 7)
         self.KDM = self.billet_material.get("KDM")
-
+        self.YEMP = self.billet_material.get("YEMP")
         self.lineEditBilletMaterial.setText(self.name_mat)
 
     def set_inductor_material(self, inductor):
         self.inductor_material = inductor
         print("self.inductor_material =", self.inductor_material)
         self.name_in = self.inductor_material.get("Name")
-        self.YEMP = self.inductor_material.get("YEMP")
+        self.YEMC = self.inductor_material.get("YEMP")
         self.lineEditMaterialInductor.setText(self.name_in)
 
     def set_machine(self, machine):
