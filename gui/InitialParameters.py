@@ -169,7 +169,9 @@ class InitialParameters(QWidget):
         self._parent.secondary_parameters._show(True)
         self.get_parameters()
         print(self.operation)
-
+        a = Form(float(self.DOT), float(self.ST), float(self.BCM), float(self.KDM), float(self.MM),
+                 float(self.LBT), float(self.KPD), float(self.RC), self.operation)
+        print(a)
         g= Inductor(float(self.LBT), self.operation, float(self.DOT), float(self.ST), float(self.FW),
                                float(self.YEMP), float(self.FCE), float(self.LCE), 1 * pow(10, -12),
                                float(self.CCE), float(self.SC), float(self.HSC), float(self.PLM), float(self.BCM),
@@ -177,12 +179,24 @@ class InitialParameters(QWidget):
                                float(self.RC), float(self.NCT1), float(self.ZS), float(self.ZB), float(self.ZA),
                                float(self.YEMC), float(self.LTC))
         print(g)
-        self.make_file(g)
+        self.make_file(g,a)
 
-    def make_file(self,g):
-        a=datetime.now()
-        f_obj = open(f"{a}_{self.name}_{self.operation}.txt", "w", encoding='UTF-8')
-        f_obj.write(str(g) + ' ')
+    def make_file(self,g,a):
+        date=datetime.now()
+        f_obj = open(f"{date}_{self.name}_{self.operation}.txt", "w", encoding='UTF-8')
+        f_obj.write("П Р О Т О К О Л    Р А С Ч Е Т А" +"\n")
+        f_obj.write("ИСХОДНЫЕ ДАННЫЕ"+"\n")
+        f_obj.write(f"Название заготовки - {self.name}" + "\n")
+        f_obj.write(f"Диаметр наружной трубы - {self.DOT}"+ "\n")
+        f_obj.write(f"коэффициенты степенной аппроксимации кривой упрочнения материала BCM - {self.BCM}"+"\n")
+        f_obj.write(f"коэффициент динамичности материала - {self.KDM}"+"\n")
+        f_obj.write(f"коэффициенты степенной аппроксимации кривой упрочнения материала MM - {self.MM}" + "\n")
+        f_obj.write(f"длина деформированной зоны - {self.LBT}"+"\n")
+        f_obj.write(f"КПД - {self.KPD}"+"\n")
+        f_obj.write(f"геометрические параметры заготовки - {self.RC}"+"\n")
+        f_obj.write(f"Р Е З У Л Ь Т А Т"+"\n")
+        f_obj.write(str(a)+"\n")
+        f_obj.write(str(g) + '\n')
         f_obj.close()
 
     @pyqtSlot()
