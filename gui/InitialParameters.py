@@ -5,7 +5,7 @@ from PyQt5.uic import loadUi
 from gui.BaseView import BaseView
 from Computing import *
 # from core.FirstPhase import Form
-
+from datetime import datetime
 
 class InitialParameters(QWidget):
     def __init__(self, parent=None):
@@ -170,9 +170,20 @@ class InitialParameters(QWidget):
         self.get_parameters()
         print(self.operation)
 
-        a = Form(float(self.DOT), float(self.ST), float(self.BCM), float(self.KDM), float(self.MM),
-                 float(self.LBT), float(self.KPD), float(self.RC), self.operation)
-        print(a)
+        g= Inductor(float(self.LBT), self.operation, float(self.DOT), float(self.ST), float(self.FW),
+                               float(self.YEMP), float(self.FCE), float(self.LCE), 1 * pow(10, -12),
+                               float(self.CCE), float(self.SC), float(self.HSC), float(self.PLM), float(self.BCM),
+                               float(self.KDM), float(self.MM), float(self.KPD),
+                               float(self.RC), float(self.NCT1), float(self.ZS), float(self.ZB), float(self.ZA),
+                               float(self.YEMC), float(self.LTC))
+        print(g)
+        self.make_file(g)
+
+    def make_file(self,g):
+        a=datetime.now()
+        f_obj = open(f"{a}_{self.name}_{self.operation}.txt", "w", encoding='UTF-8')
+        f_obj.write(str(g) + ' ')
+        f_obj.close()
 
     @pyqtSlot()
     def load_parameters(self):
