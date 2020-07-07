@@ -39,7 +39,7 @@ class Inductor():
         self.FW = FW  # Частота разрядного тока
         self.BC = pow(self.YEMC / (3.14 * mu * self.FW), 0.5)  # Глубина проникновения ИМП в материал индуктор
         self.BP = pow(self.YEMP / (3.14 * mu * self.FW), 0.5)  # Глубина проникновения ИМП в материал заготовки
-        """self.NCT1=NCT1"""
+        self.NCT1=NCT1
         if self.BP > self.ST:
             self.FW = self.YEMP / (3.14 * mu * pow(self.ST, 2))
             print('FW=' + str(self.FW))
