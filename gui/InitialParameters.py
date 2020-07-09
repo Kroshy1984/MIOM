@@ -180,7 +180,7 @@ class InitialParameters(QWidget):
                                float(self.YEMC), float(self.LTC))
         print(g)
         self.make_file(g,a)
-        params = dict()
+        params = {"WR" : g.WR, }
         self._parent.secondary_parameters._show(True, params)
 
     def make_file(self,g,a):
