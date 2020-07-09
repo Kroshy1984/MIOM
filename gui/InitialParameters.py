@@ -3,9 +3,9 @@ from PyQt5.QtCore import pyqtSlot
 from PyQt5.QtWidgets import QWidget, QLineEdit, QLabel
 from PyQt5.uic import loadUi
 from gui.BaseView import BaseView
-from Computing import Form
+from Computing import *
 # from core.FirstPhase import Form
-
+from datetime import datetime
 
 class InitialParameters(QWidget):
     def __init__(self, parent=None):
@@ -77,8 +77,16 @@ class InitialParameters(QWidget):
         #     float(self.ST)
         # except:
         #     print("2")
-        а = Form(float(self.DOT), float(self.ST), float(self.BCM), float(self.KDM), float(self.MM),
+        a = Form(float(self.DOT), float(self.ST), float(self.BCM), float(self.KDM), float(self.MM),
                  float(self.LBT), float(self.KPD), float(self.RC), self.operation)
+        print(a)
+        g = Inductor(float(self.LBT), self.operation, float(self.DOT), float(self.ST), float(self.FW),
+                               float(self.YEMP), float(self.FCE), float(self.LCE), 1 * pow(10, -12),
+                               float(self.CCE), float(self.SC), float(self.HSC), float(self.PLM), float(self.BCM),
+                               float(self.KDM), float(self.MM), float(self.KPD),
+                               float(self.RC), float(self.NCT1), float(self.ZS), float(self.ZB), float(self.ZA),
+                               float(self.YEMC), float(self.LTC))
+        print(g)
 
     @pyqtSlot('QString')
     def changed(self, text):
@@ -112,10 +120,12 @@ class InitialParameters(QWidget):
         if selected:
             print("выбран расчет")
             self.groupBox_7.setEnabled(False)
+            self.flag=True
         else:
             self.groupBox_7.setEnabled(True)
-
+            self.flag=False
         self.pushButtonCalcInductor.setEnabled(selected)
+        print(self.flag)
 
     @pyqtSlot()
     def open_materials_db_billet(self):
@@ -159,9 +169,51 @@ class InitialParameters(QWidget):
         self._parent.secondary_parameters._show(True)
         self.get_parameters()
         print(self.operation)
-
-        а = Form(float(self.DOT), float(self.ST), float(self.BCM), float(self.KDM), float(self.MM),
+        a = Form(float(self.DOT), float(self.ST), float(self.BCM), float(self.KDM), float(self.MM),
                  float(self.LBT), float(self.KPD), float(self.RC), self.operation)
+        print(a)
+        g= Inductor(float(self.LBT), self.operation, float(self.DOT), float(self.ST), float(self.FW),
+                               float(self.YEMP), float(self.FCE), float(self.LCE), 1 * pow(10, -12),
+                               float(self.CCE), float(self.SC), float(self.HSC), float(self.PLM), float(self.BCM),
+                               float(self.KDM), float(self.MM), float(self.KPD),
+                               float(self.RC), float(self.NCT1), float(self.ZS), float(self.ZB), float(self.ZA),
+                               float(self.YEMC), float(self.LTC))
+        print(g)
+        self.make_file(g,a)
+
+    def make_file(self,g,a):
+        date=datetime.now()
+        f_obj = open(f"{date}_{self.name}_{self.operation}.txt", "w", encoding='UTF-8')
+        f_obj.write("П Р О Т О К О Л    Р А С Ч Е Т А" +"\n")
+        f_obj.write("ИСХОДНЫЕ ДАННЫЕ"+"\n")
+        f_obj.write(f"Название заготовки - {self.name}" + "\n")
+        f_obj.write(f"Диаметр наружной трубы - {self.DOT}"+ "\n")
+        f_obj.write(f"коэффициенты степенной аппроксимации кривой упрочнения материала BCM - {self.BCM}"+"\n")
+        f_obj.write(f"коэффициент динамичности материала - {self.KDM}"+"\n")
+        f_obj.write(f"коэффициенты степенной аппроксимации кривой упрочнения материала MM - {self.MM}" + "\n")
+        f_obj.write(f"длина деформированной зоны - {self.LBT}"+"\n")
+        f_obj.write(f"Операция - {self.operation}"+"\n")
+        f_obj.write(f"КПД - {self.KPD}"+"\n")
+        f_obj.write(f"геометрические параметры заготовки - {self.RC}"+"\n")
+        f_obj.write(f"Частота тока - {self.FW}"+"\n")
+        f_obj.write(f"Удельное электрическое сопротивление материала заготовки - {self.YEMP}"+"\n")
+        f_obj.write(f"Удельное электрическое сопротивление материала индуктора - {self.YEMC}" + "\n")
+        f_obj.write(f"Частота колебаний разрядного тока МИУ в режиме короткого замыкания- {self.FCE}"+"\n")
+        f_obj.write(f"Индуктивность колебаний разрядного тока МИУ в режиме короткого замыкания- {self.LCE}" + "\n")
+        f_obj.write(f"емкость батареи конденсаторов МИУ - {self.CCE}"+"\n")
+        f_obj.write(f"Длина витка индуктора - {self.SC}" + "\n")
+        f_obj.write(f"Высота витка индуктора - {self.HSC}" + "\n")
+        f_obj.write(f"Плотность материала - {self.PLM}" + "\n")
+        f_obj.write(f"коэффициент динамичности материала - {self.KDM}" + "\n")
+        f_obj.write(f"Реальное количество витков - {self.NCT1}" + "\n")
+        f_obj.write(f"Толщина изоляции витка- {self.ZS}" + "\n")
+        f_obj.write(f"Толщина основной изоляции - {self.ZB}" + "\n")
+        f_obj.write(f" Толщина воздушного зазора индуктора- {self.ZA}" + "\n")
+        f_obj.write(f" Индуктивность токоподводов индуктора- {self.LTC}" + "\n")
+        f_obj.write(f"Р Е З У Л Ь Т А Т"+"\n")
+        f_obj.write(str(a)+"\n")
+        f_obj.write(str(g) + '\n')
+        f_obj.close()
 
     @pyqtSlot()
     def load_parameters(self):
@@ -229,6 +281,13 @@ class InitialParameters(QWidget):
         #     self.operation = "a1"
         print(self.operation)
         self.KPD = self.lineEditKPD.text()
+        self.SC = self.lineEditSizeIsolationInductor.text()
+        self.HSC =self.lineEditHeightCoilInductor.text()
+        self.NCT1=11
+        self.ZS =self.lineEditSizeIsolationInductor.text()
+        self.ZB =self.lineEditMainIsolation.text()
+        self.ZA =self.lineEditGapWidth.text()
+        self.LTC=self.lineEditInductance.text()
 
     def set_billet_material(self, billet):
         self.billet_material = billet
@@ -239,14 +298,14 @@ class InitialParameters(QWidget):
         self.BCM1 = self.billet_material.get("B")  #
         self.BCM = float(self.BCM1) * pow(10, 7)
         self.KDM = self.billet_material.get("KDM")
-
+        self.YEMP = self.billet_material.get("YEMP")
         self.lineEditBilletMaterial.setText(self.name_mat)
 
     def set_inductor_material(self, inductor):
         self.inductor_material = inductor
         print("self.inductor_material =", self.inductor_material)
         self.name_in = self.inductor_material.get("Name")
-        self.YEMP = self.inductor_material.get("YEMP")
+        self.YEMC = self.inductor_material.get("YEMP")
         self.lineEditMaterialInductor.setText(self.name_in)
 
     def set_machine(self, machine):

@@ -23,7 +23,7 @@ class Basad():
         self.Tree.heading("Max_change_energi", text="W_mash")
         self.Tree.heading("Condenser_capasity", text="CCE")
         self.Tree.heading("Equipment_induct", text="LCE")
-        self.Tree.heading("SccF", text="FCE")
+        self.Tree.heading("FCE", text="FCE")
         self.Tree.heading("R0", text="R0")
         self.Tree.heading("FW", text="FW")
         self.Tree.place(x=50, y=10)
