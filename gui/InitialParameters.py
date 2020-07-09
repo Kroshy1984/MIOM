@@ -166,7 +166,7 @@ class InitialParameters(QWidget):
     @pyqtSlot()
     def start_calc_first_phase(self):  # рассчитать первый этап
         print("start_calc_first_phase")
-        self._parent.secondary_parameters._show(True)
+
         self.get_parameters()
         print(self.operation)
         a = Form(float(self.DOT), float(self.ST), float(self.BCM), float(self.KDM), float(self.MM),
@@ -180,6 +180,8 @@ class InitialParameters(QWidget):
                                float(self.YEMC), float(self.LTC))
         print(g)
         self.make_file(g,a)
+        params = dict()
+        self._parent.secondary_parameters._show(True, params)
 
     def make_file(self,g,a):
         date=datetime.now()

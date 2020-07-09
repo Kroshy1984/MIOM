@@ -21,8 +21,9 @@ class SecondaryParameters(QWidget):
     def set_blocked(self):
         print("set_blocked")
 
-    def _show(self, flag):
+    def _show(self, flag, params):
         self.setVisible(flag)
+        print("Параметры переданные из первой части \n", params)
 
     @pyqtSlot()
     def start_calc_second_phase(self):
