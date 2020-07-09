@@ -16,7 +16,7 @@ class SecondaryParameters(QWidget):
         self.radioButtonManual.setChecked(True)
         self.radioButtonManual.toggled.connect(self.calculation_option_search)
         self.radioButtonManual.toggled.emit(True)
-        # self.set_default_parameters()
+        #self.set_default_parameters()
 
     def set_blocked(self):
         print("set_blocked")
@@ -24,6 +24,19 @@ class SecondaryParameters(QWidget):
     def _show(self, flag, params):
         self.setVisible(flag)
         print("Параметры переданные из первой части \n", params)
+        self.EPS=params.get("EPS")
+        self.WR=params.get("WR")
+        self.K1=params.get("K1")
+        self.K2=params.get("K2")
+        self.K3=params.get("K3")
+        self.K4=params.get("K4")
+        self.lineEditEps.setText(str(self.EPS))
+        self.lineEditDischargeEnergy.setText(str(self.WR))
+        self.lineEditK1.setText(str(self.K1))
+        self.lineEditK2.setText(str(self.K2))
+        self.lineEditK3.setText(str(self.K3))
+        self.lineEditK4.setText(str(self.K4))
+
 
     @pyqtSlot()
     def start_calc_second_phase(self):
@@ -67,6 +80,6 @@ class SecondaryParameters(QWidget):
         self.lineEditKe.setText("Ke")
 
         self.lineEditI0.setText("I0")
-        self.lineEditF.setText("F")
+        #self.lineEditF.setText("F")
         self.lineEditDelta.setText("Delta")
-        self.lineEditEps.setText("Eps")
+        self.lineEditEps.setText(self.EPS)
