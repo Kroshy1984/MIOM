@@ -139,6 +139,9 @@ class Inductor():
         # Декремент затухания
         self.DZT = RSDQ / (2 * LSDQ)
 
+    def FP(self):
+        return self.FP
+
     def I00(self):
         return self.I00
 
