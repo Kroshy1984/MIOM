@@ -154,7 +154,7 @@ class Inductor():
     def VCR(self):
         return self.VCR
 
-    def PM(self):
+    def PM(self): # Давление
         return self.PM
 
     def NCF(self):

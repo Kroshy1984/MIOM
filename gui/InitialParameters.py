@@ -180,8 +180,9 @@ class InitialParameters(QWidget):
                                float(self.YEMC), float(self.LTC))
         print(g)
         self.make_file(g,a)
-        params = {"WR" : g.WR, "I00": g.I00,"FP":g.FP, "DZT":g.DZT, "KEC": g.KEC, "EPS":a.EPS, "K1":g.K1, "K2":g.K2,
-                  "K3":g.K3,"K4":g.K4}
+        params = {"WR" : round(g.WR,4), "I00": g.I00,"FP":round(g.FP,4), "DZT":round(g.DZT,4),
+                  "KEC": round(g.KEC,4), "EPS":round(a.EPS,4), "K1":round(g.K1,4), "K2":round(g.K2,4),
+                  "K3":round(g.K3,4),"K4":round(g.K4,4), "PM": round(g.PM,4)}
         print(params)
         self._parent.secondary_parameters._show(True, params)
 
