@@ -33,6 +33,8 @@ class SecondaryParameters(QWidget):
         self.FP=params.get("FP")
         self.KEC=params.get("KEC")
         self.PM=params.get("PM")
+        self.DZT=params.get("DZT")
+        self.I00=params.get("I00")
         self.lineEditEps.setText(str(self.EPS))
         self.lineEditDischargeEnergy.setText(str(self.WR))
         self.lineEditK1.setText(str(self.K1))
@@ -42,6 +44,8 @@ class SecondaryParameters(QWidget):
         self.lineEditFrequencyAmper.setText(str(self.FP))
         self.lineEditKe.setText(str(self.KEC))
         self.lineEditPressure.setText(str(self.PM))
+        self.lineEditDelta.setText(str(self.DZT))
+        self.lineEditI0.setText(str(self.I00))
 
 
     @pyqtSlot()
