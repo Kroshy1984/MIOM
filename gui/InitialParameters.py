@@ -90,6 +90,7 @@ class InitialParameters(QWidget):
         print(g)
         self.lineEditNumberCoilsInductor.setText(str(round(g.NCTC)))
         self.lineEditDiameter.setText(str(round(g.DCA,4)))
+        self.lineEdit_2.setText(str(round(g.LCA,4)))
 
     @pyqtSlot('QString')
     def changed(self, text):
