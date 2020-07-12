@@ -46,6 +46,7 @@ class AddRecord(QWidget):
         self.label_9.setPixmap(qpixmaps[8])
         self.label_10.setPixmap(qpixmaps[9])
         # mathTex_to_QPixmap(labels, fontsize)
+        self.pushButtonClose.released.connect(self.close_window)
         # self.pushButtonChoose.released.connect(self.choose_button_clicked)
         # self.tableView.setSelectionBehavior(QAbstractItemView.SelectRows)
         # self.tableView.setSelectionMode(QAbstractItemView.SingleSelection)
@@ -53,4 +54,6 @@ class AddRecord(QWidget):
         # self.tableView.clicked.connect(self.selectChanged)
         # self.pushButtonAddRecord.released.connect(self.add_button_clicked)
 
-
+    @pyqtSlot()
+    def close_window(self):
+        self.close()

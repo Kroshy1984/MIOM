@@ -22,6 +22,9 @@ class BaseView(QWidget):
         print("base")
         self.tableView.clicked.connect(self.selectChanged_billet)
         self.pushButtonAddRecord.released.connect(self.add_button_clicked)
+        self.pushButtonDelete.released.connect(self.delete_button_clicked)
+        self.pushButtonEdit.released.connect(self.edit_button_clicked)
+        self.pushButtonClose.released.connect(self.close_button_clicked)
         # self.setWindowModality(QtCore.Qt.WindowModal)
         # self.setWindowModality(QtCore.Qt.ApplicationModal)
         # self.setAttribute(QtCore.Qt.WA_DeleteOnClose, True)
@@ -133,6 +136,10 @@ class BaseView(QWidget):
 
     @pyqtSlot()
     def add_button_clicked(self):
+        """
+        Вызов окна для  добавления записи
+        :return:
+        """
         print("add_button_clicked")
         self.show_add_record_view()
 
@@ -142,6 +149,32 @@ class BaseView(QWidget):
         elif self.current_slot in ["machines"]:
             self.rec = AddMachine()
         self.rec.show()
+
+    @pyqtSlot()
+    def edit_button_clicked(self):
+        """
+        Удаление записи из базы данных
+        :return:
+        """
+        print("edit_record")
+
+    @pyqtSlot()
+    def delete_button_clicked(self):
+        """
+        Удаление записи из базы данных
+        :return:
+        """
+        print("delete_record")
+
+    @pyqtSlot()
+    def close_button_clicked(self):
+        """
+        Закрытие окна
+        :return:
+        """
+        self.close()
+
+
 
     def change_headers(self):
         qpixmaps = []
