@@ -92,6 +92,20 @@
     </layout>
    </item>
    <item>
+    <widget class="QPushButton" name="pushButtonAdd">
+     <property name="text">
+      <string>Добавить</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QPushButton" name="pushButtonClose">
+     <property name="text">
+      <string>Отмена</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <spacer name="verticalSpacer">
      <property name="orientation">
       <enum>Qt::Vertical</enum>

@@ -29,3 +29,18 @@ class AddMachine(QDialog):
             # self.setColumnWidth(indx, qpixmaps[indx].size().width() + 16)
             indx += 1
         print(qpixmaps)
+
+        self.pushButtonClose.released.connect(self.close_window)
+        self.pushButtonAdd.released.connect(self.add_button_clicked)
+
+    @pyqtSlot()
+    def close_window(self):
+        self.close()
+
+    @pyqtSlot()
+    def add_button_clicked(self):
+        """
+        Добавление записи в БД установок
+        :return:
+        """
+        print("add_button_clicked")

@@ -47,6 +47,7 @@ class AddRecord(QWidget):
         self.label_10.setPixmap(qpixmaps[9])
         # mathTex_to_QPixmap(labels, fontsize)
         self.pushButtonClose.released.connect(self.close_window)
+        self.pushButtonAdd.released.connect(self.add_button_clicked)
         # self.pushButtonChoose.released.connect(self.choose_button_clicked)
         # self.tableView.setSelectionBehavior(QAbstractItemView.SelectRows)
         # self.tableView.setSelectionMode(QAbstractItemView.SingleSelection)
@@ -57,3 +58,11 @@ class AddRecord(QWidget):
     @pyqtSlot()
     def close_window(self):
         self.close()
+
+    @pyqtSlot()
+    def add_button_clicked(self):
+        """
+        Добавление записи в БД материалов
+        :return:
+        """
+        print("add_button_clicked")
