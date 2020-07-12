@@ -3,6 +3,7 @@ from PyQt5.QtWidgets import QWidget
 from PyQt5.uic import loadUi
 from gui.BaseView import BaseView
 from Pascal import Pascal
+from datetime import datetime
 
 class SecondaryParameters(QWidget):
     def __init__(self, parent=None):
@@ -21,7 +22,7 @@ class SecondaryParameters(QWidget):
     def set_blocked(self):
         print("set_blocked")
 
-    def _show(self, flag, params):
+    def _show(self, flag, params,f):
         self.setVisible(flag)
         print("Параметры переданные из первой части \n", params)
         self.EPS=params.get("EPS")
@@ -35,6 +36,8 @@ class SecondaryParameters(QWidget):
         self.PM=params.get("PM")
         self.DZT=params.get("DZT")
         self.I00=params.get("I00")
+        self.name=params.get("name")
+        self.operation=params.get("operation")
         self.lineEditEps.setText(str(self.EPS))
         self.lineEditDischargeEnergy.setText(str(self.WR))
         self.lineEditK1.setText(str(self.K1))
@@ -46,6 +49,7 @@ class SecondaryParameters(QWidget):
         self.lineEditPressure.setText(str(self.PM))
         self.lineEditDelta.setText(str(self.DZT))
         self.lineEditI0.setText(str(self.I00))
+        self.str=f
 
 
     @pyqtSlot()
@@ -57,9 +61,17 @@ class SecondaryParameters(QWidget):
         f = Pascal()
         print("start_calc_second_phase")
 
+    def make_file(self):
+        date=datetime.now()
+        f_obj = open(f"{date}_{self.name}_{self.operation}.txt", "w", encoding='UTF-8')
+        f_obj.write(self.str+"\n")
+        f_obj.close()
+
+
 
     @pyqtSlot()
     def save_parameters(self):
+        self.make_file()
         """
         Сохранение параметров расчета первого этапа в БД
         :return:

@@ -72,7 +72,7 @@ class Inductor():
             self.ROC = self.DCA / 2  # наружный радиус индуктора
             self.RIC = self.ROC - self.HSC  # Внутренний радиус индуктора
             self.KEC = pow(((2 * self.ROC / self.RIC) * (self.ZEK / self.RIC) - 1), 2)
-            self.NCWC = self.LBT / self.SCIC  # Расчетное количество рабочих витков
+            selfNCWC = self.LBT / self.SCIC  # Расчетное количество рабочих витков
             self.NCW = round(self.NCWC)
             self.NCF = round(self.NCT - self.NCW)  # Количество свободных витков
         self.LCC = (3.14 * mu * (self.DCA + self.ZCP) * self.NCT * self.ZCP * self.NCT) / (self.KEC * self.LU)

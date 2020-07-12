@@ -182,43 +182,42 @@ class InitialParameters(QWidget):
         self.make_file(g,a)
         params = {"WR" : round(g.WR,4), "I00": g.I00,"FP":round(g.FP,4), "DZT":round(g.DZT,4),
                   "KEC": round(g.KEC,4), "EPS":round(a.EPS,4), "K1":round(g.K1,4), "K2":round(g.K2,4),
-                  "K3":round(g.K3,4),"K4":round(g.K4,4), "PM": round(g.PM,4)}
+                  "K3":round(g.K3,4),"K4":round(g.K4,4), "PM": round(g.PM,4), "name":self.name,
+                  "operation":self.operation}
         print(params)
-        self._parent.secondary_parameters._show(True, params)
+        self._parent.secondary_parameters._show(True, params,self.f)
 
     def make_file(self,g,a):
         date=datetime.now()
-        f_obj = open(f"{date}_{self.name}_{self.operation}.txt", "w", encoding='UTF-8')
-        f_obj.write("П Р О Т О К О Л    Р А С Ч Е Т А" +"\n")
-        f_obj.write("ИСХОДНЫЕ ДАННЫЕ"+"\n")
-        f_obj.write(f"Название заготовки - {self.name}" + "\n")
-        f_obj.write(f"Диаметр наружной трубы - {self.DOT}"+ "\n")
-        f_obj.write(f"коэффициенты степенной аппроксимации кривой упрочнения материала BCM - {self.BCM}"+"\n")
-        f_obj.write(f"коэффициент динамичности материала - {self.KDM}"+"\n")
-        f_obj.write(f"коэффициенты степенной аппроксимации кривой упрочнения материала MM - {self.MM}" + "\n")
-        f_obj.write(f"длина деформированной зоны - {self.LBT}"+"\n")
-        f_obj.write(f"Операция - {self.operation}"+"\n")
-        f_obj.write(f"КПД - {self.KPD}"+"\n")
-        f_obj.write(f"геометрические параметры заготовки - {self.RC}"+"\n")
-        f_obj.write(f"Частота тока - {self.FW}"+"\n")
-        f_obj.write(f"Удельное электрическое сопротивление материала заготовки - {self.YEMP}"+"\n")
-        f_obj.write(f"Удельное электрическое сопротивление материала индуктора - {self.YEMC}" + "\n")
-        f_obj.write(f"Частота колебаний разрядного тока МИУ в режиме короткого замыкания- {self.FCE}"+"\n")
-        f_obj.write(f"Индуктивность колебаний разрядного тока МИУ в режиме короткого замыкания- {self.LCE}" + "\n")
-        f_obj.write(f"емкость батареи конденсаторов МИУ - {self.CCE}"+"\n")
-        f_obj.write(f"Длина витка индуктора - {self.SC}" + "\n")
-        f_obj.write(f"Высота витка индуктора - {self.HSC}" + "\n")
-        f_obj.write(f"Плотность материала - {self.PLM}" + "\n")
-        f_obj.write(f"коэффициент динамичности материала - {self.KDM}" + "\n")
-        f_obj.write(f"Реальное количество витков - {self.NCT1}" + "\n")
-        f_obj.write(f"Толщина изоляции витка- {self.ZS}" + "\n")
-        f_obj.write(f"Толщина основной изоляции - {self.ZB}" + "\n")
-        f_obj.write(f" Толщина воздушного зазора индуктора- {self.ZA}" + "\n")
-        f_obj.write(f" Индуктивность токоподводов индуктора- {self.LTC}" + "\n")
-        f_obj.write(f"Р Е З У Л Ь Т А Т"+"\n")
-        f_obj.write(str(a)+"\n")
-        f_obj.write(str(g) + '\n')
-        f_obj.close()
+        self.f="П Р О Т О К О Л    Р А С Ч Е Т А" +"\n"
+        self.f+="ИСХОДНЫЕ ДАННЫЕ"+"\n"
+        self.f+=f"Название заготовки - {self.name}" + "\n"
+        self.f+=f"Диаметр наружной трубы - {self.DOT}"+ "\n"
+        self.f+=f"коэффициенты степенной аппроксимации кривой упрочнения материала BCM - {self.BCM}"+"\n"
+        self.f+=f"коэффициент динамичности материала - {self.KDM}"+"\n"
+        self.f+=f"коэффициенты степенной аппроксимации кривой упрочнения материала MM - {self.MM}" + "\n"
+        self.f+=f"длина деформированной зоны - {self.LBT}"+"\n"
+        self.f+=f"Операция - {self.operation}"+"\n"
+        self.f+=f"КПД - {self.KPD}"+"\n"
+        self.f+=f"геометрические параметры заготовки - {self.RC}"+"\n"
+        self.f+=f"Частота тока - {self.FW}"+"\n"
+        self.f+=f"Удельное электрическое сопротивление материала заготовки - {self.YEMP}"+"\n"
+        self.f+=f"Удельное электрическое сопротивление материала индуктора - {self.YEMC}" + "\n"
+        self.f+=f"Частота колебаний разрядного тока МИУ в режиме короткого замыкания- {self.FCE}"+"\n"
+        self.f+=f"Индуктивность колебаний разрядного тока МИУ в режиме короткого замыкания- {self.LCE}" + "\n"
+        self.f+=f"емкость батареи конденсаторов МИУ - {self.CCE}"+"\n"
+        self.f+=f"Длина витка индуктора - {self.SC}" + "\n"
+        self.f+=f"Высота витка индуктора - {self.HSC}" + "\n"
+        self.f+=f"Плотность материала - {self.PLM}" + "\n"
+        self.f+=f"коэффициент динамичности материала - {self.KDM}" + "\n"
+        self.f+=f"Реальное количество витков - {self.NCT1}" + "\n"
+        self.f+=f"Толщина изоляции витка- {self.ZS}" + "\n"
+        self.f+=f"Толщина основной изоляции - {self.ZB}" + "\n"
+        self.f+=f" Толщина воздушного зазора индуктора- {self.ZA}" + "\n"
+        self.f+=f" Индуктивность токоподводов индуктора- {self.LTC}" + "\n"
+        self.f+=f"Р Е З У Л Ь Т А Т"+"\n"
+        self.f+=str(a)+"\n"
+        self.f+=str(g) + '\n'
 
     @pyqtSlot()
     def load_parameters(self):
