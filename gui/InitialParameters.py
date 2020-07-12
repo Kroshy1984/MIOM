@@ -62,6 +62,7 @@ class InitialParameters(QWidget):
 
     @pyqtSlot()
     def calculate_inductor(self):
+        self.groupBox_7.setEnabled(True)
         """
         Расчет индуктора
         :return:
@@ -87,6 +88,8 @@ class InitialParameters(QWidget):
                                float(self.RC), float(self.NCT1), float(self.ZS), float(self.ZB), float(self.ZA),
                                float(self.YEMC), float(self.LTC))
         print(g)
+        self.lineEditNumberCoilsInductor.setText(str(round(g.NCTC)))
+        self.lineEditDiameter.setText(str(round(g.DCA,4)))
 
     @pyqtSlot('QString')
     def changed(self, text):
@@ -186,6 +189,7 @@ class InitialParameters(QWidget):
                   "operation":self.operation}
         print(params)
         self._parent.secondary_parameters._show(True, params,self.f)
+
 
     def make_file(self,g,a):
         date=datetime.now()
