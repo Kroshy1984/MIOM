@@ -1,5 +1,5 @@
 from PyQt5.QtCore import pyqtSlot
-from PyQt5.QtWidgets import QWidget, QAbstractItemView, QDialog
+from PyQt5.QtWidgets import QWidget, QAbstractItemView, QDialog, QInputDialog
 from PyQt5.uic import loadUi
 from PyQt5 import QtSql
 from gui.AddRecord import AddRecord
@@ -90,17 +90,32 @@ class BaseView(QWidget):
             # self.selectChanged_billet()
             if self.current_slot == "billet":
                 self.selectChanged_billet()
-                self._caller_view.set_billet_material(self.current_record_billet)
+                # проверка E_z
+                if self.current_record_billet['E_z'] == '':
+                    print("Нет E_z")
+                    text, ok = QInputDialog.getText(self, 'Input Dialog', 'Введите E_z:')
+                    if ok:
+                        print("Ok")
+                        print(text)
+                        # TODO: добавить проверку ввода
+                        # TODO: переставить проверку E_z на кнопку расчета второго этапа
+                        self._caller_view.set_billet_material(self.current_record_billet)
+                        self.close()
+                    else:
+                        pass
+
             elif self.current_slot == "inductor":
                 self.selectChanged_inductor()
                 self._caller_view.set_inductor_material(self.current_record_inductor)
+                self.close()
             elif self.current_slot == "machines":
                 self.selectChanged_machines()
                 self._caller_view.machine = self.current_record_machine
                 self._caller_view.set_machine(self.current_record_machine)
+                self.close()
             else:
                 print("Нет подходящего слота")
-            self.close()
+
         else:
             print("Нет выбранных строк")
 
@@ -157,6 +172,24 @@ class BaseView(QWidget):
         :return:
         """
         print("edit_record")
+
+
+        if self.tableView.selectionModel().hasSelection():
+            row = self.tableView.selectionModel().selectedRows()[0].row()
+            record = self.model.record(row)  # .value(column);
+            current_record = dict()
+            for i in range(record.count()):
+                current_record[record.fieldName(i)] = record.value(i)
+            print(current_record)
+
+            if self.current_slot in ["billet", "inductor"]:
+                self.rec = AddRecord(record=current_record)
+            elif self.current_slot in ["machines"]:
+                self.rec = AddMachine()
+            self.rec.show()
+        else:
+            print("Нет выбранных строк")
+
 
     @pyqtSlot()
     def delete_button_clicked(self):

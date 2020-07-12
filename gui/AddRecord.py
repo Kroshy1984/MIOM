@@ -4,7 +4,7 @@ from PyQt5.uic import loadUi
 from utils.tex_to_qpixmap import mathTex_to_QPixmap
 
 class AddRecord(QWidget):
-    def __init__(self, parent=None):
+    def __init__(self, parent=None, line_id=None, record=None):
         QWidget.__init__(self, parent)
         loadUi('./gui/AddRecord.ui', self)
         self.label_2.setText("PPM_test")
@@ -48,6 +48,12 @@ class AddRecord(QWidget):
         # mathTex_to_QPixmap(labels, fontsize)
         self.pushButtonClose.released.connect(self.close_window)
         self.pushButtonAdd.released.connect(self.add_button_clicked)
+        if record is not None:
+            self.setWindowTitle("Редактирование материала")
+            self.pushButtonAdd.setText("Сохранить")
+            print("Передана запись")
+            print(record)
+            self.set_record(record)
         # self.pushButtonChoose.released.connect(self.choose_button_clicked)
         # self.tableView.setSelectionBehavior(QAbstractItemView.SelectRows)
         # self.tableView.setSelectionMode(QAbstractItemView.SingleSelection)
@@ -66,3 +72,15 @@ class AddRecord(QWidget):
         :return:
         """
         print("add_button_clicked")
+
+    def set_record(self, record):
+        self.lineEditName.setText(record['Name'])
+        self.lineEditPPM.setText(str(record['PPM']))
+        self.lineEditPYM.setText(str(record['PYD']))
+        self.lineEditPLM.setText(str(record['PLM']))
+        self.lineEditMM.setText(str(record['M_M']))
+        self.lineEditBCM.setText(str(record['B']))
+        self.lineEditYEM.setText(str(record['YEMP']))
+        self.lineEditKDM.setText(str(record['KDM']))
+        self.lineEditEz.setText(str(record['E_z']))
+        self.lineEditEup.setText(str(record['E_up']))
