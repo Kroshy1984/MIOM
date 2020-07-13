@@ -69,11 +69,9 @@ class SecondaryParameters(QWidget):
         :return:
         """
         if state == QtCore.Checked:
-            # если чекбокс включен
-            pass
+            self.kp1=1
         else:
-            # выключен
-            pass
+            self.kp=0
 
 
     @pyqtSlot()
