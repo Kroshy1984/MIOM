@@ -1,3 +1,4 @@
+from PyQt5 import QtCore
 from PyQt5.QtCore import pyqtSlot
 from PyQt5.QtWidgets import QWidget
 from PyQt5.uic import loadUi
@@ -16,6 +17,7 @@ class SecondaryParameters(QWidget):
         self.radioButtonManual.setChecked(True)
         self.radioButtonManual.toggled.connect(self.calculation_option_search)
         self.radioButtonManual.toggled.emit(True)
+        self.checkBoxParametersControl.stateChanged.connect(self.change_parameters_control)
         # self.set_default_parameters()
 
     def set_blocked(self):
@@ -24,6 +26,20 @@ class SecondaryParameters(QWidget):
     def _show(self, flag, params):
         self.setVisible(flag)
         print("Параметры переданные из первой части \n", params)
+
+    @pyqtSlot()
+    def change_parameters_control(self, state):
+        """
+        Проверка состояния чекбокса контроля параметров
+        :param state:
+        :return:
+        """
+        if state == QtCore.Checked:
+            # если чекбокс включен
+            pass
+        else:
+            # выключен
+            pass
 
     @pyqtSlot()
     def start_calc_second_phase(self):
