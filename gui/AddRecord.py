@@ -4,9 +4,10 @@ from PyQt5.uic import loadUi
 from utils.tex_to_qpixmap import mathTex_to_QPixmap
 
 class AddRecord(QWidget):
-    def __init__(self, parent=None, line_id=None, record=None):
+    def __init__(self, parent=None, bd_view=None, record=None):
         QWidget.__init__(self, parent)
         loadUi('./gui/AddRecord.ui', self)
+        self._bd_view = bd_view
         self.label_2.setText("PPM_test")
         self.setWindowTitle("Добавление материала")
         headerLabels = [
