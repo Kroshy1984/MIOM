@@ -4,7 +4,7 @@ from PyQt5.uic import loadUi
 from utils.tex_to_qpixmap import mathTex_to_QPixmap
 
 class AddMachine(QDialog):
-    def __init__(self, parent=None):
+    def __init__(self, parent=None, record=None):
         QWidget.__init__(self, parent)
         loadUi('./gui/AddMachine.ui', self)
         self.setWindowTitle("Добавление установки")

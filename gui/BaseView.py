@@ -1,5 +1,5 @@
 from PyQt5.QtCore import pyqtSlot
-from PyQt5.QtWidgets import QWidget, QAbstractItemView, QDialog, QInputDialog
+from PyQt5.QtWidgets import QWidget, QAbstractItemView, QDialog, QInputDialog, QErrorMessage, QMessageBox
 from PyQt5.uic import loadUi
 from PyQt5 import QtSql
 from gui.AddRecord import AddRecord
@@ -188,6 +188,11 @@ class BaseView(QWidget):
                 self.rec = AddMachine()
             self.rec.show()
         else:
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Warning)
+            msg.setText("Не выбрана строка!")
+            msg.setWindowTitle("Предупреждение")
+            msg.exec_()
             print("Нет выбранных строк")
 
 
@@ -198,6 +203,23 @@ class BaseView(QWidget):
         :return:
         """
         print("delete_record")
+        if self.tableView.selectionModel().hasSelection():
+            row = self.tableView.selectionModel().selectedRows()[0].row()
+            record = self.model.record(row)  # .value(column);
+            current_record = dict()
+            for i in range(record.count()):
+                current_record[record.fieldName(i)] = record.value(i)
+            print(current_record)
+            print(row)
+            # TODO: удаление записи из БД
+
+        else:
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Warning)
+            msg.setText("Не выбрана строка!")
+            msg.setWindowTitle("Предупреждение")
+            msg.exec_()
+            print("Нет выбранных строк")
 
     @pyqtSlot()
     def close_button_clicked(self):
