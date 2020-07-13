@@ -71,7 +71,7 @@ class SecondaryParameters(QWidget):
         if state == QtCore.Checked:
             self.kp1=1
         else:
-            self.kp=0
+            self.kp1=0
 
 
     @pyqtSlot()
