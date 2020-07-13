@@ -4,9 +4,10 @@ from PyQt5.uic import loadUi
 from utils.tex_to_qpixmap import mathTex_to_QPixmap
 
 class AddRecord(QWidget):
-    def __init__(self, parent=None):
+    def __init__(self, parent=None, bd_view=None, record=None):
         QWidget.__init__(self, parent)
         loadUi('./gui/AddRecord.ui', self)
+        self._bd_view = bd_view
         self.label_2.setText("PPM_test")
         self.setWindowTitle("Добавление материала")
         headerLabels = [
@@ -46,6 +47,14 @@ class AddRecord(QWidget):
         self.label_9.setPixmap(qpixmaps[8])
         self.label_10.setPixmap(qpixmaps[9])
         # mathTex_to_QPixmap(labels, fontsize)
+        self.pushButtonClose.released.connect(self.close_window)
+        self.pushButtonAdd.released.connect(self.add_button_clicked)
+        if record is not None:
+            self.setWindowTitle("Редактирование материала")
+            self.pushButtonAdd.setText("Сохранить")
+            print("Передана запись")
+            print(record)
+            self.set_record(record)
         # self.pushButtonChoose.released.connect(self.choose_button_clicked)
         # self.tableView.setSelectionBehavior(QAbstractItemView.SelectRows)
         # self.tableView.setSelectionMode(QAbstractItemView.SingleSelection)
@@ -53,4 +62,26 @@ class AddRecord(QWidget):
         # self.tableView.clicked.connect(self.selectChanged)
         # self.pushButtonAddRecord.released.connect(self.add_button_clicked)
 
+    @pyqtSlot()
+    def close_window(self):
+        self.close()
 
+    @pyqtSlot()
+    def add_button_clicked(self):
+        """
+        Добавление записи в БД материалов
+        :return:
+        """
+        print("add_button_clicked")
+
+    def set_record(self, record):
+        self.lineEditName.setText(record['Name'])
+        self.lineEditPPM.setText(str(record['PPM']))
+        self.lineEditPYM.setText(str(record['PYD']))
+        self.lineEditPLM.setText(str(record['PLM']))
+        self.lineEditMM.setText(str(record['M_M']))
+        self.lineEditBCM.setText(str(record['B']))
+        self.lineEditYEM.setText(str(record['YEMP']))
+        self.lineEditKDM.setText(str(record['KDM']))
+        self.lineEditEz.setText(str(record['E_z']))
+        self.lineEditEup.setText(str(record['E_up']))

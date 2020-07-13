@@ -1,9 +1,12 @@
+from PyQt5 import QtCore
 from PyQt5.QtCore import pyqtSlot
 from PyQt5.QtWidgets import QWidget
 from PyQt5.uic import loadUi
 from gui.BaseView import BaseView
 from Pascal import Pascal
+
 from datetime import datetime
+
 
 class SecondaryParameters(QWidget):
     def __init__(self, parent=None):
@@ -17,10 +20,14 @@ class SecondaryParameters(QWidget):
         self.radioButtonManual.setChecked(True)
         self.radioButtonManual.toggled.connect(self.calculation_option_search)
         self.radioButtonManual.toggled.emit(True)
-        #self.set_default_parameters()
+
+        self.checkBoxParametersControl.stateChanged.connect(self.change_parameters_control)
+        # self.set_default_parameters()
+
 
     def set_blocked(self):
         print("set_blocked")
+
 
     def _show(self, flag, params,f):
         self.setVisible(flag)
@@ -51,6 +58,22 @@ class SecondaryParameters(QWidget):
         self.lineEditI0.setText(str(self.I00))
         self.lineEdit_2.setText("0.03")
         self.str=f
+
+
+
+    @pyqtSlot()
+    def change_parameters_control(self, state):
+        """
+        Проверка состояния чекбокса контроля параметров
+        :param state:
+        :return:
+        """
+        if state == QtCore.Checked:
+            # если чекбокс включен
+            pass
+        else:
+            # выключен
+            pass
 
 
     @pyqtSlot()

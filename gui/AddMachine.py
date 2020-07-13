@@ -4,7 +4,7 @@ from PyQt5.uic import loadUi
 from utils.tex_to_qpixmap import mathTex_to_QPixmap
 
 class AddMachine(QDialog):
-    def __init__(self, parent=None):
+    def __init__(self, parent=None, record=None):
         QWidget.__init__(self, parent)
         loadUi('./gui/AddMachine.ui', self)
         self.setWindowTitle("Добавление установки")
@@ -29,3 +29,47 @@ class AddMachine(QDialog):
             # self.setColumnWidth(indx, qpixmaps[indx].size().width() + 16)
             indx += 1
         print(qpixmaps)
+        if record is not None:
+            self.setWindowTitle("Редактирование установки")
+            self.pushButtonAdd.setText("Сохранить")
+            print("Передана запись")
+            print(record)
+            self.set_record(record)
+            self.pushButtonAdd.released.connect(self.edit_button_clicked)
+        else:
+            self.pushButtonAdd.released.connect(self.add_button_clicked)
+        self.pushButtonClose.released.connect(self.close_window)
+
+
+    @pyqtSlot()
+    def close_window(self):
+        self.close()
+
+    @pyqtSlot()
+    def add_button_clicked(self):
+        """
+        Добавление записи в БД установок
+        :return:
+        """
+        print("add_button_clicked")
+
+    @pyqtSlot()
+    def edit_button_clicked(self):
+        """
+        Редактирование записи в БД установок
+        :return:
+        """
+        print("edit_button_clicked")
+
+
+    def set_record(self, record):
+        self.lineEditName.setText(record['Name'])
+        self.lineEditWME.setText(str(record['W_mash']))
+        self.lineEditCCE.setText(str(record['CCE']))
+        self.lineEditLCE.setText(str(record['LCE']))
+        self.lineEditFCE.setText(str(record['FCE']))
+        self.lineEditFW8.setText(str(record['Ro']))
+        self.lineEditFW9.setText(str(record['FW']))
+        # self.lineEditKDM.setText(str(record['KDM']))
+        # self.lineEditEz.setText(str(record['E_z']))
+        # self.lineEditEup.setText(str(record['E_up']))

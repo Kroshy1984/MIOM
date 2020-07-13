@@ -41,14 +41,14 @@
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton">
+      <widget class="QPushButton" name="pushButtonEdit">
        <property name="text">
         <string>Редактировать</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton_2">
+      <widget class="QPushButton" name="pushButtonDelete">
        <property name="text">
         <string>Удалить</string>
        </property>
@@ -66,6 +66,13 @@
         </size>
        </property>
       </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButtonClose">
+       <property name="text">
+        <string>Закрыть</string>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>

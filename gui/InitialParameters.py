@@ -88,9 +88,11 @@ class InitialParameters(QWidget):
                                float(self.RC), float(self.NCT1), float(self.ZS), float(self.ZB), float(self.ZA),
                                float(self.YEMC), float(self.LTC))
         print(g)
+
         self.lineEditNumberCoilsInductor.setText(str(round(g.NCTC)))
         self.lineEditDiameter.setText(str(round(g.DCA,4)))
         self.lineEdit_2.setText(str(round(g.LCA,4)))
+
 
     @pyqtSlot('QString')
     def changed(self, text):
@@ -184,6 +186,7 @@ class InitialParameters(QWidget):
                                float(self.YEMC), float(self.LTC))
         print(g)
         self.make_file(g,a)
+
         params = {"WR" : round(g.WR,4), "I00": g.I00,"FP":round(g.FP,4), "DZT":round(g.DZT,4),
                   "KEC": round(g.KEC,4), "EPS":round(a.EPS,4), "K1":round(g.K1,4), "K2":round(g.K2,4),
                   "K3":round(g.K3,4),"K4":round(g.K4,4), "PM": round(g.PM,4), "name":self.name,
@@ -223,6 +226,7 @@ class InitialParameters(QWidget):
         self.f+=f"Р Е З У Л Ь Т А Т"+"\n"
         self.f+=str(a)+"\n"
         self.f+=str(g) + '\n'
+
 
     @pyqtSlot()
     def load_parameters(self):
