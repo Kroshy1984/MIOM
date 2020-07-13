@@ -35,9 +35,11 @@ class AddMachine(QDialog):
             print("Передана запись")
             print(record)
             self.set_record(record)
-
+            self.pushButtonAdd.released.connect(self.edit_button_clicked)
+        else:
+            self.pushButtonAdd.released.connect(self.add_button_clicked)
         self.pushButtonClose.released.connect(self.close_window)
-        self.pushButtonAdd.released.connect(self.add_button_clicked)
+
 
     @pyqtSlot()
     def close_window(self):
@@ -50,6 +52,15 @@ class AddMachine(QDialog):
         :return:
         """
         print("add_button_clicked")
+
+    @pyqtSlot()
+    def edit_button_clicked(self):
+        """
+        Редактирование записи в БД установок
+        :return:
+        """
+        print("edit_button_clicked")
+
 
     def set_record(self, record):
         self.lineEditName.setText(record['Name'])
