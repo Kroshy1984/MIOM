@@ -49,6 +49,7 @@ class SecondaryParameters(QWidget):
         self.lineEditPressure.setText(str(self.PM))
         self.lineEditDelta.setText(str(self.DZT))
         self.lineEditI0.setText(str(self.I00))
+        self.lineEdit_2.setText("0.03")
         self.str=f
 
 
