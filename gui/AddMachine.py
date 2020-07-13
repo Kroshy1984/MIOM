@@ -29,6 +29,12 @@ class AddMachine(QDialog):
             # self.setColumnWidth(indx, qpixmaps[indx].size().width() + 16)
             indx += 1
         print(qpixmaps)
+        if record is not None:
+            self.setWindowTitle("Редактирование установки")
+            self.pushButtonAdd.setText("Сохранить")
+            print("Передана запись")
+            print(record)
+            self.set_record(record)
 
         self.pushButtonClose.released.connect(self.close_window)
         self.pushButtonAdd.released.connect(self.add_button_clicked)
@@ -44,3 +50,15 @@ class AddMachine(QDialog):
         :return:
         """
         print("add_button_clicked")
+
+    def set_record(self, record):
+        self.lineEditName.setText(record['Name'])
+        self.lineEditWME.setText(str(record['W_mash']))
+        self.lineEditCCE.setText(str(record['CCE']))
+        self.lineEditLCE.setText(str(record['LCE']))
+        self.lineEditFCE.setText(str(record['FCE']))
+        self.lineEditFW8.setText(str(record['Ro']))
+        self.lineEditFW9.setText(str(record['FW']))
+        # self.lineEditKDM.setText(str(record['KDM']))
+        # self.lineEditEz.setText(str(record['E_z']))
+        # self.lineEditEup.setText(str(record['E_up']))
