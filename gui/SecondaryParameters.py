@@ -24,27 +24,25 @@ class SecondaryParameters(QWidget):
         self.checkBoxParametersControl.stateChanged.connect(self.change_parameters_control)
         # self.set_default_parameters()
 
-
     def set_blocked(self):
         print("set_blocked")
 
-
-    def _show(self, flag, params,f):
+    def _show(self, flag, params, f):
         self.setVisible(flag)
         print("Параметры переданные из первой части \n", params)
-        self.EPS=params.get("EPS")
-        self.WR=params.get("WR")
-        self.K1=params.get("K1")
-        self.K2=params.get("K2")
-        self.K3=params.get("K3")
-        self.K4=params.get("K4")
-        self.FP=params.get("FP")
-        self.KEC=params.get("KEC")
-        self.PM=params.get("PM")
-        self.DZT=params.get("DZT")
-        self.I00=params.get("I00")
-        self.name=params.get("name")
-        self.operation=params.get("operation")
+        self.EPS = params.get("EPS")
+        self.WR = params.get("WR")
+        self.K1 = params.get("K1")
+        self.K2 = params.get("K2")
+        self.K3 = params.get("K3")
+        self.K4 = params.get("K4")
+        self.FP = params.get("FP")
+        self.KEC = params.get("KEC")
+        self.PM = params.get("PM")
+        self.DZT = params.get("DZT")
+        self.I00 = params.get("I00")
+        self.name = params.get("name")
+        self.operation = params.get("operation")
         self.lineEditEps.setText(str(self.EPS))
         self.lineEditDischargeEnergy.setText(str(self.WR))
         self.lineEditK1.setText(str(self.K1))
@@ -57,9 +55,7 @@ class SecondaryParameters(QWidget):
         self.lineEditDelta.setText(str(self.DZT))
         self.lineEditI0.setText(str(self.I00))
         self.lineEdit_2.setText("0.03")
-        self.str=f
-
-
+        self.str = f
 
     @pyqtSlot()
     def change_parameters_control(self, state):
@@ -69,10 +65,9 @@ class SecondaryParameters(QWidget):
         :return:
         """
         if state == QtCore.Checked:
-            self.kp1=1
+            self.kp1 = 1
         else:
-            self.kp1=0
-
+            self.kp1 = 0
 
     @pyqtSlot()
     def start_calc_second_phase(self):
@@ -84,12 +79,10 @@ class SecondaryParameters(QWidget):
         print("start_calc_second_phase")
 
     def make_file(self):
-        date=datetime.now()
+        date = datetime.now()
         f_obj = open(f"{date}_{self.name}_{self.operation}.txt", "w", encoding='UTF-8')
-        f_obj.write(self.str+"\n")
+        f_obj.write(self.str + "\n")
         f_obj.close()
-
-
 
     @pyqtSlot()
     def save_parameters(self):
@@ -107,6 +100,12 @@ class SecondaryParameters(QWidget):
         :return:
         """
         print("calculation_option_search")
+        if selected:
+            # ручной
+            self.Poisk = 1
+        else:
+            # автоматический
+            self.Poisk = 0
 
 
     def set_default_parameters(self):
@@ -123,8 +122,7 @@ class SecondaryParameters(QWidget):
         self.lineEditK4.setText("K4")
         self.lineEditKe.setText("Ke")
 
-
         self.lineEditI0.setText("I0")
-        #self.lineEditF.setText("F")
+        # self.lineEditF.setText("F")
         self.lineEditDelta.setText("Delta")
         self.lineEditEps.setText(self.EPS)
