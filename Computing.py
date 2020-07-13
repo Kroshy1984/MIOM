@@ -58,9 +58,11 @@ class Inductor():
         self.LU = self.SC * self.NCT  # Длина индуктора
         self.SCIC = (self.LCA / self.NCT)  # Расчетный шаг витков индуктора
         self.SSC = self.SCIC - self.ZS  # Ширина медной шины по оси индуктора
-        self.ROC = self.DCA / 2  # наружный радиус индуктора
-        self.RIC = self.ROC - self.HSC  # Внутренний радиус индуктора
-        self.KEC = pow(((2 * self.ROC / self.RIC) * (self.ZEK / self.RIC) - 1), 2)
+        if self.operation[0]=="b":
+            self.ROC = self.DCA / 2  # наружный радиус индуктора
+            self.RIC = self.ROC - self.HSC  # Внутренний радиус индуктора
+            self.KEC = pow(((2 * self.ROC / self.RIC) * (self.ZEK / self.RIC) - 1), 2)
+        else: self.KEC=1
         self.NCWC = self.LBT / self.SCIC  # Расчетное количество рабочих витков
         self.NCW = round(self.NCWC)
         self.NCF = round(self.NCT - self.NCW)  # Количество свободных витков
@@ -69,10 +71,13 @@ class Inductor():
             self.LU = self.SC * self.NCT  # Длина индуктора
             self.SCIC = (self.LCA / self.NCT)  # Расчетный шаг витков индуктора
             self.SSC = self.SCIC - self.ZS  # Ширина медной шины по оси индуктора
-            self.ROC = self.DCA / 2  # наружный радиус индуктора
-            self.RIC = self.ROC - self.HSC  # Внутренний радиус индуктора
-            self.KEC = pow(((2 * self.ROC / self.RIC) * (self.ZEK / self.RIC) - 1), 2)
-            selfNCWC = self.LBT / self.SCIC  # Расчетное количество рабочих витков
+            if self.operation[0] == "b":
+                self.ROC = self.DCA / 2  # наружный радиус индуктора
+                self.RIC = self.ROC - self.HSC  # Внутренний радиус индуктора
+                self.KEC = pow(((2 * self.ROC / self.RIC) * (self.ZEK / self.RIC) - 1), 2)
+            else:
+                self.KEC = 1
+            self.NCWC = self.LBT / self.SCIC  # Расчетное количество рабочих витков
             self.NCW = round(self.NCWC)
             self.NCF = round(self.NCT - self.NCW)  # Количество свободных витков
         self.LCC = (3.14 * mu * (self.DCA + self.ZCP) * self.NCT * self.ZCP * self.NCT) / (self.KEC * self.LU)
@@ -128,7 +133,10 @@ class Inductor():
         self.LK = L1S / LZSD
         self.K4 = QQ / (QQ + self.LK)
         # Площадь создаваемого давления ИМП
-        self.SUMP = 3.14 * (self.DCA + self.ZCP) * self.LU
+        if self.operation=="b":
+            self.SUMP = 3.14 * (self.DCA + self.ZCP) * self.LU
+        else:
+            self.SUMP=3.14*(self.DOT+self.ZCP)
         # Необходимая энергия разряда МИУ
         self.WR = self.PM * self.SUMP * (self.ZPR + 0.5 * self.SPYR) * self.KEC * self.KEC / (
                     self.K1 * self.K2 * self.K3 * self.K4)
@@ -260,15 +268,15 @@ class Inductor():
     def DDP(self, geometry):
         f = Form(self.DOT, self.ST, self.BCM, self.KDM, self.MM, self.LBT, self.KPD, geometry, self.operation)
         if self.operation == "a1":
-            self.DDP = self.RC - f.RIB - self.SPYR
+            self.DDP = math.fabs(self.RC - f.RIB - self.SPYR)
         elif self.operation == "a2":
-            self.DDP = geometry - f.RIB - self.SPYR
+            self.DDP = math.fabs(geometry - f.RIB - self.SPYR)
         elif self.operation == "a3":
-            self.DDP = geometry - f.RIB - self.SPYR
+            self.DDP = math.fabs(geometry - f.RIB - self.SPYR)
         elif self.operation == "a4":
-            self.DDP = geometry - self.SPYR
+            self.DDP = math.fabs(geometry - self.SPYR)
         elif self.operation == "b1":
-            self.DDP = self.RC - f.RIB - self.SPYR
+            self.DDP = math.fabs(self.RC - f.RIB - self.SPYR)
         return self.DDP
     def __str__(self):
         s = "\n" + "Длина индуктора:" + str(round(self.LCA,4)) + ",м"
