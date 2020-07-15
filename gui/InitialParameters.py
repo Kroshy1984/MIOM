@@ -172,7 +172,7 @@ class InitialParameters(QWidget):
     @pyqtSlot()
     def start_calc_first_phase(self):  # рассчитать первый этап
         print("start_calc_first_phase")
-
+        self._parent.res_buttons.set_active_first_phase_button(True)
         self.get_parameters()
         print(self.operation)
         a = Form(float(self.DOT), float(self.ST), float(self.BCM), float(self.KDM), float(self.MM),
