@@ -77,11 +77,19 @@ class SecondaryParameters(QWidget):
         """
         f = Pascal()
         print("start_calc_second_phase")
+        print(f)
+        self.make_file_second_way(f)
 
     def make_file(self):
-        date = datetime.now()
-        f_obj = open(f"{date}_{self.name}_{self.operation}.txt", "w", encoding='UTF-8')
+        self.date = datetime.now()
+        f_obj = open(f"{self.date}_{self.name}_{self.operation}.txt", "w", encoding='UTF-8')
         f_obj.write(self.str + "\n")
+        f_obj.close()
+
+    def make_file_second_way(self,f):
+        f_obj = open(f"{self.date}_{self.name}_{self.operation}.txt", "a", encoding='UTF-8')
+        f_obj.write("ВТОРОЙ ПУТЬ\n")
+        f_obj.write(str(f) + "\n")
         f_obj.close()
 
     @pyqtSlot()

@@ -315,59 +315,59 @@ class Pascal():
                 else:
                     fq = ww / (2.0 * math.pi)
                 if kp1 == 1:
-                    print("F0=", f0)
-                    print("Fz=", fz)
-                    print("Fp=", fp)
-                    print("f3=", f3)
-                    print("h3=", h3)
-                    print("l3=", l3)
-                    print("self.vg=", self.vg)
-                    print("dz=", dz)
-                    print("ef=", ef)
-                    print("wr=", wr)
-                    print("db=", db)
-                    print("dm=", dm)
-                    print("self.x3=", self.x3)
-                    print("x1=", x1)
-                    print("xb=", xb)
-                    print("z=", z)
-                    print("xi=", xi)
-                    print("self.di=", self.di)
-                    print("Li=", Lind)
-                    print("xr=", xr)
-                    print("Ri=", Rind)
-                    print("xz=", xz)
-                    print("dr=", dr)
-                    print("Lz=", Lzag)
-                    print("xs=", xs)
-                    print("Rz=", Rzag)
-                    print("Ms=", M_ind_zag)
-                    print("k=", kq)
-                    print("qq=", qq)
-                    print("k2=", k2)
-                    print("Ln=", lnn)
-                    print("Rn=", rn)
-                    print("self.l0=", lo)
-                    print("Ro=", ro)
-                    print("Ls=", ls)
-                    print("Rs=", rs)
-                    print("s1=", s1)
-                    print("ww=", ww)
-                    print("q3=", q3)
-                    print("q1=", q1)
-                    print("Kн=", kn)
-                    print("f1=", f1)
-                    print("s3=", s3)
-                    print("k3=", k3)
-                    print("E0=", E0)
-                    print("Pw=", pw)
-                    print("Rтп=", rb)
-                    print("self.n1=", self.n1)
-                    print("Uo=", self.U0)
-                    print("Pmax=", pq)
-                    print("Hвит=", hm)
-                    print("Fr0=", over_f0)
-                    print("fq=", fq)
+                    self.str=f"F0={f0}\n"
+                    self.str+=f"Fz={fz}\n"
+                    self.str+=f"Fp={fp}\n"
+                    self.str+=f"f3={f3}\n"
+                    self.str+=f"h3={h3}\n"
+                    self.str+=f"l3={l3}\n"
+                    self.str+=f"vg={self.vg}\n"
+                    self.str+=f"dz={dz}\n"
+                    self.str+=f"ef={ef}\n"
+                    self.str+=f"wr={wr}\n"
+                    self.str+=f"db={db}\n"
+                    self.str+=f"dm={dm}\n"
+                    self.str+=f"x3={self.x3}\n"
+                    self.str+=f"x1={x1}\n"
+                    self.str+=f"xb={xb}\n"
+                    self.str+=f"z={z}\n"
+                    self.str+=f"xi={xi}\n"
+                    self.str+=f"di={self.di}\n"
+                    self.str+=f"Li={Lind}\n"
+                    self.str+=f"xr={xr}\n"
+                    self.str+=f"Ri={Rind}\n"
+                    self.str+=f"xz={xz}\n"
+                    self.str+=f"dr={dr}\n"
+                    self.str+=f"Lz={Lzag}\n"
+                    self.str+=f"xs={xs}\n"
+                    self.str+=f"Rz={Rzag}\n"
+                    self.str+=f"Ms={M_ind_zag}\n"
+                    self.str+=f"k={kq}\n"
+                    self.str+=f"qq={qq}\n"
+                    self.str+=f"k2={k2}\n"
+                    self.str+=f"Ln={lnn}\n"
+                    self.str+=f"Rn={rn}\n"
+                    self.str+=f"l0={lo}\n"
+                    self.str+=f"Ro={ro}\n"
+                    self.str+=f"Ls={ls}\n"
+                    self.str+=f"Rs={rs}\n"
+                    self.str+=f"s1={s1}\n"
+                    self.str+=f"ww={ww}\n"
+                    self.str+=f"q3={q3}\n"
+                    self.str+=f"q1={q1}\n"
+                    self.str+=f"Kн={kn}\n"
+                    self.str+=f"f1={f1}\n"
+                    self.str+=f"s3={s3}\n"
+                    self.str+=f"k3={k3}\n"
+                    self.str+=f"E0={E0}\n"
+                    self.str+=f"Pw={pw}\n"
+                    self.str+=f"Rтп={rb}\n"
+                    self.str+=f"n1={self.n1}\n"
+                    self.str+=f"Uo={self.U0}\n"
+                    self.str+=f"Pmax={pq}\n"
+                    self.str+=f"Hвит={hm}\n"
+                    self.str+=f"Fr0={over_f0}\n"
+                    self.str+=f"fq={fq}\n"
                 abt = abs(fp - fq)
                 if abt > 1:
                     fp = fq
@@ -378,59 +378,59 @@ class Pascal():
 
 
             if self.poisk == 1:
-                print("F0=", f0)
-                print("Fz=", fz)
-                print("Fp=", fp)
-                print("f3=", f3)
-                print("h3=", h3)
-                print("l3=", l3)
-                print("self.vg=", self.vg)
-                print("dz=", dz)
-                print("ef=", ef)
-                print("wr=", wr)
-                print("db=", db)
-                print("dm=", dm)
-                print("self.x3=", self.x3)
-                print("x1=", x1)
-                print("xb=", xb)
-                print("z=", z)
-                print("xi=", xi)
-                print("self.di=", self.di)
-                print("Li=", Lind)
-                print("xr=", xr)
-                print("Ri=", Rind)
-                print("xz=", xz)
-                print("dr=", dr)
-                print("Lz=", Lzag)
-                print("xs=", xs)
-                print("Rz=", Rzag)
-                print("Ms=", M_ind_zag)
-                print("k=", kq)
-                print("qq=", qq)
-                print("k2=", k2)
-                print("Ln=", lnn)
-                print("Rn=", rn)
-                print("self.l0=", lo)
-                print("Ro=", ro)
-                print("Ls=", ls)
-                print("Rs=", rs)
-                print("s1=", s1)
-                print("ww=", ww)
-                print("q3=", q3)
-                print("q1=", q1)
-                print("Kн=", kn)
-                print("f1=", f1)
-                print("s3=", s3)
-                print("k3=", k3)
-                print("E0=", E0)
-                print("Pw=", pw)
-                print("Rтп=", rb)
-                print("self.n1=", self.n1)
-                print("Uo=", self.U0)
-                print("Pmax=", pq)
-                print("Hвит=", hm)
-                print("Fr0=", over_f0)
-                print("fq=", fq)
+                self.str=f"F0={f0}\n"
+                self.str+=f"Fz={fz}\n"
+                self.str+=f"Fp={fp}\n"
+                self.str+=f"f3={f3}\n"
+                self.str+=f"h3={h3}\n"
+                self.str+=f"l3={l3}\n"
+                self.str+=f"vg={self.vg}\n"
+                self.str+=f"dz={dz}\n"
+                self.str+=f"ef={ef}\n"
+                self.str+=f"wr={wr}\n"
+                self.str+=f"db={db}\n"
+                self.str+=f"dm={dm}\n"
+                self.str+=f"x3={self.x3}\n"
+                self.str+=f"x1={x1}\n"
+                self.str+=f"xb={xb}\n"
+                self.str+=f"z={z}\n"
+                self.str+=f"xi={xi}\n"
+                self.str+=f"di={self.di}\n"
+                self.str+=f"Li={Lind}\n"
+                self.str+=f"xr={xr}\n"
+                self.str+=f"Ri={Rind}\n"
+                self.str+=f"xz={xz}\n"
+                self.str+=f"dr={dr}\n"
+                self.str+=f"Lz={Lzag}\n"
+                self.str+=f"xs={xs}\n"
+                self.str+=f"Rz={Rzag}\n"
+                self.str+=f"Ms={M_ind_zag}\n"
+                self.str+=f"k={kq}\n"
+                self.str+=f"qq={qq}\n"
+                self.str+=f"k2={k2}\n"
+                self.str+=f"Ln={lnn}\n"
+                self.str+=f"Rn={rn}\n"
+                self.str+=f"l0={lo}\n"
+                self.str+=f"Ro={ro}\n"
+                self.str+=f"Ls={ls}\n"
+                self.str+=f"Rs={rs}\n"
+                self.str+=f"s1={s1}\n"
+                self.str+=f"ww={ww}\n"
+                self.str+=f"q3={q3}\n"
+                self.str+=f"q1={q1}\n"
+                self.str+=f"Kн={kn}\n"
+                self.str+=f"f1={f1}\n"
+                self.str+=f"s3={s3}\n"
+                self.str+=f"k3={k3}\n"
+                self.str+=f"E0={E0}\n"
+                self.str+=f"Pw={pw}\n"
+                self.str+=f"Rтп={rb}\n"
+                self.str+=f"n1={self.n1}\n"
+                self.str+=f"Uo={self.U0}\n"
+                self.str+=f"Pmax={pq}\n"
+                self.str+=f"Hвит={hm}\n"
+                self.str+=f"Fr0={over_f0}\n"
+                self.str+=f"fq={fq}\n"
             self.io = 1  # { МИОМ(Э) , c. 79 }
             self.lw = lm + lb
             self.alfa1 = Lind / self.lw
@@ -446,6 +446,7 @@ class Pascal():
             self.b1 = mu0 * self.c0 / 2.0 / self.lw * self.n1 * self.U0 * kn / l3 * self.n1 * self.U0 * kn / l3
             pstrag = h3 * 2 * self.sp / dz * (self.vb + (1 - self.vb) * self.q0)
             print("Давление страгивания====>(МПа)", pstrag / 1e6)
+            self.str+=f"Давление страгивания====>(МПа){pstrag / 1e6}\n"
             self.pstrag = pstrag
             # print(self.io, self.lw, self.alfa1, self.alfa3, self.m13, self.Gamma0, self.Gamma1, self.Gamma3)
             # print(self.ka, self.dd, self.bb, self.b1)
@@ -464,8 +465,8 @@ class Pascal():
             self.k = [0, 0, 1, 0, 0]
             self.k0 = k0
             self.N_Y = 5
-            print("Time_h=", self.Time_h)
-            print("vb=", self.vb, "q0=", self.q0, "dd=", self.dd, "bb=", self.bb)
+            self.str+=f"Time_h={self.Time_h}\n"
+            self.str+=f"vb={self.vb}, q0={self.q0}, dd={self.dd}, bb={self.bb}\n"
             # инициализация доп переменных
             self.i2 = 0
             self.i4 = 0
@@ -718,3 +719,5 @@ class Pascal():
         print("Предлагаемое значение [кВ]  Uo = ", uu0 / 1000)
 
         return uu0
+    def __str__(self):
+        return self.str
