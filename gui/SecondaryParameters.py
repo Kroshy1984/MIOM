@@ -56,6 +56,7 @@ class SecondaryParameters(QWidget):
         self.lineEditI0.setText(str(self.I00))
         self.lineEdit_2.setText("0.03")
         self.str = f
+        self.kp1=0
 
     @pyqtSlot()
     def change_parameters_control(self, state):
@@ -75,7 +76,10 @@ class SecondaryParameters(QWidget):
         Начало расчета второй фазы
         :return:
         """
-        f = Pascal()
+        self.U0=float(self.lineEdit.text())
+        self.eps=float(self.lineEdit_2.text())
+        calc={"U0":self.U0,"poisk":self.Poisk,"kp1":self.kp1,"eps":self.eps}
+        f = Pascal(calc)
         print("start_calc_second_phase")
         print(f)
         self.make_file_second_way(f)
