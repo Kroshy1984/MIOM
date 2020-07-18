@@ -1,5 +1,6 @@
 from PyQt5.QtCore import pyqtSlot
 # from PyQt5.QtWidgets import QWidget
+from PyQt5.QtGui import QDoubleValidator
 from PyQt5.QtWidgets import QWidget, QLineEdit, QLabel
 from PyQt5.uic import loadUi
 from gui.BaseView import BaseView
@@ -41,6 +42,7 @@ class InitialParameters(QWidget):
         self.labelRadius.setVisible(False)
         self.lineEditRadius.setVisible(False)
         self.set_default_parameters()
+        self.set_validators()
         # шрифт MS Shell Dlg 2
         self.db_view = BaseView(caller_view=self)
 
@@ -259,6 +261,38 @@ class InitialParameters(QWidget):
         self.lineEditOuterDiameter.setText("151.4")
         self.lineEditSideThickness.setText("1.2")
         self.lineEditLengthDeform.setText("30")
+        self.lineEditBilletMaterial.setText("Материал")
+
+        self.lineEditKPD.setText("0.03")
+        self.lineEditMachineName.setText("Оборудование")
+        # self.lineEditKP.setText("Кп_3%")
+        # self.lineEditKappa.setText("Kappa")
+        self.lineEditRadius.setText("75.2")
+        self.lineEditGapWidth.setText("0.25")
+        self.lineEditMainIsolation.setText("1")
+        self.lineEditSizeIsolationInductor.setText("-")
+        self.lineEditMaterialInductor.setText("Метериал индуктора")
+        self.lineEditWidthCoilInductor.setText("4")
+        self.lineEditHeightCoilInductor.setText("8")
+        self.lineEditNumberCoilsInductor.setText("Количество витков")
+        self.lineEditSizeIsolationInductor.setText("0.65")
+        self.lineEditInductance.setText("0.07")
+        self.lineEditA_tp.setText("A_ТП")
+        self.lineEditB_tp.setText("B_ТП")
+        self.lineEditHB_tp.setText("HB_ТП")
+        self.lineEditLB_tp.setText("LB_ТП")
+
+
+    def set_validators(self):
+        print("set_validators")
+        # self.comboBoxOperationType.setCurrentIndex(1)
+        # self.comboBoxOperationName.setCurrentIndex(1)
+        validator = QDoubleValidator()
+
+        self.lineEditBilletName.setText("Наименование")
+        # self.lineEditOuterDiameter.setValidator(validator)
+        # self.lineEditSideThickness.setValidator(validator)
+        # self.lineEditLengthDeform.setValidator(validator)
         self.lineEditBilletMaterial.setText("Материал")
 
         self.lineEditKPD.setText("0.03")
