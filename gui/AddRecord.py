@@ -1,4 +1,5 @@
 from PyQt5.QtCore import pyqtSlot
+from PyQt5.QtGui import QValidator, QDoubleValidator
 from PyQt5.QtWidgets import QWidget, QAbstractItemView
 from PyQt5.uic import loadUi
 from utils.tex_to_qpixmap import mathTex_to_QPixmap
@@ -55,6 +56,15 @@ class AddRecord(QWidget):
             print("Передана запись")
             print(record)
             self.set_record(record)
+
+        # lineedit = QtGui.QLineEdit(self)
+        validator = QDoubleValidator()
+        self.lineEditPPM.setValidator(validator)
+
+        self.lineEditPPM.textChanged.connect(self.check_state)
+        # self.lineEditName.setText(record['Name'])
+        # self.lineEditPPM.setText(str(record['PPM']))
+
         # self.pushButtonChoose.released.connect(self.choose_button_clicked)
         # self.tableView.setSelectionBehavior(QAbstractItemView.SelectRows)
         # self.tableView.setSelectionMode(QAbstractItemView.SingleSelection)
@@ -85,3 +95,15 @@ class AddRecord(QWidget):
         self.lineEditKDM.setText(str(record['KDM']))
         self.lineEditEz.setText(str(record['E_z']))
         self.lineEditEup.setText(str(record['E_up']))
+
+    def check_state(self, *args, **kwargs):
+        sender = self.sender()
+        validator = sender.validator()
+        state = validator.validate(sender.text(), 0)[0]
+        if state == QValidator.Acceptable:
+            color = '#c4df9b'  # green
+        elif state == QValidator.Intermediate:
+            color = '#fff79a'  # yellow
+        else:
+            color = '#f6989d'  # red
+        sender.setStyleSheet('QLineEdit { background-color: %s }' % color)
