@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>Form</class>
- <widget class="QWidget" name="Form">
+ <widget class="QDialog" name="Form">
+  <property name="windowModality">
+   <enum>Qt::ApplicationModal</enum>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -147,6 +150,20 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>lineEditName</tabstop>
+  <tabstop>lineEditPPM</tabstop>
+  <tabstop>lineEditPYM</tabstop>
+  <tabstop>lineEditPLM</tabstop>
+  <tabstop>lineEditMM</tabstop>
+  <tabstop>lineEditBCM</tabstop>
+  <tabstop>lineEditYEM</tabstop>
+  <tabstop>lineEditKDM</tabstop>
+  <tabstop>lineEditEz</tabstop>
+  <tabstop>lineEditEup</tabstop>
+  <tabstop>pushButtonAdd</tabstop>
+  <tabstop>pushButtonClose</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

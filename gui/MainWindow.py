@@ -5,6 +5,7 @@ from gui.InitialParameters import InitialParameters
 from gui.SecondaryParameters import SecondaryParameters
 from gui.OutputWindow import OutputWindow
 from gui.BaseView import BaseView
+from  gui.ResultsButtons import ResultsButtons
 
 class MainWindow(QMainWindow):
     def __init__(self, parent=None):
@@ -21,15 +22,21 @@ class MainWindow(QMainWindow):
         hbox_params.addWidget(self.secondary_parameters)
         # hbox_params.addWidget(thirdParam)
 
-        hbox_calculate = QHBoxLayout()
-        # winout = OutputWindow()
+        hbox_results = QHBoxLayout()
+        self.res_buttons = ResultsButtons(parent=self)
+        hbox_results.addWidget(self.res_buttons)
+
+        self.winout = OutputWindow()
         # hbox_calculate.addWidget(calc)
         # hbox_calculate.addWidget(winout)
 
 
 
         vbox.addLayout(hbox_params)
-        vbox.addLayout(hbox_calculate)
+        vbox.addLayout(hbox_results)
         self.centralWidget().setLayout(vbox)
 
         self.db_view = BaseView()
+
+    def show_output_window(self, flag):
+        self.winout.setVisible(flag)
