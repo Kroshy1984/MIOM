@@ -106,12 +106,18 @@ class SecondaryParameters(QWidget):
         self.eps=float(self.lineEdit_2.text())
         self.kappa=float(self.lineEditFieldFactor.text())
         self.kn=float(self.lineEditAttenuationCoefField.text())
-        calc={"U0":self.U0,"poisk":self.Poisk,"kp1":self.kp1,"eps":self.EPS,"pm":self.PLM,
-              "l0":self.LBT,"dh":self.DOT,"h0":self.ST,"pl":self.YEMC,"ek":self.eps,
-              "lm":self.LCE,"c0":self.CCE, "R0":self.R0, "p3":self.YEMP,"mod_upr":self.E_z,
-              "a":self.A_tp,"b":self.B_tp, "hb":self.HB_tp, "lv":self.LB_tp,"dv":self.DIB,
-              "nl":self.NCT1,"l1":self.LCA,"dn":self.DCA, "sp":self.PPM, "hl":self.HSC,
-              "ey":self.E_up, "H_izol":self.ZB, "kappa":self.kappa,"kn":self.kn}
+        print(self.LCE, self.CCE, self.R0)
+        calc={"U0":self.U0,"poisk":self.Poisk,"kp1":self.kp1,"eps":float(self.EPS),
+              "pm":float(self.PLM),"l0":float(self.LBT),"dh":float(self.DOT),
+              "h0":float(self.ST),"pl":float(self.YEMC),"ek":float(self.eps),
+              "lm":float(self.LCE),"c0":float(self.CCE), "R0":float(self.R0),
+              "p3":float(self.YEMP),"mod_upr":float(self.E_z),
+              "a":float(self.A_tp),"b":float(self.B_tp), "hb":float(self.HB_tp),
+              "lv":float(self.LB_tp),"dv":float(self.DIB),
+              "nl":float(self.NCT1),"l1":float(self.LCA),"dn":float(self.DCA),
+              "sp":float(self.PPM), "hl":float(self.HSC),
+              "ey":float(self.E_up), "H_izol":float(self.ZB),
+              "kappa":float(self.kappa),"kn":float(self.kn)}
         f = Pascal(calc)
         print("start_calc_second_phase")
         print(f)

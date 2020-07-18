@@ -378,7 +378,7 @@ class InitialParameters(QWidget):
         self.CCE = self.machine.get("CCE")
         self.FCE = self.machine.get("FCE")
         self.FW = self.machine.get("FW")
-        self.R0 = self.machine.get("R0")
+        self.R0 = self.machine.get("Ro")
         self.lineEditMachineName.setText(self.nama_mash)
 
     def get_operation(self):
