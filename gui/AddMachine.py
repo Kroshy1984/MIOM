@@ -1,4 +1,5 @@
 from PyQt5.QtCore import pyqtSlot
+from PyQt5.QtGui import QValidator, QDoubleValidator
 from PyQt5.QtWidgets import QWidget, QAbstractItemView, QDialog
 from PyQt5.uic import loadUi
 from utils.tex_to_qpixmap import mathTex_to_QPixmap
@@ -40,6 +41,22 @@ class AddMachine(QDialog):
             self.pushButtonAdd.released.connect(self.add_button_clicked)
         self.pushButtonClose.released.connect(self.close_window)
 
+        validator = QDoubleValidator()
+        # self.lineEditName.setText(record['Name'])
+        self.lineEditWME.setValidator(validator)
+        self.lineEditCCE.setValidator(validator)
+        self.lineEditLCE.setValidator(validator)
+        self.lineEditFCE.setValidator(validator)
+        self.lineEditFW8.setValidator(validator)
+        self.lineEditFW9.setValidator(validator)
+
+        self.lineEditWME.textChanged.connect(self.check_state)
+        self.lineEditCCE.textChanged.connect(self.check_state)
+        self.lineEditLCE.textChanged.connect(self.check_state)
+        self.lineEditFCE.textChanged.connect(self.check_state)
+        self.lineEditFW8.textChanged.connect(self.check_state)
+        self.lineEditFW9.textChanged.connect(self.check_state)
+
 
     @pyqtSlot()
     def close_window(self):
@@ -73,3 +90,15 @@ class AddMachine(QDialog):
         # self.lineEditKDM.setText(str(record['KDM']))
         # self.lineEditEz.setText(str(record['E_z']))
         # self.lineEditEup.setText(str(record['E_up']))
+
+    def check_state(self, *args, **kwargs):
+        sender = self.sender()
+        validator = sender.validator()
+        state = validator.validate(sender.text(), 0)[0]
+        if state == QValidator.Acceptable:
+            color = '#c4df9b'  # green
+        elif state == QValidator.Intermediate:
+            color = '#fff79a'  # yellow
+        else:
+            color = '#f6989d'  # red
+        sender.setStyleSheet('QLineEdit { background-color: %s }' % color)

@@ -1,9 +1,10 @@
 from PyQt5.QtCore import pyqtSlot
-from PyQt5.QtWidgets import QWidget, QAbstractItemView
+from PyQt5.QtGui import QValidator, QDoubleValidator
+from PyQt5.QtWidgets import QWidget, QAbstractItemView, QDialog
 from PyQt5.uic import loadUi
 from utils.tex_to_qpixmap import mathTex_to_QPixmap
 
-class AddRecord(QWidget):
+class AddRecord(QDialog):
     def __init__(self, parent=None, bd_view=None, record=None):
         QWidget.__init__(self, parent)
         loadUi('./gui/AddRecord.ui', self)
@@ -55,6 +56,31 @@ class AddRecord(QWidget):
             print("Передана запись")
             print(record)
             self.set_record(record)
+
+        # lineedit = QtGui.QLineEdit(self)
+        validator = QDoubleValidator()
+        self.lineEditPPM.setValidator(validator)
+        self.lineEditPYM.setValidator(validator)
+        self.lineEditPLM.setValidator(validator)
+        self.lineEditMM.setValidator(validator)
+        self.lineEditBCM.setValidator(validator)
+        self.lineEditYEM.setValidator(validator)
+        self.lineEditKDM.setValidator(validator)
+        self.lineEditEz.setValidator(validator)
+        self.lineEditEup.setValidator(validator)
+
+        self.lineEditPPM.textChanged.connect(self.check_state)
+        self.lineEditPYM.textChanged.connect(self.check_state)
+        self.lineEditPLM.textChanged.connect(self.check_state)
+        self.lineEditMM.textChanged.connect(self.check_state)
+        self.lineEditBCM.textChanged.connect(self.check_state)
+        self.lineEditYEM.textChanged.connect(self.check_state)
+        self.lineEditKDM.textChanged.connect(self.check_state)
+        self.lineEditEz.textChanged.connect(self.check_state)
+        self.lineEditEup.textChanged.connect(self.check_state)
+        # self.lineEditName.setText(record['Name'])
+        # self.lineEditPPM.setText(str(record['PPM']))
+
         # self.pushButtonChoose.released.connect(self.choose_button_clicked)
         # self.tableView.setSelectionBehavior(QAbstractItemView.SelectRows)
         # self.tableView.setSelectionMode(QAbstractItemView.SingleSelection)
@@ -85,3 +111,15 @@ class AddRecord(QWidget):
         self.lineEditKDM.setText(str(record['KDM']))
         self.lineEditEz.setText(str(record['E_z']))
         self.lineEditEup.setText(str(record['E_up']))
+
+    def check_state(self, *args, **kwargs):
+        sender = self.sender()
+        validator = sender.validator()
+        state = validator.validate(sender.text(), 0)[0]
+        if state == QValidator.Acceptable:
+            color = '#c4df9b'  # green
+        elif state == QValidator.Intermediate:
+            color = '#fff79a'  # yellow
+        else:
+            color = '#f6989d'  # red
+        sender.setStyleSheet('QLineEdit { background-color: %s }' % color)
