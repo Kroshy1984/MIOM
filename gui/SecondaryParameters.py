@@ -78,6 +78,9 @@ class SecondaryParameters(QWidget):
         self.lineEditDelta.setText(str(self.DZT))
         self.lineEditI0.setText(str(self.I00))
         self.lineEdit_2.setText("0.03")
+        self.lineEdit.setText("6000.0")
+        self.lineEditAttenuationCoefField.setText("0.0")
+        self.lineEditFieldFactor.setText("1.0")
         self.str = f
         self.kp1=0
 
@@ -101,8 +104,14 @@ class SecondaryParameters(QWidget):
         """
         self.U0=float(self.lineEdit.text())
         self.eps=float(self.lineEdit_2.text())
-        calc={"U0":self.U0,"poisk":self.Poisk,"kp1":self.kp1,"eps":self.eps,"pm":self.PLM,
-              "l0":self.LBT,"dh":self.DOT,"h0":self.ST,"pl":self.YEMC,"ek":self.EPS}
+        self.kappa=float(self.lineEditFieldFactor.text())
+        self.kn=float(self.lineEditAttenuationCoefField.text())
+        calc={"U0":self.U0,"poisk":self.Poisk,"kp1":self.kp1,"eps":self.EPS,"pm":self.PLM,
+              "l0":self.LBT,"dh":self.DOT,"h0":self.ST,"pl":self.YEMC,"ek":self.eps,
+              "lm":self.LCE,"c0":self.CCE, "R0":self.R0, "p3":self.YEMP,"mod_upr":self.E_z,
+              "a":self.A_tp,"b":self.B_tp, "hb":self.HB_tp, "lv":self.LB_tp,"dv":self.DIB,
+              "nl":self.NCT1,"l1":self.LCA,"dn":self.DCA, "sp":self.PPM, "hl":self.HSC,
+              "ey":self.E_up, "H_izol":self.ZB, "kappa":self.kappa,"kn":self.kn}
         f = Pascal(calc)
         print("start_calc_second_phase")
         print(f)
