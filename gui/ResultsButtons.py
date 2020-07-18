@@ -1,3 +1,4 @@
+import os
 from PyQt5.QtCore import pyqtSlot
 # from PyQt5.QtWidgets import QWidget
 from PyQt5.QtWidgets import QWidget, QLineEdit, QLabel
@@ -24,8 +25,19 @@ class ResultsButtons(QWidget):
 
     @pyqtSlot()
     def first_phase_results_button_clicked(self):
+        """
+        Открывается текстовый файл редактором по умолчанию
+        TODO: передать нужное имя файла
+        :return:
+        """
         print("first_phase_results_button_clicked")
-        self._parent.show_output_window(True)
+        # self._parent.show_output_window(True)
+
+        filename = "C:\Work\PyCharmProjects\MIOM\\buf.txt"
+        try:
+            os.startfile(filename)
+        except FileNotFoundError:
+            print("File not found")
 
     @pyqtSlot()
     def second_phase_results_button_clicked(self):
