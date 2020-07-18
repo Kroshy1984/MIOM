@@ -1,10 +1,10 @@
 from PyQt5.QtCore import pyqtSlot
 from PyQt5.QtGui import QValidator, QDoubleValidator
-from PyQt5.QtWidgets import QWidget, QAbstractItemView
+from PyQt5.QtWidgets import QWidget, QAbstractItemView, QDialog
 from PyQt5.uic import loadUi
 from utils.tex_to_qpixmap import mathTex_to_QPixmap
 
-class AddRecord(QWidget):
+class AddRecord(QDialog):
     def __init__(self, parent=None, bd_view=None, record=None):
         QWidget.__init__(self, parent)
         loadUi('./gui/AddRecord.ui', self)
@@ -60,8 +60,24 @@ class AddRecord(QWidget):
         # lineedit = QtGui.QLineEdit(self)
         validator = QDoubleValidator()
         self.lineEditPPM.setValidator(validator)
+        self.lineEditPYM.setValidator(validator)
+        self.lineEditPLM.setValidator(validator)
+        self.lineEditMM.setValidator(validator)
+        self.lineEditBCM.setValidator(validator)
+        self.lineEditYEM.setValidator(validator)
+        self.lineEditKDM.setValidator(validator)
+        self.lineEditEz.setValidator(validator)
+        self.lineEditEup.setValidator(validator)
 
         self.lineEditPPM.textChanged.connect(self.check_state)
+        self.lineEditPYM.textChanged.connect(self.check_state)
+        self.lineEditPLM.textChanged.connect(self.check_state)
+        self.lineEditMM.textChanged.connect(self.check_state)
+        self.lineEditBCM.textChanged.connect(self.check_state)
+        self.lineEditYEM.textChanged.connect(self.check_state)
+        self.lineEditKDM.textChanged.connect(self.check_state)
+        self.lineEditEz.textChanged.connect(self.check_state)
+        self.lineEditEup.textChanged.connect(self.check_state)
         # self.lineEditName.setText(record['Name'])
         # self.lineEditPPM.setText(str(record['PPM']))
 
