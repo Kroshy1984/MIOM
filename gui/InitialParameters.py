@@ -1,0 +1,365 @@
+from PyQt5.QtCore import pyqtSlot
+# from PyQt5.QtWidgets import QWidget
+from PyQt5.QtWidgets import QWidget, QLineEdit, QLabel
+from PyQt5.uic import loadUi
+from gui.BaseView import BaseView
+from Computing import *
+# from core.FirstPhase import Form
+from datetime import datetime
+
+class InitialParameters(QWidget):
+    def __init__(self, parent=None):
+        QWidget.__init__(self, parent)
+        self._parent = parent
+        loadUi('./gui/InitialParameters.ui', self)
+        print("1")
+
+        self.pushButtonMaterialBillet.released.connect(self.open_materials_db_billet)
+        self.pushButtonMaterialInductor.released.connect(self.open_materials_db_inductor)
+        self.pushButtonMachine.released.connect(self.open_machines_db)
+        self.pushButtonCalcInductor.released.connect(self.calculate_inductor)
+
+        self.comboBoxOperationType.addItems(["Не выбрано", "Обжим", "Раздача"])
+        self.comboBoxOperationName.addItems(["Не выбрано",
+                                             "Формовка цилиндра",
+                                             "Формовка конуса",
+                                             "Формовка сферы",
+                                             "Формовка рифтов"])
+
+        self.comboBoxOperationType.currentTextChanged.connect(self.changed_type)
+        # self.comboBoxOperationType.currentTextChanged.emit(True, "Не выбрано")
+        self.comboBoxOperationName.currentTextChanged.connect(self.changed)
+        # self.comboBoxOperationName.currentTextChanged.emit(True, "Не выбрано")
+        self.radioButtonCalc.setChecked(True)
+        self.radioButtonCalc.toggled.connect(self.inductor_calculations_option)
+        self.radioButtonCalc.toggled.emit(True)
+
+        # self.pushButtonLoadParameters.released.connect(self.load_parameters)
+        self.pushButtonCalcFirsPhase.released.connect(self.start_calc_first_phase)
+        # self.lineEditRadius = QLineEdit()
+        # self.labelRadius = QLabel()
+        self.labelRadius.setVisible(False)
+        self.lineEditRadius.setVisible(False)
+        self.set_default_parameters()
+        # шрифт MS Shell Dlg 2
+        self.db_view = BaseView(caller_view=self)
+
+    #
+    #
+
+    @pyqtSlot('QString')
+    def changed_type(self, text):
+        print("changed_type")
+        print(text)
+        if text == "Не выбрано":
+            self.widget_2.setVisible(False)
+        else:
+            self.widget_2.setVisible(True)
+            if text == "Обжим":
+                self.labelDiameter.setText("Внутренний диаметр индуктора")
+            else:
+                self.labelDiameter.setText("Внешний диаметр индуктора")
+
+    @pyqtSlot()
+    def calculate_inductor(self):
+        self.groupBox_7.setEnabled(True)
+        """
+        Расчет индуктора
+        :return:
+        """
+        print("calculate_inductor")
+        self.get_parameters()
+        print(self.operation)
+        # try:
+        #     float(self.DOT)
+        # except:
+        #     print("1")
+        # try:
+        #     float(self.ST)
+        # except:
+        #     print("2")
+        a = Form(float(self.DOT), float(self.ST), float(self.BCM), float(self.KDM), float(self.MM),
+                 float(self.LBT), float(self.KPD), float(self.RC), self.operation)
+        print(a)
+        g = Inductor(float(self.LBT), self.operation, float(self.DOT), float(self.ST), float(self.FW),
+                               float(self.YEMP), float(self.FCE), float(self.LCE), 1 * pow(10, -12),
+                               float(self.CCE), float(self.SC), float(self.HSC), float(self.PLM), float(self.BCM),
+                               float(self.KDM), float(self.MM), float(self.KPD),
+                               float(self.RC), float(self.NCT1), float(self.ZS), float(self.ZB), float(self.ZA),
+                               float(self.YEMC), float(self.LTC))
+        print(g)
+
+        self.lineEditNumberCoilsInductor.setText(str(round(g.NCTC)))
+        self.lineEditDiameter.setText(str(round(g.DCA,4)))
+        self.lineEdit_2.setText(str(round(g.LCA,4)))
+
+
+    @pyqtSlot('QString')
+    def changed(self, text):
+        print("changed")
+        print(text)
+        if text == "Не выбрано":
+            self.labelRadius.setVisible(False)
+            self.lineEditRadius.setVisible(False)
+            return
+        elif text in ["Формовка цилиндра", "Формовка конуса", "Формовка сферы", "Формовка рифтов"]:
+            self.labelRadius.setVisible(True)
+            self.lineEditRadius.setVisible(True)
+            t = text.split()[1]
+            if t == "конуса":
+                label = "Максимальный радиус " + text.split()[1]
+            else:
+                label = "Радиус " + text.split()[1]
+            self.labelRadius.setText(label)
+            print(label)
+            # self.
+
+        # if
+        # if self.comboBoxOperationName.
+
+    @pyqtSlot(bool)
+    def inductor_calculations_option(self, selected):
+        """
+        Блокирование полей ввода при автоматическом расчете индуктора
+        :return:
+        """
+        if selected:
+            print("выбран расчет")
+            self.groupBox_7.setEnabled(False)
+            self.flag=True
+        else:
+            self.groupBox_7.setEnabled(True)
+            self.flag=False
+        self.pushButtonCalcInductor.setEnabled(selected)
+        print(self.flag)
+
+    @pyqtSlot()
+    def open_materials_db_billet(self):
+        """
+        Выбор материала для заготовки
+        :return:
+        """
+        print("Open materials db")
+        db_name = "Metalls.db"
+        slot_name = "billet"
+        sql = "select* from material"
+        self.db_view.show_db_view(db_name, sql, slot_name)
+
+    @pyqtSlot()
+    def open_materials_db_inductor(self):
+        """
+        Выбор материала для индуктора
+        :return:
+        """
+        print("Open materials ind db")
+        db_name = "Metalls.db"
+        slot_name = "inductor"
+        sql = "select* from material"
+        self.db_view.show_db_view(db_name, sql, slot_name)
+
+    @pyqtSlot()
+    def open_machines_db(self):
+        """
+        Выбор материала для индуктора
+        :return:
+        """
+        print("Open mashins ind db")
+        db_name = "mashins.db"
+        slot_name = "machines"
+        sql = "select* from Mashines"
+        self.db_view.show_db_view(db_name, sql, slot_name)
+
+    @pyqtSlot()
+    def start_calc_first_phase(self):  # рассчитать первый этап
+        print("start_calc_first_phase")
+
+        self.get_parameters()
+        print(self.operation)
+        a = Form(float(self.DOT), float(self.ST), float(self.BCM), float(self.KDM), float(self.MM),
+                 float(self.LBT), float(self.KPD), float(self.RC), self.operation)
+        print(a)
+        g= Inductor(float(self.LBT), self.operation, float(self.DOT), float(self.ST), float(self.FW),
+                               float(self.YEMP), float(self.FCE), float(self.LCE), 1 * pow(10, -12),
+                               float(self.CCE), float(self.SC), float(self.HSC), float(self.PLM), float(self.BCM),
+                               float(self.KDM), float(self.MM), float(self.KPD),
+                               float(self.RC), float(self.NCT1), float(self.ZS), float(self.ZB), float(self.ZA),
+                               float(self.YEMC), float(self.LTC))
+        print(g)
+        self.make_file(g,a)
+
+        params = {"WR" : round(g.WR,4), "I00": g.I00,"FP":round(g.FP,4), "DZT":round(g.DZT,4),
+                  "KEC": round(g.KEC,4), "EPS":round(a.EPS,4), "K1":round(g.K1,4), "K2":round(g.K2,4),
+                  "K3":round(g.K3,4),"K4":round(g.K4,4), "PM": round(g.PM,4), "name":self.name,
+                  "operation":self.operation,"PLM":self.PLM,"LBT":self.LBT, "DOT":self.DOT,
+                  "ST":self.ST,"YEMC":self.YEMC, "LCE":self.LCE,"CCE":self.CCE,"R0":self.R0,
+                  "YEMP":self.YEMP,"NCT1":self.NCT1,"LCA":round(g.LCA,4),"DCA":round(g.DCA,4),
+                  "PPM":self.PPM,"HSC":self.HSC,"ZB":self.ZB, "A_tp":self.A_tp, "B_tp":self.B_tp,
+                  "HB_tp":self.HB_tp, "LB_tp":self.LB_tp, "DIB":round(a.DIB,4),
+                  "E_up":self.E_up, "E_z":self.E_z
+
+                  }
+        print(params)
+        self._parent.secondary_parameters._show(True, params,self.f)
+
+
+    def make_file(self,g,a):
+        date=datetime.now()
+        self.f="П Р О Т О К О Л    Р А С Ч Е Т А" +"\n"
+        self.f+="ИСХОДНЫЕ ДАННЫЕ"+"\n"
+        self.f+=f"Название заготовки - {self.name}" + "\n"
+        self.f+=f"Диаметр наружной трубы - {self.DOT}"+ "\n"
+        self.f+=f"коэффициенты степенной аппроксимации кривой упрочнения материала BCM - {self.BCM}"+"\n"
+        self.f+=f"коэффициент динамичности материала - {self.KDM}"+"\n"
+        self.f+=f"коэффициенты степенной аппроксимации кривой упрочнения материала MM - {self.MM}" + "\n"
+        self.f+=f"длина деформированной зоны - {self.LBT}"+"\n"
+        self.f+=f"Операция - {self.operation}"+"\n"
+        self.f+=f"КПД - {self.KPD}"+"\n"
+        self.f+=f"геометрические параметры заготовки - {self.RC}"+"\n"
+        self.f+=f"Частота тока - {self.FW}"+"\n"
+        self.f+=f"Удельное электрическое сопротивление материала заготовки - {self.YEMP}"+"\n"
+        self.f+=f"Удельное электрическое сопротивление материала индуктора - {self.YEMC}" + "\n"
+        self.f+=f"Частота колебаний разрядного тока МИУ в режиме короткого замыкания- {self.FCE}"+"\n"
+        self.f+=f"Индуктивность колебаний разрядного тока МИУ в режиме короткого замыкания- {self.LCE}" + "\n"
+        self.f+=f"емкость батареи конденсаторов МИУ - {self.CCE}"+"\n"
+        self.f+=f"Длина витка индуктора - {self.SC}" + "\n"
+        self.f+=f"Высота витка индуктора - {self.HSC}" + "\n"
+        self.f+=f"Плотность материала - {self.PLM}" + "\n"
+        self.f+=f"коэффициент динамичности материала - {self.KDM}" + "\n"
+        self.f+=f"Реальное количество витков - {self.NCT1}" + "\n"
+        self.f+=f"Толщина изоляции витка- {self.ZS}" + "\n"
+        self.f+=f"Толщина основной изоляции - {self.ZB}" + "\n"
+        self.f+=f" Толщина воздушного зазора индуктора- {self.ZA}" + "\n"
+        self.f+=f" Индуктивность токоподводов индуктора- {self.LTC}" + "\n"
+        self.f+=f"Р Е З У Л Ь Т А Т"+"\n"
+        self.f+=str(a)+"\n"
+        self.f+=str(g) + '\n'
+
+
+    @pyqtSlot()
+    def load_parameters(self):
+        print("load_parameters")
+
+    def set_default_parameters(self):
+        print("set_default_parameters")
+        # self.lineEditBilletName.setText("Наименование")
+        # self.lineEditOuterDiameter.setText("Наружный диаметр")
+        # self.lineEditSideThickness.setText("Толщина стенки")
+        # self.lineEditLengthDeform.setText("Длина деформируемой зоны")
+        # self.lineEditBilletMaterial.setText("Материал")
+        #
+        # self.lineEditKPD.setText("КПД")
+        # self.lineEditMachineName.setText("Оборудование")
+        # self.lineEditMaterialInductor.setText("Метериал индуктора")
+        # self.lineEditWidthCoilInductor.setText("Ширина витка по оси детали")
+        # self.lineEditHeightCoilInductor.setText("Высота витка")
+        # self.lineEditNumberCoilsInductor.setText("Количество витков")
+        # self.lineEditSizeIsolationInductor.setText("Размер межвитковой изоляции")
+        # self.lineEditInductance.setText("Индуктивность токоподводов индуктора")
+        # self.lineEditA_tp.setText("A_ТП")
+        # self.lineEditB_tp.setText("B_ТП")
+        # self.lineEditHB_tp.setText("HB_ТП")
+        # self.lineEditLB_tp.setText("LB_ТП")
+        self.comboBoxOperationType.setCurrentIndex(1)
+        self.comboBoxOperationName.setCurrentIndex(1)
+
+        self.lineEditBilletName.setText("Наименование")
+        self.lineEditOuterDiameter.setText("151.4")
+        self.lineEditSideThickness.setText("1.2")
+        self.lineEditLengthDeform.setText("30")
+        self.lineEditBilletMaterial.setText("Материал")
+
+        self.lineEditKPD.setText("0.03")
+        self.lineEditMachineName.setText("Оборудование")
+        # self.lineEditKP.setText("Кп_3%")
+        # self.lineEditKappa.setText("Kappa")
+        self.lineEditRadius.setText("75.2")
+        self.lineEditGapWidth.setText("0.25")
+        self.lineEditMainIsolation.setText("1")
+        self.lineEditSizeIsolationInductor.setText("-")
+        self.lineEditMaterialInductor.setText("Метериал индуктора")
+        self.lineEditWidthCoilInductor.setText("4")
+        self.lineEditHeightCoilInductor.setText("8")
+        self.lineEditNumberCoilsInductor.setText("Количество витков")
+        self.lineEditSizeIsolationInductor.setText("0.65")
+        self.lineEditInductance.setText("0.07")
+        self.lineEditA_tp.setText("1.00")
+        self.lineEditB_tp.setText("1.00")
+        self.lineEditHB_tp.setText("1.00")
+        self.lineEditLB_tp.setText("1.00")
+
+    def get_parameters(self):
+        self.name = self.lineEditBilletName.text()
+        self.DOT = self.lineEditOuterDiameter.text()
+        self.ST = self.lineEditSideThickness.text()
+        self.LBT = self.lineEditSideThickness.text()
+        self.RC = self.lineEditLengthDeform.text()
+        self.operation1 = self.comboBoxOperationType.currentText()
+        self.operation2 = self.comboBoxOperationName.currentText()
+        print(self.operation2)
+        self.operation = self.get_operation()
+        # if self.operation1 == "Раздача" and self.operation2 == "Формовка цилиндра":
+        #     self.operation = "a1"
+        print(self.operation)
+        self.KPD = self.lineEditKPD.text()
+        self.SC = self.lineEditSizeIsolationInductor.text()
+        self.HSC =self.lineEditHeightCoilInductor.text()
+        self.NCT1=11
+        self.ZS =self.lineEditSizeIsolationInductor.text()
+        self.ZB =self.lineEditMainIsolation.text()
+        self.ZA =self.lineEditGapWidth.text()
+        self.LTC=self.lineEditInductance.text()
+        self.A_tp=self.lineEditA_tp.text()
+        self.B_tp=self.lineEditB_tp.text()
+        self.HB_tp=self.lineEditHB_tp.text()
+        self.LB_tp=self.lineEditLB_tp.text()
+
+
+    def set_billet_material(self, billet):
+        self.billet_material = billet
+        print("self.billet_material =", self.billet_material)
+        self.name_mat = self.billet_material.get("Name")
+        self.PLM = self.billet_material.get("PLM")  #
+        self.MM = self.billet_material.get("M_M")  #
+        self.BCM1 = self.billet_material.get("B")  #
+        self.BCM = float(self.BCM1) * pow(10, 7)
+        self.KDM = self.billet_material.get("KDM")
+        self.YEMP = self.billet_material.get("YEMP")
+        self.PPM = self.billet_material.get("PPM")
+        self.E_up = self.billet_material.get("E_up")
+        self.E_z = self.billet_material.get("E_z")
+        self.lineEditBilletMaterial.setText(self.name_mat)
+
+    def set_inductor_material(self, inductor):
+        self.inductor_material = inductor
+        print("self.inductor_material =", self.inductor_material)
+        self.name_in = self.inductor_material.get("Name")
+        self.YEMC = self.inductor_material.get("YEMP")
+        self.lineEditMaterialInductor.setText(self.name_in)
+
+    def set_machine(self, machine):
+        self.machine = machine
+        print("self.machine =", self.machine)
+        self.nama_mash = self.machine.get("Name")
+        self.LCE = self.machine.get("LCE")
+        self.CCE = self.machine.get("CCE")
+        self.FCE = self.machine.get("FCE")
+        self.FW = self.machine.get("FW")
+        self.R0 = self.machine.get("R0")
+        self.lineEditMachineName.setText(self.nama_mash)
+
+    def get_operation(self):
+        operation_name = ""
+        type = self.comboBoxOperationType.currentText()
+        print(type)
+        if type == "Обжим":
+            operation_name = "b"
+        elif type == "Раздача":
+            operation_name = "a"
+        else:
+            print("Not found operation type, choose from ComboBox!")
+        # self.comboBoxOperationType.setCurrentIndex(1)
+        name = self.comboBoxOperationName.currentIndex()
+        print("name =", name)
+        if 1 <= name <= 4:
+            operation_name += str(name)
+        return operation_name
