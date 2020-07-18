@@ -43,6 +43,29 @@ class SecondaryParameters(QWidget):
         self.I00 = params.get("I00")
         self.name = params.get("name")
         self.operation = params.get("operation")
+        self.PLM=params.get("PLM")
+        self.LBT=params.get("LBT")
+        self.DOT=params.get("DOT")
+        self.ST=params.get("ST")
+        self.YEMC=params.get("YEMC")
+        self.LCE = params.get("LCE")
+        self.CCE=params.get("CCE")
+        self.R0=params.get("R0")
+        self.YEMP = params.get("YEMP")
+        self.NCT1 = params.get("NCT1")
+        self.LCA = params.get("LCA")
+        self.DCA = params.get("DCA")
+        self.PPM = params.get("PPM")
+        self.HSC=params.get("HSC")
+        self.ZB = params.get("ZB")
+        self.A_tp = params.get("A_tp")
+        self.B_tp = params.get("B_tp")
+        self.HB_tp = params.get("HB_tp")
+        self.LB_tp = params.get("LB_tp")
+        self.DIB = params.get("DIB")
+        self.E_z = params.get("E_z")
+        self.E_up = params.get("E_up")
+
         self.lineEditEps.setText(str(self.EPS))
         self.lineEditDischargeEnergy.setText(str(self.WR))
         self.lineEditK1.setText(str(self.K1))
@@ -56,6 +79,7 @@ class SecondaryParameters(QWidget):
         self.lineEditI0.setText(str(self.I00))
         self.lineEdit_2.setText("0.03")
         self.str = f
+        self.kp1=0
 
     @pyqtSlot()
     def change_parameters_control(self, state):
@@ -75,13 +99,25 @@ class SecondaryParameters(QWidget):
         Начало расчета второй фазы
         :return:
         """
-        f = Pascal()
+        self.U0=float(self.lineEdit.text())
+        self.eps=float(self.lineEdit_2.text())
+        calc={"U0":self.U0,"poisk":self.Poisk,"kp1":self.kp1,"eps":self.eps,"pm":self.PLM,
+              "l0":self.LBT,"dh":self.DOT,"h0":self.ST,"pl":self.YEMC,"ek":self.EPS}
+        f = Pascal(calc)
         print("start_calc_second_phase")
+        print(f)
+        self.make_file_second_way(f)
 
     def make_file(self):
-        date = datetime.now()
-        f_obj = open(f"{date}_{self.name}_{self.operation}.txt", "w", encoding='UTF-8')
+        self.date = datetime.now()
+        f_obj = open(f"{self.date}_{self.name}_{self.operation}.txt", "w", encoding='UTF-8')
         f_obj.write(self.str + "\n")
+        f_obj.close()
+
+    def make_file_second_way(self,f):
+        f_obj = open(f"{self.date}_{self.name}_{self.operation}.txt", "a", encoding='UTF-8')
+        f_obj.write("ВТОРОЙ ПУТЬ\n")
+        f_obj.write(str(f) + "\n")
         f_obj.close()
 
     @pyqtSlot()

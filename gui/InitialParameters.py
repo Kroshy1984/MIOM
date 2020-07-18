@@ -192,7 +192,14 @@ class InitialParameters(QWidget):
         params = {"WR" : round(g.WR,4), "I00": g.I00,"FP":round(g.FP,4), "DZT":round(g.DZT,4),
                   "KEC": round(g.KEC,4), "EPS":round(a.EPS,4), "K1":round(g.K1,4), "K2":round(g.K2,4),
                   "K3":round(g.K3,4),"K4":round(g.K4,4), "PM": round(g.PM,4), "name":self.name,
-                  "operation":self.operation}
+                  "operation":self.operation,"PLM":self.PLM,"LBT":self.LBT, "DOT":self.DOT,
+                  "ST":self.ST,"YEMC":self.YEMC, "LCE":self.LCE,"CCE":self.CCE,"R0":self.R0,
+                  "YEMP":self.YEMP,"NCT1":self.NCT1,"LCA":round(g.LCA,4),"DCA":round(g.DCA,4),
+                  "PPM":self.PPM,"HSC":self.HSC,"ZB":self.ZB, "A_tp":self.A_tp, "B_tp":self.B_tp,
+                  "HB_tp":self.HB_tp, "LB_tp":self.LB_tp, "DIB":round(a.DIB,4),
+                  "E_up":self.E_up, "E_z":self.E_z
+
+                  }
         print(params)
         self._parent.secondary_parameters._show(True, params,self.f)
 
@@ -277,10 +284,10 @@ class InitialParameters(QWidget):
         self.lineEditNumberCoilsInductor.setText("Количество витков")
         self.lineEditSizeIsolationInductor.setText("0.65")
         self.lineEditInductance.setText("0.07")
-        self.lineEditA_tp.setText("A_ТП")
-        self.lineEditB_tp.setText("B_ТП")
-        self.lineEditHB_tp.setText("HB_ТП")
-        self.lineEditLB_tp.setText("LB_ТП")
+        self.lineEditA_tp.setText("1.00")
+        self.lineEditB_tp.setText("1.00")
+        self.lineEditHB_tp.setText("1.00")
+        self.lineEditLB_tp.setText("1.00")
 
 
     def set_validators(self):
@@ -335,6 +342,11 @@ class InitialParameters(QWidget):
         self.ZB =self.lineEditMainIsolation.text()
         self.ZA =self.lineEditGapWidth.text()
         self.LTC=self.lineEditInductance.text()
+        self.A_tp=self.lineEditA_tp.text()
+        self.B_tp=self.lineEditB_tp.text()
+        self.HB_tp=self.lineEditHB_tp.text()
+        self.LB_tp=self.lineEditLB_tp.text()
+
 
     def set_billet_material(self, billet):
         self.billet_material = billet
@@ -346,6 +358,9 @@ class InitialParameters(QWidget):
         self.BCM = float(self.BCM1) * pow(10, 7)
         self.KDM = self.billet_material.get("KDM")
         self.YEMP = self.billet_material.get("YEMP")
+        self.PPM = self.billet_material.get("PPM")
+        self.E_up = self.billet_material.get("E_up")
+        self.E_z = self.billet_material.get("E_z")
         self.lineEditBilletMaterial.setText(self.name_mat)
 
     def set_inductor_material(self, inductor):
@@ -363,6 +378,7 @@ class InitialParameters(QWidget):
         self.CCE = self.machine.get("CCE")
         self.FCE = self.machine.get("FCE")
         self.FW = self.machine.get("FW")
+        self.R0 = self.machine.get("R0")
         self.lineEditMachineName.setText(self.nama_mash)
 
     def get_operation(self):
