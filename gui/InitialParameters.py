@@ -323,10 +323,10 @@ class InitialParameters(QWidget):
 
     def get_parameters(self):
         self.name = self.lineEditBilletName.text()
-        self.DOT = self.lineEditOuterDiameter.text()
-        self.ST = self.lineEditSideThickness.text()
-        self.LBT = self.lineEditSideThickness.text()
-        self.RC = self.lineEditLengthDeform.text()
+        self.DOT = float(self.lineEditOuterDiameter.text())*pow(10,-3)
+        self.ST = float(self.lineEditSideThickness.text())*pow(10,-3)
+        self.LBT = float(self.lineEditSideThickness.text())*pow(10,-3)
+        self.RC = float(self.lineEditLengthDeform.text())*pow(10,-3)
         self.operation1 = self.comboBoxOperationType.currentText()
         self.operation2 = self.comboBoxOperationName.currentText()
         print(self.operation2)
@@ -335,12 +335,12 @@ class InitialParameters(QWidget):
         #     self.operation = "a1"
         print(self.operation)
         self.KPD = self.lineEditKPD.text()
-        self.SC = self.lineEditSizeIsolationInductor.text()
-        self.HSC =self.lineEditHeightCoilInductor.text()
+        self.SC = float(self.lineEditSizeIsolationInductor.text())*pow(10,-3)
+        self.HSC =float(self.lineEditHeightCoilInductor.text())*pow(10,-3)
         self.NCT1=11
-        self.ZS =self.lineEditSizeIsolationInductor.text()
-        self.ZB =self.lineEditMainIsolation.text()
-        self.ZA =self.lineEditGapWidth.text()
+        self.ZS =float(self.lineEditSizeIsolationInductor.text())*pow(10,-3)
+        self.ZB =float(self.lineEditMainIsolation.text())*pow(10,-3)
+        self.ZA =float(self.lineEditGapWidth.text())*pow(10,-3)
         self.LTC=self.lineEditInductance.text()
         self.A_tp=self.lineEditA_tp.text()
         self.B_tp=self.lineEditB_tp.text()
