@@ -367,7 +367,7 @@ class InitialParameters(QWidget):
         self.inductor_material = inductor
         print("self.inductor_material =", self.inductor_material)
         self.name_in = self.inductor_material.get("Name")
-        self.YEMC = float(self.inductor_material.get("YEMP"))*pow(10,-7)
+        self.YEMC = float(self.inductor_material.get("YEMP"))*pow(10,-8)
         self.lineEditMaterialInductor.setText(self.name_in)
 
     def set_machine(self, machine):
@@ -376,7 +376,7 @@ class InitialParameters(QWidget):
         self.nama_mash = self.machine.get("Name")
         self.LCE = float(self.machine.get("LCE"))*pow(10,-6)
         self.CCE = float(self.machine.get("CCE"))*pow(10,-6)
-        self.FCE = self.machine.get("FCE")
+        self.FCE = float(self.machine.get("FCE"))*pow(10,-6)
         self.FW = self.machine.get("FW")
         self.R0 = self.machine.get("Ro")
         self.lineEditMachineName.setText(self.nama_mash)
