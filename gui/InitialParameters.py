@@ -341,7 +341,7 @@ class InitialParameters(QWidget):
         self.ZS =float(self.lineEditSizeIsolationInductor.text())*pow(10,-3)
         self.ZB =float(self.lineEditMainIsolation.text())*pow(10,-3)
         self.ZA =float(self.lineEditGapWidth.text())*pow(10,-3)
-        self.LTC=self.lineEditInductance.text()
+        self.LTC=float(self.lineEditInductance.text())*pow(10,-7)
         self.A_tp=self.lineEditA_tp.text()
         self.B_tp=self.lineEditB_tp.text()
         self.HB_tp=self.lineEditHB_tp.text()
@@ -352,13 +352,13 @@ class InitialParameters(QWidget):
         self.billet_material = billet
         print("self.billet_material =", self.billet_material)
         self.name_mat = self.billet_material.get("Name")
-        self.PLM = self.billet_material.get("PLM")  #
+        self.PLM = float(self.billet_material.get("PLM"))*pow(10,3)  #
         self.MM = self.billet_material.get("M_M")  #
         self.BCM1 = self.billet_material.get("B")  #
         self.BCM = float(self.BCM1) * pow(10, 7)
         self.KDM = self.billet_material.get("KDM")
-        self.YEMP = self.billet_material.get("YEMP")
-        self.PPM = self.billet_material.get("PPM")
+        self.YEMP = float(self.billet_material.get("YEMP"))*pow(10,-8)
+        self.PPM = float(self.billet_material.get("PPM"))*pow(10,7)
         self.E_up = self.billet_material.get("E_up")
         self.E_z = self.billet_material.get("E_z")
         self.lineEditBilletMaterial.setText(self.name_mat)
@@ -367,15 +367,15 @@ class InitialParameters(QWidget):
         self.inductor_material = inductor
         print("self.inductor_material =", self.inductor_material)
         self.name_in = self.inductor_material.get("Name")
-        self.YEMC = self.inductor_material.get("YEMP")
+        self.YEMC = float(self.inductor_material.get("YEMP"))*pow(10,-7)
         self.lineEditMaterialInductor.setText(self.name_in)
 
     def set_machine(self, machine):
         self.machine = machine
         print("self.machine =", self.machine)
         self.nama_mash = self.machine.get("Name")
-        self.LCE = self.machine.get("LCE")
-        self.CCE = self.machine.get("CCE")
+        self.LCE = float(self.machine.get("LCE"))*pow(10,-6)
+        self.CCE = float(self.machine.get("CCE"))*pow(10,-6)
         self.FCE = self.machine.get("FCE")
         self.FW = self.machine.get("FW")
         self.R0 = self.machine.get("Ro")

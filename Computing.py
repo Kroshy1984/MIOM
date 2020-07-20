@@ -133,7 +133,7 @@ class Inductor():
         self.LK = L1S / LZSD
         self.K4 = QQ / (QQ + self.LK)
         # Площадь создаваемого давления ИМП
-        if self.operation=="b":
+        if self.operation[0]=="b":
             self.SUMP = 3.14 * (self.DCA + self.ZCP) * self.LU
         else:
             self.SUMP=3.14*(self.DOT+self.ZCP)
