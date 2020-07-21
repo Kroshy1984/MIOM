@@ -133,7 +133,7 @@ class Inductor():
         self.LK = L1S / LZSD
         self.K4 = QQ / (QQ + self.LK)
         # Площадь создаваемого давления ИМП
-        if self.operation=="b":
+        if self.operation[0]=="b":
             self.SUMP = 3.14 * (self.DCA + self.ZCP) * self.LU
         else:
             self.SUMP=3.14*(self.DOT+self.ZCP)
@@ -141,7 +141,7 @@ class Inductor():
         self.WR = self.PM * self.SUMP * (self.ZPR + 0.5 * self.SPYR) * self.KEC * self.KEC / (
                     self.K1 * self.K2 * self.K3 * self.K4)
         # Параметры разрядного тока.Значение тока I0 = IOO
-        self.IOO = math.sqrt(2 * math.fabs(self.WR) / math.fabs(self.LCC + self.LDC))
+        self.I00 = math.sqrt(2 * math.fabs(self.WR) / math.fabs(self.LCC + self.LDC))
         # Частота разрядного  тока
         self.FP = F
         # Декремент затухания
@@ -157,7 +157,7 @@ class Inductor():
         return self.FP
 
     def I00(self):
-        return self.I00
+        return round(self.I00,4)
 
     def VCR(self):
         return self.VCR
