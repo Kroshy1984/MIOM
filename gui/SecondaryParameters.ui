@@ -264,6 +264,35 @@
        </widget>
       </item>
       <item>
+       <widget class="QGroupBox" name="groupBox_4">
+        <property name="title">
+         <string>Дополнительные параметры</string>
+        </property>
+        <layout class="QFormLayout" name="formLayout_7">
+         <item row="0" column="0">
+          <widget class="QLabel" name="label_13">
+           <property name="text">
+            <string>Кратность печати</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QLineEdit" name="lineEditPrint"/>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="label_17">
+           <property name="text">
+            <string>Количество шагов</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QLineEdit" name="lineEditSteps"/>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
        <widget class="QPushButton" name="pushButtonCalcSecondPhase">
         <property name="text">
          <string>Рассчитать второй этап</string>
@@ -288,6 +317,30 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>lineEditPressure</tabstop>
+  <tabstop>lineEditDischargeEnergy</tabstop>
+  <tabstop>lineEditFrequencyAmper</tabstop>
+  <tabstop>lineEditI0</tabstop>
+  <tabstop>lineEditDelta</tabstop>
+  <tabstop>lineEditK1</tabstop>
+  <tabstop>lineEditK2</tabstop>
+  <tabstop>lineEditK3</tabstop>
+  <tabstop>lineEditK4</tabstop>
+  <tabstop>lineEditKe</tabstop>
+  <tabstop>pushButtonSaveParameters</tabstop>
+  <tabstop>lineEditEps</tabstop>
+  <tabstop>lineEdit_2</tabstop>
+  <tabstop>lineEdit</tabstop>
+  <tabstop>lineEditAttenuationCoefField</tabstop>
+  <tabstop>lineEditFieldFactor</tabstop>
+  <tabstop>radioButtonManual</tabstop>
+  <tabstop>radioButtonAuto</tabstop>
+  <tabstop>checkBoxParametersControl</tabstop>
+  <tabstop>lineEditPrint</tabstop>
+  <tabstop>lineEditSteps</tabstop>
+  <tabstop>pushButtonCalcSecondPhase</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

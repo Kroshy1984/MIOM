@@ -22,6 +22,8 @@ class SecondaryParameters(QWidget):
         self.radioButtonManual.toggled.emit(True)
 
         self.checkBoxParametersControl.stateChanged.connect(self.change_parameters_control)
+        self.lineEditPrint.setText("4")
+        self.lineEditSteps.setText("10")
         # self.set_default_parameters()
 
     def set_blocked(self):
