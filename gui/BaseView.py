@@ -90,19 +90,10 @@ class BaseView(QWidget):
             # self.selectChanged_billet()
             if self.current_slot == "billet":
                 self.selectChanged_billet()
+                self._caller_view.set_billet_material(self.current_record_billet)
+                self.close()
                 # проверка E_z
-                if self.current_record_billet['E_z'] == '':
-                    print("Нет E_z")
-                    text, ok = QInputDialog.getText(self, 'Input Dialog', 'Введите E_z:')
-                    if ok:
-                        print("Ok")
-                        print(text)
-                        # TODO: добавить проверку ввода
-                        # TODO: переставить проверку E_z на кнопку расчета второго этапа
-                        self._caller_view.set_billet_material(self.current_record_billet)
-                        self.close()
-                    else:
-                        pass
+
 
             elif self.current_slot == "inductor":
                 self.selectChanged_inductor()
