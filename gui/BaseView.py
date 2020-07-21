@@ -112,25 +112,34 @@ class BaseView(QWidget):
 
     def show_db_view(self, name, sql, name_slot):
         print("Вывод бд:", name)
+        self.current_db_name = name
         self.current_slot = name_slot
         self.tableView.clicked.disconnect()
         if name_slot == "billet":
             self.tableView.clicked.connect(self.selectChanged_billet)
             self.setWindowTitle("База материалов")
+            self.current_table_name = "material"
         elif name_slot == "inductor":
             self.tableView.clicked.connect(self.selectChanged_inductor)
             self.setWindowTitle("База материалов")
+            self.current_table_name = "material"
         elif name_slot == "machines":
             self.tableView.clicked.connect(self.selectChanged_machines)
             self.setWindowTitle("База установок")
+            self.current_table_name = "Mashines"
         else:
             print("Нет подходящего слота")
         db = QtSql.QSqlDatabase.addDatabase("QSQLITE")
         db.setDatabaseName(name)
         db.open()
         model = QtSql.QSqlQueryModel()
+        # model = QtSql.QSqlTableModel()
+        # model.setTable('material')
+        # model.setEditStrategy(QtSql.QSqlTableModel.OnFieldChange)
+        # model.select()
         model.setQuery(sql)
         self.model = model
+        print(type(self.model))
         self.tableView.setModel(model)
         self.tableView.resizeColumnsToContents()
         cell_text = self.tableView.selectionModel().selectedRows()
@@ -202,8 +211,23 @@ class BaseView(QWidget):
                 current_record[record.fieldName(i)] = record.value(i)
             print(current_record)
             print(row)
-            # TODO: удаление записи из БД
+            # открытие БД
+            db = QtSql.QSqlDatabase.addDatabase("QSQLITE")
+            db.setDatabaseName(self.current_db_name)
+            db.open()
 
+            query = QtSql.QSqlQuery(db)
+            # удаление по имени материала
+            sql = "delete from {0} where Name='{1}'".format(self.current_table_name, current_record['Name'])
+            print(sql)
+            query.exec_(sql)
+            # обновление вида
+            sql = "select* from {0}".format(self.current_table_name)
+            print(sql)
+            self.model.setQuery(sql)
+
+            print("Удаление строки ")
+            db.close()
         else:
             msg = QMessageBox()
             msg.setIcon(QMessageBox.Warning)
