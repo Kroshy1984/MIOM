@@ -3,7 +3,7 @@ from PyQt5.QtGui import QRegExpValidator, QValidator
 
 
 class QRV(QRegExpValidator):
-    def __init__(self, reg_exp_str):
+    def __init__(self, reg_exp_str=r'^(0|[1-9]\d*)([.,]\d+)?'):
         super().__init__(QRegExp(reg_exp_str))
 
     def validate(self, text, pos):
