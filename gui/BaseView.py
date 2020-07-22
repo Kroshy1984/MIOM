@@ -159,11 +159,55 @@ class BaseView(QWidget):
         print("add_button_clicked")
         self.show_add_record_view()
 
+
+    def add_record(self, record, update):
+        # открытие БД
+        db = QtSql.QSqlDatabase.addDatabase("QSQLITE")
+        db.setDatabaseName(self.current_db_name)
+        db.open()
+        query = QtSql.QSqlQuery(db)
+        # Добавление новой записи
+        print(record.keys())
+        sql = "select * from {0}".format(self.current_table_name)
+        print(sql)
+        print(','.join(record.keys()))
+        print(','.join(''+str(i)+'' for i in record.values()))
+        if update:
+
+            up_str = ''
+            for key in record:
+                if key != 'Name':
+                    if record[key] == '':
+                        up_str += key + '=NULL,'
+                    else:
+                        up_str += key + '=' + record[key]+','
+            print(up_str)
+            print(up_str[-1])
+            up_str = up_str[:-1]
+            print(up_str)
+            sql = "update {0} set {1} where Name='{2}';".format(self.current_table_name, up_str, record['Name'])
+        else:
+            sql = "insert into {0} ({1}) values({2});".format(self.current_table_name, ','.join(record.keys()), ','.join(record.values()))
+
+        print(sql)
+        query.exec_(sql)
+
+        # обновление вида
+        sql = "select * from {0}".format(self.current_table_name)
+        print(sql)
+        self.model.setQuery(sql)
+        db.close()
+
+        # if self.current_slot in ["billet", "inductor"]:
+        #     self.rec = AddRecord()
+        # elif self.current_slot in ["machines"]:
+        #     self.rec = AddMachine()
+
     def show_add_record_view(self):
         if self.current_slot in ["billet", "inductor"]:
-            self.rec = AddRecord()
+            self.rec = AddRecord(bd_view=self)
         elif self.current_slot in ["machines"]:
-            self.rec = AddMachine()
+            self.rec = AddMachine(bd_view=self)
         self.rec.show()
 
     @pyqtSlot()
@@ -184,9 +228,9 @@ class BaseView(QWidget):
             print(current_record)
 
             if self.current_slot in ["billet", "inductor"]:
-                self.rec = AddRecord(record=current_record)
+                self.rec = AddRecord(bd_view=self, record=current_record)
             elif self.current_slot in ["machines"]:
-                self.rec = AddMachine(record=current_record)
+                self.rec = AddMachine(bd_view=self, record=current_record)
             self.rec.show()
         else:
             msg = QMessageBox()

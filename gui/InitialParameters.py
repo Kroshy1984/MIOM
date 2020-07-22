@@ -7,6 +7,7 @@ from gui.BaseView import BaseView
 from Computing import *
 # from core.FirstPhase import Form
 from datetime import datetime
+from utils.RegValidator import QRV
 
 class InitialParameters(QWidget):
     def __init__(self, parent=None):
@@ -93,7 +94,7 @@ class InitialParameters(QWidget):
 
         self.lineEditNumberCoilsInductor.setText(str(round(g.NCTC)))
         self.lineEditDiameter.setText(str(round(g.DCA,4)))
-        self.lineEdit_2.setText(str(round(g.LCA,4)))
+        self.lineEditInductorLength.setText(str(round(g.LCA,4)))
 
 
     @pyqtSlot('QString')
@@ -294,32 +295,34 @@ class InitialParameters(QWidget):
         print("set_validators")
         # self.comboBoxOperationType.setCurrentIndex(1)
         # self.comboBoxOperationName.setCurrentIndex(1)
-        validator = QDoubleValidator()
-
+        # validator = QDoubleValidator()
+        validator = QRV()
         self.lineEditBilletName.setText("Наименование")
-        # self.lineEditOuterDiameter.setValidator(validator)
-        # self.lineEditSideThickness.setValidator(validator)
-        # self.lineEditLengthDeform.setValidator(validator)
+        self.lineEditOuterDiameter.setValidator(validator)
+        self.lineEditSideThickness.setValidator(validator)
+        self.lineEditLengthDeform.setValidator(validator)
         self.lineEditBilletMaterial.setText("Материал")
 
-        self.lineEditKPD.setText("0.03")
+        self.lineEditKPD.setValidator(validator)
         self.lineEditMachineName.setText("Оборудование")
         # self.lineEditKP.setText("Кп_3%")
         # self.lineEditKappa.setText("Kappa")
-        self.lineEditRadius.setText("75.2")
-        self.lineEditGapWidth.setText("0.25")
-        self.lineEditMainIsolation.setText("1")
-        self.lineEditSizeIsolationInductor.setText("-")
+        self.lineEditRadius.setValidator(validator)
+        self.lineEditGapWidth.setValidator(validator)
+        self.lineEditMainIsolation.setValidator(validator)
+        self.lineEditSizeIsolationInductor.setValidator(validator)
+        self.lineEditDiameter.setValidator(validator)
+        self.lineEditInductorLength.setValidator(validator)
         self.lineEditMaterialInductor.setText("Метериал индуктора")
-        self.lineEditWidthCoilInductor.setText("4")
-        self.lineEditHeightCoilInductor.setText("8")
-        self.lineEditNumberCoilsInductor.setText("Количество витков")
-        self.lineEditSizeIsolationInductor.setText("0.65")
-        self.lineEditInductance.setText("0.07")
-        self.lineEditA_tp.setText("A_ТП")
-        self.lineEditB_tp.setText("B_ТП")
-        self.lineEditHB_tp.setText("HB_ТП")
-        self.lineEditLB_tp.setText("LB_ТП")
+        self.lineEditWidthCoilInductor.setValidator(validator)
+        self.lineEditHeightCoilInductor.setValidator(validator)
+        self.lineEditNumberCoilsInductor.setValidator(validator)
+        self.lineEditSizeIsolationInductor.setValidator(validator)
+        self.lineEditInductance.setValidator(validator)
+        self.lineEditA_tp.setValidator(validator)
+        self.lineEditB_tp.setValidator(validator)
+        self.lineEditHB_tp.setValidator(validator)
+        self.lineEditLB_tp.setValidator(validator)
 
     def get_parameters(self):
         self.name = self.lineEditBilletName.text()

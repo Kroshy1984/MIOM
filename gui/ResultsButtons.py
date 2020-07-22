@@ -16,7 +16,7 @@ class ResultsButtons(QWidget):
         self.pushButtonResultsSecondPhase.released.connect(self.second_phase_results_button_clicked)
         self.set_active_all_results_button(False)
         self.set_active_first_phase_button(False)
-        self.set_active_second_phase_button(False)
+        self.set_active_second_phase_button(True)
 
     @pyqtSlot()
     def all_results_button_clicked(self):
@@ -42,6 +42,8 @@ class ResultsButtons(QWidget):
     @pyqtSlot()
     def second_phase_results_button_clicked(self):
         print("second_phase_results_button_clicked")
+        self._parent.winout._show()
+
 
     def set_active_first_phase_button(self, state):
         self.pushButtonResultsFirstPhase.setEnabled(state)

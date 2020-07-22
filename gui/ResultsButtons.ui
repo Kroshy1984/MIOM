@@ -22,14 +22,14 @@
     </widget>
    </item>
    <item>
-    <widget class="QPushButton" name="pushButtonAllResults">
+    <widget class="QPushButton" name="pushButtonResultsSecondPhase">
      <property name="text">
       <string>Результаты 2 этапа</string>
      </property>
     </widget>
    </item>
    <item>
-    <widget class="QPushButton" name="pushButtonResultsSecondPhase">
+    <widget class="QPushButton" name="pushButtonAllResults">
      <property name="text">
       <string>Все результаты</string>
      </property>

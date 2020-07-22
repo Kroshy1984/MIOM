@@ -1,11 +1,14 @@
 from PyQt5 import QtCore
 from PyQt5.QtCore import pyqtSlot
+from PyQt5.QtGui import QIntValidator
 from PyQt5.QtWidgets import QWidget
 from PyQt5.uic import loadUi
 from gui.BaseView import BaseView
 from Pascal import Pascal
 
 from datetime import datetime
+
+from utils.RegValidator import QRV
 
 
 class SecondaryParameters(QWidget):
@@ -24,6 +27,7 @@ class SecondaryParameters(QWidget):
         self.checkBoxParametersControl.stateChanged.connect(self.change_parameters_control)
         self.lineEditPrint.setText("4")
         self.lineEditSteps.setText("10")
+        self.set_validators()
         # self.set_default_parameters()
 
     def set_blocked(self):
@@ -179,3 +183,32 @@ class SecondaryParameters(QWidget):
         # self.lineEditF.setText("F")
         self.lineEditDelta.setText("Delta")
         self.lineEditEps.setText(self.EPS)
+
+
+    def set_validators(self):
+        print("set_validators")
+        validator = QRV()
+
+        self.lineEditAttenuationCoefField.setValidator(validator)
+        self.lineEditFieldFactor.setValidator(validator)
+        self.lineEditPressure.setValidator(validator)
+        self.lineEditFrequencyAmper.setValidator(validator)
+        self.lineEditDischargeEnergy.setValidator(validator)
+
+        self.lineEditK1.setValidator(validator)
+        self.lineEditK2.setValidator(validator)
+        self.lineEditK3.setValidator(validator)
+        self.lineEditK4.setValidator(validator)
+        self.lineEditKe.setValidator(validator)
+
+        self.lineEditI0.setValidator(validator)
+        self.lineEditDelta.setValidator(validator)
+        self.lineEditDelta.setValidator(validator)
+        self.lineEditEps.setValidator(validator)
+        self.lineEdit.setValidator(validator)
+        self.lineEdit_2.setValidator(validator)
+
+        int_validator = QIntValidator()
+        self.lineEditPrint.setValidator(validator)
+        self.lineEditSteps.setValidator(validator)
+
