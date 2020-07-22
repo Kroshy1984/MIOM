@@ -22,6 +22,8 @@ class SecondaryParameters(QWidget):
         self.radioButtonManual.toggled.emit(True)
 
         self.checkBoxParametersControl.stateChanged.connect(self.change_parameters_control)
+        self.lineEditPrint.setText("4")
+        self.lineEditSteps.setText("10")
         # self.set_default_parameters()
 
     def set_blocked(self):
@@ -78,6 +80,9 @@ class SecondaryParameters(QWidget):
         self.lineEditDelta.setText(str(self.DZT))
         self.lineEditI0.setText(str(self.I00))
         self.lineEdit_2.setText("0.03")
+        self.lineEdit.setText("6000.0")
+        self.lineEditAttenuationCoefField.setText("0.0")
+        self.lineEditFieldFactor.setText("1.0")
         self.str = f
         self.kp1=0
 
@@ -101,8 +106,20 @@ class SecondaryParameters(QWidget):
         """
         self.U0=float(self.lineEdit.text())
         self.eps=float(self.lineEdit_2.text())
-        calc={"U0":self.U0,"poisk":self.Poisk,"kp1":self.kp1,"eps":self.eps,"pm":self.PLM,
-              "l0":self.LBT,"dh":self.DOT,"h0":self.ST,"pl":self.YEMC,"ek":self.EPS}
+        self.kappa=float(self.lineEditFieldFactor.text())
+        self.kn=float(self.lineEditAttenuationCoefField.text())
+        print(self.LCE, self.CCE, self.R0)
+        calc={"U0":self.U0,"poisk":self.Poisk,"kp1":self.kp1,"eps":float(self.EPS),
+              "pm":float(self.PLM),"l0":float(self.LBT),"dh":float(self.DOT),
+              "h0":float(self.ST),"pl":float(self.YEMC),"ek":float(self.eps),
+              "lm":float(self.LCE),"c0":float(self.CCE), "R0":float(self.R0),
+              "p3":float(self.YEMP),"mod_upr":float(self.E_z),
+              "a":float(self.A_tp),"b":float(self.B_tp), "hb":float(self.HB_tp),
+              "lv":float(self.LB_tp),"dv":float(self.DIB),
+              "nl":float(self.NCT1),"l1":float(self.LCA),"dn":float(self.DCA),
+              "sp":float(self.PPM), "hl":float(self.HSC),
+              "ey":float(self.E_up), "H_izol":float(self.ZB),
+              "kappa":float(self.kappa),"kn":float(self.kn)}
         f = Pascal(calc)
         print("start_calc_second_phase")
         print(f)
