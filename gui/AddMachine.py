@@ -3,6 +3,7 @@ from PyQt5.QtGui import QValidator, QDoubleValidator
 from PyQt5.QtWidgets import QWidget, QAbstractItemView, QDialog
 from PyQt5.uic import loadUi
 from utils.tex_to_qpixmap import mathTex_to_QPixmap
+from utils.RegValidator import QRV
 
 class AddMachine(QDialog):
     def __init__(self, parent=None, record=None):
@@ -41,7 +42,8 @@ class AddMachine(QDialog):
             self.pushButtonAdd.released.connect(self.add_button_clicked)
         self.pushButtonClose.released.connect(self.close_window)
 
-        validator = QDoubleValidator()
+        # validator = QDoubleValidator()
+        validator = QRV(r'^(0|[1-9]\d*)([.,]\d+)?')
         # self.lineEditName.setText(record['Name'])
         self.lineEditWME.setValidator(validator)
         self.lineEditCCE.setValidator(validator)

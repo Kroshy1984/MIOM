@@ -3,6 +3,7 @@ from PyQt5.QtGui import QValidator, QDoubleValidator
 from PyQt5.QtWidgets import QWidget, QAbstractItemView, QDialog
 from PyQt5.uic import loadUi
 from utils.tex_to_qpixmap import mathTex_to_QPixmap
+from utils.RegValidator import QRV
 
 class AddRecord(QDialog):
     def __init__(self, parent=None, bd_view=None, record=None):
@@ -58,7 +59,10 @@ class AddRecord(QDialog):
             self.set_record(record)
 
         # lineedit = QtGui.QLineEdit(self)
-        validator = QDoubleValidator()
+        # validator = QDoubleValidator()
+        # validator = QRV(r'^(?:\d{1,2})[.,]\d{2}$')
+        # validator = QRV(r'^[-+]?[0-9]*[.,]?[0-9]+(?:[eE][-+]?[0-9]+)?$')
+        validator = QRV(r'^(0|[1-9]\d*)([.,]\d+)?')
         self.lineEditPPM.setValidator(validator)
         self.lineEditPYM.setValidator(validator)
         self.lineEditPLM.setValidator(validator)
@@ -99,6 +103,18 @@ class AddRecord(QDialog):
         :return:
         """
         print("add_button_clicked")
+        current_record = dict()
+        current_record['Name'] = self.lineEditName.text()
+        current_record['PPM'] = float(self.lineEditPPM.text())
+        current_record['PYD'] = self.lineEditPYM.text()
+        current_record['PLM'] = self.lineEditPLM.text()
+        current_record['M_M'] = self.lineEditMM.text()
+        current_record['B'] = self.lineEditBCM.text()
+        current_record['YEMP'] = self.lineEditYEM.text()
+        current_record['KDM'] = self.lineEditKDM.text()
+        current_record['E_z'] = self.lineEditEz.text()
+        current_record['E_up'] = self.lineEditEup.text()
+        print(current_record)
 
     def set_record(self, record):
         self.lineEditName.setText(record['Name'])
