@@ -379,7 +379,7 @@ class InitialParameters(QWidget):
         self.nama_mash = self.machine.get("Name")
         self.LCE = float(self.machine.get("LCE"))*pow(10,-6)
         self.CCE = float(self.machine.get("CCE"))*pow(10,-6)
-        self.FCE = float(self.machine.get("FCE"))*pow(10,-6)
+        self.FCE = float(self.machine.get("FCE"))
         self.FW = self.machine.get("FW")
         self.R0 = self.machine.get("Ro")
         self.lineEditMachineName.setText(self.nama_mash)
