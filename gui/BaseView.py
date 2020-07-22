@@ -1,5 +1,6 @@
 from PyQt5.QtCore import pyqtSlot
-from PyQt5.QtWidgets import QWidget, QAbstractItemView, QDialog, QInputDialog, QErrorMessage, QMessageBox
+from PyQt5.QtWidgets import QWidget, QAbstractItemView, QDialog, QInputDialog, QErrorMessage, QMessageBox, \
+    QAbstractButton
 from PyQt5.uic import loadUi
 from PyQt5 import QtSql
 from gui.AddRecord import AddRecord
@@ -215,18 +216,43 @@ class BaseView(QWidget):
             db = QtSql.QSqlDatabase.addDatabase("QSQLITE")
             db.setDatabaseName(self.current_db_name)
             db.open()
-
+            # print()
+            # self.model.removeRow(self.tableView.currentIndex().row())
             query = QtSql.QSqlQuery(db)
             # удаление по имени материала
             sql = "delete from {0} where Name='{1}'".format(self.current_table_name, current_record['Name'])
             print(sql)
-            query.exec_(sql)
+
+
+            # msg = QMessageBox()
+            # btn = QAbstractButton()
+            # btn.setText("Да")
+            # msg.addButton(btn, QMessageBox.YesRole)
+            # # msg.addButton(QAbstractButton("Нет"), QMessageBox.YesRole)
+            # btnNo = QAbstractButton()
+            # btnNo.setText("Нет")
+            # msg.addButton(btnNo, QMessageBox.NoRole)
+
+            # msg.exec_()
+            # if msg.clickedButton() == btn:
+            #     print('Yes clicked.')
+            #     print("Удаление строки ")
+            #     query.exec_(sql)
+            # else:
+            #     print('No clicked.')
+            buttonReply = QMessageBox.question(self, 'Подтвердить удаление', "Удалить {0}?".format(current_record['Name']),
+                                               QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+            if buttonReply == QMessageBox.Yes:
+                print('Yes clicked.')
+                print("Удаление строки ")
+                query.exec_(sql)
+            else:
+                print('No clicked.')
+
             # обновление вида
             sql = "select* from {0}".format(self.current_table_name)
             print(sql)
             self.model.setQuery(sql)
-
-            print("Удаление строки ")
             db.close()
         else:
             msg = QMessageBox()
