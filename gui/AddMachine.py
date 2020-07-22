@@ -6,9 +6,10 @@ from utils.tex_to_qpixmap import mathTex_to_QPixmap
 from utils.RegValidator import QRV
 
 class AddMachine(QDialog):
-    def __init__(self, parent=None, record=None):
+    def __init__(self, parent=None, bd_view=None, record=None):
         QWidget.__init__(self, parent)
         loadUi('./gui/AddMachine.ui', self)
+        self._bd_view = bd_view
         self.setWindowTitle("Добавление установки")
         headerLabels = [
             '$(PPM), \\sigma_{u} \cdot 10^7, Pa$',
@@ -31,16 +32,19 @@ class AddMachine(QDialog):
             # self.setColumnWidth(indx, qpixmaps[indx].size().width() + 16)
             indx += 1
         print(qpixmaps)
+
+        self.pushButtonClose.released.connect(self.close_window)
+        self.pushButtonAdd.released.connect(self.add_button_clicked)
+
+        self.edit = False
         if record is not None:
             self.setWindowTitle("Редактирование установки")
             self.pushButtonAdd.setText("Сохранить")
             print("Передана запись")
             print(record)
             self.set_record(record)
-            self.pushButtonAdd.released.connect(self.edit_button_clicked)
-        else:
-            self.pushButtonAdd.released.connect(self.add_button_clicked)
-        self.pushButtonClose.released.connect(self.close_window)
+            self.edit = True
+
 
         # validator = QDoubleValidator()
         validator = QRV(r'^(0|[1-9]\d*)([.,]\d+)?')
@@ -71,15 +75,28 @@ class AddMachine(QDialog):
         :return:
         """
         print("add_button_clicked")
+        current_record = self.get_data()
+        print(current_record)
+        self._bd_view.add_record(current_record, update=self.edit)
+        self.close()
 
-    @pyqtSlot()
-    def edit_button_clicked(self):
-        """
-        Редактирование записи в БД установок
-        :return:
-        """
-        print("edit_button_clicked")
 
+
+    def get_data(self):
+        """
+                Считывание данных формы в словарь
+                :return:
+                """
+        current_record = dict()
+
+        current_record['Name'] = self.lineEditName.text()
+        current_record['W_mash'] = self.lineEditWME.text()
+        current_record['CCE'] = self.lineEditCCE.text()
+        current_record['LCE'] = self.lineEditLCE.text()
+        current_record['FCE'] = self.lineEditFCE.text()
+        current_record['Ro'] = self.lineEditFW8.text()
+        current_record['FW'] = self.lineEditFW9.text()
+        return current_record
 
     def set_record(self, record):
         self.lineEditName.setText(record['Name'])

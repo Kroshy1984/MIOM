@@ -207,7 +207,7 @@ class BaseView(QWidget):
         if self.current_slot in ["billet", "inductor"]:
             self.rec = AddRecord(bd_view=self)
         elif self.current_slot in ["machines"]:
-            self.rec = AddMachine()
+            self.rec = AddMachine(bd_view=self)
         self.rec.show()
 
     @pyqtSlot()
@@ -230,7 +230,7 @@ class BaseView(QWidget):
             if self.current_slot in ["billet", "inductor"]:
                 self.rec = AddRecord(bd_view=self, record=current_record)
             elif self.current_slot in ["machines"]:
-                self.rec = AddMachine(record=current_record)
+                self.rec = AddMachine(bd_view=self, record=current_record)
             self.rec.show()
         else:
             msg = QMessageBox()
