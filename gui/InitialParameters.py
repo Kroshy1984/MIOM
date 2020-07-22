@@ -355,7 +355,7 @@ class InitialParameters(QWidget):
         self.billet_material = billet
         print("self.billet_material =", self.billet_material)
         self.name_mat = self.billet_material.get("Name")
-        self.PLM = float(self.billet_material.get("PLM"))*pow(10,3)  #
+        self.PLM = float(self.billet_material.get("PLM"))#
         self.MM = self.billet_material.get("M_M")  #
         self.BCM1 = self.billet_material.get("B")  #
         self.BCM = float(self.BCM1) * pow(10, 7)
@@ -380,7 +380,7 @@ class InitialParameters(QWidget):
         self.LCE = float(self.machine.get("LCE"))*pow(10,-6)
         self.CCE = float(self.machine.get("CCE"))*pow(10,-6)
         self.FCE = float(self.machine.get("FCE"))
-        self.FW = self.machine.get("FW")
+        self.FW = float(self.machine.get("FW"))
         self.R0 = self.machine.get("Ro")
         self.lineEditMachineName.setText(self.nama_mash)
 
