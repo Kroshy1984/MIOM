@@ -181,12 +181,20 @@ class BaseView(QWidget):
                         up_str += key + '=NULL,'
                     else:
                         up_str += key + '=' + record[key]+','
+                # else:
+                #     record[key] = '\'' + record[key] + '\''
             print(up_str)
             print(up_str[-1])
             up_str = up_str[:-1]
             print(up_str)
             sql = "update {0} set {1} where Name='{2}';".format(self.current_table_name, up_str, record['Name'])
         else:
+            for key in record:
+                if key != 'Name':
+                    if record[key] == '':
+                        record[key] = 'NULL'
+                else:
+                    record[key] = '\'' + record[key] + '\''
             sql = "insert into {0} ({1}) values({2});".format(self.current_table_name, ','.join(record.keys()), ','.join(record.values()))
 
         print(sql)
