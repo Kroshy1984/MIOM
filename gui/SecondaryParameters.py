@@ -90,14 +90,14 @@ class SecondaryParameters(QWidget):
         self.str = f
         self.kp1=0
 
-    @pyqtSlot()
+    @pyqtSlot(int)
     def change_parameters_control(self, state):
         """
         Проверка состояния чекбокса контроля параметров
         :param state:
         :return:
         """
-        if state == QtCore.Checked:
+        if state == QtCore.Qt.Checked:
             self.kp1 = 1
         else:
             self.kp1 = 0
@@ -160,9 +160,11 @@ class SecondaryParameters(QWidget):
         if selected:
             # ручной
             self.Poisk = 1
+            self.checkBoxParametersControl.setEnabled(True)
         else:
             # автоматический
             self.Poisk = 0
+            self.checkBoxParametersControl.setEnabled(False)
 
 
     def set_default_parameters(self):
