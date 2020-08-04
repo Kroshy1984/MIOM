@@ -15,7 +15,7 @@ class SecondaryParameters(QWidget):
     def __init__(self, parent=None):
         QWidget.__init__(self, parent)
         loadUi('./gui/SecondaryParameters.ui', self)
-        print("2")
+        # print("2")
         self.setVisible(False)
         self.pushButtonCalcSecondPhase.released.connect(self.start_calc_second_phase)
         self.pushButtonSaveParameters.released.connect(self.save_parameters)
@@ -49,20 +49,20 @@ class SecondaryParameters(QWidget):
         self.I00 = params.get("I00")
         self.name = params.get("name")
         self.operation = params.get("operation")
-        self.PLM=params.get("PLM")
-        self.LBT=params.get("LBT")
-        self.DOT=params.get("DOT")
-        self.ST=params.get("ST")
-        self.YEMC=params.get("YEMC")
+        self.PLM = params.get("PLM")
+        self.LBT = params.get("LBT")
+        self.DOT = params.get("DOT")
+        self.ST = params.get("ST")
+        self.YEMC = params.get("YEMC")
         self.LCE = params.get("LCE")
-        self.CCE=params.get("CCE")
-        self.R0=params.get("R0")
+        self.CCE = params.get("CCE")
+        self.R0 = params.get("R0")
         self.YEMP = params.get("YEMP")
         self.NCT1 = params.get("NCT1")
         self.LCA = params.get("LCA")
         self.DCA = params.get("DCA")
         self.PPM = params.get("PPM")
-        self.HSC=params.get("HSC")
+        self.HSC = params.get("HSC")
         self.ZB = params.get("ZB")
         self.A_tp = params.get("A_tp")
         self.B_tp = params.get("B_tp")
@@ -88,7 +88,7 @@ class SecondaryParameters(QWidget):
         self.lineEditAttenuationCoefField.setText("0.0")
         self.lineEditFieldFactor.setText("1.0")
         self.str = f
-        self.kp1=0
+        self.kp1 = 0
 
     @pyqtSlot(int)
     def change_parameters_control(self, state):
@@ -108,24 +108,24 @@ class SecondaryParameters(QWidget):
         Начало расчета второй фазы
         :return:
         """
-        self.U0=float(self.lineEdit.text())
-        self.eps=float(self.lineEdit_2.text())
-        self.kappa=float(self.lineEditFieldFactor.text())
-        self.kn=float(self.lineEditAttenuationCoefField.text())
+        self.U0 = float(self.lineEdit.text())
+        self.eps = float(self.lineEdit_2.text())
+        self.kappa = float(self.lineEditFieldFactor.text())
+        self.kn = float(self.lineEditAttenuationCoefField.text())
         print(self.LCE, self.CCE, self.R0)
-        calc={"U0":self.U0,"poisk":self.Poisk,"kp1":self.kp1,"eps":float(self.EPS),
-              "pm":float(self.PLM),"l0":float(self.LBT),"dh":float(self.DOT),
-              "h0":float(self.ST),"pl":float(self.YEMC),"ek":float(self.eps),
-              "lm":float(self.LCE),"c0":float(self.CCE), "R0":float(self.R0),
-              "p3":float(self.YEMP),"mod_upr":float(self.E_z),
-              "a":float(self.A_tp),"b":float(self.B_tp), "hb":float(self.HB_tp),
-              "lv":float(self.LB_tp),"dv":float(self.DIB),
-              "nl":float(self.NCT1),"l1":float(self.LCA),"dn":float(self.DCA),
-              "sp":float(self.PPM), "hl":float(self.HSC),
-              "ey":float(self.E_up), "H_izol":float(self.ZB),
-              "kappa":float(self.kappa),"kn":float(self.kn)}
+        calc = {"U0": self.U0, "poisk": self.Poisk, "kp1": self.kp1, "eps": float(self.EPS),
+                "pm": float(self.PLM), "l0": float(self.LBT), "dh": float(self.DOT),
+                "h0": float(self.ST), "pl": float(self.YEMC), "ek": float(self.eps),
+                "lm": float(self.LCE), "c0": float(self.CCE), "R0": float(self.R0),
+                "p3": float(self.YEMP), "mod_upr": float(self.E_z),
+                "a": float(self.A_tp), "b": float(self.B_tp), "hb": float(self.HB_tp),
+                "lv": float(self.LB_tp), "dv": float(self.DIB),
+                "nl": float(self.NCT1), "l1": float(self.LCA), "dn": float(self.DCA),
+                "sp": float(self.PPM), "hl": float(self.HSC),
+                "ey": float(self.E_up), "H_izol": float(self.ZB),
+                "kappa": float(self.kappa), "kn": float(self.kn)}
         f = Pascal(calc)
-        print("start_calc_second_phase")
+        # print("start_calc_second_phase")
         print(f)
         self.make_file_second_way(f)
 
@@ -135,7 +135,7 @@ class SecondaryParameters(QWidget):
         f_obj.write(self.str + "\n")
         f_obj.close()
 
-    def make_file_second_way(self,f):
+    def make_file_second_way(self, f):
         f_obj = open(f"{self.date}_{self.name}_{self.operation}.txt", "a", encoding='UTF-8')
         f_obj.write("ВТОРОЙ ПУТЬ\n")
         f_obj.write(str(f) + "\n")
@@ -143,12 +143,11 @@ class SecondaryParameters(QWidget):
 
     @pyqtSlot()
     def save_parameters(self):
-        self.make_file()
         """
         Сохранение параметров расчета первого этапа в БД
         :return:
         """
-        print("save_parameters")
+        self.make_file()
 
     @pyqtSlot(bool)
     def calculation_option_search(self, selected):
@@ -156,7 +155,6 @@ class SecondaryParameters(QWidget):
         Обработка : ручной или автоматический поиск
         :return:
         """
-        print("calculation_option_search")
         if selected:
             # ручной
             self.Poisk = 1
@@ -166,9 +164,7 @@ class SecondaryParameters(QWidget):
             self.Poisk = 0
             self.checkBoxParametersControl.setEnabled(False)
 
-
     def set_default_parameters(self):
-        print("set_default_parameters")
         self.lineEditAttenuationCoefField.setText("Коэффициент ослабления поля")
         self.lineEditFieldFactor.setText("Фактор поля в заготовке, %")
         self.lineEditPressure.setText("Давление")
@@ -186,9 +182,7 @@ class SecondaryParameters(QWidget):
         self.lineEditDelta.setText("Delta")
         self.lineEditEps.setText(self.EPS)
 
-
     def set_validators(self):
-        print("set_validators")
         validator = QRV()
 
         self.lineEditAttenuationCoefField.setValidator(validator)
@@ -213,4 +207,3 @@ class SecondaryParameters(QWidget):
         int_validator = QIntValidator()
         self.lineEditPrint.setValidator(validator)
         self.lineEditSteps.setValidator(validator)
-

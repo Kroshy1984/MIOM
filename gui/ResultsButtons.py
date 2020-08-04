@@ -10,7 +10,7 @@ class ResultsButtons(QWidget):
         QWidget.__init__(self, parent)
         self._parent = parent
         loadUi('./gui/ResultsButtons.ui', self)
-        print("ResultsButtons")
+        # print("ResultsButtons")
         self.pushButtonAllResults.released.connect(self.all_results_button_clicked)
         self.pushButtonResultsFirstPhase.released.connect(self.first_phase_results_button_clicked)
         self.pushButtonResultsSecondPhase.released.connect(self.second_phase_results_button_clicked)
@@ -41,7 +41,7 @@ class ResultsButtons(QWidget):
 
     @pyqtSlot()
     def second_phase_results_button_clicked(self):
-        print("second_phase_results_button_clicked")
+        # print("second_phase_results_button_clicked")
         self._parent.winout._show()
 
 

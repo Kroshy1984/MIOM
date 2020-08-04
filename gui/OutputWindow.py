@@ -11,7 +11,7 @@ class OutputWindow(QWidget):
     def __init__(self, parent=None):
         QWidget.__init__(self, parent)
         loadUi('./gui/OutputWindow.ui', self)
-        print("output")
+        # print("output")
         # main_vbox = QVBoxLayout()
         main_vbox = self.layout()
         hbox = QHBoxLayout()
@@ -34,5 +34,5 @@ class OutputWindow(QWidget):
         self.plot(x, y, 1, 'Line', 'x', 'y')
 
     def plot(self, x, y, flag, label, xlabel, ylabel):
-        print("plot")
+        # print("plot")
         self.widget_plot.plot(x, y, flag, label, xlabel, ylabel)

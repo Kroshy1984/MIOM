@@ -9,7 +9,6 @@
 # собственное значение индукционного тока FWE
 import math
 
-
 class Inductor():
     def __init__(self, LBT, operation, DOT, ST, FW, YEMP, FCE, LCE, LCB, CCE, SC, HSC, PLM, BCM, KDM, MM, KPD,
                  geometry,NCT1,ZS,ZB,ZA,YEMC,LTC):
@@ -21,9 +20,8 @@ class Inductor():
         self.BCM = BCM
         self.KDM = KDM
         self.MM = MM
-        # self.LBT=MM
         self.KPD = KPD
-        self.ZS = ZS  # Толщина изоляции витка
+        self.ZS = ZS  # Толщина изоляции витка индуктора
         self.ZB = ZB  # Толщина основной изоляции индуктора
         self.ZA = ZA  # Толщина воздушного зазора
         self.LTC = LTC  # Индуктивность токоподводов индуктора
@@ -33,7 +31,7 @@ class Inductor():
         self.CCE = CCE  # емкость батареи конденсаторов МИУ
         self.LCE = LCE  # индуктивность собственная
         self.LCB = LCB  # индуктивность кабеля
-        self.SC = SC  # шина изоляции
+        self.SC = SC  # шина изоляции (Ширина шины изоляции) Индуктора. Ширина витка по оси детали
         self.HSC = HSC  # высота шины
         self.PLM = PLM  # плотность
         self.ZCP = self.ZS + self.ZB + self.ZA
@@ -60,9 +58,11 @@ class Inductor():
         self.LU = self.SC * self.NCT  # Длина индуктора
         self.SCIC = (self.LCA / self.NCT)  # Расчетный шаг витков индуктора
         self.SSC = self.SCIC - self.ZS  # Ширина медной шины по оси индуктора
-        self.ROC = self.DCA / 2  # наружный радиус индуктора
-        self.RIC = self.ROC - self.HSC  # Внутренний радиус индуктора
-        self.KEC = pow(((2 * self.ROC / self.RIC) * (self.ZEK / self.RIC) - 1), 2)
+        if self.operation[0]=="b":
+            self.ROC = self.DCA / 2  # наружный радиус индуктора
+            self.RIC = self.ROC - self.HSC  # Внутренний радиус индуктора
+            self.KEC = pow(((2 * self.ROC / self.RIC) * (self.ZEK / self.RIC) - 1), 2)
+        else: self.KEC=1
         self.NCWC = self.LBT / self.SCIC  # Расчетное количество рабочих витков
         self.NCW = round(self.NCWC)
         self.NCF = round(self.NCT - self.NCW)  # Количество свободных витков
@@ -71,9 +71,12 @@ class Inductor():
             self.LU = self.SC * self.NCT  # Длина индуктора
             self.SCIC = (self.LCA / self.NCT)  # Расчетный шаг витков индуктора
             self.SSC = self.SCIC - self.ZS  # Ширина медной шины по оси индуктора
-            self.ROC = self.DCA / 2  # наружный радиус индуктора
-            self.RIC = self.ROC - self.HSC  # Внутренний радиус индуктора
-            self.KEC = pow(((2 * self.ROC / self.RIC) * (self.ZEK / self.RIC) - 1), 2)
+            if self.operation[0] == "b":
+                self.ROC = self.DCA / 2  # наружный радиус индуктора
+                self.RIC = self.ROC - self.HSC  # Внутренний радиус индуктора
+                self.KEC = pow(((2 * self.ROC / self.RIC) * (self.ZEK / self.RIC) - 1), 2)
+            else:
+                self.KEC = 1
             self.NCWC = self.LBT / self.SCIC  # Расчетное количество рабочих витков
             self.NCW = round(self.NCWC)
             self.NCF = round(self.NCT - self.NCW)  # Количество свободных витков
@@ -130,20 +133,36 @@ class Inductor():
         self.LK = L1S / LZSD
         self.K4 = QQ / (QQ + self.LK)
         # Площадь создаваемого давления ИМП
-        self.SUMP = 3.14 * (self.DCA + self.ZCP) * self.LU
+        if self.operation[0]=="b":
+            self.SUMP = 3.14 * (self.DCA + self.ZCP) * self.LU
+        else:
+            self.SUMP=3.14*(self.DOT+self.ZCP)
         # Необходимая энергия разряда МИУ
         self.WR = self.PM * self.SUMP * (self.ZPR + 0.5 * self.SPYR) * self.KEC * self.KEC / (
                     self.K1 * self.K2 * self.K3 * self.K4)
         # Параметры разрядного тока.Значение тока I0 = IOO
-        self.IOO = math.sqrt(2 * math.fabs(self.WR) / math.fabs(self.LCC + self.LDC))
+        self.I00 = math.sqrt(2 * math.fabs(self.WR) / math.fabs(self.LCC + self.LDC))
         # Частота разрядного  тока
         self.FP = F
         # Декремент затухания
         self.DZT = RSDQ / (2 * LSDQ)
 
+    def KEC(self):
+        return self.KEC
+
+    def DZT(self):
+        return self.DZT
+
+    def FP(self):
+        return self.FP
+
+    def I00(self):
+        return round(self.I00,4)
+
     def VCR(self):
         return self.VCR
-    def PM(self):
+
+    def PM(self): # Давление
         return self.PM
 
     def NCF(self):
@@ -249,17 +268,39 @@ class Inductor():
     def DDP(self, geometry):
         f = Form(self.DOT, self.ST, self.BCM, self.KDM, self.MM, self.LBT, self.KPD, geometry, self.operation)
         if self.operation == "a1":
-            self.DDP = self.RC - f.RIB - self.SPYR
+            self.DDP = math.fabs(self.RC - f.RIB - self.SPYR)
         elif self.operation == "a2":
-            self.DDP = geometry - f.RIB - self.SPYR
+            self.DDP = math.fabs(geometry - f.RIB - self.SPYR)
         elif self.operation == "a3":
-            self.DDP = geometry - f.RIB - self.SPYR
+            self.DDP = math.fabs(geometry - f.RIB - self.SPYR)
         elif self.operation == "a4":
-            self.DDP = geometry - self.SPYR
+            self.DDP = math.fabs(geometry - self.SPYR)
         elif self.operation == "b1":
-            self.DDP = self.RC - f.RIB - self.SPYR
+            self.DDP = math.fabs(self.RC - f.RIB - self.SPYR)
         return self.DDP
-
+    def __str__(self):
+        s = "\n" + "Длина индуктора:" + str(round(self.LCA,4)) + ",м"
+        s += "\n" + "Величина зазора между индуктором и заготовкой:" + str(round(self.ZCP,4)) + ",м"
+        s += "\n" + "Диаметр индуктора:" + str(round(self.DCA,4)) + ",м"
+        s += "\n" + "Глубина проникновения ИМП в материал заготовки: " + str(round(self.BP,4)) + " ,м"
+        s += "\n" + "Глубина проникновения ИМП в материал индуктор: " + str(round(self.BC,4)) + " ,м"
+        s += "\n" + "Паразитная индуктивность разрядного контура: " + str(round(self.LDC,4)) + " ,Гн"
+        s += "\n" + "Частота разряда при наличии только паразитных индуктивностей: " + str(round(self.FDC,4)) + " ,Гц"
+        s += "\n" + "Коэффициент К1: " + str(round(self.K1,4))
+        s += "\n" + "Коэффициент К2: " + str(round(self.K2,4))
+        s += "\n" + "Коэффициент К3: " + str(round(self.K3,4))
+        s += "\n" + "Коэффициент К4: " + str(round(self.K4,4))
+        s += "\n" + "Значение эквивалентного зазора между индуктором и заготовкой: " + str(round(self.ZEK,4))
+        s += "\n" + "Количество витков индуктора: " + str(round(self.NCTC,4))
+        s += "\n" + "Целое количество витков индуктора: " + str(round(self.NCW,4))
+        s += "\n" + "Расчетное количество рабочих витков" + str(round(self.NCWC,4))
+        s += "\n" + "Количество свободных витков" + str(round(self.NCF,4))
+        s += "\n" + "Расчетный шаг витков индуктора: " + str(round(self.SCIC,4))
+        s += "\n" + "Необходимая энергия разряда МИУ: " + str(round(self.WR,4)) + ",Дж"
+        s += "\n" + "Суммарная индуктивность: " + str(round(self.LUC2,4)) + " ,Гн"
+        s += "\n" + "Давление  " + str(round(self.PM,4)) + "Па"
+        s += "\n" + "Скорость  " + str(round(self.VCR,4)) + "м\с"
+        return s
 
 # Диаметр наружной трубы DOT
 # Толщина стенки трубы ST
@@ -303,8 +344,8 @@ class Form():
         elif self.operation == "a4":
             self.EPS = (3.14 * geometry) / (self.RIB * 4)
         elif self.operation == "b1":
-            #self.EPS = ((self.RIB / geometry) - 1)
-            self.EPS=0.02
+            self.EPS = ((self.RIB / geometry) - 1)
+            #self.EPS=0.02
         elif self.operation == "b2":
             self.EPS = (((geometry / self.RIB - 1) / 2) - 1) / 2
         elif self.operation == "b3":
@@ -330,3 +371,15 @@ class Form():
 
     def WMUR(self):  # Энергоемкость установки
         return self.WMUR
+
+    def __str__(self):
+        F = f"Внутренний диаметр трубчатой заготовки:{round(self.DIB,4)},м"
+        F += f"\nВнутренний радиус трубчатой заготовки:{round(self.RIB,4)} ,м"
+        F += f"\nCредняя величина деформации заготовки:{round(self.EPS,4)} ,м"
+        F += f"\nДинамическое значение коэффициента аппроксимации кривой упрочнения:{round(self.BCMD,4)}"
+        F += f"\nУдельная работа деформации:{round(self.WYD,4)},Дж"
+        F += f"\nДеформируемый объем заготовки:{round(self.DVB,4)},mm3"
+        F += f"\nРабота деформации заготовки:{round(self.WDB,4)} ,Дж"
+        F += f"\nНеобходимая энергия для выполнения операции:{round(self.WMIR,4)},Дж"
+        F += f"\nЭнергоемкость установки:{round(self.WMUR,4)},Дж"
+        return F

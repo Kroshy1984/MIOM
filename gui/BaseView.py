@@ -22,7 +22,6 @@ class BaseView(QWidget):
         self.pushButtonChoose.released.connect(self.choose_button_clicked)
         self.tableView.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.tableView.setSelectionMode(QAbstractItemView.SingleSelection)
-        print("base")
         self.tableView.clicked.connect(self.selectChanged_billet)
         self.pushButtonAddRecord.released.connect(self.add_button_clicked)
         self.pushButtonDelete.released.connect(self.delete_button_clicked)
@@ -38,7 +37,6 @@ class BaseView(QWidget):
 
     @pyqtSlot()
     def selectChanged_billet(self):
-        print("billet")
         row = self.tableView.selectionModel().selectedRows()[0].row()
         record = self.model.record(row)  # .value(column);
         current_record = dict()
@@ -55,7 +53,6 @@ class BaseView(QWidget):
 
     @pyqtSlot()
     def selectChanged_inductor(self):
-        print("inductor")
         row = self.tableView.selectionModel().selectedRows()[0].row()
         record = self.model.record(row)  # .value(column);
         current_record = dict()
@@ -69,7 +66,6 @@ class BaseView(QWidget):
 
     @pyqtSlot()
     def selectChanged_machines(self):
-        print("machines")
         row = self.tableView.selectionModel().selectedRows()[0].row()
         record = self.model.record(row)  # .value(column);
         current_record = dict()
@@ -90,7 +86,6 @@ class BaseView(QWidget):
         Выбран материал
         :return:
         """
-        print("Choosed record")
         if self.tableView.selectionModel().hasSelection():
             # self
             # self.selectChanged_billet()
@@ -145,7 +140,7 @@ class BaseView(QWidget):
         # model.select()
         model.setQuery(sql)
         self.model = model
-        print(type(self.model))
+        # print(type(self.model))
         self.tableView.setModel(model)
         self.tableView.resizeColumnsToContents()
         cell_text = self.tableView.selectionModel().selectedRows()
@@ -161,7 +156,6 @@ class BaseView(QWidget):
         Вызов окна для  добавления записи
         :return:
         """
-        print("add_button_clicked")
         self.show_add_record_view()
 
 
@@ -172,11 +166,11 @@ class BaseView(QWidget):
         db.open()
         query = QtSql.QSqlQuery(db)
         # Добавление новой записи
-        print(record.keys())
+        # print(record.keys())
         sql = "select * from {0}".format(self.current_table_name)
-        print(sql)
-        print(','.join(record.keys()))
-        print(','.join(''+str(i)+'' for i in record.values()))
+        # print(sql)
+        # print(','.join(record.keys()))
+        # print(','.join(''+str(i)+'' for i in record.values()))
         if update:
 
             up_str = ''
@@ -188,10 +182,10 @@ class BaseView(QWidget):
                         up_str += key + '=' + record[key]+','
                 # else:
                 #     record[key] = '\'' + record[key] + '\''
-            print(up_str)
-            print(up_str[-1])
+            # print(up_str)
+            # print(up_str[-1])
             up_str = up_str[:-1]
-            print(up_str)
+            # print(up_str)
             sql = "update {0} set {1} where Name='{2}';".format(self.current_table_name, up_str, record['Name'])
         else:
             for key in record:
@@ -207,7 +201,7 @@ class BaseView(QWidget):
 
         # обновление вида
         sql = "select * from {0}".format(self.current_table_name)
-        print(sql)
+        # print(sql)
         self.model.setQuery(sql)
         db.close()
 
@@ -229,9 +223,6 @@ class BaseView(QWidget):
         Удаление записи из базы данных
         :return:
         """
-        print("edit_record")
-
-
         if self.tableView.selectionModel().hasSelection():
             row = self.tableView.selectionModel().selectedRows()[0].row()
             record = self.model.record(row)  # .value(column);
@@ -260,7 +251,6 @@ class BaseView(QWidget):
         Удаление записи из базы данных
         :return:
         """
-        print("delete_record")
         if self.tableView.selectionModel().hasSelection():
             row = self.tableView.selectionModel().selectedRows()[0].row()
             record = self.model.record(row)  # .value(column);
@@ -360,13 +350,13 @@ class BaseView(QWidget):
         for labels in headerLabels:
             qpixmaps.append(mathTex_to_QPixmap(labels, fontsize))
             self.tableView.setColumnWidth(indx, qpixmaps[indx].size().width() + 16)
-            print(indx, "-", qpixmaps[indx].size().width())
+            # print(indx, "-", qpixmaps[indx].size().width())
             indx += 1
 
-        print(self.tableView.horizontalHeader())
+        # print(self.tableView.horizontalHeader())
         self.tableView.horizontalHeader().qpixmaps = qpixmaps
         # super(QTableView, self.tableView).setHorizontalHeaderLabels(headerLabels)
-        print("End change headers")
+        # print("End change headers")
         # self.tableView.horizontalHeader().setHorizontalHeaderLabels(headerLabels)
         # self.tableView.horizontalHeader().setStretchLastSection(True)
 
