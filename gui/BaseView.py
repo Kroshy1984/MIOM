@@ -1,14 +1,16 @@
 from PyQt5.QtCore import pyqtSlot
 from PyQt5.QtWidgets import QWidget, QAbstractItemView, QDialog, QInputDialog, QErrorMessage, QMessageBox, \
-    QAbstractButton
+    QAbstractButton, QTableView
 from PyQt5.uic import loadUi
 from PyQt5 import QtSql
 from gui.AddRecord import AddRecord
 from gui.AddMachine import AddMachine
+from utils.HeaderView import MyHorizHeader
 from utils.tex_to_qpixmap import mathTex_to_QPixmap
 from PyQt5 import QtCore
 from PyQt5 import QtGui
 import sqlite3
+
 
 
 class BaseView(QWidget):
@@ -26,6 +28,9 @@ class BaseView(QWidget):
         self.pushButtonDelete.released.connect(self.delete_button_clicked)
         self.pushButtonEdit.released.connect(self.edit_button_clicked)
         self.pushButtonClose.released.connect(self.close_button_clicked)
+
+        self.header = MyHorizHeader(self.tableView)
+        self.tableView.setHorizontalHeader(self.header)
         # self.setWindowModality(QtCore.Qt.WindowModal)
         # self.setWindowModality(QtCore.Qt.ApplicationModal)
         # self.setAttribute(QtCore.Qt.WA_DeleteOnClose, True)
@@ -147,7 +152,7 @@ class BaseView(QWidget):
         print(cell_text)
         db.close()
         self.change_headers()
-        self.tableView.resizeColumnsToContents()
+        # self.tableView.resizeColumnsToContents()
         self.show()
 
     @pyqtSlot()
@@ -327,30 +332,44 @@ class BaseView(QWidget):
     def change_headers(self):
         qpixmaps = []
         indx = 0
-        headerLabels = [
-            'Марка',
-            '$(PPM), \\sigma_{u} \cdot 10^7, Pa$',
-            '$(PYM), \\sigma_{y} \cdot 10^7, Pa$',
-            '$(PLM), \\rho_{u} \cdot 10^3, kg/m^3$',
-            '$(MM), m_{m}$',
-            '$(BCM), B \cdot 10^7, Pa$',
-            '$(YEM), \\rho_{e} \cdot 10^{-8}, \Omega_{m}$',
-            '$(KDM), K_{d} $',
-            '$E_z$',
-            '$E_up$'
-            # '$C_{soil}=(1 - n) C_m + \\theta_w C_w$',
-            # '$k_{soil}=\\frac{\\sum f_j k_j \\theta_j}{\\sum f_j \\theta_j}$',
-            # '$\\lambda_{soil}=k_{soil} / C_{soil}$'
-        ]
-        fontsize = 12
+        if self.current_slot in ["billet", "inductor"]:
+            headerLabels = [
+                'Марка',
+                '$\\sigma_{u}\cdot10^7, Pa$',
+                '$\\sigma_{y} \cdot 10^7, Pa$',
+                '$\\rho_{u} \cdot 10^3, kg/m^3$',
+                '$m_{m}$',
+                '$B \cdot 10^7, Pa$',
+                '$\\rho_{e} \cdot 10^{-8}, \Omega_{m}$',
+                '$K_{d} $',
+                '$MDM$',
+                '$E_z$',
+                '$E_{up}$'
+            ]
+        else:
+            headerLabels = [
+                '$\\sigma_{u} \cdot 10^7, Pa$',
+                '$\\sigma_{y} \cdot 10^7, Pa$',
+                '$\\rho_{u} \cdot 10^3, kg/m^3$',
+                '$m_{m}$',
+                '$B \cdot 10^7, Pa$',
+                '$\\rho_{e} \cdot 10^{-8}, \Omega_{m}$',
+                '$K_{d}$'
+                # '$C_{soil}=(1 - n) C_m + \\theta_w C_w$',
+                # '$k_{soil}=\\frac{\\sum f_j k_j \\theta_j}{\\sum f_j \\theta_j}$',
+                # '$\\lambda_{soil}=k_{soil} / C_{soil}$'
+            ]
+        fontsize = 10
         for labels in headerLabels:
             qpixmaps.append(mathTex_to_QPixmap(labels, fontsize))
             self.tableView.setColumnWidth(indx, qpixmaps[indx].size().width() + 16)
+            print(indx, "-", qpixmaps[indx].size().width())
             indx += 1
 
         print(self.tableView.horizontalHeader())
-
-        # self.tableView.horizontalHeader().qpixmaps = qpixmaps
+        self.tableView.horizontalHeader().qpixmaps = qpixmaps
+        # super(QTableView, self.tableView).setHorizontalHeaderLabels(headerLabels)
+        print("End change headers")
         # self.tableView.horizontalHeader().setHorizontalHeaderLabels(headerLabels)
         # self.tableView.horizontalHeader().setStretchLastSection(True)
 

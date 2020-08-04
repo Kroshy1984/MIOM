@@ -10,7 +10,7 @@ def mathTex_to_QPixmap(mathTex, fs, font=''):
     #---- set up a mpl figure instance ----
     font = {'family':  'Arial', #'MS Shell Dlg 2',
             'weight': 'normal',
-            'size': 12}
+            'size': fs}
 
     # mpl.rc('font', **font)
     # fig = mpl.Figure()
