@@ -7,13 +7,14 @@
 # обозначение удельного электрического сопротивления заготовки YEMP
 # обозначение удельного электрического сопротивления материала индуктора YEMC
 # собственное значение индукционного тока FWE
+# from math import sqrt, pow
 import math
 
 
 class Inductor():
     def __init__(self, LBT, operation, DOT, ST, FW, YEMP, FCE, LCE, LCB, CCE, SC, HSC, PLM, BCM, KDM, MM, KPD,
                  geometry, NCT1, ZS, ZB, ZA, YEMC, LTC):
-        mu = 4 * 3.14 * pow(10, -7)  # магнитная проницаемость в вакууме
+        mu = 4 * 3.14 * math.pow(10, -7)  # магнитная проницаемость в вакууме
         self.LBT = LBT
         self.operation = operation
         self.DOT = DOT
@@ -38,12 +39,19 @@ class Inductor():
         self.ZCP = self.ZS + self.ZB + self.ZA
         self.DCA = self.DOT + 2 * self.ST + 2 * self.ZCP
         self.FW = FW  # Частота разрядного тока
-        self.BC = pow(self.YEMC / (3.14 * mu * self.FW), 0.5)  # Глубина проникновения ИМП в материал индуктор
-        self.BP = pow(self.YEMP / (3.14 * mu * self.FW), 0.5)  # Глубина проникновения ИМП в материал заготовки
         self.NCT1 = NCT1
-        if self.BP > self.ST:
-            self.FW = self.YEMP / (3.14 * mu * pow(self.ST, 2))
-            print('FW=' + str(self.FW))
+
+
+    def calculate_inductor_parameters(self):
+        mu = 4 * 3.14 * math.pow(10, -7)  # магнитная проницаемость в вакууме
+        # ----- начало расчета -----
+        # self.FW = FW  # Частота разрядного тока
+        self.BC = math.sqrt(self.YEMC / (math.pi * mu * self.FW))  # Глубина проникновения ИМП в материал индуктор
+        self.BP = math.sqrt(self.YEMP / (math.pi * mu * self.FW))  # Глубина проникновения ИМП в материал заготовки
+        # self.NCT1 = NCT1
+        if self.BP >= self.ST:
+            self.FW = self.YEMP / (math.pi * mu * math.pow(self.ST, 2))
+            print("FW=", self.FW)
         if self.FW > self.FCE: print(
             "Значение Частоты разрядного тока превышает собственное значение индукционного тока")
 
@@ -148,6 +156,7 @@ class Inductor():
         self.FP = F
         # Декремент затухания
         self.DZT = RSDQ / (2 * LSDQ)
+
 
     def KEC(self):
         return self.KEC
