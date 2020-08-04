@@ -25,10 +25,10 @@ class AddMachine(QDialog):
         ]
         qpixmaps = []
         indx = 0
-        fontsize = 12
+        fontsize = 18
         for labels in headerLabels:
             print(labels)
-            qpixmaps.append(mathTex_to_QPixmap(labels, fontsize))
+            qpixmaps.append(mathTex_to_QPixmap(labels, fs=fontsize))
             # self.setColumnWidth(indx, qpixmaps[indx].size().width() + 16)
             indx += 1
         print(qpixmaps)

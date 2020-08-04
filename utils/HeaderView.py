@@ -52,7 +52,7 @@ class MyQTableView(QTableView):
 class MyHorizHeader(QHeaderView):
     def __init__(self, parent):
         super(MyHorizHeader, self).__init__(QtCore.Qt.Horizontal, parent)
-        print("MyHorizHeader parent", parent)
+        # print("MyHorizHeader parent", parent)
         # print(super(MyHorizHeader, self))
         self.setSectionsClickable(False)
         self.setStretchLastSection(True)
@@ -60,7 +60,7 @@ class MyHorizHeader(QHeaderView):
         self.qpixmaps = []
 
     def paintSection(self, painter, rect, logicalIndex):
-        print("Called paintSection!")
+        # print("Called paintSection!")
         if not rect.isValid():
             return
 

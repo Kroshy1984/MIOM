@@ -334,7 +334,7 @@ class BaseView(QWidget):
         indx = 0
         if self.current_slot in ["billet", "inductor"]:
             headerLabels = [
-                'Марка',
+                ' Марка ',
                 '$\\sigma_{u}\cdot10^7, Pa$',
                 '$\\sigma_{y} \cdot 10^7, Pa$',
                 '$\\rho_{u} \cdot 10^3, kg/m^3$',
@@ -348,16 +348,13 @@ class BaseView(QWidget):
             ]
         else:
             headerLabels = [
-                '$\\sigma_{u} \cdot 10^7, Pa$',
-                '$\\sigma_{y} \cdot 10^7, Pa$',
-                '$\\rho_{u} \cdot 10^3, kg/m^3$',
-                '$m_{m}$',
-                '$B \cdot 10^7, Pa$',
-                '$\\rho_{e} \cdot 10^{-8}, \Omega_{m}$',
-                '$K_{d}$'
-                # '$C_{soil}=(1 - n) C_m + \\theta_w C_w$',
-                # '$k_{soil}=\\frac{\\sum f_j k_j \\theta_j}{\\sum f_j \\theta_j}$',
-                # '$\\lambda_{soil}=k_{soil} / C_{soil}$'
+                ' Марка ',
+                '$W_{mash}$',
+                '$CCE$',
+                '$LCE$',
+                '$FCE$',
+                '$R_{0}$',
+                '$FW$'
             ]
         fontsize = 10
         for labels in headerLabels:
