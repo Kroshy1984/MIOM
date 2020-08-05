@@ -20,7 +20,9 @@ class InitialParameters(QWidget):
         self.pushButtonMaterialBillet.released.connect(self.open_materials_db_billet)
         self.pushButtonMaterialInductor.released.connect(self.open_materials_db_inductor)
         self.pushButtonMachine.released.connect(self.open_machines_db)
-        self.pushButtonCalcInductor.released.connect(self.calculate_inductor)
+
+        # self.pushButtonCalcInductor.released.connect(self.calculate_inductor)
+        self.pushButtonCalcInductor.released.connect(self._parent.mController.start_inductor_calculation)
 
         self.comboBoxOperationType.addItems(["Не выбрано", "Обжим", "Раздача"])
         self.comboBoxOperationName.addItems(["Не выбрано",
@@ -291,7 +293,63 @@ class InitialParameters(QWidget):
         self.lineEditHB_tp.setValidator(validator)
         self.lineEditLB_tp.setValidator(validator)
 
+    def get_inductor_parameters(self):
+        self.get_parameters()
+        params = dict()
+        # a = Form(float(self.DOT), float(self.ST), float(self.BCM), float(self.KDM), float(self.MM),
+        #          float(self.LBT), float(self.KPD), float(self.RC), self.operation)
+        # print(a)
+        # g = Inductor(float(self.LBT), self.operation, float(self.DOT), float(self.ST), float(self.FW),
+        #              float(self.YEMP), float(self.FCE), float(self.LCE), 1 * pow(10, -12),
+        #              float(self.CCE), float(self.SC), float(self.HSC), float(self.PLM), float(self.BCM),
+        #              float(self.KDM), float(self.MM), float(self.KPD),
+        #              float(self.RC), float(self.NCT1), float(self.ZS), float(self.ZB), float(self.ZA),
+        #              float(self.YEMC), float(self.LTC))
+
+        p1_form = dict()
+        p1_form["DOT"] = self.DOT
+        p1_form["ST"] = self.ST
+        p1_form["BCM"] = self.BCM
+        p1_form["KDM"] = self.KDM
+        p1_form["MM"] = self.MM
+        p1_form["LBT"] = self.LBT
+        p1_form["KPD"] = self.KPD
+        p1_form["RC"] = self.RC
+        p1_form["operation"] = self.operation
+        print(p1_form)
+        return p1_form
+
+
+        # self.name = self.lineEditBilletName.text()
+        # self.DOT = float(self.lineEditOuterDiameter.text()) * pow(10, -3)
+        # self.ST = float(self.lineEditSideThickness.text()) * pow(10, -3)
+        # self.LBT = float(self.lineEditSideThickness.text()) * pow(10, -3)
+        # self.RC = float(self.lineEditLengthDeform.text()) * pow(10, -3)
+        # self.operation1 = self.comboBoxOperationType.currentText()
+        # self.operation2 = self.comboBoxOperationName.currentText()
+        # self.operation = self.get_operation()
+        # # if self.operation1 == "Раздача" and self.operation2 == "Формовка цилиндра":
+        # #     self.operation = "a1"
+        # self.KPD = self.lineEditKPD.text()
+        # self.SC = float(self.lineEditSizeIsolationInductor.text()) * pow(10, -3)
+        # self.HSC = float(self.lineEditHeightCoilInductor.text()) * pow(10, -3)
+        # self.NCT1 = 11
+        # self.ZS = float(self.lineEditSizeIsolationInductor.text()) * pow(10, -3)
+        # self.ZB = float(self.lineEditMainIsolation.text()) * pow(10, -3)
+        # self.ZA = float(self.lineEditGapWidth.text()) * pow(10, -3)
+        # self.LTC = float(self.lineEditInductance.text()) * pow(10, -7)
+        # self.A_tp = self.lineEditA_tp.text()
+        # self.B_tp = self.lineEditB_tp.text()
+        # self.HB_tp = self.lineEditHB_tp.text()
+        # self.LB_tp = self.lineEditLB_tp.text()
+
+
+
     def get_parameters(self):
+        """
+        Считывание данных с формы
+        :return:
+        """
         self.name = self.lineEditBilletName.text()
         self.DOT = float(self.lineEditOuterDiameter.text()) * pow(10, -3)
         self.ST = float(self.lineEditSideThickness.text()) * pow(10, -3)
@@ -302,7 +360,7 @@ class InitialParameters(QWidget):
         self.operation = self.get_operation()
         # if self.operation1 == "Раздача" and self.operation2 == "Формовка цилиндра":
         #     self.operation = "a1"
-        self.KPD = self.lineEditKPD.text()
+        self.KPD = float(self.lineEditKPD.text())
         self.SC = float(self.lineEditSizeIsolationInductor.text()) * pow(10, -3)
         self.HSC = float(self.lineEditHeightCoilInductor.text()) * pow(10, -3)
         self.NCT1 = 11

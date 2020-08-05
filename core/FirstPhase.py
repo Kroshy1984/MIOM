@@ -12,9 +12,9 @@ import math
 
 
 class Inductor():
-    def __init__(self, LBT, operation, DOT, ST, FW, YEMP, FCE, LCE, LCB, CCE, SC, HSC, PLM, BCM, KDM, MM, KPD,
-                 geometry, NCT1, ZS, ZB, ZA, YEMC, LTC):
-        mu = 4 * 3.14 * math.pow(10, -7)  # магнитная проницаемость в вакууме
+    def __init__(self, LBT=0, operation="", DOT=0, ST=0, FW=0, YEMP=0, FCE=0, LCE=0, LCB=0, CCE=0, SC=0, HSC=0, PLM=0, BCM=0, KDM=0, MM=0, KPD=0,
+                 geometry="", NCT1=0, ZS=0, ZB=0, ZA=0, YEMC=0, LTC=0):
+        self.mu = 4 * 3.14 * math.pow(10, -7)  # магнитная проницаемость в вакууме
         self.LBT = LBT
         self.operation = operation
         self.DOT = DOT
@@ -40,10 +40,54 @@ class Inductor():
         self.DCA = self.DOT + 2 * self.ST + 2 * self.ZCP
         self.FW = FW  # Частота разрядного тока
         self.NCT1 = NCT1
+        self._mObservers = []  # список наблюдателей
 
+    def set_data_from_dict(self, params):
+        print(params)
+
+
+
+    def set_data(self, LBT, operation, DOT, ST, FW, YEMP, FCE, LCE, LCB, CCE, SC, HSC, PLM, BCM, KDM, MM, KPD,
+                 geometry, NCT1, ZS, ZB, ZA, YEMC, LTC):
+        self.LBT = LBT
+        self.operation = operation
+        self.DOT = DOT
+        self.ST = ST
+        self.BCM = BCM
+        self.KDM = KDM
+        self.MM = MM
+        self.KPD = KPD
+        self.ZS = ZS  # Толщина изоляции витка индуктора
+        self.ZB = ZB  # Толщина основной изоляции индуктора
+        self.ZA = ZA  # Толщина воздушного зазора
+        self.LTC = LTC  # Индуктивность токоподводов индуктора
+        self.YEMP = YEMP  # обозначение удельного электрического сопротивления заготовки
+        self.YEMC = YEMC  # удельное сопротивление шины(медь)
+        self.FCE = FCE
+        self.CCE = CCE  # емкость батареи конденсаторов МИУ
+        self.LCE = LCE  # индуктивность собственная
+        self.LCB = LCB  # индуктивность кабеля
+        self.SC = SC  # шина изоляции (Ширина шины изоляции) Индуктора. Ширина витка по оси детали
+        self.HSC = HSC  # высота шины
+        self.PLM = PLM  # плотность
+        self.ZCP = self.ZS + self.ZB + self.ZA
+        self.DCA = self.DOT + 2 * self.ST + 2 * self.ZCP
+        self.FW = FW  # Частота разрядного тока
+        self.geometry = geometry
+        self.NCT1 = NCT1
+
+    def addObserver(self, inObserver):
+        self._mObservers.append(inObserver)
+
+    def removeObserver(self, inObserver):
+        self._mObservers.remove(inObserver)
+
+    def notifyObservers(self):
+        for x in self._mObservers:
+            x.modelIsChanged()
 
     def calculate_inductor_parameters(self):
-        mu = 4 * 3.14 * math.pow(10, -7)  # магнитная проницаемость в вакууме
+        mu = self.mu
         # ----- начало расчета -----
         # self.FW = FW  # Частота разрядного тока
         self.BC = math.sqrt(self.YEMC / (math.pi * mu * self.FW))  # Глубина проникновения ИМП в материал индуктор
@@ -92,7 +136,7 @@ class Inductor():
             self.NCF = round(self.NCT - self.NCW)  # Количество свободных витков
         self.LCC = (3.14 * mu * (self.DCA + self.ZCP) * self.NCT * self.ZCP * self.NCT) / (self.KEC * self.LU)
         self.LUC2 = self.LCC
-        f = Form(self.DOT, self.ST, self.BCM, self.KDM, self.MM, self.LBT, self.KPD, geometry, self.operation)
+        f = Form(self.DOT, self.ST, self.BCM, self.KDM, self.MM, self.LBT, self.KPD, self.geometry, self.operation)
         self.VCR = math.sqrt(
             2 * f.WYD / self.PLM)  # Расчет режима обработки. Средняя скорость по деформируемому участку заготовки.
         self.LUC()
@@ -112,7 +156,7 @@ class Inductor():
         F = 22.7 / (1 + 2.35 * ALFA)
         # ===================Индуктивность и сопротивление заготовки================
         LP = F * DLP * pow(10, -7)
-        RP = 3.14 * DRP * self.YEMP / (BRP * LBT)
+        RP = 3.14 * DRP * self.YEMP / (BRP * self.LBT)
         # =========================================================================
         self.QP = 2 * 3.14 * self.FR * LP / RP  # Добротность заготовки
         self.KZ = self.SSC * self.NCT / self.LU  # Коэффициент заполнения индуктора
