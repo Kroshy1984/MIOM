@@ -48,4 +48,5 @@ class MiomContrioller():
         """
         Метод который будет вызван у наблюдателя при изменении модели.
         """
-        self.mView.show_message(text=message, type=type)
+        users_result = self.mView.show_message(text=message, type=type)
+        return users_result

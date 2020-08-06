@@ -76,8 +76,11 @@ class MainWindow(QMainWindow):
         if type == QMessageBox.Question:
             if msg.clickedButton() == buttonY:
                 print("Нажато ДА")
+                return True
             # YES pressed
             elif msg.clickedButton() == buttonN:
                 print("Нажато Нет")
+                return False
             # NO pressed
         print("Нет выбранных строк")
+        return None

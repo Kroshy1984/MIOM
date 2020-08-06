@@ -106,8 +106,11 @@ class Inductor():
         self._mObservers.remove(inObserver)
 
     def notifyObservers(self, message="", type=None):
+        results = []
         for x in self._mObservers:
-            x.modelIsChanged(message, type)
+            users_result = x.modelIsChanged(message, type)
+            results.append(users_result)
+        return users_result
 
     def calculate_inductor_parameters(self):
         print("calculate_inductor_parameters")
@@ -122,13 +125,13 @@ class Inductor():
         if self.BP >= self.ST:
             self.FW = self.YEMP / (math.pi * mu * math.pow(self.ST, 2))
             print("FW=", self.FW)
-            message = "Значение частоты разрядного тока превышает собственное значение индукционного тока. Продолжить расчет?"
-            self.notifyObservers(message, type=1)
-
         if self.FW > self.FCE:
             message = "Значение частоты разрядного тока превышает собственное значение индукционного тока. Продолжить расчет?"
-            self.notifyObservers(message, type=1)
+            result = self.notifyObservers(message, type=1)
             print("Значение Частоты разрядного тока превышает собственное значение индукционного тока")
+            # Если отказ, то прекращение расчетов
+            if not result:
+                return
 
         self.LDC = self.LCE + self.LCB + self.LTC  # Паразитная индуктивность разрядного контура
         self.FDC = math.sqrt(1 / (self.LDC * self.CCE)) / (
@@ -348,10 +351,18 @@ class Inductor():
             # print(self.REZ)
         return self.LUC2
 
+    # TODO: процедура нигде не вызывается
     def PWS(self):  # Проверка
         self.PWS = self.WR / (self.SSC * self.HSC)
-        if self.PWS > pow(10, 9): print("возможно вам нужно провести расчет с большим диаметром шины")
+        if self.PWS > pow(10, 9):
+            print("возможно вам нужно провести расчет с большим диаметром шины")
+            message = "Возможно вам нужно провести расчет с большим диаметром шины (Измените размеры витка индуктора). Продолжить расчет?"
+            result = self.notifyObservers(message, type=1)
+            # Если отказ, то прекращение расчетов
+            if not result:
+                return
 
+    # TODO: процедура нигде не вызывается
     def DDP(self, geometry):
         f = Form(self.DOT, self.ST, self.BCM, self.KDM, self.MM, self.LBT, self.KPD, geometry, self.operation)
         if self.operation == "a1":
