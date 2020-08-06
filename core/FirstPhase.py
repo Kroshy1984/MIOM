@@ -12,8 +12,9 @@ import math
 
 
 class Inductor():
-    def __init__(self, LBT=0, operation="", DOT=0, ST=0, FW=0, YEMP=0, FCE=0, LCE=0, LCB=0, CCE=0, SC=0, HSC=0, PLM=0, BCM=0, KDM=0, MM=0, KPD=0,
-                 geometry="", NCT1=0, ZS=0, ZB=0, ZA=0, YEMC=0, LTC=0):
+    def __init__(self, LBT=0, operation="", DOT=0, ST=0, FW=0, YEMP=0, FCE=0, LCE=0, LCB=0, CCE=0, SC=0, HSC=0, PLM=0,
+                 BCM=0, KDM=0, MM=0, KPD=0,
+                 geometry=0, NCT1=0, ZS=0, ZB=0, ZA=0, YEMC=0, LTC=0):
         self.mu = 4 * 3.14 * math.pow(10, -7)  # магнитная проницаемость в вакууме
         self.LBT = LBT
         self.operation = operation
@@ -36,16 +37,38 @@ class Inductor():
         self.SC = SC  # шина изоляции (Ширина шины изоляции) Индуктора. Ширина витка по оси детали
         self.HSC = HSC  # высота шины
         self.PLM = PLM  # плотность
-        self.ZCP = self.ZS + self.ZB + self.ZA
-        self.DCA = self.DOT + 2 * self.ST + 2 * self.ZCP
+        self.geometry = geometry
         self.FW = FW  # Частота разрядного тока
         self.NCT1 = NCT1
         self._mObservers = []  # список наблюдателей
 
     def set_data_from_dict(self, params):
+        print("set_data_from_dict")
         print(params)
-
-
+        self.LBT = params["LBT"]
+        self.operation = params["operation"]
+        self.DOT = params["DOT"]
+        self.ST = params["ST"]
+        self.FW = params["FW"]
+        self.YEMP = params["YEMP"]
+        self.FCE = params["FCE"]
+        self.LCE = params["LCE"]
+        self.LCB = params["LCB"]
+        self.CCE = params["CCE"]
+        self.SC = params["SC"]
+        self.HSC = params["HSC"]
+        self.PLM = params["PLM"]
+        self.BCM = params["BCM"]
+        self.KDM = params["KDM"]
+        self.MM = params["MM"]
+        self.KPD = params["KPD"]
+        self.geometry = params["RC"]
+        self.NCT1 = params["NCT1"]
+        self.ZS = params["ZS"]
+        self.ZB = params["ZB"]
+        self.ZA = params["ZA"]
+        self.YEMC = params["YEMC"]
+        self.LTC = params["LTC"]
 
     def set_data(self, LBT, operation, DOT, ST, FW, YEMP, FCE, LCE, LCB, CCE, SC, HSC, PLM, BCM, KDM, MM, KPD,
                  geometry, NCT1, ZS, ZB, ZA, YEMC, LTC):
@@ -82,13 +105,16 @@ class Inductor():
     def removeObserver(self, inObserver):
         self._mObservers.remove(inObserver)
 
-    def notifyObservers(self):
+    def notifyObservers(self, message="", type=None):
         for x in self._mObservers:
-            x.modelIsChanged()
+            x.modelIsChanged(message, type)
 
     def calculate_inductor_parameters(self):
+        print("calculate_inductor_parameters")
         mu = self.mu
         # ----- начало расчета -----
+        self.ZCP = self.ZS + self.ZB + self.ZA
+        self.DCA = self.DOT + 2 * self.ST + 2 * self.ZCP
         # self.FW = FW  # Частота разрядного тока
         self.BC = math.sqrt(self.YEMC / (math.pi * mu * self.FW))  # Глубина проникновения ИМП в материал индуктор
         self.BP = math.sqrt(self.YEMP / (math.pi * mu * self.FW))  # Глубина проникновения ИМП в материал заготовки
@@ -96,8 +122,13 @@ class Inductor():
         if self.BP >= self.ST:
             self.FW = self.YEMP / (math.pi * mu * math.pow(self.ST, 2))
             print("FW=", self.FW)
-        if self.FW > self.FCE: print(
-            "Значение Частоты разрядного тока превышает собственное значение индукционного тока")
+            message = "Значение частоты разрядного тока превышает собственное значение индукционного тока. Продолжить расчет?"
+            self.notifyObservers(message, type=1)
+
+        if self.FW > self.FCE:
+            message = "Значение частоты разрядного тока превышает собственное значение индукционного тока. Продолжить расчет?"
+            self.notifyObservers(message, type=1)
+            print("Значение Частоты разрядного тока превышает собственное значение индукционного тока")
 
         self.LDC = self.LCE + self.LCB + self.LTC  # Паразитная индуктивность разрядного контура
         self.FDC = math.sqrt(1 / (self.LDC * self.CCE)) / (
@@ -136,7 +167,9 @@ class Inductor():
             self.NCF = round(self.NCT - self.NCW)  # Количество свободных витков
         self.LCC = (3.14 * mu * (self.DCA + self.ZCP) * self.NCT * self.ZCP * self.NCT) / (self.KEC * self.LU)
         self.LUC2 = self.LCC
+
         f = Form(self.DOT, self.ST, self.BCM, self.KDM, self.MM, self.LBT, self.KPD, self.geometry, self.operation)
+
         self.VCR = math.sqrt(
             2 * f.WYD / self.PLM)  # Расчет режима обработки. Средняя скорость по деформируемому участку заготовки.
         self.LUC()
@@ -200,7 +233,6 @@ class Inductor():
         self.FP = F
         # Декремент затухания
         self.DZT = RSDQ / (2 * LSDQ)
-
 
     def KEC(self):
         return self.KEC

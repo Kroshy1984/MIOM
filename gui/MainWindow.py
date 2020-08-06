@@ -53,11 +53,18 @@ class MainWindow(QMainWindow):
         return params
 
     def show_message(self, text, type=None):
+        msg = QMessageBox()
+
         if type==None:
             type = QMessageBox.Warning
             print(QMessageBox.Warning)
             title = "Предупреждение"
-        msg = QMessageBox()
+        elif type == 1:
+            type = QMessageBox.Question
+            print(QMessageBox.Question)
+            title = "Продолжить работу?"
+            msg.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
+
         msg.setIcon(type)
         msg.setText(text)
         msg.setWindowTitle(title)

@@ -10,7 +10,7 @@ if __name__ == '__main__':
     app = QApplication(sys.argv)
     model_firs_phase = Inductor()
     controller = MiomContrioller(model_firs_phase)
-
+    model_firs_phase.addObserver(controller)
     # window = MainWindow()
     # window.show()
 

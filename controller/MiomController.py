@@ -20,8 +20,13 @@ class MiomContrioller():
         inductor_parameters = self.mView.get_inductor_parameters()
         try:
             self.mModel.set_data_from_dict(inductor_parameters)
-            raise Exception
-        except:
+            # print(self.mModel)
+            print("---------")
+            self.mModel.calculate_inductor_parameters()
+            print(self.mModel)
+            # raise Exception
+        except Exception as exception:
+            print(exception)
             text = "Неправильно введены параметры индуктора!"
             self.mView.show_message(text)
 
@@ -37,3 +42,10 @@ class MiomContrioller():
         Расчет второго этапа
         :return:
         """
+
+
+    def modelIsChanged(self, message="", type=None):
+        """
+        Метод который будет вызван у наблюдателя при изменении модели.
+        """
+        self.mView.show_message(text=message, type=type)
