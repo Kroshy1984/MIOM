@@ -64,9 +64,20 @@ class MainWindow(QMainWindow):
             print(QMessageBox.Question)
             title = "Продолжить работу?"
             msg.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
+            buttonY = msg.button(QMessageBox.Yes)
+            buttonY.setText('Да')
+            buttonN = msg.button(QMessageBox.No)
+            buttonN.setText('Нет')
 
         msg.setIcon(type)
         msg.setText(text)
         msg.setWindowTitle(title)
         msg.exec_()
+        if type == QMessageBox.Question:
+            if msg.clickedButton() == buttonY:
+                print("Нажато ДА")
+            # YES pressed
+            elif msg.clickedButton() == buttonN:
+                print("Нажато Нет")
+            # NO pressed
         print("Нет выбранных строк")

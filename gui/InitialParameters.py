@@ -295,30 +295,30 @@ class InitialParameters(QWidget):
 
     def get_inductor_parameters(self):
         self.get_parameters()
-        params = dict()
+        # params = dict()
         # a = Form(float(self.DOT), float(self.ST), float(self.BCM), float(self.KDM), float(self.MM),
         #          float(self.LBT), float(self.KPD), float(self.RC), self.operation)
         # print(a)
 
 
-        p1_form = dict()
-        p1_form["DOT"] = self.DOT
-        p1_form["ST"] = self.ST
-        p1_form["BCM"] = self.BCM
-        p1_form["KDM"] = self.KDM
-        p1_form["MM"] = self.MM
-        p1_form["LBT"] = self.LBT
-        p1_form["KPD"] = self.KPD
-        p1_form["RC"] = self.RC
-        p1_form["operation"] = self.operation
-        print(p1_form)
+        # p1_form = dict()
+        # p1_form["DOT"] = self.DOT
+        # p1_form["ST"] = self.ST
+        # p1_form["BCM"] = self.BCM
+        # p1_form["KDM"] = self.KDM
+        # p1_form["MM"] = self.MM
+        # p1_form["LBT"] = self.LBT
+        # p1_form["KPD"] = self.KPD
+        # p1_form["RC"] = self.RC
+        # p1_form["operation"] = self.operation
+        # print(p1_form)
         p2_form = dict()
-        g = Inductor(float(self.LBT), self.operation, float(self.DOT), float(self.ST), float(self.FW),
-                     float(self.YEMP), float(self.FCE), float(self.LCE), 1 * pow(10, -12),
-                     float(self.CCE), float(self.SC), float(self.HSC), float(self.PLM), float(self.BCM),
-                     float(self.KDM), float(self.MM), float(self.KPD),
-                     float(self.RC), float(self.NCT1), float(self.ZS), float(self.ZB), float(self.ZA),
-                     float(self.YEMC), float(self.LTC))
+        # g = Inductor(float(self.LBT), self.operation, float(self.DOT), float(self.ST), float(self.FW),
+        #              float(self.YEMP), float(self.FCE), float(self.LCE), 1 * pow(10, -12),
+        #              float(self.CCE), float(self.SC), float(self.HSC), float(self.PLM), float(self.BCM),
+        #              float(self.KDM), float(self.MM), float(self.KPD),
+        #              float(self.RC), float(self.NCT1), float(self.ZS), float(self.ZB), float(self.ZA),
+        #              float(self.YEMC), float(self.LTC))
 
         p2_form["LBT"] = self.LBT
         p2_form["operation"] = self.operation

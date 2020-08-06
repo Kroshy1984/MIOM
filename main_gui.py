@@ -1,5 +1,5 @@
 import sys
-from PyQt5.QtCore import QTranslator
+from PyQt5.QtCore import QTranslator, QLocale, QLibraryInfo
 from PyQt5.QtWidgets import QApplication
 
 from gui.MainWindow import MainWindow
@@ -8,6 +8,16 @@ from controller.MiomController import MiomContrioller
 if __name__ == '__main__':
 
     app = QApplication(sys.argv)
+
+    #TODO: проверить работоспособность переводчика
+    translator = QTranslator(app)
+    locale = QLocale.system().name()
+    print(locale)
+    path = QLibraryInfo.location(QLibraryInfo.TranslationsPath)
+    print(path)
+    translator.load('qt_%s' % locale, path)
+    app.installTranslator(translator)
+
     model_firs_phase = Inductor()
     controller = MiomContrioller(model_firs_phase)
     model_firs_phase.addObserver(controller)
