@@ -116,6 +116,12 @@ class Inductor():
         print("calculate_inductor_parameters")
         mu = self.mu
         # ----- начало расчета -----
+        self.LDC = self.LCE + self.LCB + self.LTC  # Паразитная индуктивность разрядного контура
+        self.FDC = math.sqrt(1 / (self.LDC * self.CCE)) / 2 * math.pi  # Частота разряда при наличии только паразитных индуктивностей
+        FW8 = self.FDC * math.sqrt(0.2)
+
+        self.FW = FW8
+
         self.ZCP = self.ZS + self.ZB + self.ZA
         self.DCA = self.DOT + 2 * self.ST + 2 * self.ZCP
         # self.FW = FW  # Частота разрядного тока
@@ -125,6 +131,9 @@ class Inductor():
         if self.BP >= self.ST:
             self.FW = self.YEMP / (math.pi * mu * math.pow(self.ST, 2))
             print("FW=", self.FW)
+        else:
+            self.FW = FW8
+
         if self.FW > self.FCE:
             message = "Значение частоты разрядного тока превышает собственное значение индукционного тока. Продолжить расчет?"
             result = self.notifyObservers(message, type=1)
@@ -132,50 +141,55 @@ class Inductor():
             # Если отказ, то прекращение расчетов
             if not result:
                 return
+        self.BC = math.sqrt(self.YEMC / (math.pi * mu * self.FW))  # Глубина проникновения ИМП в материал индуктор
+        self.BP = math.sqrt(self.YEMP / (math.pi * mu * self.FW))  # Глубина проникновения ИМП в материал заготовки
 
-        self.LDC = self.LCE + self.LCB + self.LTC  # Паразитная индуктивность разрядного контура
-        self.FDC = math.sqrt(1 / (self.LDC * self.CCE)) / (
-                2 * 3.14)  # Частота разряда при наличии только паразитных индуктивностей
-        self.K1 = (pow(self.FDC, 2) - pow(self.FW, 2)) / pow(self.FDC, 2)  # Величина коэффициента согласования
+
+        # self.FDC = math.sqrt(1 / (self.LDC * self.CCE)) / 2 * math.pi  # Частота разряда при наличии только паразитных индуктивностей
+        self.K1 = (math.pow(self.FDC, 2) - math.pow(self.FW, 2)) / math.pow(self.FDC, 2)  # Величина коэффициента согласования
         self.ZEK = self.ZCP + 0.5 * (self.BC + self.BP)  # Значение эквивалентного зазора между индуктором и заготовкой
-        self.LCA()
-        self.NCTC = pow(abs(self.K1 * self.LDC * self.LCA / (3.14 * mu * self.DCA * self.ZEK * (1 - self.K1))),
-                        0.5)  # Количество витков индуктора
+        self.LCA() #TODO
+        # self.NCTC = math.sqrt(abs(self.K1 * self.LDC * self.LCA / (math.pi * mu * self.DCA * self.ZEK * (1 - self.K1))))  # Количество витков индуктора
+        self.NCTC = math.sqrt(self.K1 * self.LDC * self.LCA / (
+                    math.pi * mu * self.DCA * self.ZEK * (1 - self.K1)))  # Количество витков индуктора
         self.NCT = round(self.NCTC)  # Целое количество рабочих витков
         self.LU = self.SC * self.NCT  # Длина индуктора
-        self.SCIC = (self.LCA / self.NCT)  # Расчетный шаг витков индуктора
+        self.SCIC = self.LCA / self.NCT  # Расчетный шаг витков индуктора
         self.SSC = self.SCIC - self.ZS  # Ширина медной шины по оси индуктора
-        if self.operation[0] == "b":
+        if self.operation[0] == "a":
             self.ROC = self.DCA / 2  # наружный радиус индуктора
             self.RIC = self.ROC - self.HSC  # Внутренний радиус индуктора
-            self.KEC = pow(((2 * self.ROC / self.RIC) * (self.ZEK / self.RIC) - 1), 2)
+            self.KEC = math.pow(((2 * self.ROC / self.RIC) * (self.ZEK / self.RIC) - 1), 2)
         else:
             self.KEC = 1
         self.NCWC = self.LBT / self.SCIC  # Расчетное количество рабочих витков
         self.NCW = round(self.NCWC)
         self.NCF = round(self.NCT - self.NCW)  # Количество свободных витков
+        #TODO: неизвестный кусок
         if self.NCF == 0:
             self.NCT = self.NCT1
             self.LU = self.SC * self.NCT  # Длина индуктора
             self.SCIC = (self.LCA / self.NCT)  # Расчетный шаг витков индуктора
             self.SSC = self.SCIC - self.ZS  # Ширина медной шины по оси индуктора
-            if self.operation[0] == "b":
+            if self.operation[0] == "a":
                 self.ROC = self.DCA / 2  # наружный радиус индуктора
                 self.RIC = self.ROC - self.HSC  # Внутренний радиус индуктора
-                self.KEC = pow(((2 * self.ROC / self.RIC) * (self.ZEK / self.RIC) - 1), 2)
+                self.KEC = math.pow(((2 * self.ROC / self.RIC) * (self.ZEK / self.RIC) - 1), 2)
             else:
                 self.KEC = 1
             self.NCWC = self.LBT / self.SCIC  # Расчетное количество рабочих витков
             self.NCW = round(self.NCWC)
             self.NCF = round(self.NCT - self.NCW)  # Количество свободных витков
+        # TODO: неизвестный кусок
         self.LCC = (3.14 * mu * (self.DCA + self.ZCP) * self.NCT * self.ZCP * self.NCT) / (self.KEC * self.LU)
         self.LUC2 = self.LCC
+        self.LUC()
 
         f = Form(self.DOT, self.ST, self.BCM, self.KDM, self.MM, self.LBT, self.KPD, self.geometry, self.operation)
 
         self.VCR = math.sqrt(
             2 * f.WYD / self.PLM)  # Расчет режима обработки. Средняя скорость по деформируемому участку заготовки.
-        self.LUC()
+        # self.LUC()
         self.PM = 4.4 * self.VCR * self.FR * self.PLM * self.ST  # Амплитудное значение давления ИМП
         self.SPYR = 0.141 * self.VCR / self.FR  # Величина перемещений заготовки на участке разгона
         # ================Расчет коэффициентов===================================================
