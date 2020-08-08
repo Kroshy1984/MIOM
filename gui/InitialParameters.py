@@ -1,3 +1,5 @@
+import math
+
 from PyQt5.QtCore import pyqtSlot
 # from PyQt5.QtWidgets import QWidget
 from PyQt5.QtGui import QDoubleValidator
@@ -328,7 +330,8 @@ class InitialParameters(QWidget):
         p2_form["YEMP"] = self.YEMP
         p2_form["FCE"] = self.FCE
         p2_form["LCE"] = self.LCE
-        p2_form["LCB"] = pow(10, -12)
+        # p2_form["LCB"] = pow(10, -12)
+        p2_form["LCB"] = 0
         p2_form["CCE"] = self.CCE
         p2_form["SC"] = self.SC
         p2_form["HSC"] = self.HSC
@@ -380,8 +383,8 @@ class InitialParameters(QWidget):
         self.name = self.lineEditBilletName.text()
         self.DOT = float(self.lineEditOuterDiameter.text()) * pow(10, -3)
         self.ST = float(self.lineEditSideThickness.text()) * pow(10, -3)
-        self.LBT = float(self.lineEditSideThickness.text()) * pow(10, -3)
-        self.RC = float(self.lineEditLengthDeform.text()) * pow(10, -3)
+        self.LBT = float(self.lineEditLengthDeform.text()) * pow(10, -3)
+        self.RC = float(self.lineEditRadius.text()) * pow(10, -3) # радиус цилиндра
         self.operation1 = self.comboBoxOperationType.currentText()
         self.operation2 = self.comboBoxOperationName.currentText()
         self.operation = self.get_operation()
@@ -394,7 +397,7 @@ class InitialParameters(QWidget):
         self.ZS = float(self.lineEditSizeIsolationInductor.text()) * pow(10, -3)
         self.ZB = float(self.lineEditMainIsolation.text()) * pow(10, -3)
         self.ZA = float(self.lineEditGapWidth.text()) * pow(10, -3)
-        self.LTC = float(self.lineEditInductance.text()) * pow(10, -7)
+        self.LTC = float(self.lineEditInductance.text()) * pow(10, -6)
         self.A_tp = self.lineEditA_tp.text()
         self.B_tp = self.lineEditB_tp.text()
         self.HB_tp = self.lineEditHB_tp.text()
@@ -423,11 +426,11 @@ class InitialParameters(QWidget):
     def set_machine(self, machine):
         self.machine = machine
         self.nama_mash = self.machine.get("Name")
-        self.LCE = float(self.machine.get("LCE")) * pow(10, -6)
+        self.LCE = float(self.machine.get("LCE")) * pow(10, -9)
         self.CCE = float(self.machine.get("CCE")) * pow(10, -6)
         self.FCE = float(self.machine.get("FCE"))
         self.FW = float(self.machine.get("FW"))
-        self.R0 = self.machine.get("Ro")
+        self.R0 = float(self.machine.get("Ro")) * math.pow(10, 6)
         self.lineEditMachineName.setText(self.nama_mash)
 
     def get_operation(self):

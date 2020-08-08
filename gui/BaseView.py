@@ -339,10 +339,10 @@ class BaseView(QWidget):
         else:
             headerLabels = [
                 ' Марка ',
-                '$W_{mash}$',
-                '$CCE$',
-                '$LCE$',
-                '$FCE$',
+                '$W_{m} Дж$',
+                '$CCE, С \cdot 10^{-6} Ф$',
+                '$LCE, L_0 \cdot 10^{-9} Гн$',
+                '$FCE, f_{0} Гц$',
                 '$R_{0}$',
                 '$FW$'
             ]
