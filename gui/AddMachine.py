@@ -54,14 +54,14 @@ class AddMachine(QDialog):
         self.lineEditLCE.setValidator(validator)
         self.lineEditFCE.setValidator(validator)
         self.lineEditFW8.setValidator(validator)
-        self.lineEditFW9.setValidator(validator)
+        # self.lineEditFW9.setValidator(validator)
 
         self.lineEditWME.textChanged.connect(self.check_state)
         self.lineEditCCE.textChanged.connect(self.check_state)
         self.lineEditLCE.textChanged.connect(self.check_state)
         self.lineEditFCE.textChanged.connect(self.check_state)
         self.lineEditFW8.textChanged.connect(self.check_state)
-        self.lineEditFW9.textChanged.connect(self.check_state)
+        # self.lineEditFW9.textChanged.connect(self.check_state)
 
 
     @pyqtSlot()
@@ -95,7 +95,7 @@ class AddMachine(QDialog):
         current_record['LCE'] = self.lineEditLCE.text()
         current_record['FCE'] = self.lineEditFCE.text()
         current_record['Ro'] = self.lineEditFW8.text()
-        current_record['FW'] = self.lineEditFW9.text()
+        # current_record['FW'] = self.lineEditFW9.text()
         return current_record
 
     def set_record(self, record):
@@ -105,7 +105,7 @@ class AddMachine(QDialog):
         self.lineEditLCE.setText(str(record['LCE']))
         self.lineEditFCE.setText(str(record['FCE']))
         self.lineEditFW8.setText(str(record['Ro']))
-        self.lineEditFW9.setText(str(record['FW']))
+        # self.lineEditFW9.setText(str(record['FW']))
         # self.lineEditKDM.setText(str(record['KDM']))
         # self.lineEditEz.setText(str(record['E_z']))
         # self.lineEditEup.setText(str(record['E_up']))

@@ -39,6 +39,9 @@
          </item>
          <item row="1" column="0">
           <widget class="QLabel" name="label_2">
+           <property name="toolTip">
+            <string>DOT</string>
+           </property>
            <property name="text">
             <string>Наружный диаметр</string>
            </property>
@@ -46,6 +49,9 @@
          </item>
          <item row="2" column="0">
           <widget class="QLabel" name="label_3">
+           <property name="toolTip">
+            <string>ST</string>
+           </property>
            <property name="text">
             <string>Толщина стенки</string>
            </property>
@@ -53,6 +59,9 @@
          </item>
          <item row="3" column="0">
           <widget class="QLabel" name="label_4">
+           <property name="toolTip">
+            <string>LBT</string>
+           </property>
            <property name="text">
             <string>Длина деформируемой зоны</string>
            </property>
@@ -175,6 +184,9 @@
          </item>
          <item row="2" column="0">
           <widget class="QLabel" name="labelRadius">
+           <property name="toolTip">
+            <string>RC</string>
+           </property>
            <property name="text">
             <string>TextLabel</string>
            </property>
@@ -326,6 +338,32 @@
             <item row="2" column="1">
              <widget class="QLineEdit" name="lineEditInductorLength"/>
             </item>
+            <item row="3" column="0">
+             <widget class="QLabel" name="label_10">
+              <property name="toolTip">
+               <string>SSC</string>
+              </property>
+              <property name="text">
+               <string>Ширина витка по оси детали</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="1">
+             <widget class="QLineEdit" name="lineEditWidthCoilInductor"/>
+            </item>
+            <item row="4" column="0">
+             <widget class="QLabel" name="label_11">
+              <property name="toolTip">
+               <string>HSC</string>
+              </property>
+              <property name="text">
+               <string>Высота витка</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="1">
+             <widget class="QLineEdit" name="lineEditHeightCoilInductor"/>
+            </item>
            </layout>
           </widget>
          </item>
@@ -336,63 +374,55 @@
            </property>
            <layout class="QFormLayout" name="formLayout_4">
             <item row="0" column="0">
-             <widget class="QLabel" name="label_10">
-              <property name="text">
-               <string>Ширина витка по оси детали</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="1">
-             <widget class="QLineEdit" name="lineEditWidthCoilInductor"/>
-            </item>
-            <item row="1" column="0">
-             <widget class="QLabel" name="label_11">
-              <property name="text">
-               <string>Высота витка</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="1">
-             <widget class="QLineEdit" name="lineEditHeightCoilInductor"/>
-            </item>
-            <item row="2" column="0">
              <widget class="QLabel" name="label_13">
+              <property name="toolTip">
+               <string>SC</string>
+              </property>
               <property name="text">
                <string>Толщина изоляции витка индуктора</string>
               </property>
              </widget>
             </item>
-            <item row="2" column="1">
+            <item row="0" column="1">
              <widget class="QLineEdit" name="lineEditSizeIsolationInductor"/>
             </item>
-            <item row="3" column="0">
+            <item row="1" column="0">
              <widget class="QLabel" name="label_20">
+              <property name="toolTip">
+               <string>ZB</string>
+              </property>
               <property name="text">
                <string>Толщина основной изоляции</string>
               </property>
              </widget>
             </item>
-            <item row="3" column="1">
+            <item row="1" column="1">
              <widget class="QLineEdit" name="lineEditMainIsolation"/>
             </item>
-            <item row="4" column="0">
+            <item row="2" column="0">
              <widget class="QLabel" name="Label">
+              <property name="toolTip">
+               <string>ZA</string>
+              </property>
               <property name="text">
                <string>Величина воздушного зазора</string>
               </property>
              </widget>
             </item>
-            <item row="4" column="1">
+            <item row="2" column="1">
              <widget class="QLineEdit" name="lineEditGapWidth"/>
             </item>
-            <item row="5" column="0">
+            <item row="3" column="0">
              <widget class="QLabel" name="label_14">
+              <property name="toolTip">
+               <string>LTC</string>
+              </property>
               <property name="text">
                <string>Индуктивность токоподводов индуктора</string>
               </property>
              </widget>
             </item>
-            <item row="5" column="1">
+            <item row="3" column="1">
              <widget class="QLineEdit" name="lineEditInductance"/>
             </item>
            </layout>

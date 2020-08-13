@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>338</height>
+    <height>364</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,26 +19,15 @@
   <layout class="QVBoxLayout" name="verticalLayout_2">
    <item>
     <layout class="QFormLayout" name="formLayout">
-     <item row="4" column="0">
-      <widget class="QLabel" name="label">
+     <item row="0" column="0">
+      <widget class="QLabel" name="label_5">
        <property name="text">
-        <string>MM</string>
+        <string>Название</string>
        </property>
       </widget>
      </item>
-     <item row="3" column="0">
-      <widget class="QLabel" name="label_4">
-       <property name="text">
-        <string>PLM</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="0">
-      <widget class="QLabel" name="label_3">
-       <property name="text">
-        <string>PYM</string>
-       </property>
-      </widget>
+     <item row="0" column="1">
+      <widget class="QLineEdit" name="lineEditName"/>
      </item>
      <item row="1" column="0">
       <widget class="QLabel" name="label_2">
@@ -50,21 +39,35 @@
      <item row="1" column="1">
       <widget class="QLineEdit" name="lineEditPPM"/>
      </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="label_3">
+       <property name="text">
+        <string>PYM</string>
+       </property>
+      </widget>
+     </item>
      <item row="2" column="1">
       <widget class="QLineEdit" name="lineEditPYM"/>
+     </item>
+     <item row="3" column="0">
+      <widget class="QLabel" name="label_4">
+       <property name="text">
+        <string>PLM</string>
+       </property>
+      </widget>
      </item>
      <item row="3" column="1">
       <widget class="QLineEdit" name="lineEditPLM"/>
      </item>
-     <item row="4" column="1">
-      <widget class="QLineEdit" name="lineEditMM"/>
-     </item>
-     <item row="0" column="0">
-      <widget class="QLabel" name="label_5">
+     <item row="4" column="0">
+      <widget class="QLabel" name="label">
        <property name="text">
-        <string>Название</string>
+        <string>MM</string>
        </property>
       </widget>
+     </item>
+     <item row="4" column="1">
+      <widget class="QLineEdit" name="lineEditMM"/>
      </item>
      <item row="5" column="0">
       <widget class="QLabel" name="label_6">
@@ -73,12 +76,18 @@
        </property>
       </widget>
      </item>
+     <item row="5" column="1">
+      <widget class="QLineEdit" name="lineEditBCM"/>
+     </item>
      <item row="6" column="0">
       <widget class="QLabel" name="label_7">
        <property name="text">
         <string>YEM</string>
        </property>
       </widget>
+     </item>
+     <item row="6" column="1">
+      <widget class="QLineEdit" name="lineEditYEM"/>
      </item>
      <item row="7" column="0">
       <widget class="QLabel" name="label_8">
@@ -87,26 +96,20 @@
        </property>
       </widget>
      </item>
-     <item row="5" column="1">
-      <widget class="QLineEdit" name="lineEditBCM"/>
-     </item>
-     <item row="6" column="1">
-      <widget class="QLineEdit" name="lineEditYEM"/>
-     </item>
      <item row="7" column="1">
       <widget class="QLineEdit" name="lineEditKDM"/>
      </item>
-     <item row="0" column="1">
-      <widget class="QLineEdit" name="lineEditName"/>
-     </item>
-     <item row="9" column="0">
+     <item row="8" column="0">
       <widget class="QLabel" name="label_9">
        <property name="text">
         <string>E_z</string>
        </property>
       </widget>
      </item>
-     <item row="10" column="0">
+     <item row="8" column="1">
+      <widget class="QLineEdit" name="lineEditEz"/>
+     </item>
+     <item row="9" column="0">
       <widget class="QLabel" name="label_10">
        <property name="text">
         <string>E_up</string>
@@ -114,20 +117,7 @@
       </widget>
      </item>
      <item row="9" column="1">
-      <widget class="QLineEdit" name="lineEditEz"/>
-     </item>
-     <item row="10" column="1">
       <widget class="QLineEdit" name="lineEditEup"/>
-     </item>
-     <item row="8" column="0">
-      <widget class="QLabel" name="label_11">
-       <property name="text">
-        <string>MDM</string>
-       </property>
-      </widget>
-     </item>
-     <item row="8" column="1">
-      <widget class="QLineEdit" name="lineEditMDM"/>
      </item>
     </layout>
    </item>

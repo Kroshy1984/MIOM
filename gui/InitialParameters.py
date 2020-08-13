@@ -78,7 +78,7 @@ class InitialParameters(QWidget):
         a = Form(float(self.DOT), float(self.ST), float(self.BCM), float(self.KDM), float(self.MM),
                  float(self.LBT), float(self.KPD), float(self.RC), self.operation)
         print(a)
-        g = Inductor(float(self.LBT), self.operation, float(self.DOT), float(self.ST), float(self.FW),
+        g = Inductor(float(self.LBT), self.operation, float(self.DOT), float(self.ST),
                      float(self.YEMP), float(self.FCE), float(self.LCE), 1 * pow(10, -12),
                      float(self.CCE), float(self.SC), float(self.HSC), float(self.PLM), float(self.BCM),
                      float(self.KDM), float(self.MM), float(self.KPD),
@@ -150,7 +150,7 @@ class InitialParameters(QWidget):
         """
         db_name = "mashins.db"
         slot_name = "machines"
-        sql = "select* from Mashines"
+        sql = "select* from Machines"
         self.db_view.show_db_view(db_name, sql, slot_name)
 
     @pyqtSlot()
@@ -160,7 +160,7 @@ class InitialParameters(QWidget):
         a = Form(float(self.DOT), float(self.ST), float(self.BCM), float(self.KDM), float(self.MM),
                  float(self.LBT), float(self.KPD), float(self.RC), self.operation)
         print(a)
-        g = Inductor(float(self.LBT), self.operation, float(self.DOT), float(self.ST), float(self.FW),
+        g = Inductor(float(self.LBT), self.operation, float(self.DOT), float(self.ST),
                      float(self.YEMP), float(self.FCE), float(self.LCE), 1 * pow(10, -12),
                      float(self.CCE), float(self.SC), float(self.HSC), float(self.PLM), float(self.BCM),
                      float(self.KDM), float(self.MM), float(self.KPD),
@@ -251,7 +251,7 @@ class InitialParameters(QWidget):
         self.lineEditMachineName.setText("Оборудование")
         # self.lineEditKP.setText("Кп_3%")
         # self.lineEditKappa.setText("Kappa")
-        self.lineEditRadius.setText("75.2")
+        self.lineEditRadius.setText("73.95")
         self.lineEditGapWidth.setText("0.25")
         self.lineEditMainIsolation.setText("1")
         self.lineEditSizeIsolationInductor.setText("-")
@@ -326,7 +326,7 @@ class InitialParameters(QWidget):
         p2_form["operation"] = self.operation
         p2_form["DOT"] = self.DOT
         p2_form["ST"] = self.ST
-        p2_form["FW"] = self.FW
+        # p2_form["FW"] = self.FW
         p2_form["YEMP"] = self.YEMP
         p2_form["FCE"] = self.FCE
         p2_form["LCE"] = self.LCE
@@ -429,8 +429,8 @@ class InitialParameters(QWidget):
         self.LCE = float(self.machine.get("LCE")) * pow(10, -9)
         self.CCE = float(self.machine.get("CCE")) * pow(10, -6)
         self.FCE = float(self.machine.get("FCE"))
-        self.FW = float(self.machine.get("FW"))
-        self.R0 = float(self.machine.get("Ro")) * math.pow(10, 6)
+        # self.FW = float(self.machine.get("FW"))
+        self.R0 = float(self.machine.get("R0")) * math.pow(10, 6)
         self.lineEditMachineName.setText(self.nama_mash)
 
     def get_operation(self):

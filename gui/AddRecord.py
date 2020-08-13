@@ -23,7 +23,7 @@ class AddRecord(QDialog):
             '$(KDM), K_{d} $',
             '$E_z, 10^7, Pa$',
             '$E_up, 10^7, Pa$',
-            '$MDM$'
+            # '$MDM$'
             # '$C_{soil}=(1 - n) C_m + \\theta_w C_w$',
             # '$k_{soil}=\\frac{\\sum f_j k_j \\theta_j}{\\sum f_j \\theta_j}$',
             # '$\\lambda_{soil}=k_{soil} / C_{soil}$'
@@ -49,7 +49,7 @@ class AddRecord(QDialog):
         self.label_8.setPixmap(qpixmaps[7])
         self.label_9.setPixmap(qpixmaps[8])
         self.label_10.setPixmap(qpixmaps[9])
-        self.label_11.setPixmap(qpixmaps[10])
+        # self.label_11.setPixmap(qpixmaps[10])
         # mathTex_to_QPixmap(labels, fontsize)
         self.pushButtonClose.released.connect(self.close_window)
         self.pushButtonAdd.released.connect(self.add_button_clicked)
@@ -74,7 +74,7 @@ class AddRecord(QDialog):
         self.lineEditBCM.setValidator(validator)
         self.lineEditYEM.setValidator(validator)
         self.lineEditKDM.setValidator(validator)
-        self.lineEditMDM.setValidator(validator)
+        # self.lineEditMDM.setValidator(validator)
         self.lineEditEz.setValidator(validator)
         self.lineEditEup.setValidator(validator)
 
@@ -87,7 +87,7 @@ class AddRecord(QDialog):
         self.lineEditKDM.textChanged.connect(self.check_state)
         self.lineEditEz.textChanged.connect(self.check_state)
         self.lineEditEup.textChanged.connect(self.check_state)
-        self.lineEditMDM.textChanged.connect(self.check_state)
+        # self.lineEditMDM.textChanged.connect(self.check_state)
         # self.lineEditName.setText(record['Name'])
         # self.lineEditPPM.setText(str(record['PPM']))
 
@@ -119,7 +119,7 @@ class AddRecord(QDialog):
         current_record['B'] = self.lineEditBCM.text()
         current_record['YEMP'] = self.lineEditYEM.text()
         current_record['KDM'] = self.lineEditKDM.text()
-        current_record['MDM'] = self.lineEditMDM.text()
+        # current_record['MDM'] = self.lineEditMDM.text()
         if self.lineEditEz.text() == '':
             current_record['E_z'] = ''
         else:
@@ -170,7 +170,7 @@ class AddRecord(QDialog):
         self.lineEditBCM.setText(str(record['B']))
         self.lineEditYEM.setText(str(record['YEMP']))
         self.lineEditKDM.setText(str(record['KDM']))
-        self.lineEditMDM.setText(str(record['MDM']))
+        # self.lineEditMDM.setText(str(record['MDM']))
         self.lineEditEz.setText(str(record['E_z']))
         self.lineEditEup.setText(str(record['E_up']))
 

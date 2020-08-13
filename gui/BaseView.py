@@ -127,7 +127,7 @@ class BaseView(QWidget):
         elif name_slot == "machines":
             self.tableView.clicked.connect(self.selectChanged_machines)
             self.setWindowTitle("База установок")
-            self.current_table_name = "Mashines"
+            self.current_table_name = "Machines"
         else:
             print("Нет подходящего слота")
         db = QtSql.QSqlDatabase.addDatabase("QSQLITE")
@@ -332,14 +332,14 @@ class BaseView(QWidget):
                 '$B \cdot 10^7, Pa$',
                 '$\\rho_{e} \cdot 10^{-8}, \Omega_{m}$',
                 '$K_{d} $',
-                '$MDM$',
+                # '$MDM$',
                 '$E_z$',
                 '$E_{up}$'
             ]
         else:
             headerLabels = [
                 ' Марка ',
-                '$W_{m} Дж$',
+                '$W_{m}, Дж$',
                 '$CCE, С \cdot 10^{-6} Ф$',
                 '$LCE, L_0 \cdot 10^{-9} Гн$',
                 '$FCE, f_{0} Гц$',
