@@ -183,6 +183,7 @@ class Inductor():
         #     self.NCW = round(self.NCWC)
         #     self.NCF = round(self.NCT - self.NCW)  # Количество свободных витков
         # TODO: неизвестный кусок
+        # выбирать шину 4х8 4 - ширина 8 высота.
         self.LCC = (math.pi * mu * (self.DCA + self.ZCP) * self.NCT * self.ZCP * self.NCT) / (self.KEC * self.LU)
         if self.operation[0] == "b": # если обжим
             self.LCC = (math.pi * mu * (self.DCA - self.ZCP) * self.NCT * self.ZCP * self.NCT) / (self.KEC * self.LU)
@@ -386,7 +387,8 @@ class Inductor():
         self.PWS = self.WR / (self.SSC * self.HSC)
         if self.PWS > pow(10, 9):
             print("возможно вам нужно провести расчет с большим диаметром шины")
-            message = "Возможно вам нужно провести расчет с большим диаметром шины (Измените размеры витка индуктора). Продолжить расчет?"
+            message = "Возможно вам нужно провести расчет с большим сечением витка (Измените размеры витка индуктора). Продолжить расчет?"
+            #TODO: изменить на кнопки Изменить или Отмена. Продолжать расчет нельзя
             result = self.notifyObservers(message, type=1)
             # Если отказ, то прекращение расчетов
             if not result:

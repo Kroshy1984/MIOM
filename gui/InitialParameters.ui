@@ -43,7 +43,7 @@
             <string>DOT</string>
            </property>
            <property name="text">
-            <string>Наружный диаметр</string>
+            <string>Наружный диаметр, мм</string>
            </property>
           </widget>
          </item>
@@ -53,7 +53,7 @@
             <string>ST</string>
            </property>
            <property name="text">
-            <string>Толщина стенки</string>
+            <string>Толщина стенки, мм</string>
            </property>
           </widget>
          </item>
@@ -63,7 +63,7 @@
             <string>LBT</string>
            </property>
            <property name="text">
-            <string>Длина деформируемой зоны</string>
+            <string>Длина деформируемой зоны, мм</string>
            </property>
           </widget>
          </item>
@@ -321,14 +321,14 @@
             <item row="1" column="0">
              <widget class="QLabel" name="labelDiameter">
               <property name="text">
-               <string>Диаметр индуктора</string>
+               <string>Диаметр индуктора, мм</string>
               </property>
              </widget>
             </item>
             <item row="2" column="0">
              <widget class="QLabel" name="label_22">
               <property name="text">
-               <string>Длина индуктора</string>
+               <string>Длина индуктора, мм</string>
               </property>
              </widget>
             </item>
@@ -344,7 +344,7 @@
                <string>SSC</string>
               </property>
               <property name="text">
-               <string>Ширина витка по оси детали</string>
+               <string>Ширина витка по оси детали, мм</string>
               </property>
              </widget>
             </item>
@@ -357,7 +357,7 @@
                <string>HSC</string>
               </property>
               <property name="text">
-               <string>Высота витка</string>
+               <string>Высота витка, мм</string>
               </property>
              </widget>
             </item>
@@ -379,7 +379,7 @@
                <string>SC</string>
               </property>
               <property name="text">
-               <string>Толщина изоляции витка индуктора</string>
+               <string>Толщина изоляции витка индуктора, мм</string>
               </property>
              </widget>
             </item>
@@ -392,7 +392,7 @@
                <string>ZB</string>
               </property>
               <property name="text">
-               <string>Толщина основной изоляции</string>
+               <string>Толщина основной изоляции, мм</string>
               </property>
              </widget>
             </item>
@@ -405,7 +405,7 @@
                <string>ZA</string>
               </property>
               <property name="text">
-               <string>Величина воздушного зазора</string>
+               <string>Величина воздушного зазора, мм</string>
               </property>
              </widget>
             </item>
@@ -418,7 +418,7 @@
                <string>LTC</string>
               </property>
               <property name="text">
-               <string>Индуктивность токоподводов индуктора</string>
+               <string>Индуктивность токоподводов индуктора, мм</string>
               </property>
              </widget>
             </item>
@@ -444,7 +444,7 @@
             <item row="0" column="0">
              <widget class="QLabel" name="label_15">
               <property name="text">
-               <string>Ширина вывода (A_ТП)</string>
+               <string>Ширина вывода, мм (A_ТП)</string>
               </property>
              </widget>
             </item>
@@ -454,7 +454,7 @@
             <item row="1" column="0">
              <widget class="QLabel" name="label_16">
               <property name="text">
-               <string>Толщина вывода (B_ТП)</string>
+               <string>Толщина вывода, мм (B_ТП)</string>
               </property>
              </widget>
             </item>
@@ -464,7 +464,7 @@
             <item row="2" column="0">
              <widget class="QLabel" name="label_18">
               <property name="text">
-               <string>Длина вывода (LB_ТП)</string>
+               <string>Длина вывода, мм (LB_ТП)</string>
               </property>
              </widget>
             </item>
@@ -474,7 +474,7 @@
             <item row="3" column="0">
              <widget class="QLabel" name="label_17">
               <property name="text">
-               <string>Ширина зазора между выводами (HB_ТП)</string>
+               <string>Ширина зазора между выводами, мм (HB_ТП)</string>
               </property>
              </widget>
             </item>
