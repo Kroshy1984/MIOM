@@ -15,7 +15,10 @@ class Inductor():
     def __init__(self, LBT=0, operation="", DOT=0, ST=0, YEMP=0, FCE=0, LCE=0, LCB=0, CCE=0, SC=0, HSC=0, PLM=0,
                  BCM=0, KDM=0, MM=0, KPD=0,
                  geometry=0, NCT1=0, ZS=0, ZB=0, ZA=0, YEMC=0, LTC=0):
-        self.mu = 4 * math.pi * math.pow(10, -7)  # магнитная проницаемость в вакууме
+        # self.pi = math.pi
+        self.pi = 3.1413926
+        # self.mu = 4 * self.pi * math.pow(10, -7)  # магнитная проницаемость в вакууме
+        self.mu = 0.000001256
         self.LBT = LBT
         self.operation = operation
         self.DOT = DOT
@@ -93,8 +96,8 @@ class Inductor():
         self.SC = SC  # шина изоляции (Ширина шины изоляции) Индуктора. Ширина витка по оси детали
         self.HSC = HSC  # высота шины
         self.PLM = PLM  # плотность
-        self.ZCP = self.ZS + self.ZB + self.ZA
-        self.DCA = self.DOT + 2 * self.ST + 2 * self.ZCP
+        # self.ZCP = self.ZS + self.ZB + self.ZA
+        # self.DCA = self.DOT + 2 * self.ST + 2 * self.ZCP
         # self.FW = FW  # Частота разрядного тока
         self.geometry = geometry
         self.NCT1 = NCT1
@@ -114,23 +117,29 @@ class Inductor():
 
     def calculate_inductor_parameters(self):
         print("calculate_inductor_parameters")
+        pi = self.pi
         mu = self.mu
         # ----- начало расчета -----
         self.LDC = self.LCE + self.LCB + self.LTC  # Паразитная индуктивность разрядного контура
-        self.LDC = self.LCE + 7 * 10**(-8)
-        self.FDC = math.sqrt(1 / (self.LDC * self.CCE)) / (2 * math.pi)  # Частота разряда при наличии только паразитных индуктивностей
+        self.LDC = self.LCE + 7 * 10 ** (-8)
+        self.FDC = math.sqrt(1 / (self.LDC * self.CCE)) / (
+                    2 * pi)  # Частота разряда при наличии только паразитных индуктивностей
         FW8 = self.FDC * math.sqrt(0.2)
 
         self.FW = FW8
 
         self.ZCP = self.ZS + self.ZB + self.ZA
-        self.DCA = self.DOT + 2 * self.ST + 2 * self.ZCP
+        # self.DCA = self.DOT + 2 * self.ST + 2 * self.ZCP
+        if self.operation[0] == "a":  # раздача
+            self.DCA = self.DOT - 2 * self.ST - 2 * self.ZCP
+        elif self.operation[0] == "b":  # обжим
+            self.DCA = self.DOT + 2 * self.ZCP
         # self.FW = FW  # Частота разрядного тока
-        self.BC = math.sqrt(self.YEMC / (math.pi * mu * self.FW))  # Глубина проникновения ИМП в материал индуктор
-        self.BP = math.sqrt(self.YEMP / (math.pi * mu * self.FW))  # Глубина проникновения ИМП в материал заготовки
+        self.BC = math.sqrt(self.YEMC / (pi * mu * self.FW))  # Глубина проникновения ИМП в материал индуктор
+        self.BP = math.sqrt(self.YEMP / (pi * mu * self.FW))  # Глубина проникновения ИМП в материал заготовки
         # self.NCT1 = NCT1
         if self.BP >= self.ST:
-            self.FW = self.YEMP / (math.pi * mu * math.pow(self.ST, 2))
+            self.FW = self.YEMP / (pi * mu * math.pow(self.ST, 2))
             print("FW=", self.FW)
         else:
             self.FW = FW8
@@ -142,17 +151,17 @@ class Inductor():
             # Если отказ, то прекращение расчетов
             if not result:
                 return
-        self.BC = math.sqrt(self.YEMC / (math.pi * mu * self.FW))  # Глубина проникновения ИМП в материал индуктор
-        self.BP = math.sqrt(self.YEMP / (math.pi * mu * self.FW))  # Глубина проникновения ИМП в материал заготовки
-
+        self.BC = math.sqrt(self.YEMC / (pi * mu * self.FW))  # Глубина проникновения ИМП в материал индуктор
+        self.BP = math.sqrt(self.YEMP / (pi * mu * self.FW))  # Глубина проникновения ИМП в материал заготовки
 
         # self.FDC = math.sqrt(1 / (self.LDC * self.CCE)) / 2 * math.pi  # Частота разряда при наличии только паразитных индуктивностей
-        self.K1 = (math.pow(self.FDC, 2) - math.pow(self.FW, 2)) / math.pow(self.FDC, 2)  # Величина коэффициента согласования
+        self.K1 = (math.pow(self.FDC, 2) - math.pow(self.FW, 2)) / math.pow(self.FDC,
+                                                                            2)  # Величина коэффициента согласования
         self.ZEK = self.ZCP + 0.5 * (self.BC + self.BP)  # Значение эквивалентного зазора между индуктором и заготовкой
-        self.get_LCA() #TODO
+        self.get_LCA()  # TODO
         # self.NCTC = math.sqrt(abs(self.K1 * self.LDC * self.LCA / (math.pi * mu * self.DCA * self.ZEK * (1 - self.K1))))  # Количество витков индуктора
         self.NCTC = math.sqrt(self.K1 * self.LDC * self.LCA / (
-                    math.pi * mu * self.DCA * self.ZEK * (1 - self.K1)))  # Количество витков индуктора
+                pi * mu * self.DCA * self.ZEK * (1 - self.K1)))  # Количество витков индуктора
         self.NCT = round(self.NCTC)  # Целое количество рабочих витков
         self.LU = self.SC * self.NCT  # Длина индуктора
         self.SCIC = self.LCA / self.NCT  # Расчетный шаг витков индуктора
@@ -167,7 +176,7 @@ class Inductor():
         self.NCWC = self.LBT / self.SCIC  # Расчетное количество рабочих витков
         self.NCW = round(self.NCWC)
         self.NCF = self.NCT - self.NCW  # Количество свободных витков
-        #TODO: неизвестный кусок
+        # TODO: неизвестный кусок
         # if self.NCF == 0:
         #     self.NCT = self.NCT1
         #     self.LU = self.SC * self.NCT  # Длина индуктора
@@ -184,9 +193,9 @@ class Inductor():
         #     self.NCF = round(self.NCT - self.NCW)  # Количество свободных витков
         # TODO: неизвестный кусок
         # выбирать шину 4х8 4 - ширина 8 высота.
-        self.LCC = (math.pi * mu * (self.DCA + self.ZCP) * self.NCT * self.ZCP * self.NCT) / (self.KEC * self.LU)
-        if self.operation[0] == "b": # если обжим
-            self.LCC = (math.pi * mu * (self.DCA - self.ZCP) * self.NCT * self.ZCP * self.NCT) / (self.KEC * self.LU)
+        self.LCC = (pi * mu * (self.DCA + self.ZCP) * self.NCT * self.ZCP * self.NCT) / (self.KEC * self.LU)
+        if self.operation[0] == "b":  # если обжим
+            self.LCC = (pi * mu * (self.DCA - self.ZCP) * self.NCT * self.ZCP * self.NCT) / (self.KEC * self.LU)
         self.LUC2 = self.LCC
         self.get_LUC()
 
@@ -219,13 +228,13 @@ class Inductor():
         F = 22.7 / (1 + 2.35 * ALFA)
         # ===================Индуктивность и сопротивление заготовки================
         LP = F * DLP * math.pow(10, -7)
-        RP = math.pi * DRP * self.YEMP / (BRP * self.LBT)
+        RP = pi * DRP * self.YEMP / (BRP * self.LBT)
         # =========================================================================
-        self.QP = 2 * math.pi * self.FR * LP / RP  # Добротность заготовки
+        self.QP = 2 * pi * self.FR * LP / RP  # Добротность заготовки
         self.KZ = self.SSC * self.NCT / self.LU  # Коэффициент заполнения индуктора
-        self.RC_ind = math.pi * DRC * self.YEMC / (BRC * self.LU * self.KZ)  # Сопротивление индуктора
+        self.RC_ind = pi * DRC * self.YEMC / (BRC * self.LU * self.KZ)  # Сопротивление индуктора
         # =индуктивность однородная
-        LOC = math.pi * mu * self.DCA * self.LCA / (4 * self.LU)
+        LOC = pi * mu * self.DCA * self.LCA / (4 * self.LU)
         L1S = F * (self.DCA + self.ZCP) * math.pow(10, -7)
         LOCS = LOC / (math.pow(self.NCT, 2))
         LZSD = L1S / (1 + (L1S / LOCS) - (L1S / LOC))
@@ -237,8 +246,8 @@ class Inductor():
         MDL = math.pow((self.M / LP), 2)
         RSDQ = self.RC_ind + MDL * QQ * RP / (QQ + 1)
         # ==========Суммарная добротность контура========================================================================
-        QS = 2 * math.pi * self.FR * LSDQ / RSDQ
-        LOZ = math.pi * mu * self.DCA / self.LU
+        QS = 2 * pi * self.FR * LSDQ / RSDQ
+        LOZ = pi * mu * self.DCA / self.LU
         DL05 = L1S / LOZ
         DEZ = self.ZCP / DL05
         # =====K1=====
@@ -252,9 +261,9 @@ class Inductor():
         self.K4 = QQ / (QQ + self.LK)
         # Площадь создаваемого давления ИМП
         if self.operation[0] == "a":
-            self.SUMP = math.pi * (self.DCA + self.ZCP) * self.LU
+            self.SUMP = pi * (self.DCA + self.ZCP) * self.LU
         else:
-            self.SUMP = math.pi * (self.DOT + self.ZCP) * self.LU
+            self.SUMP = pi * (self.DOT + self.ZCP) * self.LU
         # Необходимая энергия разряда МИУ
         self.WR = self.PM * self.SUMP * (self.ZPR + 0.5 * self.SPYR) * self.KEC * self.KEC / (
                 self.K1 * self.K2 * self.K3 * self.K4)
@@ -360,23 +369,25 @@ class Inductor():
         return self.ROC
 
     def get_LUC(self):  # суммарная индуктивность
-        mu = 4 * math.pi * math.pow(10, -7)  # магнитная проницаемость в вакууме
+        pi = self.pi
+        mu = self.mu
+        # mu = 4 * pi * math.pow(10, -7)  # магнитная проницаемость в вакууме
         self.REZ = 1
         self.I = 0
         while abs(self.REZ) >= 0.01:
             LCP = self.LUC2 + self.LDC
             LUC1 = self.LUC2
-            FP = (1 / (2 * math.pi)) * math.sqrt((1 / (LCP * self.CCE)))
+            FP = (1 / (2 * pi)) * math.sqrt((1 / (LCP * self.CCE)))
             self.FR = FP
-            self.BC = math.sqrt(self.YEMC / (math.pi * mu * FP))  # Глубина проникновения ИМП в материал индуктор
-            self.BP = math.sqrt(self.YEMP / (math.pi * mu * FP))  # Глубина проникновения ИМП в материал заготовки
+            self.BC = math.sqrt(self.YEMC / (pi * mu * FP))  # Глубина проникновения ИМП в материал индуктор
+            self.BP = math.sqrt(self.YEMP / (pi * mu * FP))  # Глубина проникновения ИМП в материал заготовки
             # self.FR = (1 / (2 * 3.14)) * math.sqrt((1 / (LCP * self.CCE)))
             self.ZEK = self.ZCP + 0.5 * (self.BC + self.BP)
             self.I = 0
             for i in range(self.NCF):
                 self.I = self.I + math.sqrt(math.pow(self.SC * (self.NCF - 1) + self.ZS, 2) + math.pow(self.ZEK, 2))
             self.ZPR = (self.ZEK * self.NCW + self.I) / self.NCT
-            LCC = math.pi * mu * self.NCT * (self.DCA + self.ZCP) * self.NCT * self.ZPR / (self.LU * self.KEC)
+            LCC = pi * mu * self.NCT * (self.DCA + self.ZCP) * self.NCT * self.ZPR / (self.LU * self.KEC)
             self.LUC2 = LCC
             self.REZ = (self.LUC2 - LUC1) / LUC1
             # print(self.REZ)
@@ -388,7 +399,7 @@ class Inductor():
         if self.PWS > pow(10, 9):
             print("возможно вам нужно провести расчет с большим диаметром шины")
             message = "Возможно вам нужно провести расчет с большим сечением витка (Измените размеры витка индуктора). Продолжить расчет?"
-            #TODO: изменить на кнопки Изменить или Отмена. Продолжать расчет нельзя
+            # TODO: изменить на кнопки Изменить или Отмена. Продолжать расчет нельзя
             result = self.notifyObservers(message, type=1)
             # Если отказ, то прекращение расчетов
             if not result:
@@ -416,7 +427,8 @@ class Inductor():
         s += "\n" + "Глубина проникновения ИМП в материал заготовки (BP): " + str(round(self.BP, 4)) + " ,м"
         s += "\n" + "Глубина проникновения ИМП в материал индуктор (BC): " + str(round(self.BC, 4)) + " ,м"
         s += "\n" + "Паразитная индуктивность разрядного контура (LDC): " + str(round(self.LDC, 4)) + " ,Гн"
-        s += "\n" + "Частота разряда при наличии только паразитных индуктивностей (FDC): " + str(round(self.FDC, 4)) + " ,Гц"
+        s += "\n" + "Частота разряда при наличии только паразитных индуктивностей (FDC): " + str(
+            round(self.FDC, 4)) + " ,Гц"
         s += "\n" + "Коэффициент К1: " + str(round(self.K1, 4))
         s += "\n" + "Коэффициент К2: " + str(round(self.K2, 4))
         s += "\n" + "Коэффициент К3: " + str(round(self.K3, 4))
@@ -455,7 +467,7 @@ class Form():
         self.BCMD = self.BCM * self.KDM  # Динамическое значение коэффициента аппроксимации кривой упрочнения
         EPS = self.EPS(geometry)
         print(EPS)
-        print(1 +EPS)
+        print(1 + EPS)
         self.WYD = (self.BCMD / (1 + self.MM)) * math.pow(self.EPS, (1 + self.MM))  # Удельная работа деформации WYD
         self.DVB = math.pi * (self.DOT - self.ST) * self.ST * self.LBT  # Деформируемый объем заготовки DVB
         self.WDB = self.WYD * self.DVB  # Работа деформации заготовки WDB
