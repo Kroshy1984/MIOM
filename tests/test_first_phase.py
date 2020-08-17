@@ -10,7 +10,8 @@ import pytest
 
 # import core.FirstPhase
 p2_form = dict()
-p2_form["LBT"] = 30 * math.pow(10, -3)
+# p2_form["LBT"] = 35 * math.pow(10, -3)
+p2_form["LBT"] = 0.035
 p2_form["operation"] = "b1"
 p2_form["DOT"] = 151.4 * math.pow(10, -3)
 p2_form["ST"] = 1.2 * math.pow(10, -3)
@@ -52,7 +53,7 @@ def test_WR():
     assert inductor.WR == 8191.592
 
 def test_PM():
-    assert inductor.PM == 3.96 * math.pow(10, 7)
+    assert round(inductor.PM) == 39600000
 
 def test_VCR():
     assert inductor.VCR == 0
@@ -66,8 +67,12 @@ def test_K3():
 def test_K4():
     assert inductor.K4 == 0.9335578
 
+# def test_ZEK():
+#     assert inductor.ZEK == 0.003240606
+
 def test_ZEK():
-    assert inductor.ZEK == 0.003240606
+    assert inductor.ZEK == 2.800422e-03
+
 def test_FW():
     assert round(inductor.FW, 2) == 12496.37
 def test_ZCP():
@@ -76,5 +81,53 @@ def test_DCA():
     assert inductor.DCA == 0.1552
 def test_YEMC():
     assert inductor.YEMC == 1.78e-08
+def test_FDC():
+    assert round(inductor.FDC, 2) == 20385.68
+
+def test_LDC():
+    assert inductor.LDC == 2.4e-07
+def test_ZS():
+    assert inductor.ZS == 0.00065
+def test_ZB():
+    assert inductor.ZB == 0.001
+def test_ZA():
+    assert inductor.ZA == 0.00025
+
+def test_BC():
+    assert inductor.BC == 6.008445e-04
+def test_BP():
+    assert inductor.BP == 0.0012
+def test_SCIC():
+    assert inductor.SCIC == 0.01
+def test_LCA():
+    assert inductor.LCA == 0.03
+def test_NCT():
+    assert inductor.NCT == 3
+def test_SSC():
+    assert inductor.SSC == 0.0087
+
+def test_LBT():
+    assert inductor.LBT == 0.035
+def test_LCG():
+    assert round(inductor.LU, 4) == 0.0134
+def test_NCWC():
+    assert inductor.NCWC == -1
+def test_NCFC():
+    assert inductor.NCF == -2
+def test_NCW():
+    assert inductor.NCW == 1
+def test_NCTC():
+    assert round(inductor.NCTC, 6) == 2.640996
+def test_ESP():
+    assert round(inductor.f.EPS, 7) == 0.0074375 #0.007437468
+
+def test_SUMP():
+    assert inductor.SUMP == 1.589199e-02
+def test_WYD():
+    assert inductor.f.WYD == 2700428
+def test_BCMD():
+    assert inductor.f.BCMD == 1.378748e+09
+# def test_ZEK():
+#     assert inductor.ZEK ==
     # assert inductor.LDC == 2.3 * math.pow(10, -7)
 

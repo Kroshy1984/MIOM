@@ -137,6 +137,7 @@ class Inductor():
         # self.FW = FW  # Частота разрядного тока
         self.BC = math.sqrt(self.YEMC / (pi * mu * self.FW))  # Глубина проникновения ИМП в материал индуктор
         self.BP = math.sqrt(self.YEMP / (pi * mu * self.FW))  # Глубина проникновения ИМП в материал заготовки
+        print("BC = ", self.BC, "BP = ", self.BP)
         # self.NCT1 = NCT1
         if self.BP >= self.ST:
             self.FW = self.YEMP / (pi * mu * math.pow(self.ST, 2))
@@ -153,18 +154,25 @@ class Inductor():
                 return
         self.BC = math.sqrt(self.YEMC / (pi * mu * self.FW))  # Глубина проникновения ИМП в материал индуктор
         self.BP = math.sqrt(self.YEMP / (pi * mu * self.FW))  # Глубина проникновения ИМП в материал заготовки
-
+        print("BC = ", self.BC, "BP = ", self.BP)
         # self.FDC = math.sqrt(1 / (self.LDC * self.CCE)) / 2 * math.pi  # Частота разряда при наличии только паразитных индуктивностей
         self.K1 = (math.pow(self.FDC, 2) - math.pow(self.FW, 2)) / math.pow(self.FDC,
                                                                             2)  # Величина коэффициента согласования
+        print("K1 = ", self.K1)
         self.ZEK = self.ZCP + 0.5 * (self.BC + self.BP)  # Значение эквивалентного зазора между индуктором и заготовкой
         self.get_LCA()  # TODO
+        self.LCA = 0.03 # так стоит в бейсике
         # self.NCTC = math.sqrt(abs(self.K1 * self.LDC * self.LCA / (math.pi * mu * self.DCA * self.ZEK * (1 - self.K1))))  # Количество витков индуктора
         self.NCTC = math.sqrt(self.K1 * self.LDC * self.LCA / (
                 pi * mu * self.DCA * self.ZEK * (1 - self.K1)))  # Количество витков индуктора
         self.NCT = round(self.NCTC)  # Целое количество рабочих витков
-        self.LU = self.SC * self.NCT  # Длина индуктора
+        # self.LU = self.SC * self.NCT  # Длина индуктора
         self.SCIC = self.LCA / self.NCT  # Расчетный шаг витков индуктора
+
+        # по бейсику
+        self.SCIC = 0.0049
+        self.HIC = 0.0093
+        self.LU = self.SCIC * self.NCT - 2 * self.ZS  #TODO: Длина индуктора по бейсику
         # self.SSC = self.SCIC - self.ZS  # Ширина медной шины по оси индуктора
         self.SSC = self.SCIC - 2 * self.ZS  # Ширина медной шины по оси индуктора
         if self.operation[0] == "a":
@@ -196,11 +204,14 @@ class Inductor():
         self.LCC = (pi * mu * (self.DCA + self.ZCP) * self.NCT * self.ZCP * self.NCT) / (self.KEC * self.LU)
         if self.operation[0] == "b":  # если обжим
             self.LCC = (pi * mu * (self.DCA - self.ZCP) * self.NCT * self.ZCP * self.NCT) / (self.KEC * self.LU)
+        print("LCC = ", self.LCC)
         self.LUC2 = self.LCC
         self.get_LUC()
+        print("LCCR = ", self.LUC2)
+        print("LCC = ", self.LCC)
 
         f = Form(self.DOT, self.ST, self.BCM, self.KDM, self.MM, self.LBT, self.KPD, self.geometry, self.operation)
-
+        self.f = f
         self.VCR = math.sqrt(
             2 * f.WYD / self.PLM)  # Расчет режима обработки. Средняя скорость по деформируемому участку заготовки.
         # self.LUC()
@@ -387,7 +398,10 @@ class Inductor():
             for i in range(self.NCF):
                 self.I = self.I + math.sqrt(math.pow(self.SC * (self.NCF - 1) + self.ZS, 2) + math.pow(self.ZEK, 2))
             self.ZPR = (self.ZEK * self.NCW + self.I) / self.NCT
-            LCC = pi * mu * self.NCT * (self.DCA + self.ZCP) * self.NCT * self.ZPR / (self.LU * self.KEC)
+            if self.operation[0]=="a":
+                LCC = pi * mu * self.NCT * (self.DCA + self.ZCP) * self.NCT * self.ZPR / (self.LU * self.KEC)
+            elif self.operation[0] == "b":
+                LCC = pi * mu * self.NCT * (self.DCA - self.ZCP) * self.NCT * self.ZPR / (self.LU * self.KEC)
             self.LUC2 = LCC
             self.REZ = (self.LUC2 - LUC1) / LUC1
             # print(self.REZ)
