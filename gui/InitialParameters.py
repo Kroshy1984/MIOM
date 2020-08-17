@@ -336,6 +336,7 @@ class InitialParameters(QWidget):
         p2_form["SC"] = self.SC
         p2_form["HSC"] = self.HSC
         p2_form["PLM"] = self.PLM
+        p2_form["PYM"] = self.PYM
         p2_form["BCM"] = self.BCM
         p2_form["KDM"] = self.KDM
         p2_form["MM"] = self.MM
@@ -407,6 +408,7 @@ class InitialParameters(QWidget):
         self.billet_material = billet
         self.name_mat = self.billet_material.get("Name")
         self.PLM = float(self.billet_material.get("PLM"))  #
+        self.PYM = float(self.billet_material.get("PYD"))
         self.MM = self.billet_material.get("M_M")  #
         self.BCM1 = self.billet_material.get("B")  #
         self.BCM = float(self.BCM1) * pow(10, 7)

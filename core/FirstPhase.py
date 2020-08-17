@@ -72,6 +72,7 @@ class Inductor():
         self.ZA = params["ZA"]
         self.YEMC = params["YEMC"]
         self.LTC = params["LTC"]
+        self.PYM = params["PYM"]
 
     def set_data(self, LBT, operation, DOT, ST, YEMP, FCE, LCE, LCB, CCE, SC, HSC, PLM, BCM, KDM, MM, KPD,
                  geometry, NCT1, ZS, ZB, ZA, YEMC, LTC):
@@ -172,6 +173,7 @@ class Inductor():
         # по бейсику
         self.SCIC = 0.0049
         self.HIC = 0.0093
+        self.NCT = 7
         self.LU = self.SCIC * self.NCT - 2 * self.ZS  #TODO: Длина индуктора по бейсику
         # self.SSC = self.SCIC - self.ZS  # Ширина медной шины по оси индуктора
         self.SSC = self.SCIC - 2 * self.ZS  # Ширина медной шины по оси индуктора
@@ -184,6 +186,8 @@ class Inductor():
         self.NCWC = self.LBT / self.SCIC  # Расчетное количество рабочих витков
         self.NCW = round(self.NCWC)
         self.NCF = self.NCT - self.NCW  # Количество свободных витков
+        self.NCW = 7
+        self.NCF = 0
         # TODO: неизвестный кусок
         # if self.NCF == 0:
         #     self.NCT = self.NCT1
@@ -219,6 +223,10 @@ class Inductor():
         self.SPYR = 0.141 * self.VCR / self.FR  # Величина перемещений заготовки на участке разгона
         if self.SPYR > (f.RIB - self.geometry):
             self.SPYR = f.RIB - self.geometry
+            self.PM = (math.pow(self.VCR, 3) * self.PLM * self.ST) / ( 18 * math.pow(f.RIB - self.geometry, 2)) # Амплитудное значение давления ИМП
+        # if self.SPYR < (f.RIB - self.geometry):
+        self.RMGD = 0.005 # минимальный радиус профиля готовой детали
+        self.PM = self.PYM * self.ST / self.RMGD
         # ================Расчет коэффициентов===================================================
         BRC = self.BC
         BRP = self.BP
