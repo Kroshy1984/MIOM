@@ -68,6 +68,8 @@ class MainWindow(QMainWindow):
             buttonY.setText('Да')
             buttonN = msg.button(QMessageBox.No)
             buttonN.setText('Нет')
+        elif type == 2:
+            pass
 
         msg.setIcon(type)
         msg.setText(text)

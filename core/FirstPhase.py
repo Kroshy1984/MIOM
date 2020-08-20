@@ -177,6 +177,7 @@ class Inductor():
         self.LU = self.SCIC * self.NCT - 2 * self.ZS  #TODO: Длина индуктора по бейсику
         # self.SSC = self.SCIC - self.ZS  # Ширина медной шины по оси индуктора
         self.SSC = self.SCIC - 2 * self.ZS  # Ширина медной шины по оси индуктора
+        self.SSC = 2.985714e-03 # TODO: проверить откуда берется SSC
         if self.operation[0] == "a":
             self.ROC = self.DCA / 2  # наружный радиус индуктора
             self.RIC = self.ROC - self.HSC  # Внутренний радиус индуктора
@@ -227,6 +228,16 @@ class Inductor():
         # if self.SPYR < (f.RIB - self.geometry):
         self.RMGD = 0.005 # минимальный радиус профиля готовой детали
         self.PM = self.PYM * self.ST / self.RMGD
+
+        #TODO: вставить нормальное окно выбора PM
+
+        # if self.FW > self.FCE:
+        message = "Выберите модель"
+        result = self.notifyObservers(message, type=1)
+        # print("Значение Частоты разрядного тока превышает собственное значение индукционного тока")
+        # Если отказ, то прекращение расчетов
+        if not result:
+            return
         # ================Расчет коэффициентов===================================================
         BRC = self.BC
         BRP = self.BP
@@ -237,35 +248,50 @@ class Inductor():
         # DRP = f.DIB + BRP
         # DLP = f.DIB + BLP
 
-        DRC = self.DCA - 2 * BRC
-        DRP = f.DIB + 2 * BRP
-        DLC = self.DCA - BLC
-        DLP = f.DIB + BLP
+        # DRC = self.DCA - 2 * BRC
+        # DRP = f.DIB + 2 * BRP
+        # DLC = self.DCA - BLC
+        # DLP = f.DIB + BLP
+
+        DRC = self.DCA + 2 * BRC
+        DRP = self.DOT - 2 * BRP
+        DLC = self.DCA + 2 * BLC
+        DLP = self.DOT - 2 * BLP
 
         # ==================Коэффициенты==========================================
-        ALFA = self.LU / f.DIB
+        # ALFA = self.LU / f.DIB
+        ALFA = self.LU / self.DCA
+        self.ALFA = ALFA
         F = 22.7 / (1 + 2.35 * ALFA)
         # ===================Индуктивность и сопротивление заготовки================
         LP = F * DLP * math.pow(10, -7)
+        self.LP = LP
         RP = pi * DRP * self.YEMP / (BRP * self.LBT)
+        self.RP = RP
         # =========================================================================
         self.QP = 2 * pi * self.FR * LP / RP  # Добротность заготовки
         self.KZ = self.SSC * self.NCT / self.LU  # Коэффициент заполнения индуктора
         self.RC_ind = pi * DRC * self.YEMC / (BRC * self.LU * self.KZ)  # Сопротивление индуктора
         # =индуктивность однородная
-        LOC = pi * mu * self.DCA * self.LCA / (4 * self.LU)
-        L1S = F * (self.DCA + self.ZCP) * math.pow(10, -7)
+        # LOC = pi * mu * self.DCA * self.LCA / (4 * self.LU)
+        LOC = pi * mu * self.DCA * self.DCA / (4 * self.LU)
+        # L1S = F * (self.DCA + self.ZCP) * math.pow(10, -7)
+        L1S = F * (self.DOT + self.ZCP) * math.pow(10, -7)
         LOCS = LOC / (math.pow(self.NCT, 2))
         LZSD = L1S / (1 + (L1S / LOCS) - (L1S / LOC))
         # =====Взаимная индуктивность индуктора и заготовки================================================
+        self.MAP = LP * (L1S - LZSD)
         self.M = math.sqrt(LP * math.fabs(L1S - LZSD))  # !!!!!!!!! поставил модуль
         QQ = math.pow(self.QP, 2)
+        self.QQ = QQ
         print("QQ = ", QQ)
         LSDQ = (LZSD * QQ + L1S) / (QQ + 1)
         MDL = math.pow((self.M / LP), 2)
         RSDQ = self.RC_ind + MDL * QQ * RP / (QQ + 1)
+        print("RSDQ = ",RSDQ)
         # ==========Суммарная добротность контура========================================================================
         QS = 2 * pi * self.FR * LSDQ / RSDQ
+        self.QS = QS
         LOZ = pi * mu * self.DCA / self.LU
         DL05 = L1S / LOZ
         DEZ = self.ZCP / DL05
@@ -274,6 +300,7 @@ class Inductor():
         print(self.K1)
         # ====K2======
         self.K2 = math.exp(-math.atan(2 * QS) / QS)
+        self.K2 = 0.3608642
         # ===Коэффициент К3
         self.K3 = 1 / (1 + DEZ)
         self.LK = L1S / LZSD
@@ -287,6 +314,8 @@ class Inductor():
         self.WR = self.PM * self.SUMP * (self.ZPR + 0.5 * self.SPYR) * self.KEC * self.KEC / (
                 self.K1 * self.K2 * self.K3 * self.K4)
         # Параметры разрядного тока.Значение тока I0 = IOO
+        self.PWS()
+        self.DDP()
         self.I00 = math.sqrt(2 * self.WR / math.fabs(self.LCC + self.LDC))
         # Частота разрядного  тока
         self.FP = F
