@@ -385,6 +385,9 @@ class InitialParameters(QWidget):
         self.DOT = float(self.lineEditOuterDiameter.text()) * pow(10, -3)
         self.ST = float(self.lineEditSideThickness.text()) * pow(10, -3)
         self.LBT = float(self.lineEditLengthDeform.text()) * pow(10, -3)
+
+        # self.RMGD = float(self.lineEditRMGD.text()) * 10 ** -3
+
         self.RC = float(self.lineEditRadius.text()) * pow(10, -3) # радиус цилиндра
         self.operation1 = self.comboBoxOperationType.currentText()
         self.operation2 = self.comboBoxOperationName.currentText()
@@ -408,7 +411,7 @@ class InitialParameters(QWidget):
         self.billet_material = billet
         self.name_mat = self.billet_material.get("Name")
         self.PLM = float(self.billet_material.get("PLM"))  #
-        self.PYM = float(self.billet_material.get("PYD"))
+        self.PYM = float(self.billet_material.get("PYD")) * 10**7
         self.MM = self.billet_material.get("M_M")  #
         self.BCM1 = self.billet_material.get("B")  #
         self.BCM = float(self.BCM1) * pow(10, 7)

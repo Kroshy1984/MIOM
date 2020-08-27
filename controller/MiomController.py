@@ -24,6 +24,11 @@ class MiomContrioller():
             print("---------")
             self.mModel.calculate_inductor_parameters()
             print(self.mModel)
+            # self.lineEditNumberCoilsInductor.setText(str(round(g.NCTC)))
+            self.mView.initial_parameters.lineEditNumberCoilsInductor.setText(str(round(self.mModel.NCTC)))
+            self.mView.initial_parameters.lineEditDiameter.setText(str(round(self.mModel.DCA, 4)))
+            self.mView.initial_parameters.lineEditInductorLength.setText(str(round(self.mModel.LCA, 4)))
+            self.mView.initial_parameters.groupBox_7.setEnabled(True)
             # raise Exception
         except Exception as exception:
             print(exception)
@@ -44,9 +49,9 @@ class MiomContrioller():
         """
 
 
-    def modelIsChanged(self, message="", type=None):
+    def modelIsChanged(self, message="", type=None, data=None):
         """
         Метод который будет вызван у наблюдателя при изменении модели.
         """
-        users_result = self.mView.show_message(text=message, type=type)
+        users_result = self.mView.show_message(text=message, type=type, data=data)
         return users_result

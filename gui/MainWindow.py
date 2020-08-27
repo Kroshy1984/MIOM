@@ -2,6 +2,7 @@
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QMainWindow, QPushButton, QHBoxLayout, QMessageBox
 from PyQt5.uic import loadUi
 from gui.InitialParameters import InitialParameters
+from gui.PMDialog import PMDialog
 from gui.SecondaryParameters import SecondaryParameters
 from gui.OutputWindow import OutputWindow
 from gui.BaseView import BaseView
@@ -52,7 +53,7 @@ class MainWindow(QMainWindow):
 
         return params
 
-    def show_message(self, text, type=None):
+    def show_message(self, text, type=None, data=None):
         msg = QMessageBox()
 
         if type==None:
@@ -69,7 +70,25 @@ class MainWindow(QMainWindow):
             buttonN = msg.button(QMessageBox.No)
             buttonN.setText('Нет')
         elif type == 2:
-            pass
+            # окно выбора модели процесса
+            dialog = PMDialog(data=data)
+
+            bb = dialog.buttonBox
+            bb.accepted.connect(dialog.accept)
+            bb.rejected.connect(dialog.reject)
+            # dialog.show()
+            res = dialog.exec_()
+            print("res = ", res)
+            check = dialog.checked
+            if res==0:
+                return False
+            elif res ==1:
+                return True, check
+            else:
+                return False
+        elif type == 3:
+            return False
+
 
         msg.setIcon(type)
         msg.setText(text)

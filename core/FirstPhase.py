@@ -109,10 +109,10 @@ class Inductor():
     def removeObserver(self, inObserver):
         self._mObservers.remove(inObserver)
 
-    def notifyObservers(self, message="", type=None):
+    def notifyObservers(self, message="", type=None, data=None):
         results = []
         for x in self._mObservers:
-            users_result = x.modelIsChanged(message, type)
+            users_result = x.modelIsChanged(message, type, data)
             results.append(users_result)
         return users_result
 
@@ -124,7 +124,7 @@ class Inductor():
         self.LDC = self.LCE + self.LCB + self.LTC  # Паразитная индуктивность разрядного контура
         self.LDC = self.LCE + 7 * 10 ** (-8)
         self.FDC = math.sqrt(1 / (self.LDC * self.CCE)) / (
-                    2 * pi)  # Частота разряда при наличии только паразитных индуктивностей
+                2 * pi)  # Частота разряда при наличии только паразитных индуктивностей
         FW8 = self.FDC * math.sqrt(0.2)
 
         self.FW = FW8
@@ -162,7 +162,7 @@ class Inductor():
         print("K1 = ", self.K1)
         self.ZEK = self.ZCP + 0.5 * (self.BC + self.BP)  # Значение эквивалентного зазора между индуктором и заготовкой
         self.get_LCA()  # TODO
-        self.LCA = 0.03 # так стоит в бейсике
+        # self.LCA = 0.03  # так стоит в бейсике
         # self.NCTC = math.sqrt(abs(self.K1 * self.LDC * self.LCA / (math.pi * mu * self.DCA * self.ZEK * (1 - self.K1))))  # Количество витков индуктора
         self.NCTC = math.sqrt(self.K1 * self.LDC * self.LCA / (
                 pi * mu * self.DCA * self.ZEK * (1 - self.K1)))  # Количество витков индуктора
@@ -171,13 +171,16 @@ class Inductor():
         self.SCIC = self.LCA / self.NCT  # Расчетный шаг витков индуктора
 
         # по бейсику
+        # TODO: где вводить значения размера шины?
         self.SCIC = 0.0049
         self.HIC = 0.0093
         self.NCT = 7
-        self.LU = self.SCIC * self.NCT - 2 * self.ZS  #TODO: Длина индуктора по бейсику
+        self.LU = self.SCIC * self.NCT - 2 * self.ZS  # TODO: Длина индуктора по бейсику
         # self.SSC = self.SCIC - self.ZS  # Ширина медной шины по оси индуктора
         self.SSC = self.SCIC - 2 * self.ZS  # Ширина медной шины по оси индуктора
-        self.SSC = 2.985714e-03 # TODO: проверить откуда берется SSC
+        self.SCIC = self.SSC + 2 * self.ZS
+        # TODO: общая толщина изоляции витка
+        self.SSC = 2.985714e-03  # TODO: проверить откуда берется SSC
         if self.operation[0] == "a":
             self.ROC = self.DCA / 2  # наружный радиус индуктора
             self.RIC = self.ROC - self.HSC  # Внутренний радиус индуктора
@@ -224,20 +227,48 @@ class Inductor():
         self.SPYR = 0.141 * self.VCR / self.FR  # Величина перемещений заготовки на участке разгона
         if self.SPYR > (f.RIB - self.geometry):
             self.SPYR = f.RIB - self.geometry
-            self.PM = (math.pow(self.VCR, 3) * self.PLM * self.ST) / ( 18 * math.pow(f.RIB - self.geometry, 2)) # Амплитудное значение давления ИМП
+            self.PM = (math.pow(self.VCR, 3) * self.PLM * self.ST) / (
+                        18 * math.pow(f.RIB - self.geometry, 2))  # Амплитудное значение давления ИМП
         # if self.SPYR < (f.RIB - self.geometry):
-        self.RMGD = 0.005 # минимальный радиус профиля готовой детали
-        self.PM = self.PYM * self.ST / self.RMGD
+        self.RMGD = 0.005  # минимальный радиус изгиба //профиля готовой детали 5 мм
+        # self.PM = self.PYM * self.ST / self.RMGD
 
-        #TODO: вставить нормальное окно выбора PM
-
+        # TODO: вставить нормальное окно выбора PM
+        PMA = 4.4 * self.VCR * self.FR * self.PLM * self.ST
+        RY = self.VCR * self.PLM * self.VCR * self.ST / (18 * (f.RIB - self.geometry) * self.FR)
+        PMB = RY * self.VCR / (f.RIB - self.geometry)
+        VDS = 40  # TODO: посмотреть где вводить это значение
+        VCRD = self.VCR + VDS
+        PMC = 4.4 * VCRD * self.FR * self.PLM * self.ST
+        RRY = VCRD * self.PLM * VCRD * self.ST / (18 * (f.RIB - self.geometry) * self.FR)
+        PMD = RRY * VCRD / (f.RIB - self.geometry)
+        PMF = self.PYM * self.ST / self.RMGD
+        pressure = {
+            "PMA": PMA,
+            "PMB": PMB,
+            "PMC": PMC,
+            "PMD": PMD,
+            "PMF": PMF
+        }
         # if self.FW > self.FCE:
         message = "Выберите модель"
-        result = self.notifyObservers(message, type=1)
+        result, pm = self.notifyObservers(message, type=2, data=pressure)
         # print("Значение Частоты разрядного тока превышает собственное значение индукционного тока")
         # Если отказ, то прекращение расчетов
         if not result:
             return
+        print("PM var = ", pm)
+        if pm == 1:
+            self.PM = PMA
+        elif pm == 2:
+            self.PM = PMB
+        elif pm == 3:
+            self.PM = PMC
+        elif pm == 4:
+            self.PM = PMD
+        elif pm == 5:
+            self.PM = PMF
+
         # ================Расчет коэффициентов===================================================
         BRC = self.BC
         BRP = self.BP
@@ -288,7 +319,7 @@ class Inductor():
         LSDQ = (LZSD * QQ + L1S) / (QQ + 1)
         MDL = math.pow((self.M / LP), 2)
         RSDQ = self.RC_ind + MDL * QQ * RP / (QQ + 1)
-        print("RSDQ = ",RSDQ)
+        print("RSDQ = ", RSDQ)
         # ==========Суммарная добротность контура========================================================================
         QS = 2 * pi * self.FR * LSDQ / RSDQ
         self.QS = QS
@@ -300,7 +331,7 @@ class Inductor():
         print(self.K1)
         # ====K2======
         self.K2 = math.exp(-math.atan(2 * QS) / QS)
-        self.K2 = 0.3608642
+        # self.K2 = 0.3608642
         # ===Коэффициент К3
         self.K3 = 1 / (1 + DEZ)
         self.LK = L1S / LZSD
@@ -314,8 +345,8 @@ class Inductor():
         self.WR = self.PM * self.SUMP * (self.ZPR + 0.5 * self.SPYR) * self.KEC * self.KEC / (
                 self.K1 * self.K2 * self.K3 * self.K4)
         # Параметры разрядного тока.Значение тока I0 = IOO
-        self.PWS()
-        self.DDP()
+        self.get_PWS()
+        self.get_DDP(self.geometry)
         self.I00 = math.sqrt(2 * self.WR / math.fabs(self.LCC + self.LDC))
         # Частота разрядного  тока
         self.FP = F
@@ -435,7 +466,7 @@ class Inductor():
             for i in range(self.NCF):
                 self.I = self.I + math.sqrt(math.pow(self.SC * (self.NCF - 1) + self.ZS, 2) + math.pow(self.ZEK, 2))
             self.ZPR = (self.ZEK * self.NCW + self.I) / self.NCT
-            if self.operation[0]=="a":
+            if self.operation[0] == "a":
                 LCC = pi * mu * self.NCT * (self.DCA + self.ZCP) * self.NCT * self.ZPR / (self.LU * self.KEC)
             elif self.operation[0] == "b":
                 LCC = pi * mu * self.NCT * (self.DCA - self.ZCP) * self.NCT * self.ZPR / (self.LU * self.KEC)
@@ -444,8 +475,7 @@ class Inductor():
             # print(self.REZ)
         return self.LUC2
 
-    # TODO: процедура нигде не вызывается
-    def PWS(self):  # Проверка
+    def get_PWS(self):  # Проверка
         self.PWS = self.WR / (self.SSC * self.HSC)
         if self.PWS > pow(10, 9):
             print("возможно вам нужно провести расчет с большим диаметром шины")
@@ -456,11 +486,10 @@ class Inductor():
             if not result:
                 return
 
-    # TODO: процедура нигде не вызывается
-    def DDP(self, geometry):
+    def get_DDP(self, geometry):
         f = Form(self.DOT, self.ST, self.BCM, self.KDM, self.MM, self.LBT, self.KPD, geometry, self.operation)
         if self.operation == "a1":
-            self.DDP = math.fabs(self.RC - f.RIB - self.SPYR)
+            self.DDP = math.fabs(geometry - f.RIB - self.SPYR)
         elif self.operation == "a2":
             self.DDP = math.fabs(geometry - f.RIB - self.SPYR)
         elif self.operation == "a3":
@@ -468,7 +497,7 @@ class Inductor():
         elif self.operation == "a4":
             self.DDP = math.fabs(geometry - self.SPYR)
         elif self.operation == "b1":
-            self.DDP = math.fabs(self.RC - f.RIB - self.SPYR)
+            self.DDP = math.fabs(geometry - f.RIB - self.SPYR)
         return self.DDP
 
     def __str__(self):
