@@ -2,15 +2,66 @@ import math
 
 
 class Pascal():
-    def __init__(self, calc):
+    def __init__(self, calc=dict()):
 
         self.defold = 0
         self.miom = 0
         self.mmm = 0
+        self._mObservers = []  # список наблюдателей
 
+
+    def set_data(self, calc):
+        self.calc = calc
+
+    def set_parameters(self, calc):
+        self.poisk = calc.get("poisk")
+        self.lm = calc.get("lm")  # * math.pow(10, -7) # Lm_у СОБСТВ. ИНДУКТИВНОСТЬ УСТАНОВКИ
+        self.c0 = calc.get("c0")  # * math.pow(10, -6) # Co_у ЕМКОСТЬ КОНДЕНСАТОРОВ УСТАНОВКИ
+        self.p3 = calc.get("p3")  # * math.pow(10, -8) # RO_з УДЕЛ. Э/СОПРОТИВЛЕНИЕ ЗАГОТОВКИ,
+        self.mod_upr = calc.get("mod_upr")  # * math.pow(10, 9) # E_з МОДУЛЬ УПРУГОСТИ ЗАГОТОВКИ,
+        self.pm = calc.get("pm")  # Pm_з ПЛОТНОСТЬ ЗАГОТОВКИ, ( кг/м3)
+        self.l0 = calc.get("l0")  # lo_з ДЛИНА ЗАГОТОВКИ, м
+        self.dh = calc.get("dh")  # Dн_з НАРУЖНЫЙ ДИАМЕТР ЗАГОТОВКИ, м
+        self.h0 = calc.get("h0")  # Ho_з ТОЛЩИНА СТЕНКИ ЗАГОТОВКИ, м
+        self.p1 = calc.get("pl")  # * math.pow(10, -8) # RO_и УДЕЛ. Э/СОПРОТИВЛЕНИЕ ИНДУКТОРА, (Ом*м)
+        self.a = calc.get("a")
+        self.b = calc.get("b")
+        self.hb = calc.get("hb")
+        self.lv = calc.get("lv")
+        self.dv = calc.get("dv")  # Dи_в ВНУТРЕННИЙ ДИАМЕТР ИНДУКТОРА , м
+        self.n1 = calc.get("nl")  # self.n1_и ЧИСЛО ВИТКОВ ИНДУКТОРА
+        self.l1 = calc.get("l1")  # self.l1_и ДЛИНА (ВЫСОТА) ИНДУКТОРА, м
+        self.R0 = calc.get("R0")  # * math.pow(10, -3) # Ro_у СОПРОТИВЛЕНИЕ УСТАНОВКИ, Ом
+        self.dn = calc.get("dn")  # Dн_и НАРУЖНЫЙ ДИАМЕТР ИНДУКТОРА , м
+        self.sp = calc.get("sp")  # SP_з ПРЕДЕЛ ТЕКУЧЕСТИ ЗАГОТОВКИ, Н/м2
+        self.h1 = calc.get("hl")  # Hи_1 ВЫСОТА ВИТКА ИНДУКТОРА (ПО ДЛИНЕ), м
+        self.ey = calc.get("ey")  # e'_з МОДУЛЬ УПРОЧНЕНИЯ ЗАГОТОВКИ, Н/м2
+        self.ek = calc.get("EPS")
+        self.H_izol = calc.get("H_izol")
+        self.U0 = calc.get("U0")  # Uo_у НАЧАЛЬНОЕ НАПРЯЖЕНИЕ УСТАНОВКИ, В
+        self.kn = calc.get("kn")
+        self.eps = calc.get("eps")
+        self.kappa = calc.get("kappa")
+        self.kp1 = calc.get("kp1")
+        self.k0 = calc.get("k0")
+        self.NS = calc.get("NS")
+
+
+    def addObserver(self, inObserver):
+        self._mObservers.append(inObserver)
+
+    def removeObserver(self, inObserver):
+        self._mObservers.remove(inObserver)
+
+    def notifyObservers(self, message="", type=None, data=None):
+        results = []
+        for x in self._mObservers:
+            users_result = x.modelIsChanged(message, type, data)
+            results.append(users_result)
+        return users_result
+
+    def calc_second_phase(self):
         while True:
-
-            self.poisk = calc.get("poisk")
             v = 0
             kn = 0
             # mc=1
@@ -18,48 +69,43 @@ class Pascal():
             # mm = 0
             # u1 = 1
             # self.U0 = 1
-            ek = 0.02  # TODO: точтно ли такое значение дб?
+
             fb = 1
             self.l1 = 1
             l3 = 1
             # self.di = 1
             # self.c0 = 1
-            lm = calc.get("lm")  # * math.pow(10, -7) # Lm_у СОБСТВ. ИНДУКТИВНОСТЬ УСТАНОВКИ
-            self.c0 = calc.get("c0")  # * math.pow(10, -6) # Co_у ЕМКОСТЬ КОНДЕНСАТОРОВ УСТАНОВКИ
-            self.p3 = calc.get("p3")  # * math.pow(10, -8) # RO_з УДЕЛ. Э/СОПРОТИВЛЕНИЕ ЗАГОТОВКИ,
-            self.mod_upr = calc.get("mod_upr")  # * math.pow(10, 9) # E_з МОДУЛЬ УПРУГОСТИ ЗАГОТОВКИ,
-            pm = calc.get("pm")  # Pm_з ПЛОТНОСТЬ ЗАГОТОВКИ, ( кг/м3)
-            self.l0 = calc.get("l0")  # lo_з ДЛИНА ЗАГОТОВКИ, м
-            self.dh = calc.get("dh")  # Dн_з НАРУЖНЫЙ ДИАМЕТР ЗАГОТОВКИ, м
-            self.h0 = calc.get("h0")  # Ho_з ТОЛЩИНА СТЕНКИ ЗАГОТОВКИ, м
-            p1 = calc.get("pl")  # * math.pow(10, -8) # RO_и УДЕЛ. Э/СОПРОТИВЛЕНИЕ ИНДУКТОРА, (Ом*м)
-            a = calc.get("a")
-            b = calc.get("b")
-            hb = calc.get("hb")
-            lv = calc.get("lv")
-            dv = calc.get("dv")  # Dи_в ВНУТРЕННИЙ ДИАМЕТР ИНДУКТОРА , м
-            self.n1 = calc.get("nl")  # self.n1_и ЧИСЛО ВИТКОВ ИНДУКТОРА
-            self.l1 = calc.get("l1")  # self.l1_и ДЛИНА (ВЫСОТА) ИНДУКТОРА, м
-            R0 = calc.get("R0")  # * math.pow(10, -3) # Ro_у СОПРОТИВЛЕНИЕ УСТАНОВКИ, Ом
-            self.dn = calc.get("dn")  # Dн_и НАРУЖНЫЙ ДИАМЕТР ИНДУКТОРА , м
-            self.sp = calc.get("sp")  # SP_з ПРЕДЕЛ ТЕКУЧЕСТИ ЗАГОТОВКИ, Н/м2
-            h1 = calc.get("hl")  # Hи_1 ВЫСОТА ВИТКА ИНДУКТОРА (ПО ДЛИНЕ), м
-            self.ey = calc.get("ey")  # e'_з МОДУЛЬ УПРОЧНЕНИЯ ЗАГОТОВКИ, Н/м2
-            ek = calc.get("EPS")  # TODO:убрать ? это похоже на правильное значение
-            eps = 0.0001  # eo_з КОНЕЧНАЯ ОТНОСИТЕЛЬНАЯ ДЕФОРМАЦИЯ ЗАГОТОВКИ - 𝑒𝜑𝑘
-            H_izol = 0.0009  # Hизол_и - ТОЛЩИНА ИЗОЛЯЦИИ МЕЖДУ ВИТКАМИ, м
-            H_izol = calc.get("H_izol")  # TODO: по данным
-            self.U0 = calc.get("U0")  # Uo_у НАЧАЛЬНОЕ НАПРЯЖЕНИЕ УСТАНОВКИ, В
-            kn = calc.get("kn")  # TODO: убрать ? во входных данных указано данное значение
-            eps = calc.get("eps")  # TODO: по исходным данным
-            self.kappa = calc.get("kappa")
-            self.ek = ek
+
+            # eps = 0.0001  # eo_з КОНЕЧНАЯ ОТНОСИТЕЛЬНАЯ ДЕФОРМАЦИЯ ЗАГОТОВКИ - 𝑒𝜑𝑘
+            # H_izol = 0.0009  # Hизол_и - ТОЛЩИНА ИЗОЛЯЦИИ МЕЖДУ ВИТКАМИ, м
+            self.set_parameters(self.calc)
+            H_izol = self.H_izol
+            ek = self.ek
+            eps = self.eps
+            kn = self.kn
+            h1 = self.h1
+            R0 = self.R0
+            lm = self.lm
+            pm = self.pm
+            p1 = self.p1
+            a = self.a
+            b = self.b
+            hb = self.hb
+            lv = self.lv
+            dv = self.dv
+            kp1 = self.kp1
             flag = 0
             mu0 = 4 * math.pi * 1e-7
             r2l = R0 * R0 / (4 * lm * lm)
             lmc = lm * self.c0
-            if 1 / lmc < r2l:
+            if (1 / lmc) < r2l:
                 print("Разряд апериодический")
+                message = "Разряд апериодический!"
+                result = self.notifyObservers(message, type=3)
+                # Если отказ, то прекращение расчетов
+                if not result:
+                    return
+
             f0 = 0.5 / math.pi * math.pow((1 / lmc - r2l), 0.5)
             over_f0 = 0.5 / (math.pi * math.pow(lmc, 0.5))
             fz = self.p3 / (math.pi * mu0 * self.h0 * self.h0)  # минимальная рабочая частота разряда, Гц
@@ -78,7 +124,7 @@ class Pascal():
             if kn < 0.1:
                 if self.poisk == 1:
                     print("L/D = ", ly)
-                if ly < 1:  # TODO:внесла условие под условие kn < 0.1
+                if ly < 1:
                     kn = 3.783890521981891 * ly - 7.795224937947945 * ly * ly \
                          + 4.714887625113096 * math.pow(ly, 3) + 6.984777813396215 * math.pow(ly, 4) \
                          - 13.53957485592525 * math.pow(ly, 5) + 9.187983184383594 * math.pow(ly, 6) \
@@ -89,25 +135,30 @@ class Pascal():
                         kn = 0.69026 + 0.06 * ly
                     else:
                         kn = 0.7669266667 + 0.021666667 * ly
-                if self.poisk == 1:  # TODO:внесла условие под условие kn < 0.1
+                if self.poisk == 1:
                     print(" Фактор поля , Кн = ", kn)
 
             if fz < (f0 / 2):
                 fp = 0.5 * f0
-            if abs(fz - f0) < f0 / 2:  # TODO:раскомментировала условие
+            if abs(fz - f0) < f0 / 2:
                 fp = 0.8 * f0
             if fz > (1.5 * f0):
                 # вместо данной команды необходимо выдать окно с данной надписью и вернуться в ввод данных
                 print(" ОБРАБОТКА НА МИУ НЕЦЕЛЕСООБРАЗНА ")
+                message = "ОБРАБОТКА НА МИУ НЕЦЕЛЕСООБРАЗНА"
+                result = self.notifyObservers(message, type=3)
+                # Если отказ, то прекращение расчетов
+                if not result:
+                    return
 
             if (self.poisk == 1) or (self.mmm == 0):
                 while True:
-                    kp1 = int(input("КОНТРОЛЬ ПАРАМЕТРОВ [ 1 - ДА ], [ 0 - НЕТ ] ? "))
+                    # kp1 = int(input("КОНТРОЛЬ ПАРАМЕТРОВ [ 1 - ДА ], [ 0 - НЕТ ] ? "))
                     # kp1 = 0
                     if kp1 in [0, 1]:
                         break
             else:
-                kp1 = 0
+                # kp1 = 0
                 if ((self.poisk == 1) and (self.mmm > 0)):
                     self.U0 = self.u1
                     self.prikid()
@@ -119,7 +170,7 @@ class Pascal():
                     self.U0 = uu0
 
             flag = 0
-            # fp = 5201.75  # TODO:убрать
+
             while True:
                 wq = fp * 2.0 * math.pi
                 if w3 > (wq * 3):
@@ -132,7 +183,7 @@ class Pascal():
 
                 # ___________________________________________________________________________________________________________________
                 if v == 1:  # РАЗДАЧА
-                    self.vg = 1  # TODO: vg -> self.vg
+                    self.vg = 1
                     if (self.l0 / db < 1.0):
                         l3 = self.l0  # { / sqrt(1.0 + ef)};
                         h3 = self.h0  # { / sqrt(1.0 + ef)};
@@ -177,7 +228,7 @@ class Pascal():
                     self.di = self.dn - h1
 
                 # { индуктор средний }
-                Lind = 0  # TODO: добавила
+                Lind = 0
                 if (self.l1 / self.di < 1.0) and (self.l1 / self.di > 0.3):
                     Lind = self.di * self.di / self.l1 * (
                                 4.1 + 3.9 * (self.l1 / self.di - 0.3)) * self.n1 * self.n1 * pow(10,
@@ -203,7 +254,7 @@ class Pascal():
                 # { dr - РАСЧЕТНЫЙ ДИАМЕТР ЗАГОТОВКИ}
                 else:
                     dr = dz - 2.0 * xz  # { ОБЖИМ }
-                if 1.0 > l3 / dr > 0.3:  # TODO: python упростил условие
+                if 1.0 > l3 / dr > 0.3:
                     self.vb = 1
                     self.q0 = 2.0 / math.pow(3.0, 0.5)
                     # { заготовка средняя }
@@ -216,6 +267,11 @@ class Pascal():
                     else:
                         print(
                             "... Обработка на МИУ нецелесообразна...")  # вместо данной команды необходимо выдать окно с данной надписью и вернуться в ввод данных
+                        message = "Обработка на МИУ нецелесообразна"
+                        result = self.notifyObservers(message, type=3)
+                        # Если отказ, то прекращение расчетов
+                        if not result:
+                            return
 
                         self.vb = 1
                         self.q0 = 2.0 / math.pow(3.0, 0.5)
@@ -234,6 +290,11 @@ class Pascal():
                     # begin
                     print("кУ-кУ !! кУ-кУ !! кУ-кУ !!")  # Требуется вывести окно
                     print(" ВЫСОТА ВИТКА ИНДУКТОРА < 0 !!")
+                    message = "ВЫСОТА ВИТКА ИНДУКТОРА < 0 !!"
+                    result = self.notifyObservers(message, type=3)
+                    # Если отказ, то прекращение расчетов
+                    if not result:
+                        return
                 # Delay(3000) Задержка
                 # end
                 Rind = p1 * math.pi * self.di * self.n1 * self.n1 / self.l1 / xr  # { Rind - АКТИВНОЕ СОПРОТИВЛЕНИЕ ИНДУКТОРА }
@@ -245,12 +306,12 @@ class Pascal():
                                 4.1 + 3.9 * (self.l1 / self.di - 0.3)) * self.n1 * self.n1 * pow(10,
                                                                                                  -7)
 
-                if v + 1 == 1:  # TODO: v -> v+1
+                if v + 1 == 1:
                     if self.l1 / self.di < 1.0:
                         fb = 4.8
                     else:
                         fb = 5.0
-                    # TODO:кусок помещен под нужное условие
+
                     m9 = (fb * math.sqrt(1 + (self.l1 + l3) ** 2 / self.di ** 2)
                           - 4.5 * math.sqrt(1 + (self.l1 - l3) ** 2 / self.di ** 2)) * self.n1 * 10 ** (-7)
 
@@ -258,14 +319,14 @@ class Pascal():
                     #      - 4.5 * pow(((1 + (self.l1 - l3) * (self.l1 - l3) / self.di / self.di), 0.5) * (self.n1 * pow(10, -7)))
                     m8 = (dr * dr * self.di) / (self.l1 * l3)
                     M_ind_zag = m9 * m8
-                    # TODO:кусок помещен под нужное условие
 
-                if v + 1 == 2:  # TODO: v -> v+1
+
+                if v + 1 == 2:
                     if l3 / dr < 1:
                         fb = 4.8
                     else:
                         fb = 5.0
-                    # TODO:кусок помещен под нужное условие
+
                     m9 = (fb * math.sqrt(1 + (self.l1 + l3) ** 2 / dr ** 2)
                           - 4.5 * math.sqrt(1 + (self.l1 - l3) ** 2 / dr ** 2)) * self.n1 * 10 ** (-7)
                     # m9 = fb * pow(1 + (self.l1 + l3) * (self.l1 + l3) / dr * dr, 0.5) - 4.5 * pow(
@@ -273,7 +334,7 @@ class Pascal():
                     #     0.5) * self.n1 * pow(10, -7)
                     m8 = dr * self.di * self.di / (l3 * self.l1)
                     M_ind_zag = m8 * m9
-                    # TODO:кусок помещен под нужное условие
+
 
                 # ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
                 kq = M_ind_zag / Lzag
@@ -291,6 +352,12 @@ class Pascal():
                 c9 = (1.0 / (self.c0 * ls) - s1 * s1)
                 if c9 < 0 and flag > 1:
                     print("Ку ку разряд апериодический")  # then
+                    message = "Разряд апериодический"
+                    result = self.notifyObservers(message, type=3)
+                    # Если отказ, то прекращение расчетов
+                    if not result:
+                        return
+
                 # _______________________________________________________________________________
                 if c9 < 0:
                     ww = 1
@@ -452,8 +519,9 @@ class Pascal():
             # +++++++++++++++++++++++++++++++++++++++++++++++++self.difur++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
             k0 = 0.02 * math.pi * pow((1 + self.alfa1), 0.5) * pow((self.lw * self.c0), 0.5)
             print("Рекомендуемый шаг счета============>", k0 * 1e6)
-            k0 = float(input("Задайте шаг счета"))
-            self.NS = float(input("Задайте кратность печати"))
+            # k0 = float(input("Задайте шаг счета"))
+            # self.NS = float(input("Задайте кратность печати"))
+            k0 = self.k0
             self.Time_h = k0 / math.sqrt(self.lw * self.c0) / pow(10, 6)  # TODO: убрала неправильные скобки
             self.Time_x = 0
             self.NI = 0
@@ -527,7 +595,16 @@ class Pascal():
                 self.miom = 1
             else:
                 if self.poisk == 1:
-                    self.miom = int(input("Будем уточнять  Uo ( 1 - Нет, 0 - Да) ==> "))
+                    # self.miom = int(input("Будем уточнять  Uo ( 1 - Нет, 0 - Да) ==> "))
+                    message = "Будем уточнять  Uo?"
+                    result = self.notifyObservers(message, type=3)
+                    # Если отказ, то прекращение расчетов
+                    if result:
+                        self.miom = 0
+                    else:
+                        self.miom = 1
+                    # if not result:
+                    #     return
 
             self.u1 = self.U0
             if self.miom == 1:

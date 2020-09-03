@@ -4,7 +4,7 @@ from PyQt5.QtGui import QIntValidator
 from PyQt5.QtWidgets import QWidget
 from PyQt5.uic import loadUi
 from gui.BaseView import BaseView
-from Pascal import Pascal
+# from Pascal import Pascal
 
 from datetime import datetime
 
@@ -16,8 +16,10 @@ class SecondaryParameters(QWidget):
         QWidget.__init__(self, parent)
         loadUi('./gui/SecondaryParameters.ui', self)
         # print("2")
+        self._parent = parent
         self.setVisible(False)
-        self.pushButtonCalcSecondPhase.released.connect(self.start_calc_second_phase)
+        # self.pushButtonCalcSecondPhase.released.connect(self.start_calc_second_phase)
+        self.pushButtonCalcSecondPhase.released.connect(self._parent.mController.start_second_phase)
         self.pushButtonSaveParameters.released.connect(self.save_parameters)
 
         self.radioButtonManual.setChecked(True)
@@ -33,9 +35,10 @@ class SecondaryParameters(QWidget):
     def set_blocked(self):
         print("set_blocked")
 
-    def _show(self, flag, params, f):
+    def _show(self, flag, params, f=""):
         self.setVisible(flag)
         print("Параметры переданные из первой части \n", params)
+        self.first_phase_params = params
         self.EPS = params.get("EPS")
         self.WR = params.get("WR")
         self.K1 = params.get("K1")
@@ -82,7 +85,7 @@ class SecondaryParameters(QWidget):
         self.lineEditKe.setText(str(self.KEC))
         self.lineEditPressure.setText(str(self.PM))
         self.lineEditDelta.setText(str(self.DZT))
-        self.lineEditI0.setText(str(self.I00))
+        self.lineEditI0.setText(str(round(self.I00, 4)))
         self.lineEdit_2.setText("0.03")
         self.lineEdit.setText("6000.0")
         self.lineEditAttenuationCoefField.setText("0.0")
@@ -101,6 +104,31 @@ class SecondaryParameters(QWidget):
             self.kp1 = 1
         else:
             self.kp1 = 0
+
+    def get_parameters(self):
+        """
+        Считывание данных с формы
+        :return:
+        """
+        self.U0 = float(self.lineEdit.text())
+        self.eps = float(self.lineEdit_2.text())
+        self.kappa = float(self.lineEditFieldFactor.text())
+        self.kn = float(self.lineEditAttenuationCoefField.text())
+        self.step = int(self.lineEditSteps.text())
+        self.print = int(self.lineEditPrint.text())
+        print(self.LCE, self.CCE, self.R0)
+        calc = {"U0": self.U0, "poisk": self.Poisk, "kp1": self.kp1, "eps": float(self.EPS),
+                "pm": float(self.PLM), "l0": float(self.LBT), "dh": float(self.DOT),
+                "h0": float(self.ST), "pl": float(self.YEMC), "ek": float(self.eps),
+                "lm": float(self.LCE), "c0": float(self.CCE), "R0": float(self.R0),
+                "p3": float(self.YEMP), "mod_upr": float(self.E_z),
+                "a": float(self.A_tp), "b": float(self.B_tp), "hb": float(self.HB_tp),
+                "lv": float(self.LB_tp), "dv": float(self.DIB),
+                "nl": float(self.NCT1), "l1": float(self.LCA), "dn": float(self.DCA),
+                "sp": float(self.PPM), "hl": float(self.HSC),
+                "ey": float(self.E_up), "H_izol": float(self.ZB),
+                "kappa": float(self.kappa), "kn": float(self.kn), "NS": self.print, "k0": self.step}
+        return calc
 
     @pyqtSlot()
     def start_calc_second_phase(self):
@@ -124,10 +152,10 @@ class SecondaryParameters(QWidget):
                 "sp": float(self.PPM), "hl": float(self.HSC),
                 "ey": float(self.E_up), "H_izol": float(self.ZB),
                 "kappa": float(self.kappa), "kn": float(self.kn)}
-        f = Pascal(calc)
+        # f = Pascal(calc)
         # print("start_calc_second_phase")
-        print(f)
-        self.make_file_second_way(f)
+        # print(f)
+        # self.make_file_second_way(f)
 
     def make_file(self):
         self.date = datetime.now()

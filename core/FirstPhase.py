@@ -14,7 +14,7 @@ import math
 class Inductor():
     def __init__(self, LBT=0, operation="", DOT=0, ST=0, YEMP=0, FCE=0, LCE=0, LCB=0, CCE=0, SC=0, HSC=0, PLM=0,
                  BCM=0, KDM=0, MM=0, KPD=0,
-                 geometry=0, NCT1=0, ZS=0, ZB=0, ZA=0, YEMC=0, LTC=0):
+                 geometry=0, NCT1=0, ZS=0, ZB=0, ZA=0, YEMC=0, LTC=0, type=None):
         # self.pi = math.pi
         self.pi = 3.1413926
         # self.mu = 4 * self.pi * math.pow(10, -7)  # магнитная проницаемость в вакууме
@@ -44,10 +44,12 @@ class Inductor():
         # self.FW = FW  # Частота разрядного тока
         self.NCT1 = NCT1
         self._mObservers = []  # список наблюдателей
+        self.type = type
 
     def set_data_from_dict(self, params):
         print("set_data_from_dict")
         print(params)
+        self.name = params["name"]
         self.LBT = params["LBT"]
         self.operation = params["operation"]
         self.DOT = params["DOT"]
@@ -73,9 +75,10 @@ class Inductor():
         self.YEMC = params["YEMC"]
         self.LTC = params["LTC"]
         self.PYM = params["PYM"]
+        self.type = params["type"]
 
     def set_data(self, LBT, operation, DOT, ST, YEMP, FCE, LCE, LCB, CCE, SC, HSC, PLM, BCM, KDM, MM, KPD,
-                 geometry, NCT1, ZS, ZB, ZA, YEMC, LTC):
+                 geometry, NCT1, ZS, ZB, ZA, YEMC, LTC, type):
         self.LBT = LBT
         self.operation = operation
         self.DOT = DOT
@@ -102,6 +105,7 @@ class Inductor():
         # self.FW = FW  # Частота разрядного тока
         self.geometry = geometry
         self.NCT1 = NCT1
+        self.type = type
 
     def addObserver(self, inObserver):
         self._mObservers.append(inObserver)
@@ -164,23 +168,26 @@ class Inductor():
         self.get_LCA()  # TODO
         # self.LCA = 0.03  # так стоит в бейсике
         # self.NCTC = math.sqrt(abs(self.K1 * self.LDC * self.LCA / (math.pi * mu * self.DCA * self.ZEK * (1 - self.K1))))  # Количество витков индуктора
-        self.NCTC = math.sqrt(self.K1 * self.LDC * self.LCA / (
-                pi * mu * self.DCA * self.ZEK * (1 - self.K1)))  # Количество витков индуктора
-        self.NCT = round(self.NCTC)  # Целое количество рабочих витков
-        # self.LU = self.SC * self.NCT  # Длина индуктора
-        self.SCIC = self.LCA / self.NCT  # Расчетный шаг витков индуктора
-
+        if self.type == "inductor":
+            self.NCTC = math.sqrt(self.K1 * self.LDC * self.LCA / (
+                    pi * mu * self.DCA * self.ZEK * (1 - self.K1)))  # Количество витков индуктора
+            self.NCT = round(self.NCTC)  # Целое количество рабочих витков
+            # self.LU = self.SC * self.NCT  # Длина индуктора
+            self.SCIC = self.LCA / self.NCT  # Расчетный шаг витков индуктора
+            self.SSC = self.SCIC - 2 * self.ZS  # Ширина медной шины по оси индуктора
+        elif self.type == "first_phase":
+            self.SCIC = self.SSC + 2 * self.ZS
         # по бейсику
         # TODO: где вводить значения размера шины?
-        self.SCIC = 0.0049
-        self.HIC = 0.0093
-        self.NCT = 7
+        # self.SCIC = 0.0049
+        # self.HIC = 0.0093
+        # self.NCT = 7
         self.LU = self.SCIC * self.NCT - 2 * self.ZS  # TODO: Длина индуктора по бейсику
         # self.SSC = self.SCIC - self.ZS  # Ширина медной шины по оси индуктора
-        self.SSC = self.SCIC - 2 * self.ZS  # Ширина медной шины по оси индуктора
-        self.SCIC = self.SSC + 2 * self.ZS
+        # self.SSC = self.SCIC - 2 * self.ZS  # Ширина медной шины по оси индуктора
+        # self.SCIC = self.SSC + 2 * self.ZS
         # TODO: общая толщина изоляции витка
-        self.SSC = 2.985714e-03  # TODO: проверить откуда берется SSC
+        # self.SSC = 2.985714e-03  # TODO: проверить откуда берется SSC
         if self.operation[0] == "a":
             self.ROC = self.DCA / 2  # наружный радиус индуктора
             self.RIC = self.ROC - self.HSC  # Внутренний радиус индуктора
@@ -190,8 +197,8 @@ class Inductor():
         self.NCWC = self.LBT / self.SCIC  # Расчетное количество рабочих витков
         self.NCW = round(self.NCWC)
         self.NCF = self.NCT - self.NCW  # Количество свободных витков
-        self.NCW = 7
-        self.NCF = 0
+        # self.NCW = 7
+        # self.NCF = 0
         # TODO: неизвестный кусок
         # if self.NCF == 0:
         #     self.NCT = self.NCT1

@@ -4,6 +4,7 @@ from PyQt5.QtWidgets import QApplication
 
 from gui.MainWindow import MainWindow
 from core.FirstPhase import Inductor
+from core.SecondPhase import Pascal
 from controller.MiomController import MiomContrioller
 if __name__ == '__main__':
 
@@ -19,8 +20,10 @@ if __name__ == '__main__':
     app.installTranslator(translator)
 
     model_firs_phase = Inductor()
-    controller = MiomContrioller(model_firs_phase)
+    model_second_phase = Pascal()
+    controller = MiomContrioller(model_firs_phase, model_second_phase)
     model_firs_phase.addObserver(controller)
+    model_second_phase.addObserver(controller)
     # window = MainWindow()
     # window.show()
 

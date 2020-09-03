@@ -9,16 +9,17 @@ from gui.BaseView import BaseView
 from  gui.ResultsButtons import ResultsButtons
 
 class MainWindow(QMainWindow):
-    def __init__(self, model, controller, parent=None):
+    def __init__(self, model, model_2, controller, parent=None):
         QMainWindow.__init__(self, parent)
         loadUi('./gui/MainWindow.ui', self)
         self.mModel = model
+        self.mModel_2 = model_2
         self.mController = controller
         self.setWindowTitle('Простой расчет формовки и параметров индуктора')
         vbox = QVBoxLayout()
         hbox_params = QHBoxLayout()
         self.initial_parameters = InitialParameters(parent=self)
-        self.secondary_parameters = SecondaryParameters()
+        self.secondary_parameters = SecondaryParameters(parent=self)
         # thirdParam = ThirdParams()
         # hbox.addStretch(1)
         hbox_params.addWidget(self.initial_parameters)
@@ -51,6 +52,10 @@ class MainWindow(QMainWindow):
         """
         params = self.initial_parameters.get_inductor_parameters()
 
+        return params
+
+    def get_second_phase_params(self):
+        params = self.secondary_parameters.get_parameters()
         return params
 
     def show_message(self, text, type=None, data=None):
@@ -87,6 +92,13 @@ class MainWindow(QMainWindow):
             else:
                 return False
         elif type == 3:
+            # type = QMessageBox.Warning
+            print(QMessageBox.Warning)
+            title = "Предупреждение"
+            msg.setIcon(type)
+            msg.setText(text)
+            msg.setWindowTitle(title)
+            msg.exec_()
             return False
 
 

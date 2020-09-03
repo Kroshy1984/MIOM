@@ -42,7 +42,8 @@ class InitialParameters(QWidget):
         self.radioButtonCalc.toggled.emit(True)
 
         # self.pushButtonLoadParameters.released.connect(self.load_parameters)
-        self.pushButtonCalcFirsPhase.released.connect(self.start_calc_first_phase)
+        # self.pushButtonCalcFirsPhase.released.connect(self.start_calc_first_phase)
+        self.pushButtonCalcFirsPhase.released.connect(self._parent.mController.start_first_phase)
         # self.lineEditRadius = QLineEdit()
         # self.labelRadius = QLabel()
         self.labelRadius.setVisible(False)
@@ -295,33 +296,11 @@ class InitialParameters(QWidget):
         self.lineEditHB_tp.setValidator(validator)
         self.lineEditLB_tp.setValidator(validator)
 
-    def get_inductor_parameters(self):
+    def get_inductor_parameters(self, type=False):
         self.get_parameters()
-        # params = dict()
-        # a = Form(float(self.DOT), float(self.ST), float(self.BCM), float(self.KDM), float(self.MM),
-        #          float(self.LBT), float(self.KPD), float(self.RC), self.operation)
-        # print(a)
 
-
-        # p1_form = dict()
-        # p1_form["DOT"] = self.DOT
-        # p1_form["ST"] = self.ST
-        # p1_form["BCM"] = self.BCM
-        # p1_form["KDM"] = self.KDM
-        # p1_form["MM"] = self.MM
-        # p1_form["LBT"] = self.LBT
-        # p1_form["KPD"] = self.KPD
-        # p1_form["RC"] = self.RC
-        # p1_form["operation"] = self.operation
-        # print(p1_form)
         p2_form = dict()
-        # g = Inductor(float(self.LBT), self.operation, float(self.DOT), float(self.ST), float(self.FW),
-        #              float(self.YEMP), float(self.FCE), float(self.LCE), 1 * pow(10, -12),
-        #              float(self.CCE), float(self.SC), float(self.HSC), float(self.PLM), float(self.BCM),
-        #              float(self.KDM), float(self.MM), float(self.KPD),
-        #              float(self.RC), float(self.NCT1), float(self.ZS), float(self.ZB), float(self.ZA),
-        #              float(self.YEMC), float(self.LTC))
-
+        p2_form["name"] = self.name
         p2_form["LBT"] = self.LBT
         p2_form["operation"] = self.operation
         p2_form["DOT"] = self.DOT
@@ -348,31 +327,18 @@ class InitialParameters(QWidget):
         p2_form["ZA"] = self.ZA
         p2_form["YEMC"] = self.YEMC
         p2_form["LTC"] = self.LTC
+        if self.groupBox_7.isEnabled():
+            try:
+                p2_form["NCT"] = self.NCT
+                p2_form["DCA"] = self.DCA
+                p2_form["LCA"] = self.LCA
+                p2_form["SSC"] = self.SSC
+                p2_form["HSC"] = self.HSC
+            except:
+                print("Введите параметры индуктора!")
         return p2_form
 
 
-        # self.name = self.lineEditBilletName.text()
-        # self.DOT = float(self.lineEditOuterDiameter.text()) * pow(10, -3)
-        # self.ST = float(self.lineEditSideThickness.text()) * pow(10, -3)
-        # self.LBT = float(self.lineEditSideThickness.text()) * pow(10, -3)
-        # self.RC = float(self.lineEditLengthDeform.text()) * pow(10, -3)
-        # self.operation1 = self.comboBoxOperationType.currentText()
-        # self.operation2 = self.comboBoxOperationName.currentText()
-        # self.operation = self.get_operation()
-        # # if self.operation1 == "Раздача" and self.operation2 == "Формовка цилиндра":
-        # #     self.operation = "a1"
-        # self.KPD = self.lineEditKPD.text()
-        # self.SC = float(self.lineEditSizeIsolationInductor.text()) * pow(10, -3)
-        # self.HSC = float(self.lineEditHeightCoilInductor.text()) * pow(10, -3)
-        # self.NCT1 = 11
-        # self.ZS = float(self.lineEditSizeIsolationInductor.text()) * pow(10, -3)
-        # self.ZB = float(self.lineEditMainIsolation.text()) * pow(10, -3)
-        # self.ZA = float(self.lineEditGapWidth.text()) * pow(10, -3)
-        # self.LTC = float(self.lineEditInductance.text()) * pow(10, -7)
-        # self.A_tp = self.lineEditA_tp.text()
-        # self.B_tp = self.lineEditB_tp.text()
-        # self.HB_tp = self.lineEditHB_tp.text()
-        # self.LB_tp = self.lineEditLB_tp.text()
 
 
 
@@ -398,14 +364,30 @@ class InitialParameters(QWidget):
         self.SC = float(self.lineEditSizeIsolationInductor.text()) * pow(10, -3)
         self.HSC = float(self.lineEditHeightCoilInductor.text()) * pow(10, -3)
         self.NCT1 = 11
+
+        # if self.lineEditNumberCoilsInductor.text() != "":
+        if self.groupBox_7.isEnabled():
+            try:
+                self.NCT = int(self.lineEditNumberCoilsInductor.text())
+                self.DCA = float(self.lineEditDiameter.text() / 10 **3)
+                self.LCA = float(self.lineEditInductorLength.text()/ 10 **3)
+                self.SSC = float(self.lineEditWidthCoilInductor.text()/ 10 **3)
+                self.HSC = float(self.lineEditHeightCoilInductor.text()/ 10 **3)
+            except:
+                print("Введите параметры индуктора!")
+                # pass
+            # self.lineEditNumberCoilsInductor.setText(str(round(g.NCTC)))
+            # self.lineEditDiameter.setText(str(round(g.DCA, 4)))
+            # self.lineEditInductorLength.setText(str(round(g.LCA, 4)))
+
         self.ZS = float(self.lineEditSizeIsolationInductor.text()) * pow(10, -3)
         self.ZB = float(self.lineEditMainIsolation.text()) * pow(10, -3)
         self.ZA = float(self.lineEditGapWidth.text()) * pow(10, -3)
         self.LTC = float(self.lineEditInductance.text()) * pow(10, -6)
-        self.A_tp = self.lineEditA_tp.text()
-        self.B_tp = self.lineEditB_tp.text()
-        self.HB_tp = self.lineEditHB_tp.text()
-        self.LB_tp = self.lineEditLB_tp.text()
+        self.A_tp = float(self.lineEditA_tp.text())
+        self.B_tp = float(self.lineEditB_tp.text())
+        self.HB_tp = float(self.lineEditHB_tp.text())
+        self.LB_tp = float(self.lineEditLB_tp.text())
 
     def set_billet_material(self, billet):
         self.billet_material = billet
