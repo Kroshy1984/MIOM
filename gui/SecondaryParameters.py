@@ -61,10 +61,11 @@ class SecondaryParameters(QWidget):
         self.CCE = params.get("CCE")
         self.R0 = params.get("R0")
         self.YEMP = params.get("YEMP")
-        self.NCT1 = params.get("NCT1")
+        self.NCT = params.get("NCT")
         self.LCA = params.get("LCA")
         self.DCA = params.get("DCA")
         self.PPM = params.get("PPM")
+        self.PYM = params.get("PYM")
         self.HSC = params.get("HSC")
         self.ZB = params.get("ZB")
         self.A_tp = params.get("A_tp")
@@ -88,7 +89,7 @@ class SecondaryParameters(QWidget):
         self.lineEditI0.setText(str(round(self.I00, 4)))
         self.lineEdit_2.setText("0.03")
         self.lineEdit.setText("6000.0")
-        self.lineEditAttenuationCoefField.setText("0.0")
+        self.lineEditAttenuationCoefField.setText("0.32")
         self.lineEditFieldFactor.setText("1.0")
         self.str = f
         self.kp1 = 0
@@ -111,7 +112,7 @@ class SecondaryParameters(QWidget):
         :return:
         """
         self.U0 = float(self.lineEdit.text())
-        self.eps = float(self.lineEdit_2.text())
+        self.ek = float(self.lineEdit_2.text())
         self.kappa = float(self.lineEditFieldFactor.text())
         self.kn = float(self.lineEditAttenuationCoefField.text())
         self.step = int(self.lineEditSteps.text())
@@ -119,14 +120,14 @@ class SecondaryParameters(QWidget):
         print(self.LCE, self.CCE, self.R0)
         calc = {"U0": self.U0, "poisk": self.Poisk, "kp1": self.kp1, "eps": float(self.EPS),
                 "pm": float(self.PLM), "l0": float(self.LBT), "dh": float(self.DOT),
-                "h0": float(self.ST), "pl": float(self.YEMC), "ek": float(self.eps),
+                "h0": float(self.ST), "pl": float(self.YEMC), "ek": float(self.ek),
                 "lm": float(self.LCE), "c0": float(self.CCE), "R0": float(self.R0),
-                "p3": float(self.YEMP), "mod_upr": float(self.E_z),
+                "p3": float(self.YEMP), "mod_upr": float(self.E_up),
                 "a": float(self.A_tp), "b": float(self.B_tp), "hb": float(self.HB_tp),
                 "lv": float(self.LB_tp), "dv": float(self.DIB),
-                "nl": float(self.NCT1), "l1": float(self.LCA), "dn": float(self.DCA),
-                "sp": float(self.PPM), "hl": float(self.HSC),
-                "ey": float(self.E_up), "H_izol": float(self.ZB),
+                "nl": float(self.NCT), "l1": float(self.LCA), "dn": float(self.DCA),
+                "sp": float(self.PYM), "hl": float(self.HSC),
+                "ey": float(self.E_z), "H_izol": float(self.ZB),
                 "kappa": float(self.kappa), "kn": float(self.kn), "NS": self.print, "k0": self.step}
         return calc
 
@@ -145,11 +146,11 @@ class SecondaryParameters(QWidget):
                 "pm": float(self.PLM), "l0": float(self.LBT), "dh": float(self.DOT),
                 "h0": float(self.ST), "pl": float(self.YEMC), "ek": float(self.eps),
                 "lm": float(self.LCE), "c0": float(self.CCE), "R0": float(self.R0),
-                "p3": float(self.YEMP), "mod_upr": float(self.E_z),
+                "p3": float(self.YEMP), "mod_upr": float(self.E_up),
                 "a": float(self.A_tp), "b": float(self.B_tp), "hb": float(self.HB_tp),
                 "lv": float(self.LB_tp), "dv": float(self.DIB),
                 "nl": float(self.NCT1), "l1": float(self.LCA), "dn": float(self.DCA),
-                "sp": float(self.PPM), "hl": float(self.HSC),
+                "sp": float(self.PYM), "hl": float(self.HSC),
                 "ey": float(self.E_up), "H_izol": float(self.ZB),
                 "kappa": float(self.kappa), "kn": float(self.kn)}
         # f = Pascal(calc)

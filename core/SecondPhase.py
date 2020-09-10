@@ -36,7 +36,7 @@ class Pascal():
         self.sp = calc.get("sp")  # SP_з ПРЕДЕЛ ТЕКУЧЕСТИ ЗАГОТОВКИ, Н/м2
         self.h1 = calc.get("hl")  # Hи_1 ВЫСОТА ВИТКА ИНДУКТОРА (ПО ДЛИНЕ), м
         self.ey = calc.get("ey")  # e'_з МОДУЛЬ УПРОЧНЕНИЯ ЗАГОТОВКИ, Н/м2
-        self.ek = calc.get("EPS")
+        self.ek = calc.get("ek")
         self.H_izol = calc.get("H_izol")
         self.U0 = calc.get("U0")  # Uo_у НАЧАЛЬНОЕ НАПРЯЖЕНИЕ УСТАНОВКИ, В
         self.kn = calc.get("kn")

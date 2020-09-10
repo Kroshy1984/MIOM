@@ -333,8 +333,8 @@ class BaseView(QWidget):
                 '$\\rho_{e} \cdot 10^{-8}, \Omega_{m}$',
                 '$K_{d} $',
                 # '$MDM$',
-                '$E_z$',
-                '$E_{up}$'
+                '$E_z, 10^7, Pa$',
+                '$E_{up}, 10^7, Pa$'
             ]
         else:
             headerLabels = [

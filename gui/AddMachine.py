@@ -12,26 +12,38 @@ class AddMachine(QDialog):
         self._bd_view = bd_view
         self.setWindowTitle("Добавление установки")
         headerLabels = [
-            '$(PPM), \\sigma_{u} \cdot 10^7, Pa$',
-            '$(PYM), \\sigma_{y} \cdot 10^7, Pa$',
-            '$(PLM), \\rho_{u} \cdot 10^3, kg/m^3$',
-            '$(MM), m_{m}$',
-            '$(BCM), B \cdot 10^7, Pa$',
-            '$(YEM), \\rho_{e} \cdot 10^{-8}, \Omega_{m}$',
-            '$(KDM), K_{d} $'
+            '$Марка$',
+
+            '$W_{m}, Дж$',
+            '$CCE, С \cdot 10^{-6} Ф$',
+            '$LCE, L_0 \cdot 10^{-9} Гн$',
+            '$FCE, f_{0} Гц$',
+            '$R_{0}$'
+            # '$FW$'
             # '$C_{soil}=(1 - n) C_m + \\theta_w C_w$',
             # '$k_{soil}=\\frac{\\sum f_j k_j \\theta_j}{\\sum f_j \\theta_j}$',
             # '$\\lambda_{soil}=k_{soil} / C_{soil}$'
         ]
         qpixmaps = []
         indx = 0
-        fontsize = 18
+        fontsize = 12
         for labels in headerLabels:
             print(labels)
             qpixmaps.append(mathTex_to_QPixmap(labels, fs=fontsize))
             # self.setColumnWidth(indx, qpixmaps[indx].size().width() + 16)
             indx += 1
         print(qpixmaps)
+
+        self.label.setPixmap(qpixmaps[0])
+        self.label_2.setPixmap(qpixmaps[1])
+        self.label_3.setPixmap(qpixmaps[2])
+        self.label_4.setPixmap(qpixmaps[3])
+        self.label_5.setPixmap(qpixmaps[4])
+        self.label_6.setPixmap(qpixmaps[5])
+        # self.label_7.setPixmap(qpixmaps[6])
+        # self.label_8.setPixmap(qpixmaps[7])
+        # self.label_9.setPixmap(qpixmaps[8])
+        # self.label_10.setPixmap(qpixmaps[9])
 
         self.pushButtonClose.released.connect(self.close_window)
         self.pushButtonAdd.released.connect(self.add_button_clicked)
@@ -94,7 +106,7 @@ class AddMachine(QDialog):
         current_record['CCE'] = self.lineEditCCE.text()
         current_record['LCE'] = self.lineEditLCE.text()
         current_record['FCE'] = self.lineEditFCE.text()
-        current_record['Ro'] = self.lineEditFW8.text()
+        current_record['R0'] = self.lineEditFW8.text()
         # current_record['FW'] = self.lineEditFW9.text()
         return current_record
 
@@ -104,7 +116,7 @@ class AddMachine(QDialog):
         self.lineEditCCE.setText(str(record['CCE']))
         self.lineEditLCE.setText(str(record['LCE']))
         self.lineEditFCE.setText(str(record['FCE']))
-        self.lineEditFW8.setText(str(record['Ro']))
+        self.lineEditFW8.setText(str(record['R0']))
         # self.lineEditFW9.setText(str(record['FW']))
         # self.lineEditKDM.setText(str(record['KDM']))
         # self.lineEditEz.setText(str(record['E_z']))
