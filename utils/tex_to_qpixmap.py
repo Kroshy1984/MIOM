@@ -5,14 +5,10 @@ from matplotlib.backends.backend_agg import FigureCanvasAgg
 # from PySide import QtGui, QtCore
 from PyQt5 import QtGui, QtCore
 
-def mathTex_to_QPixmap(mathTex, fs, font=''):
+def mathTex_to_QPixmap(mathTex, fs):
 
     #---- set up a mpl figure instance ----
-    font = {'family':  'Arial', #'MS Shell Dlg 2',
-            'weight': 'normal',
-            'size': 12}
 
-    # mpl.rc('font', **font)
     # fig = mpl.Figure()
     # fig = mpl.figure.Figure()
     fig = plt.figure()
@@ -25,7 +21,7 @@ def mathTex_to_QPixmap(mathTex, fs, font=''):
     ax = fig.add_axes([0, 0, 1, 1])
     ax.axis('off')
     ax.patch.set_facecolor('none')
-    t = ax.text(0, 0, mathTex, ha='left', va='bottom', fontdict=font)
+    t = ax.text(0, 0, mathTex, ha='left', va='bottom', fontsize=fs)
 
     #---- fit figure size to text artist ----
 
