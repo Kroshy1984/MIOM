@@ -61,6 +61,9 @@ class Pascal():
         return users_result
 
     def calc_second_phase(self):
+        self.defold = 0
+        self.miom = 0
+        self.mmm = 0
         while True:
             v = 0
             kn = 0
@@ -145,11 +148,11 @@ class Pascal():
             if fz > (1.5 * f0):
                 # вместо данной команды необходимо выдать окно с данной надписью и вернуться в ввод данных
                 print(" ОБРАБОТКА НА МИУ НЕЦЕЛЕСООБРАЗНА ")
-                message = "ОБРАБОТКА НА МИУ НЕЦЕЛЕСООБРАЗНА"
-                result = self.notifyObservers(message, type=3)
+                # message = "ОБРАБОТКА НА МИУ НЕЦЕЛЕСООБРАЗНА"
+                # result = self.notifyObservers(message, type=3)
                 # Если отказ, то прекращение расчетов
-                if not result:
-                    return
+                # if not result:
+                #     return
 
             if (self.poisk == 1) or (self.mmm == 0):
                 while True:
@@ -268,10 +271,10 @@ class Pascal():
                         print(
                             "... Обработка на МИУ нецелесообразна...")  # вместо данной команды необходимо выдать окно с данной надписью и вернуться в ввод данных
                         message = "Обработка на МИУ нецелесообразна"
-                        result = self.notifyObservers(message, type=3)
+                        # result = self.notifyObservers(message, type=3)
                         # Если отказ, то прекращение расчетов
-                        if not result:
-                            return
+                        # if not result:
+                        #     return
 
                         self.vb = 1
                         self.q0 = 2.0 / math.pow(3.0, 0.5)
@@ -585,19 +588,20 @@ class Pascal():
                 # dolay
 
             self.mmm = self.mmm + 1
-            print("""Считается  вариант - {0:3} 
+            res_str = """Считается  вариант - {0:3} 
                         Задана   деформация, %  - {1:15.7f}
                         Получена    деформация, %  - {2:15.7f}
                         ПОГРЕШНОСТЬ, %  - {3:15.7f}
                         при  [ кВ ]      Uo  = {4:15.7f}""".format(self.mmm, self.ek * 100, self.y[0] * 100,
-                                                                   abs(self.y[0] - self.ek) * 100, self.U0 / 1000))
+                                                                   abs(self.y[0] - self.ek) * 100, self.U0 / 1000)
+            print(res_str)
             if abs(self.y[0] - self.ek) * 100 < eps:
                 self.miom = 1
             else:
                 if self.poisk == 1:
                     # self.miom = int(input("Будем уточнять  Uo ( 1 - Нет, 0 - Да) ==> "))
-                    message = "Будем уточнять  Uo?"
-                    result = self.notifyObservers(message, type=3)
+                    message = res_str + "\nБудем уточнять  Uo?"
+                    result = self.notifyObservers(message, type=1)
                     # Если отказ, то прекращение расчетов
                     if result:
                         self.miom = 0

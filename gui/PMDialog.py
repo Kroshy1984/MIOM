@@ -22,8 +22,8 @@ class PMDialog(QDialog):
         self.checked = self.button_group.checkedId()
         self.button_group.buttonClicked.connect(self._on_radio_button_clicked)
         # self.horizontalLayout.setVisible(False)
-        self.label.setVisible(False)
-        self.lineEdit.setVisible(False)
+        # self.label.setVisible(False)
+        # self.lineEdit.setVisible(False)
 
     # @pyqtSlot()
     def _on_radio_button_clicked(self, button):

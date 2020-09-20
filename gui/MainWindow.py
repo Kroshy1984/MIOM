@@ -1,5 +1,6 @@
 
-from PyQt5.QtWidgets import QWidget, QVBoxLayout, QMainWindow, QPushButton, QHBoxLayout, QMessageBox
+from PyQt5.QtWidgets import QWidget, QVBoxLayout, QMainWindow, QPushButton, QHBoxLayout, QMessageBox, QDesktopWidget, \
+    QSpacerItem
 from PyQt5.uic import loadUi
 from gui.InitialParameters import InitialParameters
 from gui.PMDialog import PMDialog
@@ -12,6 +13,11 @@ class MainWindow(QMainWindow):
     def __init__(self, model, model_2, controller, parent=None):
         QMainWindow.__init__(self, parent)
         loadUi('./gui/MainWindow.ui', self)
+        # self.showFullScreen()
+        q = QDesktopWidget().availableGeometry()
+        print("width =", q.width())
+        print("height =", q.height())
+
         self.mModel = model
         self.mModel_2 = model_2
         self.mController = controller
@@ -24,6 +30,7 @@ class MainWindow(QMainWindow):
         # hbox.addStretch(1)
         hbox_params.addWidget(self.initial_parameters)
         hbox_params.addWidget(self.secondary_parameters)
+        hbox_params.addStretch()
         # hbox_params.addWidget(thirdParam)
 
         hbox_results = QHBoxLayout()
@@ -33,7 +40,7 @@ class MainWindow(QMainWindow):
         self.winout = OutputWindow()
         # hbox_calculate.addWidget(calc)
         # hbox_calculate.addWidget(winout)
-
+        # sp = QSpacerItem()
 
 
         vbox.addLayout(hbox_params)
@@ -41,6 +48,8 @@ class MainWindow(QMainWindow):
         self.centralWidget().setLayout(vbox)
 
         self.db_view = BaseView()
+
+        self.showMaximized()
 
     def show_output_window(self, flag):
         self.winout.setVisible(flag)
