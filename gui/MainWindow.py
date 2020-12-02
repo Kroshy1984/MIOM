@@ -126,3 +126,7 @@ class MainWindow(QMainWindow):
             # NO pressed
         print("Нет выбранных строк")
         return None
+
+    def show_table_second_phase(self, data):
+        print("show_table_second_phase(self, data):")
+        pass

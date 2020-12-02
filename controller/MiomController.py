@@ -136,5 +136,8 @@ class MiomContrioller():
         """
         Метод который будет вызван у наблюдателя при изменении модели.
         """
-        users_result = self.mView.show_message(text=message, type=type, data=data)
+        if type != 4:
+            users_result = self.mView.show_message(text=message, type=type, data=data)
+        else:
+            users_result = self.mView.show_table_second_phase(data)
         return users_result

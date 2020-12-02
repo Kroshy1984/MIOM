@@ -1,5 +1,5 @@
 import math
-
+import pandas as pd
 
 class Pascal():
     def __init__(self, calc=dict()):
@@ -552,9 +552,10 @@ class Pascal():
             # инициализация доп переменных
             # +++++++++++++++++++++++++++++++++++++++++++++++++self.difur end+++++++++++++++++++++++++++++++++++++++++++++++++++++++
             self.NI = 0
+            table = pd.Dataframe()
             while True:
 
-                self.rezult()
+                row = self.rezult()
                 # chance
                 self.var1()
                 if self.io == 2:
@@ -586,6 +587,13 @@ class Pascal():
                     print("&#39; Финиш !!!&#39;")
                     break
                 # dolay
+            #TODO: ддобавить опповещение наблюдателя и передать таблицу
+
+            message = "Таблица"
+            result = self.notifyObservers(message, type=4)
+            # Если отказ, то прекращение расчетов
+            if not result:
+                return
 
             self.mmm = self.mmm + 1
             res_str = """Считается  вариант - {0:3} 
@@ -720,6 +728,7 @@ class Pascal():
                 self.NI = 0
         self.NI = self.NI + 1
         dr = math.modf(round(self.Time_tek * 10 ** 6, 2) / self.NS)
+        table_row = dict()
         if dr[0] < 1e-6:
             # if ((self.NI * self.k0) % self.NS) == 0:
             print("{0:>6}|{1:>8}|{2:>10}|{3:>10}|{4:>7}|{5:>7}|{6:>6}|{7:>8}|{8:>8}".format(
@@ -728,6 +737,18 @@ class Pascal():
                 self.Time_tek * pow(10, 6), self.U_tek, self.Iind, self.Izag, self.P_tek / 10 ** 6,
                 self.y[0] * 100, self.y[1] * 1000,
                 self.S_tek, self.V_tek))
+            table_row["Time"] = self.Time_tek * pow(10, 6)
+            table_row["U_tek"] = self.U_tek
+            table_row["Iind"] = self.Iind
+
+            table_row["Izag"] = self.Izag
+            table_row["P_tek"] = self.P_tek / 10 ** 6
+            table_row["y[0]"] = self.y[0] * 100
+
+            table_row["y[1]"] = self.y[1] * 1000
+            table_row["S_tek"] = self.S_tek
+            table_row["V_tek"] = self.V_tek
+        return table_row
 
     def Ston(self):
         if self.io == 1:
