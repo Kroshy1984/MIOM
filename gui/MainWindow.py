@@ -129,4 +129,10 @@ class MainWindow(QMainWindow):
 
     def show_table_second_phase(self, data):
         print("show_table_second_phase(self, data):")
+        print(data)
+        pass
+
+    def show_control_parameters(self, data):
+        print("show_control_parameters(self, data):")
+        print(data)
         pass

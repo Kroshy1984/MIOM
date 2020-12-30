@@ -197,24 +197,7 @@ class Inductor():
         self.NCWC = self.LBT / self.SCIC  # Расчетное количество рабочих витков
         self.NCW = round(self.NCWC)
         self.NCF = self.NCT - self.NCW  # Количество свободных витков
-        # self.NCW = 7
-        # self.NCF = 0
-        # TODO: неизвестный кусок
-        # if self.NCF == 0:
-        #     self.NCT = self.NCT1
-        #     self.LU = self.SC * self.NCT  # Длина индуктора
-        #     self.SCIC = (self.LCA / self.NCT)  # Расчетный шаг витков индуктора
-        #     self.SSC = self.SCIC - self.ZS  # Ширина медной шины по оси индуктора
-        #     if self.operation[0] == "a":
-        #         self.ROC = self.DCA / 2  # наружный радиус индуктора
-        #         self.RIC = self.ROC - self.HSC  # Внутренний радиус индуктора
-        #         self.KEC = math.pow(((2 * self.ROC / self.RIC) * (self.ZEK / self.RIC) - 1), 2)
-        #     else:
-        #         self.KEC = 1
-        #     self.NCWC = self.LBT / self.SCIC  # Расчетное количество рабочих витков
-        #     self.NCW = round(self.NCWC)
-        #     self.NCF = round(self.NCT - self.NCW)  # Количество свободных витков
-        # TODO: неизвестный кусок
+
         # выбирать шину 4х8 4 - ширина 8 высота.
         self.LCC = (pi * mu * (self.DCA + self.ZCP) * self.NCT * self.ZCP * self.NCT) / (self.KEC * self.LU)
         if self.operation[0] == "b":  # если обжим

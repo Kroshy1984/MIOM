@@ -437,6 +437,14 @@ class Pascal():
                     self.str += f"Hвит={hm}\n"
                     self.str += f"Fr0={over_f0}\n"
                     self.str += f"fq={fq}\n"
+
+                    print("Контроль параметров")  # then
+                    message = "Контроль параметров"
+                    result = self.notifyObservers(message, type=5, data=self.str)
+                    # Если отказ, то прекращение расчетов
+                    if not result:
+                        return
+
                 abt = abs(fp - fq)
                 if abt > 1:
                     fp = fq
@@ -499,6 +507,8 @@ class Pascal():
                 self.str += f"Hвит={hm}\n"
                 self.str += f"Fr0={over_f0}\n"
                 self.str += f"fq={fq}\n"
+
+
             self.io = 1  # { МИОМ(Э) , c. 79 }
             self.lw = lm + lb
             self.alfa1 = Lind / self.lw
